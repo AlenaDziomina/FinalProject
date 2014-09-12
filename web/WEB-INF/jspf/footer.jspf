@@ -1,0 +1,11 @@
+<%-- any content can be specified here e.g.: --%>
+
+
+            <div id="footer">
+                <hr>
+                <a href="errrrr">ErrorPage</a>
+                <p id="footerText">Task03web by Grouk</p>
+            </div>
+        </div>
+    </body>
+</html>

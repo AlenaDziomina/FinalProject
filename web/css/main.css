@@ -1,0 +1,113 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21.08.2014, 1:36:43
+    Author     : Helena.Grouk
+*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 850px;
+    text-align: center;
+    margin: 20px auto;
+    background: #edf8f7;
+    height: 1000px;
+}
+
+hr {
+    border: 0;
+    margin: 0 20px;
+    background-color: #333;
+    height: 1px;
+    margin: 0 25px;
+    width: 800px;
+}
+
+table {
+    margin: 0 20px;
+    border-spacing: 0;
+    text-align: center;
+    border: solid 1px #f5eabe;
+}
+
+#main { 
+    background: url("../images/fon.jpg") ;
+    height: auto;
+}
+
+
+
+#header {
+    text-align: center;
+    margin: 20px auto;
+    height: 70px;
+   
+}
+
+#logo {
+    height: 75px;
+    width: 155px;
+    float: left;
+    margin-left: 30px;
+    margin-top: -20px;
+}
+
+#logoText {
+    float: left;
+    margin: 20px 0 0 70px;
+    /* font styles apply to text within img alt attribute */
+    font-family: 'American Typewriter', Courier, monospace;
+    font-size: 50px;
+    color:rgb(255,62,62);
+}
+
+#footer {
+    height: 40px;
+    width: 850px;
+    clear: left;
+    margin-top: 950px;
+}
+
+#footerText {
+    float: right;
+    margin-right: 50px;
+    /* font styles apply to text within img alt attribute */
+    font-family: 'American Typewriter', Courier, monospace;
+    font-size: 10px;
+    
+}
+
+#equipTable { 
+    
+    width: 600px; 
+    width: 350px;
+    float: left;
+    
+}
+
+#parserName {
+    width: 750px;
+    height: 60px;
+    float: left;
+    margin-left: 50px;
+}
+
+#er {
+    font-size: 10px;
+    color:rgb(255,62,62);
+}
+
+
+.categoryButton {
+    width: 750px;
+    height: 60px;
+    margin: 15px 22px;
+    padding: 13px;
+    display: block;
+    background-color: #d3ede8;
+}
+
+
