@@ -7,7 +7,7 @@
 package by.epam.project.logic;
 
 import by.epam.project.controller.ProjectServlet;
-import static by.epam.project.controller.ProjectServlet.MYSQLDB;
+import by.epam.project.manager.ConfigurationManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +35,7 @@ public class LoginLogic {
             Context envCtx1 = (Context) initCtx.lookup("java:comp/env");
             
             envCtx = (Context) (new InitialContext().lookup("java:comp/env"));
-            DataSource ds = (DataSource) envCtx.lookup(MYSQLDB);
+            DataSource ds = (DataSource) envCtx.lookup(ConfigurationManager.getProperty("db.name"));
             Connection cn = ds.getConnection();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM peoples");
