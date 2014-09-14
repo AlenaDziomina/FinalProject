@@ -13,13 +13,11 @@ import by.epam.project.manager.ConfigurationManager;
  *
  * @author User
  */
-public class EmptyCommand implements ActionCommand{
+public class GetSessionCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) {
-        /* в случае ошибки или прямого обращения к контроллеру
-        * переадресация на страницу ввода логина */
-        String page = ConfigurationManager.getProperty("path.page.login");
+        String page = ConfigurationManager.getProperty("path.page.sessionprop");
         return page;
     }
     

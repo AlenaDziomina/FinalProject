@@ -11,23 +11,37 @@ package by.epam.project.action;
  * @author User
  */
 public enum CommandEnum {
+    LOCALIZATION {
+        {
+            setCurrentCommand(new LocalCommand());
+        }  
+    },
     GOLOGIN {
         {
-            this.command = new GoLoginCommand();
+            setCurrentCommand(new GoLoginCommand());
         }
     },
     LOGIN {
         {
-            this.command = new LoginCommand();
+            setCurrentCommand(new LoginCommand());
         }
     },
     LOGOUT {
         {
-            this.command = new LogoutCommand();
-            }
+            setCurrentCommand(new LogoutCommand());
+        }
+    },
+    GETSESSION {
+        {
+            setCurrentCommand(new GetSessionCommand());
+        }
     };
     
-    ActionCommand command;
+    private ActionCommand command;
+    
+    public void setCurrentCommand(ActionCommand command) {
+        this.command = command;
+    }
     
     public ActionCommand getCurrentCommand() {
         return command;

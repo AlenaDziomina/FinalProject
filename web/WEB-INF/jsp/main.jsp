@@ -5,7 +5,12 @@
 --%>
 
 <body>
+    <br/>
+    REFERER: ${referer}</br>
+    USERTYPE: ${userType}<br/>
+    <br/>
+    
     <h3>Welcome</h3>
     <hr/>${user}, hello!<hr/>
     <a href="controller?command=logout">Logout</a>
-</body></html>
+</body>

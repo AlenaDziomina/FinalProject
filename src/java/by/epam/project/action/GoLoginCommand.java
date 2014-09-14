@@ -7,6 +7,7 @@
 package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.manager.ConfigurationManager;
 
 /**
  *
@@ -19,7 +20,8 @@ public class GoLoginCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String page = ConfigurationManager.getProperty("path.page.login");
+        return page;
     }
     
 }

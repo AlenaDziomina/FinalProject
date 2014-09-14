@@ -6,6 +6,7 @@
 
 package by.epam.project.filter;
 
+import by.epam.project.manager.LocaleManager;
 import java.io.IOException;
 import java.util.Locale;
 import javax.servlet.Filter;
@@ -39,7 +40,7 @@ public class LocaleFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         
-        HttpSession session = ((HttpServletRequest)request).getSession();
+        HttpSession session = ((HttpServletRequest)request).getSession(true);
         Locale locale = (Locale) session.getAttribute("locale");
         if (locale == null) {
             if (defLocale != null) {
@@ -70,11 +71,8 @@ public class LocaleFilter implements Filter {
         String defCountry = filterConfig.getInitParameter("DEF_COUNTRY");
         String defLanguage = filterConfig.getInitParameter("DEF_LANGUAGE");
         
-        if (null == defCountry || defCountry.isEmpty() || null == defLanguage || defLanguage.isEmpty()) {
-            defLocale = null;
-        } else {
-            defLocale = new Locale(defLanguage, defCountry);
-        }
+        defLocale = LocaleManager.getLocale(defLanguage, defCountry);
+        
     }
     
 }

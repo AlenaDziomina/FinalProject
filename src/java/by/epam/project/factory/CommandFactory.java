@@ -10,6 +10,7 @@ import by.epam.project.action.ActionCommand;
 import by.epam.project.action.CommandEnum;
 import by.epam.project.action.EmptyCommand;
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.manager.MessageManager;
 
 /**
  *
@@ -33,7 +34,7 @@ public abstract class CommandFactory {
             current = currentEnum.getCurrentCommand();
         } catch (IllegalArgumentException e) {
             current = new EmptyCommand();
-            //request.setAttribute("wrongAction", action);
+            request.setAttribute("wrongAction", action + MessageManager.getProperty("message.wrongaction"));
         }
         return current;
     }       

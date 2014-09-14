@@ -5,8 +5,8 @@
 --%>
 
 <body>
-    </br>
-    </br>
+    REFERER: ${referer}</br>
+    USERTYPE: ${userType}<br/>
     Locale: ${locale}<br/>
     Lang: ${language}</br>
     

@@ -8,7 +8,9 @@ package by.epam.project.controller;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -16,18 +18,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class SessionRequestContent {
     
-    private HashMap<String, Object> requestAttributes;
-    private HashMap<String, String[]> requestParameters;
-    private HashMap<String, Object> sessionAttributes;
+    private final HashMap<String, Object> requestAttributes = new HashMap();
+    private final HashMap<String, String[]> requestParameters = new HashMap();
+    private final HashMap<String, Object> sessionAttributes = new HashMap();
     
     public SessionRequestContent(){
-        this.requestAttributes = new HashMap();
-        this.requestParameters = new HashMap();
-        this.sessionAttributes = new HashMap();
     }
     
     public SessionRequestContent(HttpServletRequest request){
-        super();
         extractValues(request);
     }
     
@@ -42,7 +40,7 @@ public final class SessionRequestContent {
         
         for (Enumeration<String> e = request.getSession().getAttributeNames(); e.hasMoreElements();) {
             String attrName = e.nextElement();
-            this.sessionAttributes.put(attrName, request.getAttribute(attrName));
+            this.sessionAttributes.put(attrName, request.getSession().getAttribute(attrName));
         }
 
     }
@@ -58,10 +56,35 @@ public final class SessionRequestContent {
         
     }
     
-//    // метод добавления в запрос данных для передачи в jsp
-//    public void insertAttributes(HttpServletRequest request) {
-//    // реализация
-//    }
-//    // some methods
+    public void setAttribute(String attrName, Object attr) {
+        this.requestAttributes.put(attrName, attr);
+    }
+    
+    public void sessionInvalidate(){
+        this.sessionAttributes.clear();
+    }
+    
+    // метод добавления в запрос данных для передачи в jsp
+    public void insertAttributes(HttpServletRequest request) {
+        
+        for (Entry<String, Object> e : this.requestAttributes.entrySet()) {
+            request.setAttribute(e.getKey(), e.getValue());
+        }
+
+        if (this.sessionAttributes.isEmpty()) {
+            request.getSession().invalidate();
+        } else {
+            HttpSession session = request.getSession();
+            for (Entry<String, Object> e : this.sessionAttributes.entrySet()) {
+                session.setAttribute(e.getKey(), e.getValue());
+            }
+        }
+        
+    }
+
+    public void setSessionAttribute(String attrName, Object attr) {
+        this.sessionAttributes.put(attrName, attr);
+    }
+
     
 }

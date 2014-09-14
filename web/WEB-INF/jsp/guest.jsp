@@ -7,7 +7,7 @@
 
 <body>
     </br>
-    </br>
+    REFERER: ${referer}</br>
     Locale: ${locale}<br/>
     Lang: ${language}</br>
 </body>

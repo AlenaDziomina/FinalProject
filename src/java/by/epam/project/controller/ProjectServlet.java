@@ -8,6 +8,8 @@ package by.epam.project.controller;
 
 import by.epam.project.action.ActionCommand;
 import by.epam.project.factory.CommandFactory;
+import by.epam.project.manager.ConfigurationManager;
+import by.epam.project.manager.MessageManager;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -72,7 +74,12 @@ public class ProjectServlet extends HttpServlet {
         SessionRequestContent req = new SessionRequestContent(request);
         ActionCommand command = CommandFactory.defineCommand(req);
         
+        
+        request.setAttribute("referer", request.getHeader("referer"));
+        
+        
         String page = command.execute(req);
+        req.insertAttributes(request);
         // метод возвращает страницу ответа
         // page = null; // поэксперементировать!
         if (page != null) {
@@ -81,15 +88,14 @@ public class ProjectServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             // установка страницы c cообщением об ошибке
-//            page = ConfigurationManager.getProperty("path.page.index");
-//            request.getSession().setAttribute("nullPage",
-//            MessageManager.getProperty("message.nullpage"));
-//            response.sendRedirect(request.getContextPath() + page);
+            page = ConfigurationManager.getProperty("path.page.index");
+            request.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
+            response.sendRedirect(request.getContextPath() + page);
         }
         
-        
-        
-        request.getRequestDispatcher("/WEB-INF/jsp/sessionprop.jsp").forward(request, response);
+//        
+//        
+//        request.getRequestDispatcher("/WEB-INF/jsp/sessionprop.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

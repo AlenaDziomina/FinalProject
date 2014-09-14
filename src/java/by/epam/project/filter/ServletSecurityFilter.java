@@ -48,12 +48,10 @@ public class ServletSecurityFilter implements Filter {
         if (type == null) {
             type = ClientType.GUEST;
             session.setAttribute("userType", type);
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(guestPath);
-            dispatcher.forward(req, resp);
-        } else {
-            // pass the request along the filter chain
-            chain.doFilter(request, response);
         }
+        
+        chain.doFilter(request, response);
+        
     }
 
     /**

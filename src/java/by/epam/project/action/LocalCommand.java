@@ -8,18 +8,24 @@ package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.manager.ConfigurationManager;
+import by.epam.project.manager.LocaleManager;
+import java.util.Locale;
 
 /**
  *
  * @author User
  */
-public class EmptyCommand implements ActionCommand{
+public class LocalCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) {
-        /* в случае ошибки или прямого обращения к контроллеру
-        * переадресация на страницу ввода логина */
-        String page = ConfigurationManager.getProperty("path.page.login");
+        String page = ConfigurationManager.getProperty("path.page.index");
+        String leng = request.getParameter("leng");
+        Locale locale = LocaleManager.getLocale(leng);
+        if (locale != null) {
+            request.setSessionAttribute("locale", locale);
+        }
+        
         return page;
     }
     
