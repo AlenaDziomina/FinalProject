@@ -7,8 +7,12 @@
 package by.epam.project.logic;
 
 import by.epam.project.controller.ProjectServlet;
+import static by.epam.project.controller.ProjectServlet.MYSQLDB;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -31,9 +35,20 @@ public class LoginLogic {
             Context envCtx1 = (Context) initCtx.lookup("java:comp/env");
             
             envCtx = (Context) (new InitialContext().lookup("java:comp/env"));
-            DataSource ds = (DataSource) envCtx.lookup("jdbc/newdb");
+            DataSource ds = (DataSource) envCtx.lookup(MYSQLDB);
             Connection cn = ds.getConnection();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM peoples");
+            ArrayList<String> lst = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                lst.add(name);
+            }
+            rs.close();
+            st.close();
             cn.close();
+            return lst.get(1).equals(enterLogin);
         } catch (NamingException | SQLException ex) {
             java.util.logging.Logger.getLogger(ProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

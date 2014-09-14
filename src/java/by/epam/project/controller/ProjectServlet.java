@@ -38,6 +38,7 @@ import org.apache.log4j.PropertyConfigurator;
 public class ProjectServlet extends HttpServlet {
 
     public static final Logger LOCALLOG = Logger.getLogger("Logger");
+    public static String MYSQLDB;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -46,6 +47,7 @@ public class ProjectServlet extends HttpServlet {
 
         ServletContext sc = config.getServletContext();
         String realPath = sc.getRealPath("/");
+        MYSQLDB = (String)sc.getInitParameter("MySQLDataBase");
         if (log4jLocation == null) {
                 System.err.println("*** No log4j-properties-location init param, so initializing log4j with BasicConfigurator");
                 BasicConfigurator.configure();
