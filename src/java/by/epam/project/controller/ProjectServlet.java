@@ -6,8 +6,11 @@ package by.epam.project.controller;
  * and open the template in the editor.
  */
 
+import by.epam.project.action.ActionCommand;
+import by.epam.project.factory.CommandFactory;
 import java.io.File;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -65,32 +68,27 @@ public class ProjectServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(true);
-        if (session.getAttribute("role") == null) {
-        session.setAttribute("role", "moderator");
-        }
-        /* количество запросов, которые были сделаны
-        к данному сервлету текущим пользователем
-        в рамках текущей пользовательской сессии */
-        Integer counter = (Integer) session.getAttribute("counter");
-        if (counter == null) {
-        session.setAttribute("counter", 1);
-        String Locale = response.getLocale().toString();
-        session.setAttribute("locale", response.getLocale());
+        SessionRequestContent req = new SessionRequestContent(request);
+        ActionCommand command = CommandFactory.defineCommand(req);
         
-        
+        String page = command.execute(req);
+        // метод возвращает страницу ответа
+        // page = null; // поэксперементировать!
+        if (page != null) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            // вызов страницы ответа на запрос
+            dispatcher.forward(request, response);
         } else {
-        /* увеличивает счетчик обращений к текущему сервлету и кладет его в сессию */
-        counter++;
-        session.setAttribute("counter", counter);
-        
-        session.setAttribute("locale", new java.util.Locale( "en" , "EN" ));
-        
+            // установка страницы c cообщением об ошибке
+//            page = ConfigurationManager.getProperty("path.page.index");
+//            request.getSession().setAttribute("nullPage",
+//            MessageManager.getProperty("message.nullpage"));
+//            response.sendRedirect(request.getContextPath() + page);
         }
         
-        request.setAttribute("lifecycle", "CONTROL request LIFECYCLE");
+        
+        
         request.getRequestDispatcher("/WEB-INF/jsp/sessionprop.jsp").forward(request, response);
     }
 

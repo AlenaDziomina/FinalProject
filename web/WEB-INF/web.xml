@@ -10,22 +10,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ProjectServlet</servlet-name>
-        <url-pattern>/ProjectServlet</url-pattern>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>1</session-timeout>
     </session-config>
-    <listener>
-        <listener-class>by.epam.project.controller.SessionListenerImpl</listener-class>
-    </listener>
-    <filter>
-        <filter-name>ServletSecurityFilter</filter-name>
-        <filter-class>by.epam.project.controller.ServletSecurityFilter</filter-class>
-        <init-param>
-            <param-name>GUEST_PATH</param-name>
-            <param-value>/WEB-INF/jsp/guest.jsp</param-value>
-        </init-param>
-    </filter>
+    <filter-mapping>
+        <filter-name>LocaleFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>ServletSecurityFilter</filter-name>
         <servlet-name>ProjectServlet</servlet-name>
@@ -33,30 +26,53 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>encodingfilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>PageRedirectSecurityFilter</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>by.epam.project.controller.SessionListenerImpl</listener-class>
+    </listener>
+    <filter>
+        <filter-name>ServletSecurityFilter</filter-name>
+        <filter-class>by.epam.project.filter.ServletSecurityFilter</filter-class>
+        <init-param>
+            <param-name>GUEST_PATH</param-name>
+            <param-value>/WEB-INF/jsp/guest.jsp</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>LocaleFilter</filter-name>
+        <filter-class>by.epam.project.filter.LocaleFilter</filter-class>
+        <init-param>
+            <param-name>DEF_COUNTRY</param-name>
+            <param-value>EN</param-value>
+        </init-param>
+        <init-param>
+            <param-name>DEF_LANGUAGE</param-name>
+            <param-value>EN</param-value>
+        </init-param>
+    </filter>
     <filter>
         <filter-name>encodingfilter</filter-name>
-        <filter-class>by.epam.project.controller.EncodingFilter</filter-class>
+        <filter-class>by.epam.project.filter.EncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
-    <filter-mapping>
-        <filter-name>encodingfilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
     <filter>
         <filter-name>PageRedirectSecurityFilter</filter-name>
-        <filter-class>by.epam.project.controller.PageRedirectSecurityFilter</filter-class>
+        <filter-class>by.epam.project.filter.PageRedirectSecurityFilter</filter-class>
         <init-param>
             <param-name>INDEX_PATH</param-name>
             <param-value>/index.jsp</param-value>
         </init-param>
     </filter>
-    <filter-mapping>
-        <filter-name>PageRedirectSecurityFilter</filter-name>
-        <url-pattern>/jsp/*</url-pattern>
-    </filter-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.controller;
+package by.epam.project.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;

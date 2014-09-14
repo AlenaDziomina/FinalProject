@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.controller;
+package by.epam.project.filter;
 
+import by.epam.project.controller.ClientType;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

@@ -5,12 +5,13 @@
 --%>
 
     <body>
-        <h1 id="header">index.jsp </h1>
+        </br>
+        </br>
         Locale: ${locale}</br>
         Lang: ${language}</br>
        
-        <form action="ProjectServlet" method="GET">
-            
-            <input type="submit" value="Session">
+        <form action="controller" method="GET" name="indexForm">    
+            <input type="hidden" name="command" value="session" />
+            <input type="submit" value="GetSession">
         </form>
     </body>

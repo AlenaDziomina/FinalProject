@@ -2,7 +2,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <fmt:setLocale scope="session" value="${sessionScope.locale}" />
-
 <fmt:setBundle basename="by.epam.project.resource.pagecontent" var="rb" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -10,17 +9,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <LINK REL="stylesheet" HREF="<%=request.getContextPath()%>/css/main.css" TITLE="style" /> 
-        
         <title><fmt:message key="title" bundle="${ rb }" /></title>
-        
     </head>
     <body>
         <div id="main">
             <div id="header">
                 
-                <fmt:message key="welcome" bundle="${ rb }" /><br/>
+                <fmt:message key="welcome" bundle="${ rb }" />
+                
+                <form action="controller" method="GET">
+                    <input type="hidden" name="command" value="localization" />
+                    <input type="submit" value="EN" name="leng" />
+                    <input type="submit" value="RU" name="leng" />
+                </form>
+                
+                <form action="controller" method="GET">
+                    <input type="hidden" name="command" value="gologin" />
+                    <input type="submit" value="Login"/>
+                </form>
+                <br/>
                 
                 <a href="index.jsp">
                     <img src="#" id="logoText" alt="Travel Agency">
                 </a>
+                <br/>
             </div>
