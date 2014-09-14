@@ -90,4 +90,11 @@
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
     </jsp-config>
+    <description>MySQL</description>
+    <resource-ref>
+        <description>MySQL DB Connection Pool</description>
+        <res-ref-name>jdbc/newdb</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 </web-app>

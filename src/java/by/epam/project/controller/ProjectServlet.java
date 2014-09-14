@@ -12,6 +12,12 @@ import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -20,6 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -34,29 +41,30 @@ public class ProjectServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-		System.out.println("Log4JInitServlet is initializing log4j");
-		String log4jLocation = config.getInitParameter("log4j-properties-location");
+        System.out.println("Log4JInitServlet is initializing log4j");
+        String log4jLocation = config.getInitParameter("log4j-properties-location");
 
-		ServletContext sc = config.getServletContext();
-                String realPath = sc.getRealPath("/");
-		if (log4jLocation == null) {
-			System.err.println("*** No log4j-properties-location init param, so initializing log4j with BasicConfigurator");
-			BasicConfigurator.configure();
-		} else {
-			String log4jProp = realPath + log4jLocation;
-			File propFile = new File(log4jProp);
-			if (propFile.exists()) {
-				LOCALLOG.info("Initializing log4j with: " + log4jProp);
-				PropertyConfigurator.configure(log4jProp);
-			} else {
-				System.err.println("*** " + log4jProp + " file not found, so initializing log4j with BasicConfigurator");
-				BasicConfigurator.configure();
-			}
-		}     
-  
-                
-		super.init(config);
-	}
+        ServletContext sc = config.getServletContext();
+        String realPath = sc.getRealPath("/");
+        if (log4jLocation == null) {
+                System.err.println("*** No log4j-properties-location init param, so initializing log4j with BasicConfigurator");
+                BasicConfigurator.configure();
+        } else {
+                String log4jProp = realPath + log4jLocation;
+                File propFile = new File(log4jProp);
+                if (propFile.exists()) {
+                        LOCALLOG.info("Initializing log4j with: " + log4jProp);
+                        PropertyConfigurator.configure(log4jProp);
+                } else {
+                        System.err.println("*** " + log4jProp + " file not found, so initializing log4j with BasicConfigurator");
+                        BasicConfigurator.configure();
+                }
+        }     
+
+       
+          
+        super.init(config);
+    }
     
     
     /**
