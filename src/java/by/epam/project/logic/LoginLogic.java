@@ -7,17 +7,20 @@
 package by.epam.project.logic;
 
 import by.epam.project.controller.ProjectServlet;
-import by.epam.project.manager.ConfigurationManager;
+import by.epam.project.dao.ConnectionPool;
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.PersonSaveQuery;
+import by.epam.project.dao.query.QueryExecutionException;
+import by.epam.project.entity.Person;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 /**
  *
@@ -31,12 +34,12 @@ public class LoginLogic {
         
         Context envCtx;
         try {
-            Context initCtx = new InitialContext();
-            Context envCtx1 = (Context) initCtx.lookup("java:comp/env");
-            
-            envCtx = (Context) (new InitialContext().lookup("java:comp/env"));
-            DataSource ds = (DataSource) envCtx.lookup(ConfigurationManager.getProperty("db.name"));
-            Connection cn = ds.getConnection();
+//            Context initCtx = new InitialContext();
+//            Context envCtx1 = (Context) initCtx.lookup("java:comp/env");
+//            
+//            envCtx = (Context) (new InitialContext().lookup("java:comp/env"));
+//            DataSource ds = (DataSource) envCtx.lookup(ConfigurationManager.getProperty("db.name"));
+            Connection cn = ConnectionPool.getConnection();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM peoples");
             ArrayList<String> lst = new ArrayList<>();
@@ -47,9 +50,25 @@ public class LoginLogic {
             }
             rs.close();
             st.close();
-            cn.close();
+            ConnectionPool.returnConnection(cn);
+            
+//            List<Person> l1 = new ArrayList();
+//            l1.add(new Person("Grouk", Date.valueOf("1984-06-05")));
+//            l1.add(new Person("Grouk A.", Date.valueOf("2007-08-26")));
+//            try {
+//                new PersonSaveQuery().save(l1);
+//            } catch (QueryExecutionException ex) {
+//                Logger.getLogger(LoginLogic.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            try {
+                List<Person> l1 = new PersonSaveQuery().load(new Criteria());
+                
+            } catch (QueryExecutionException ex) {
+                Logger.getLogger(LoginLogic.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                        
             return lst.get(1).equals(enterLogin);
-        } catch (NamingException | SQLException ex) {
+        } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ProjectServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
