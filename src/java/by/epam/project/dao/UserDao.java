@@ -12,4 +12,5 @@ package by.epam.project.dao;
  */
 public interface UserDao {
     //metods
+    
 }
