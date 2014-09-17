@@ -6,6 +6,7 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.dao.query.GenericSaveQuery;
 import static by.epam.project.controller.ProjectServlet.LOCALLOG;
 import by.epam.project.dao.query.Params;
 import java.sql.Connection;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  *
  * @author User
  */
-public class MysqlGenericSaveDao implements GenericSaveDao {
+public class MysqlGenericSaveQuery implements GenericSaveQuery {
     
     private static final String PARAMS_IS_NULL_ERROR = "Query params should not be null";
     
@@ -27,7 +28,7 @@ public class MysqlGenericSaveDao implements GenericSaveDao {
         "The MDM DataSource is null, may be connection is not established " +
         "or broken";
     
-    public MysqlGenericSaveDao(){}
+    public MysqlGenericSaveQuery(){}
     
     @Override
     public  <T> void query(String query, Params params) throws DaoException {

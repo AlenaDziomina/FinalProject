@@ -6,12 +6,16 @@
 
 package by.epam.project.dao;
 
-import by.epam.project.dao.query.Params;
-
 /**
  *
  * @author User
  */
-public interface GenericSaveDao {
-    public abstract <T> void query(String query, Params params) throws DaoException;
+public class MysqlUserDao implements UserDao {
+   
+    private MysqlUserDao(){}
+    
+    static UserDao getInstance() {
+       return new MysqlUserDao();
+    }
+    
 }

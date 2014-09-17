@@ -4,16 +4,15 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.query;
 
+import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Params;
-import java.util.List;
 
 /**
  *
  * @author User
  */
-public interface GenericLoadDao {
-    public <T> List<T> query(String query, Object[] params, int pageSize, Params.RowMapper<T> mapper) throws DaoException;
-    
+public interface GenericSaveQuery {
+    public abstract <T> void query(String query, Params params) throws DaoException;
 }

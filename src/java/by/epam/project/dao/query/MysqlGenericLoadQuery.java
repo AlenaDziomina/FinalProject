@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.query;
 
+import by.epam.project.dao.ConnectionPool;
+import by.epam.project.dao.DaoException;
 import static by.epam.project.controller.ProjectServlet.LOCALLOG;
 import by.epam.project.dao.query.Params.RowMapper;
 import java.sql.Connection;
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author User
  */
-public class MysqlGenericLoadDao implements GenericLoadDao {
+public class MysqlGenericLoadQuery implements GenericLoadQuery {
     
     private static final String PARAMS_IS_NULL_ERROR =
         "Query params should not be null";
@@ -30,7 +32,7 @@ public class MysqlGenericLoadDao implements GenericLoadDao {
         "The MDM DataSource is null, may be connection is not established or broken";
 
     
-    public MysqlGenericLoadDao() {
+    public MysqlGenericLoadQuery() {
         super();        
     }
 

@@ -8,10 +8,7 @@ package by.epam.project.dao.query;
 
 
 import by.epam.project.dao.DaoException;
-import by.epam.project.dao.GenericLoadDao;
-import by.epam.project.dao.GenericSaveDao;
-import by.epam.project.dao.MysqlGenericLoadDao;
-import by.epam.project.dao.MysqlGenericSaveDao;
+import by.epam.project.dao.MysqlGenericSaveQuery;
 import by.epam.project.dao.query.Params.Mapper;
 import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.BeanInitException;
@@ -28,8 +25,8 @@ import java.util.logging.Logger;
  */
 public class PersonSaveQuery implements TypedSaveQuery<Person> , TypedLoadQuery<Person>{
     
-    private static final GenericSaveDao saveDao = new MysqlGenericSaveDao();
-    private static final GenericLoadDao loadDao = new MysqlGenericLoadDao();
+    private static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
+    private static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
     private static final String EM_SAVE_QUERY = "Insert into peoples(f_fio, f_data) values (?, ?);";
     private static final String EM_LOAD_QUERY = "Select * from peoples;";
     
