@@ -10,27 +10,22 @@ package by.epam.project.dao;
  *
  * @author User
  */
-public class MysqlUserDao extends MysqlGuestDao implements UserDao {
-   
-    protected MysqlUserDao(){}
+public class MysqlGuestDao implements GuestDao {
+    
+    protected MysqlGuestDao(){}
 
     @Override
-    public void to_view_orders() {
+    public void to_registrate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void to_login() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void to_view_ballance() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void to_book_tour() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void to_pay_tour() {
+    public void to_view_discounts() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

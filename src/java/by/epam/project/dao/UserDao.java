@@ -10,7 +10,12 @@ package by.epam.project.dao;
  *
  * @author User
  */
-public interface UserDao {
+public interface UserDao extends GuestDao {
     //metods
     
+    public void to_view_orders(); 
+    public void to_view_ballance(); 
+    public void to_book_tour();
+    public void to_pay_tour();
+
 }

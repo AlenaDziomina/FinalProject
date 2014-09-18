@@ -12,20 +12,13 @@ package by.epam.project.dao;
  */
 public class MysqlDaoFactory extends DaoFactory {
 
-    private MysqlDaoFactory(){}
-    
-    static DaoFactory getInctance() {
-       return new MysqlDaoFactory();
-    }
-
-    @Override
-    public UserDao getUserDao() {
-        return MysqlUserDao.getInstance();
-    }
-
-    @Override
-    public AdminDao getAdminDao() {
-        return MysqlAdminDao.getInstance();
+    public static AbstractDao getInstance(ClientType type) throws DaoException {
+        switch(type) {
+            case GUEST: return new MysqlGuestDao();
+            case USER: return new MysqlUserDao();
+            case ADMIN: return new MysqlAdminDao();
+            default: throw new DaoException("Unnoun user dao.");
+        }
     }
     
 }

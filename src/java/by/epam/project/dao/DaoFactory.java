@@ -6,7 +6,6 @@
 
 package by.epam.project.dao;
 
-import by.epam.project.dao.DaoException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
@@ -14,16 +13,13 @@ import by.epam.project.manager.ConfigurationManager;
  * @author User
  */
 public abstract class DaoFactory {
-    public static DaoFactory getInstance() throws DaoException{
+        
+    public static AbstractDao getInstance(ClientType clientType) throws DaoException{
         String dbType = ConfigurationManager.getProperty("db.type").toUpperCase();
         switch (dbType) {
-            case "MySQL": return MysqlDaoFactory.getInctance();
+            case "MySQL": return MysqlDaoFactory.getInstance(clientType);
             default: throw new DaoException("Announ data source type.");
         }
-        
     }
-    
-    public abstract UserDao getUserDao();
-    public abstract AdminDao getAdminDao();
     
 }

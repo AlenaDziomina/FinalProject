@@ -10,6 +10,6 @@ package by.epam.project.dao;
  *
  * @author User
  */
-public enum ResourceTypeEnum {
-    
+public enum ClientType {
+    GUEST, USER, ADMIN
 }

@@ -6,7 +6,7 @@
 
 package by.epam.project.filter;
 
-import by.epam.project.controller.ClientType;
+import by.epam.project.dao.ClientType;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
