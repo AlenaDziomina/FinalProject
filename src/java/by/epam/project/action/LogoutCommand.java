@@ -8,6 +8,7 @@ package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.manager.ConfigurationManager;
+import java.util.Locale;
 
 /**
  *
@@ -18,8 +19,10 @@ public class LogoutCommand implements ActionCommand{
     @Override
     public String execute(SessionRequestContent request) {
         String page = ConfigurationManager.getProperty("path.page.index");
+        
         // уничтожение сессии
         request.sessionInvalidate();
+        
         return page;
     }
     

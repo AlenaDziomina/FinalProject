@@ -8,6 +8,7 @@ package by.epam.project.controller;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ public final class SessionRequestContent {
     private final HashMap<String, Object> requestAttributes = new HashMap();
     private final HashMap<String, String[]> requestParameters = new HashMap();
     private final HashMap<String, Object> sessionAttributes = new HashMap();
+    private Locale locale;
     
     public SessionRequestContent(){
     }
@@ -61,6 +63,7 @@ public final class SessionRequestContent {
     }
     
     public void sessionInvalidate(){
+        locale = (Locale) getSessionAttribute("locale");
         this.sessionAttributes.clear();
     }
     
@@ -73,6 +76,7 @@ public final class SessionRequestContent {
 
         if (this.sessionAttributes.isEmpty()) {
             request.getSession().invalidate();
+            ((HttpServletRequest)request).getSession(true).setAttribute("locale", locale);
         } else {
             HttpSession session = request.getSession();
             for (Entry<String, Object> e : this.sessionAttributes.entrySet()) {
@@ -84,6 +88,10 @@ public final class SessionRequestContent {
 
     public void setSessionAttribute(String attrName, Object attr) {
         this.sessionAttributes.put(attrName, attr);
+    }
+    
+     public Object getSessionAttribute(String attrName) {
+        return this.sessionAttributes.get(attrName);
     }
 
     
