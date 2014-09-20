@@ -15,6 +15,9 @@ import java.util.Locale;
 public abstract class LocaleManager {
     
     public static Locale getLocale(String language) {
+        if (language == null || language.isEmpty()) {
+            return null;
+        }
         return getLocale(language, language);       
     }
 

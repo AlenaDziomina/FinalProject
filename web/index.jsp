@@ -6,9 +6,9 @@
 
     <body>
         REFERER: ${referer}</br>
-        USERTYPE: ${userType}<br/>
-        Locale: ${locale}</br>
-        Lang: ${language}</br>
+        Role: ${role}<br/>
+        Balance: ${balance}</br>
+        Language: ${language}</br>
        
         <form action="controller" method="GET" name="indexForm">    
             <input type="hidden" name="command" value="getsession" />

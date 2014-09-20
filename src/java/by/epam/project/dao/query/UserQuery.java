@@ -12,36 +12,34 @@ import by.epam.project.dao.MysqlGenericSaveQuery;
 import by.epam.project.dao.query.Params.Mapper;
 import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.BeanInitException;
-import by.epam.project.entity.Person;
+import by.epam.project.entity.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author User
  */
-public class PersonSaveQuery implements TypedSaveQuery<Person> , TypedLoadQuery<Person>{
+public class UserQuery implements TypedSaveQuery<User>, TypedLoadQuery<User>{
     
     private static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
     private static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
     private static final String EM_SAVE_QUERY = "Insert into peoples(f_fio, f_data) values (?, ?);";
-    private static final String EM_LOAD_QUERY = "Select * from peoples;";
+    private static final String EM_LOAD_QUERY = "Select * from peoples where f_fio = ? or f_fio = ?;";
     
-    public PersonSaveQuery(){}
+    public UserQuery(){}
     
     @Override
-    public void save(List<Person> beans) throws QueryExecutionException {
+    public void save(List<User> beans) throws QueryExecutionException {
         
             
         try {
-            saveDao.query(EM_SAVE_QUERY, Params.fill(beans, new Mapper<Person>() {
+            saveDao.query(EM_SAVE_QUERY, Params.fill(beans, new Mapper<User>() {
                 @Override
-                public Object[] map(Person bean) {
+                public Object[] map(User bean) {
                     Object[] objects = new Object[2];
-                    objects[0] = bean.getFio();
+                    objects[0] = bean.getLogin();
                     objects[1] = bean.getDate();
                     return objects;
                 }
@@ -53,16 +51,20 @@ public class PersonSaveQuery implements TypedSaveQuery<Person> , TypedLoadQuery<
     }
 
     @Override
-    public List<Person> load(Criteria criteria) throws QueryExecutionException {
+    public List<User> load(Criteria criteria) throws QueryExecutionException {
         
         int pageSize = 10;
-        Object[] params = new Object[0];
+        Object param1 = criteria.getParam("login");
+        Object param2 = criteria.getParam("login");
+        
+        Object[] params = {param1, param2};
+        
         try {
-            return loadDao.query(EM_LOAD_QUERY,params, pageSize, new RowMapper<Person>() {
+            return loadDao.query(EM_LOAD_QUERY, params, pageSize, new RowMapper<User>() {
                 @Override
-                public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    Person bean = new Person();
-                    bean.setFio(rs.getString(2));
+                public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    User bean = new User();
+                    bean.setLogin(rs.getString(2));
                     try {
                         bean.setDate(rs.getString(3));
                     } catch (BeanInitException ex) {

@@ -43,10 +43,10 @@ public class ServletSecurityFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        ClientType type = (ClientType) session.getAttribute("userType");
+        ClientType type = (ClientType) session.getAttribute("role");
         if (type == null) {
             type = ClientType.GUEST;
-            session.setAttribute("userType", type);
+            session.setAttribute("role", type);
         }
         
         chain.doFilter(request, response);

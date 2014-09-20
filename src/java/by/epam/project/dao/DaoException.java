@@ -12,12 +12,12 @@ package by.epam.project.dao;
  */
 public class DaoException extends Exception {
 
-    public DaoException(String PARAMS_IS_NULL_ERROR) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DaoException(String message) {
+        super(message);
     }
 
     public DaoException(String message, Exception ex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(message, ex);
     }
 
     

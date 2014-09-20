@@ -6,6 +6,9 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.User;
+
 /**
  *
  * @author User
@@ -68,5 +71,12 @@ public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     public void concel_tour_booking() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public User to_login(Criteria criteria) throws DaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
 }

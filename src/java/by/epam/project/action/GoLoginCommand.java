@@ -19,7 +19,7 @@ public class GoLoginCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(SessionRequestContent request) {
+    public String execute(SessionRequestContent request){
         String page = ConfigurationManager.getProperty("path.page.login");
         return page;
     }

@@ -6,12 +6,16 @@
 
 package by.epam.project.action;
 
-import by.epam.project.controller.SessionRequestContent;
+import javax.servlet.ServletException;
 
 /**
  *
  * @author User
  */
-public interface ActionCommand {
-    String execute(SessionRequestContent request) throws DaoLogicException;
+class DaoLogicException extends ServletException {
+
+    public DaoLogicException(String msg) {
+        super(msg);
+    }
+    
 }

@@ -17,7 +17,7 @@ public abstract class DaoFactory {
     public static AbstractDao getInstance(ClientType clientType) throws DaoException{
         String dbType = ConfigurationManager.getProperty("db.type").toUpperCase();
         switch (dbType) {
-            case "MySQL": return MysqlDaoFactory.getInstance(clientType);
+            case "MYSQL": return MysqlDaoFactory.getInstance(clientType);
             default: throw new DaoException("Announ data source type.");
         }
     }

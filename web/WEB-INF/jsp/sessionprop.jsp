@@ -8,6 +8,12 @@
 <body>
 
     </br>
+    
+    REFERER: ${referer}</br>
+        Role: ${role}<br/>
+        Balance: ${balance}</br>
+        Language: ${language}</br>
+        
     REFERER: ${referer}</br>
     Locale: ${locale}<br/>
     Lang: ${language}</br>
