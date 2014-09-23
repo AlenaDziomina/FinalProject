@@ -16,6 +16,19 @@ import java.sql.SQLException;
  */
 public interface AbstractDao {
     
+    static final String PARAM_NAME_ID_USER = "id_user";
+    static final String PARAM_NAME_LOGIN = "login";
+    static final String PARAM_NAME_PASSWORD = "password";
+    static final String PARAM_NAME_ROLE = "role";
+    static final String PARAM_NAME_EMAIL = "email";
+    static final String PARAM_NAME_PHONE = "phone";
+    static final String PARAM_NAME_LOCALE = "locale";
+    static final String PARAM_NAME_LANGUAGE = "language";
+    static final String PARAM_NAME_DISCOUNT = "discount";
+    static final String PARAM_NAME_BALANCE = "balance";
+    static final String PARAM_NAME_DATE = "date";
+    static final String PARAM_NAME_ID_ROLE = "id_role";
+    
     static public Connection getConnection() throws DaoException{
         try {
             return ConnectionPool.getConnection();

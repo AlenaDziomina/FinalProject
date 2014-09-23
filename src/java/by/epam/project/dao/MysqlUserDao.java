@@ -42,6 +42,13 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void to_registrate(Criteria criteria) throws DaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
     
     
 }

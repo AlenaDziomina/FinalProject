@@ -35,6 +35,16 @@ public enum CommandEnum {
         {
             setCurrentCommand(new GetSessionCommand());
         }
+    },
+    GOREGISTRATION {
+        {
+            setCurrentCommand(new GoRegistrationCommand());
+        }
+    },
+    REGISTRATION {
+        {
+            setCurrentCommand(new RegistrationCommand());
+        }
     };
     
     private ActionCommand command;

@@ -6,7 +6,6 @@
 
 package by.epam.project.dao.query;
 
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

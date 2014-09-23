@@ -7,15 +7,15 @@
 package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
+import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.DaoException;
+import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.User;
 import by.epam.project.logic.LoginLogic;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.LocaleManager.getLocale;
 import by.epam.project.manager.MessageManager;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,27 +23,19 @@ import java.util.logging.Logger;
  */
 public class LoginCommand implements ActionCommand{
 
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
-    private static final String PARAM_NAME_ROLE = "role";
-    private static final String PARAM_NAME_EMAIL = "email";
-    private static final String PARAM_NAME_LOCALE = "locale";
-    private static final String PARAM_NAME_DISCOUNT = "discount";
-    private static final String PARAM_NAME_BALANCE = "balance";
-
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException{
         String page = null;
-        // извлечение из запроса логина и пароля
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String pass = request.getParameter(PARAM_NAME_PASSWORD);
-        String role = request.getParameter(PARAM_NAME_ROLE);
-        // проверка логина и пароля
-        User person;
+        
+        Criteria criteria = new Criteria();
+        criteria.addParam(PARAM_NAME_LOGIN, request.getParameter(PARAM_NAME_LOGIN));
+        criteria.addParam(PARAM_NAME_PASSWORD, request.getParameter(PARAM_NAME_PASSWORD).hashCode());
+        criteria.addParam(PARAM_NAME_ROLE, request.getSessionAttribute(PARAM_NAME_ROLE));
+        
         try {
-            person = LoginLogic.checkLogin(login, pass, role);
+            User person = LoginLogic.checkLogin(criteria);
             if (person != null) {
-                request.setSessionAttribute(PARAM_NAME_LOGIN, person.getLogin().toUpperCase());
+                request.setSessionAttribute(PARAM_NAME_LOGIN, person.getLogin());
                 request.setSessionAttribute(PARAM_NAME_ROLE, person.getRole());
                 Locale locale = getLocale(person.getLanguage());
                 if (locale != null) {

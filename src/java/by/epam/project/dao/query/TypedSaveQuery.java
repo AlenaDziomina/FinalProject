@@ -13,11 +13,8 @@ import java.util.List;
  * @param <T> тип сохраняемых данных
  */
 public interface TypedSaveQuery<T> {    
+
+    public void save(List<T> beans) throws QueryExecutionException; 
     
-    /**
-     * Сохраняет param в хранилище данных
-     * @param param сохраняемый параметр     
-     * @throws QueryExecutionException при невозможности сохранить данные в хранилище
-     */
-    public void save(List<T> param) throws QueryExecutionException;    
+    
 }

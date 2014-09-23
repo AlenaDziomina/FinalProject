@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.query;
 
-import by.epam.project.dao.query.GenericSaveQuery;
 import static by.epam.project.controller.ProjectServlet.LOCALLOG;
-import by.epam.project.dao.query.Params;
+import by.epam.project.dao.ConnectionPool;
+import by.epam.project.dao.DaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**

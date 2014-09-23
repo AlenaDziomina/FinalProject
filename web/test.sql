@@ -44,7 +44,7 @@
 --     unique(id_role)
 -- );
 -- 
-insert into role(role_name) values ('USER'), ('ADMIN'), ('GUEST');
+-- insert into role(role_name) values ('USER'), ('ADMIN'), ('GUEST');
 -- 
 -- CREATE TABLE user (
 --     id_user              int NOT NULL auto_increment,
@@ -66,6 +66,8 @@ insert into role(role_name) values ('USER'), ('ADMIN'), ('GUEST');
 
 -- select * from user;
 select * from role;
+
+-- alter table user modify column email varchar(60) not null;
 
 -- insert into user(id_role, login, password, email, phone, discount, balance, lang) values 
 --     (2, 'admin', 

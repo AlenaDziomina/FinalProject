@@ -81,7 +81,7 @@
         <location>/WEB-INF/jsp/error.jsp</location>
     </error-page>
     <error-page>
-        <exception-type>ServletException</exception-type>
+        <exception-type>by.epam.project.action.DaoLogicException</exception-type>
         <location>/WEB-INF/jsp/errorDao.jsp</location>
     </error-page>
     <jsp-config>
