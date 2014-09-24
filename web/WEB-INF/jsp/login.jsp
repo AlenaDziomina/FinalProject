@@ -16,9 +16,9 @@
         <input type="text" name="login" value=""/><br/>
         Password:<br/>
         <input type="password" name="password" value=""/><br/>      
-        ${errorLoginPassMessage}<br/>    
-        ${wrongAction}<br/>
-        ${nullPage}<br/>
+        <div id="erNote">${errorLoginPassMessage}</div>   
+        <div id="erNote">${wrongAction}</div>
+        <div id="erNote">${nullPage}</div>
         <input type="submit" value="Log in"/>
     </form>
         

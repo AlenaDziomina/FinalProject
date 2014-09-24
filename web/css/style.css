@@ -1,0 +1,58 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24.09.2014, 14:50:52
+    Author     : User
+*/
+
+html {
+    padding-top: 25px;
+    background-image: url("../images/fon_2.jpg");
+}
+
+body {
+    width: 80%;
+    height: 90%;
+    padding: 20px;
+    margin: 0 auto;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+    background: url("../images/fon.jpg") ;
+}
+
+#header {
+    text-align: center;
+    height: 170px;
+}
+
+#footer {
+    height: 20px;
+    clear: left;
+    margin-bottom: 10px;
+}
+#footerText{
+    float: right;
+    font-family: 'American Typewriter', Courier, monospace;   
+    font-size: 15px;
+    color: #666666;
+}
+
+#main { 
+    
+    background-color: #edf8f7;
+}
+
+#logoText {
+    float: left;
+    /* font styles apply to text within img alt attribute */
+    font-family: 'American Typewriter', Courier, monospace;
+    font-size: 50px;
+    color:rgb(255,62,62);
+}
+
+#erNote {
+    font-size: 15px;
+    color:rgb(255,62,62);
+}

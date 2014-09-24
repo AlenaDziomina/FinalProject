@@ -64,12 +64,7 @@ table {
     color:rgb(255,62,62);
 }
 
-#footer {
-    height: 40px;
-    width: 850px;
-    clear: left;
-    margin-top: 950px;
-}
+
 
 #footerText {
     float: right;
