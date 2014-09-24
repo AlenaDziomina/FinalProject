@@ -24,7 +24,7 @@ body {
 
 #header {
     text-align: center;
-    height: 170px;
+    height: 70px;
 }
 
 #footer {
@@ -70,3 +70,38 @@ body {
 #login_container {
     width: 240px;
 }
+
+#menu {
+    border: 2px solid lightskyblue;
+    height: 30px;
+    background-color: powderblue;
+    padding: 15px;
+}
+
+#menuText {
+    height: 50px;
+    color: blue;
+    border: 2px outset navy;
+    border-radius: .5em;
+    padding: 5px 10px 5px 10px;
+    margin-right: 10px;
+    background-color: paleturquoise;
+}
+
+.menuHref {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 4px 4px 3px #666;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+}
+.menuHref:hover {
+    background-color: #edf8f7;
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+

@@ -45,7 +45,24 @@ public enum CommandEnum {
         {
             setCurrentCommand(new RegistrationCommand());
         }
+    },
+    GOREDACTCOUNTRY {
+        {
+            setCurrentCommand(new GoRedactCounry());
+        }
+    },
+    GOREDACTCITY {
+        {
+            setCurrentCommand(new GoRedactCity());
+        }
+    },
+    GOREDACTHOTEL {
+        {
+            setCurrentCommand(new GoRedacrHotel());
+        }
     };
+            
+            
     
     private ActionCommand command;
     

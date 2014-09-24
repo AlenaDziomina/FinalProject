@@ -1,4 +1,4 @@
-select * from user;
+--select * from user;
 -- update user SET id_role = 1, discount = 0, balance = 0 WHERE id_user=1;
 
 -- -- create table direction (
@@ -71,51 +71,73 @@ select * from user;
 -- -- select * from role;
 -- 
 -- -- alter table user modify column email varchar(60) not null;
+
+-- CREATE TABLE country (
+--     id_country          int NOT NULL auto_increment,
+--     name                varchar(40) NOT NULL,
+--     status              TINYINT default 1,
+--     picture             varchar(60) not null,
+--     primary key(id_country),
+--     unique(id_country)
 -- 
--- -- insert into user(id_role, login, password, email, phone, discount, balance, lang) values 
--- --     (2, 'admin', 
--- 
---       
---       /*
---       ACTION is CREATE Table countrys
---       */
--- 
--- -- CREATE TABLE countrys (
--- --     id_country           int NOT NULL
--- --     name                 varchar(20) NULL,
--- --     status               int NULL,
--- --        
--- -- )
--- -- go
--- -- 
--- -- 
--- -- ALTER TABLE countrys
--- --        ADD PRIMARY KEY NONCLUSTERED (id_country)
--- -- go
--- -- 
--- --       
--- --       /*
--- --       ACTION is CREATE Table cityes
--- --       */
--- -- 
--- -- CREATE TABLE cityes (
--- --        id_city              int NOT NULL,
--- --        country_id           int NOT NULL,
--- --        name                 varchar(20) NULL,
--- --        status               int NULL
--- -- )
--- -- go
--- -- 
--- -- 
--- -- ALTER TABLE cityes
--- --        ADD PRIMARY KEY NONCLUSTERED (id_city)
--- -- go
--- -- 
--- --       
--- --       /*
--- --       ACTION is CREATE Table direction
--- --       */
--- -- 
+-- );
+
+--alter table country add column id_text int default null;
+-- alter table country drop column id_text;
+
+
+-- CREATE TABLE description (
+--     id_description int not null auto_increment,
+--     text LONGTEXT,
+--     primary key (id_description),
+--     unique(id_description)
+-- );
+
+-- alter table country add column id_description int not null;
+-- alter table country add constraint fk_country_description_id foreign key (id_description) references description(id_description);
+
+-- CREATE TABLE city (
+--        id_city              int NOT NULL auto_increment,
+--        id_country           int NOT NULL,
+--        name                 varchar(40) not null,
+--        status               TINYINT default 1,
+--        picture              varchar(60) not null,
+--        id_description       int not null,
+--        primary key (id_city),
+--        unique(id_city),
+--        constraint fk_city_country_id foreign key (id_country) references country(id_country),
+--        constraint fk_city_description_id foreign key (id_description) references description(id_description)
+-- );
+
+
+-- CREATE TABLE hotel (
+--        id_hotel             int NOT NULL auto_increment,
+--        id_city              int NOT NULL,
+--        name                 varchar(40) NOT NULL,
+--        stars                int default 1,
+--        status               TINYINT default 1,
+--        picture              varchar(60) not null,
+--        id_description       int not null,
+--        primary key (id_hotel),
+--        unique (id_hotel),
+--        constraint fk_hotel_city_id foreign key (id_city) references city(id_city),
+--        constraint fk_hotel_description_id foreign key (id_description) references description(id_description)
+-- )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- -- CREATE TABLE direction (
 -- --        name                 varchar(20) NULL,
 -- --        id_direction         int NOT NULL,
@@ -167,25 +189,7 @@ select * from user;
 -- --       ACTION is CREATE Table hotels
 -- --       */
 -- -- 
--- -- CREATE TABLE hotels (
--- --        id_hotel             int NOT NULL,
--- --        sity_id              int NOT NULL,
--- --        name                 varchar(20) NULL,
--- --        stars                int NULL,
--- --        status               int NULL
--- -- )
--- -- go
--- -- 
--- -- 
--- -- ALTER TABLE hotels
--- --        ADD PRIMARY KEY NONCLUSTERED (id_hotel)
--- -- go
--- -- 
--- --       
--- --       /*
--- --       ACTION is CREATE Table direction_stays_hotels
--- --       */
--- -- 
+
 -- -- CREATE TABLE direction_stays_hotels (
 -- --        id_stay              int NOT NULL,
 -- --        id_direction         int NOT NULL,

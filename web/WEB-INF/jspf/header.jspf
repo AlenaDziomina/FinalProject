@@ -37,8 +37,22 @@
             <a href="index.jsp">
                 <img src="#" id="logoText" alt="Travel Agency">
             </a>
-            <br/>
+    
+        </div>
+        
+        <div id="menu">
+            
+            <a href="controller?command=goRedactCountry" class="menuHref">
+                <img src="#" id="menuText" alt="<fmt:message key="countries" bundle="${ rb }" />">
+            </a>
 
+            <a href="controller?command=goRedactCity" class="menuHref">
+                <img src="#" id="menuText" alt="<fmt:message key="cities" bundle="${ rb }" />">
+            </a>
+
+            <a href="controller?command=goRedactHotel" class="menuHref">
+                <img src="#" id="menuText" alt="<fmt:message key="hotels" bundle="${ rb }" />">
+            </a>
             
 
         </div>

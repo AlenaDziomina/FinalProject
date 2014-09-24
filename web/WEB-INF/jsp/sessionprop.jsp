@@ -22,6 +22,6 @@
     Counter: ${counter}<br/>
     MaxInactiveInterval: ${pageContext.session.maxInactiveInterval}<br/>
     ID session: ${pageContext.session.id}<br/>
-    <a href="index.jsp">Back to index.jsp</a>
+    <a href="index.jsp" class="menuHref">Back to index.jsp</a>
 </body>
 
