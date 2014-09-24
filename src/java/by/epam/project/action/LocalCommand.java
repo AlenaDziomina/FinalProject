@@ -33,10 +33,10 @@ public class LocalCommand implements ActionCommand {
         if (locale != null) {
             request.setSessionAttribute(PARAM_NAME_LOCALE, locale);
         }
-        String page = request.getParameter(PARAM_NAME_PAGE);
+        String page = (String)request.getSessionAttribute(PARAM_NAME_PAGE);
         if (page == null) {
             page = ConfigurationManager.getProperty("path.page.index");
-            request.setAttribute(PARAM_NAME_PAGE, page);
+            request.setSessionAttribute(PARAM_NAME_PAGE, page);
         }
         
         Criteria bean = new Criteria();
