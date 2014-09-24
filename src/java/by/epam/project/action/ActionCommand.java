@@ -13,5 +13,9 @@ import by.epam.project.controller.SessionRequestContent;
  * @author User
  */
 public interface ActionCommand {
+    static final String PARAM_NAME_LENG = "leng";
+    static final String PARAM_NAME_LOCALE = "locale";
+    static final String PARAM_NAME_PAGE = "page";
+    
     String execute(SessionRequestContent request) throws DaoLogicException;
 }

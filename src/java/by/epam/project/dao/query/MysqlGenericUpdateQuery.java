@@ -17,43 +17,38 @@ import java.sql.SQLException;
  *
  * @author User
  */
-public class MysqlGenericSaveQuery implements GenericSaveQuery {
+public class MysqlGenericUpdateQuery implements GenericUpdateQuery {
     
-    private static final String PARAMS_IS_NULL_ERROR = "Query params should not be null";
+    private static final String PARAMS_IS_NULL_ERROR =
+        "Query params should not be null";
     
-    private static final String PARAMS_DEBUG_FMR = "index: {0}, value: {1}";
+    public MysqlGenericUpdateQuery(){}
 
-    private static final String DATASOURCE_IS_NULL =
-        "The MDM DataSource is null, may be connection is not established " +
-        "or broken";
-    
-    public MysqlGenericSaveQuery(){}
-    
     @Override
-    public  <T> void query(String query, Params params) throws DaoException {
-        if (params == null) {
+    public int query(String query, Object[] params) throws DaoException {
+        if (params == null)
             throw new DaoException(PARAMS_IS_NULL_ERROR);
-        }
+        
+        
         Connection conn = null;
         PreparedStatement ps = null;
         
+        int updCount = 0;
         try {
             conn = ConnectionPool.getConnection();
             ps = conn.prepareStatement(query);
-                 
-            for (Object[] paramarray : params.params()) {
-                for (int i = 0; i < paramarray.length; i++) {
-                    ps.setObject(i + 1, paramarray[i]);
-                }
-                ps.executeUpdate();
-                ps.clearParameters();                            
-            }
-        }
-        catch (SQLException ex) {
+            
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
+            }            
+
+            updCount = ps.executeUpdate();
+            
+        } catch (SQLException ex) {
             throw new DaoException(ex.getMessage(), ex);
         } finally {
             try {
-               
+                
                 if (ps != null && !ps.isClosed()){
                     ps.close();
                 }
@@ -65,7 +60,8 @@ public class MysqlGenericSaveQuery implements GenericSaveQuery {
                 LOCALLOG.info("Error in close connection.");
             }
         }
+        
+        return updCount;
     }
     
-   
 }

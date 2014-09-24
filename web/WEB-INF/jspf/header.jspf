@@ -27,11 +27,14 @@
                     </c:otherwise>
                 </c:choose>
 
-                <a href="controller?command=localization&len=EN">EN</a> | <a href="controller?command=localization&len=RU">RU</a><br/>
+                <a href="controller?command=localization&leng=EN">EN</a> | <a href="controller?command=localization&leng=RU">RU</a><br/>
             
                 <a href="index.jsp">
                     <img src="#" id="logoText" alt="Travel Agency">
                 </a>
                 <br/>
+                
+                URL: ${pageContext.request.requestURL}</br>
+                <input type="hidden" name="page" value=${pageContext.request.requestURL} />
                 
             </div>

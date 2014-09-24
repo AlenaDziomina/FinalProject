@@ -25,7 +25,7 @@ public abstract class RegistrationLogic {
         ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
         AbstractDao dao = DaoFactory.getInstance(role); 
         try {
-            Method method = dao.getClass().getMethod("to_registrate", Criteria.class);
+            Method method = dao.getClass().getMethod("toRegistrate", Criteria.class);
             method.invoke(dao, criteria);
                  
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {

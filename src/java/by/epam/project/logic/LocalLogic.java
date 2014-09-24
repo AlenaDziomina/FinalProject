@@ -20,18 +20,18 @@ import java.lang.reflect.Method;
  *
  * @author User
  */
-public abstract class LoginLogic {
-        
-    public static User checkLogin(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
+public abstract class LocalLogic {
+
+    public static User setUserLocal(Criteria bean, Criteria criteria) throws DaoException {
+        ClientType role = (ClientType) bean.getParam(PARAM_NAME_ROLE);
         AbstractDao dao = DaoFactory.getInstance(role);  
         try {
-            Method method = dao.getClass().getMethod("toLogin", Criteria.class);
-            User person = (User) method.invoke(dao, criteria);
+            Method method = dao.getClass().getMethod("toChangeOwnUser", Criteria.class, Criteria.class);
+            User person = (User) method.invoke(dao, bean, criteria);
             return person;       
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            throw new DaoException("No such dao method");
+            return null;
         }
     }
+    
 }
-        

@@ -12,6 +12,9 @@ import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -75,9 +78,10 @@ public class ProjectServlet extends HttpServlet {
         ActionCommand command = CommandFactory.defineCommand(req);
         
         
-        request.setAttribute("referer", request.getHeader("referer"));
-        
-        
+//        request.setAttribute("referer", request.getContextPath());
+//        String str = request.getRequestURL().toString();
+//        
+////        URL: ${pageContext.request.requestURL}</br>
         String page = command.execute(req);
         req.insertAttributes(request);
         // метод возвращает страницу ответа

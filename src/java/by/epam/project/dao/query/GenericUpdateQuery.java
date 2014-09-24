@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.query;
+
+import by.epam.project.dao.DaoException;
 
 /**
  *
  * @author User
  */
-public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
+public interface GenericUpdateQuery {
     
-    protected MysqlAdminDao(){}
-
-       
-
+    public int query(String query, Object[] params) throws DaoException;
+    
 }

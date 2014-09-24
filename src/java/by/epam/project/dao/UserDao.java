@@ -6,16 +6,21 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.User;
+
 /**
  *
  * @author User
  */
-public interface UserDao extends GuestDao {
+public interface UserDao extends AbstractDao {
     //metods
     
-    public void to_view_orders(); 
-    public void to_view_ballance(); 
-    public void to_book_tour();
-    public void to_pay_tour();
+    public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException;
+    
+//    public void to_view_orders(); 
+//    public void to_view_ballance(); 
+//    public void to_book_tour();
+//    public void to_pay_tour();
 
 }

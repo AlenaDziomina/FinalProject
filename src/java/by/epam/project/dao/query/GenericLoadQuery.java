@@ -14,6 +14,6 @@ import java.util.List;
  * @author User
  */
 public interface GenericLoadQuery {
-    public <T> List<T> query(String query, Object[] params, int pageSize, Params.RowMapper<T> mapper) throws DaoException;
+    public abstract <T> List<T> query(String query, Object[] params, int pageSize, Params.RowMapper<T> mapper) throws DaoException;
     
 }

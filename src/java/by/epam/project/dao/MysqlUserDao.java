@@ -7,7 +7,10 @@
 package by.epam.project.dao;
 
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.QueryExecutionException;
+import by.epam.project.dao.query.UserQuery;
 import by.epam.project.entity.User;
+import java.util.List;
 
 /**
  *
@@ -18,37 +21,32 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
     protected MysqlUserDao(){}
 
     @Override
-    public void to_view_orders() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
+        
+        try {
+            int updCount = new UserQuery().update(bean, criteria);
+            if (updCount <= 0 || updCount > 1) {
+                throw new DaoException("Error in update results.");
+            } 
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+        
+        try {
+            List<User> person = new UserQuery().load(bean);
+            if (person == null || person.size() > 1) {
+                throw new DaoException("Error result of search.");
+            } else {
+                try {
+                    return person.get(0);
+                } catch (IndexOutOfBoundsException ex) {
+                    return null;
+                } 
+            }
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
     }
 
-    @Override
-    public void to_view_ballance() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void to_book_tour() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void to_pay_tour() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public User to_login(Criteria criteria) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void to_registrate(Criteria criteria) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-
-    
-    
 }

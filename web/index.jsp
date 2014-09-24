@@ -4,8 +4,9 @@
     Author     : User
 --%>
 
+
     <body>
-        REFERER: ${referer}</br>
+        URL: ${pageContext.request.requestURL}</br>
         Role: ${role}<br/>
         Balance: ${balance}</br>
         Language: ${language}</br>

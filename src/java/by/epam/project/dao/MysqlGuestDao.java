@@ -24,7 +24,7 @@ public class MysqlGuestDao implements GuestDao {
     protected MysqlGuestDao(){}
 
     @Override
-    public void to_registrate(Criteria criteria) throws DaoException {
+    public void toRegistrate(Criteria criteria) throws DaoException {
         
         Criteria test1 = new Criteria();
         Object login = criteria.getParam(PARAM_NAME_LOGIN);
@@ -87,7 +87,7 @@ public class MysqlGuestDao implements GuestDao {
     }
     
     @Override
-    public User to_login(Criteria criteria) throws DaoException {
+    public User toLogin(Criteria criteria) throws DaoException {
         
         try {
             List<User> person = new UserQuery().load(criteria);
@@ -105,9 +105,5 @@ public class MysqlGuestDao implements GuestDao {
         }
     }
 
-    @Override
-    public void to_view_discounts() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+        
 }

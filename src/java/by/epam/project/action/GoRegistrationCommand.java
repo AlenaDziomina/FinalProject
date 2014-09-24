@@ -21,6 +21,7 @@ public class GoRegistrationCommand implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) {
         String page = ConfigurationManager.getProperty("path.page.registration");
+        request.setAttribute(PARAM_NAME_PAGE, page);
         return page;
     }
 

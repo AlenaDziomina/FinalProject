@@ -34,11 +34,7 @@ public class MysqlGenericLoadQuery implements GenericLoadQuery {
         super();        
     }
 
-    /**
-     * {@inheritDoc}
-     * Передаваемый <code>query</code> должен быть подготовлен к выполнению
-     * через {@link java.sql.PreparedStatement}
-     */
+   
     @Override
     public <T> List<T> query(String query, Object[] params, int pageSize, RowMapper<T> mapper) throws DaoException {
         
@@ -56,16 +52,10 @@ public class MysqlGenericLoadQuery implements GenericLoadQuery {
             for (int i = 0; i < params.length; i++) {
                 ps.setObject(i + 1, params[i]);
             }            
-
-            int i = 0;
-            try {
-                rs = ps.executeQuery();
-                
-                while(rs.next()) {
-                    result.add(mapper.mapRow(rs, i++));                    
-                }
-            } catch (Exception ex) {
-                throw new DaoException(ex.getMessage(), ex);
+            rs = ps.executeQuery();
+            int i = 0;  
+            while(rs.next()) {
+                result.add(mapper.mapRow(rs, i++));                    
             }
         } catch (SQLException ex) {
             throw new DaoException(ex.getMessage(), ex);

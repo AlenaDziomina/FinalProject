@@ -49,6 +49,7 @@ public class LoginCommand implements ActionCommand{
                 request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
                 page = ConfigurationManager.getProperty("path.page.login");
             }
+            request.setAttribute(PARAM_NAME_PAGE, page);
             return page;
         } catch (DaoException ex) {
             throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
