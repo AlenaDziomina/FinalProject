@@ -13,27 +13,32 @@
     </head>
     <body>
         <div id="header">
-
-            <c:choose>
-                <c:when test="${empty login}">
-                    <a href="controller?command=gologin"><fmt:message key="login" bundle="${ rb }" /></a>
-                    <fmt:message key="or" bundle="${ rb }" />
-                    <a href="controller?command=goregistration"><fmt:message key="registration" bundle="${ rb }" /></a><br/>
-                </c:when>
-                <c:otherwise>
-                    <fmt:message key="welcome" bundle="${ rb }" />, ${login}
-                    <a href="controller?command=logout"><fmt:message key="logout" bundle="${ rb }" /></a><br/>
-                </c:otherwise>
-            </c:choose>
-
-            <a href="controller?command=localization&leng=EN">EN</a> | <a href="controller?command=localization&leng=RU">RU</a><br/>
+            <div id="h_r_container">
+                <div id="leng_container">
+                    <a href="controller?command=localization&leng=EN">EN</a> | <a href="controller?command=localization&leng=RU">RU</a>
+                </div>
+            </div>
+            <div id="h_r_container">
+                <div id="login_container">
+                    <c:choose>
+                        <c:when test="${empty login}">
+                            <a href="controller?command=gologin"><fmt:message key="login" bundle="${ rb }" /></a>
+                            <fmt:message key="or" bundle="${ rb }" />
+                            <a href="controller?command=goregistration"><fmt:message key="registration" bundle="${ rb }" /></a>
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:message key="welcome" bundle="${ rb }" />, ${login}
+                            <a href="controller?command=logout"><fmt:message key="logout" bundle="${ rb }" /></a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
 
             <a href="index.jsp">
                 <img src="#" id="logoText" alt="Travel Agency">
             </a>
             <br/>
 
-            URL: ${pageContext.request.requestURL}</br>
-            <input type="hidden" name="page" value=${pageContext.request.requestURL} />
+            
 
         </div>

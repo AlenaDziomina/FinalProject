@@ -56,3 +56,17 @@ body {
     font-size: 15px;
     color:rgb(255,62,62);
 }
+
+#h_r_container {
+    height: 20px;
+    float: right;
+    color: initial;
+}
+
+#leng_container {
+    width: 100px;
+}
+
+#login_container {
+    width: 240px;
+}
