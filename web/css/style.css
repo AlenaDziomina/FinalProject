@@ -10,7 +10,10 @@ and open the template in the editor.
 
 html {
     padding-top: 25px;
-    background-image: url("../images/fon_2.jpg");
+    background-image: url("../images/fon4.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 body {
@@ -19,7 +22,10 @@ body {
     padding: 20px;
     margin: 0 auto;
     box-shadow: 10px 10px 10px rgba(0,0,0,.5);
-    background: url("../images/fon.jpg") ;
+    background: url("../images/fon42.jpeg") ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 #header {
@@ -53,7 +59,9 @@ body {
     /* font styles apply to text within img alt attribute */
     font-family: 'American Typewriter', Courier, monospace;
     font-size: 50px;
-    color:rgb(255,62,62);
+    font-weight: bold;
+    text-shadow: 4px 4px 3px #666;
+    color: red
 }
 
 #erNote {
@@ -159,6 +167,50 @@ body {
     
 }
 
+.parameterRow {
+    
+    width: 98%;
+    min-height: 60px;
+}
+
+.labelColumn {
+    float: left;
+    width: 30%;
+}
+
+.inputColumn {
+    float: left;
+    width: 68%;
+    
+}
+
+.labelH {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 2px 2px 1px #ccc;
+    font-weight: bold;
+    font-size: 17px;
+    color: darkmagenta;
+    padding: 8px 10px 8px 15px;
+    text-align:right;
+}
+
+.inputLineContainer {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+    text-align:left;
+    width: 250px;
+}
+
+.inputMultilineineContainer {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+    text-align:justify;
+    width: 97%;
+    height: auto;
+    min-height: 250px;
+}
 
 
 

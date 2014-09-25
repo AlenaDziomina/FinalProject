@@ -7,6 +7,8 @@
 package by.epam.project.dao;
 
 
+import by.epam.project.dao.query.GenericLoadQuery;
+import by.epam.project.dao.query.MysqlGenericLoadQuery;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -36,6 +38,8 @@ public interface AbstractDao {
     static final String PARAM_NAME_NAME_CITY = "name_city";
     static final String PARAM_NAME_STATUS_CITY = "status_city";
     static final String PARAM_NAME_PICTURE_CITY = "picture_city";
+    
+    
     
     static public Connection getConnection() throws DaoException{
         try {

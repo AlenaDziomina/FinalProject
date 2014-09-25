@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author User
  */
-public class MysqlUserDao extends MysqlGuestDao implements UserDao {
+public class MysqlUserDao extends MysqlGuestDao implements MysqlDao, UserDao {
    
     protected MysqlUserDao(){}
 

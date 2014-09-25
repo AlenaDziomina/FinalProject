@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author User
  */
-public class MysqlGuestDao implements GuestDao {
+public class MysqlGuestDao implements MysqlDao, GuestDao {
     
     protected MysqlGuestDao(){}
 
