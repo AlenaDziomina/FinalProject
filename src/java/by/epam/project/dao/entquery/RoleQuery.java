@@ -22,19 +22,17 @@ import java.util.List;
  *
  * @author User
  */
-public class RoleQuery implements TypedSaveQuery<Role>, TypedLoadQuery<Role>{
+public class RoleQuery implements TypedQuery<Role>{
     
-    private static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
-    private static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
     private static final String EM_LOAD_QUERY = "Select * from role where role_name = ?;";
 
     @Override
-    public void save(List<Role> beans) throws QueryExecutionException {
+    public void save(List<Role> beans, GenericSaveQuery saveDao) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Role> load(Criteria criteria) throws QueryExecutionException {
+    public List<Role> load(Criteria criteria, GenericLoadQuery loadDao) throws QueryExecutionException {
         int pageSize = 10;
         Object param1 = ((ClientType)criteria.getParam(PARAM_NAME_ROLE)).toString();       
         Object[] params = {param1};
@@ -52,6 +50,11 @@ public class RoleQuery implements TypedSaveQuery<Role>, TypedLoadQuery<Role>{
         } catch (DaoException ex) {
              throw new QueryExecutionException(ex);
         }
+    }
+
+    @Override
+    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

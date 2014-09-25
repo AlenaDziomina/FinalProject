@@ -37,7 +37,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         }
         test1.addParam(PARAM_NAME_LOGIN, login);
         try {
-            List<User> person = new UserQuery().load(test1);
+            List<User> person = new UserQuery().load(test1, loadDao);
             if (!person.isEmpty()) {
                 throw new DaoException("Login is not unique.");
             }
@@ -52,7 +52,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         }
         test2.addParam(PARAM_NAME_EMAIL, email);
         try {
-            List<User> person = new UserQuery().load(test2);
+            List<User> person = new UserQuery().load(test2, loadDao);
             if (!person.isEmpty()) {
                 throw new DaoException("Email is not unique.");
             }
@@ -68,7 +68,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         }
         test3.addParam(PARAM_NAME_ROLE, role);
         try {
-            List<Role> listRole = new RoleQuery().load(test3);
+            List<Role> listRole = new RoleQuery().load(test3, loadDao);
             if (listRole.isEmpty() || listRole.size() > 1) {
                 throw new DaoException("Unnoun role in database.");
             } else {
@@ -84,7 +84,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         list.add(new User(criteria));
         
         try {
-            new UserQuery().save(list);
+            new UserQuery().save(list, saveDao);
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }
@@ -94,7 +94,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
     public User toLogin(Criteria criteria) throws DaoException {
         
         try {
-            List<User> person = new UserQuery().load(criteria);
+            List<User> person = new UserQuery().load(criteria, loadDao);
             if (person == null || person.size() > 1) {
                 throw new DaoException("Error result of search.");
             } else {
@@ -112,7 +112,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
     @Override
     public List<Country> toShowCountries(Criteria criteria) throws DaoException {
         try {
-            List<Country> countries = new CountryQuery().load(criteria);
+            List<Country> countries = new CountryQuery().load(criteria, loadDao);
             return countries;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
@@ -122,7 +122,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
     @Override
     public List<City> toShowCities(Criteria criteria) throws DaoException {
         try {
-            List<City> cities = new CityQuery().load(criteria);
+            List<City> cities = new CityQuery().load(criteria, loadDao);
             return cities;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");

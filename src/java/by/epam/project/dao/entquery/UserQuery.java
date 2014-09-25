@@ -24,12 +24,9 @@ import java.util.List;
  *
  * @author User
  */
-public class UserQuery implements TypedSaveQuery<User>, TypedLoadQuery<User>, TypedUpdateQuery<User>{
+public class UserQuery implements TypedQuery<User>{
         
-    private static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
-    private static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
-    private static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
-    
+   
     private static final String EM_SAVE_QUERY = 
             "Insert into user(id_role, login, password, email, phone, discount, balance, lang) values (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String EM_LOAD_QUERY = 
@@ -42,7 +39,7 @@ public class UserQuery implements TypedSaveQuery<User>, TypedLoadQuery<User>, Ty
     public UserQuery(){}
     
     @Override
-    public void save(List<User> beans) throws QueryExecutionException {
+    public void save(List<User> beans, GenericSaveQuery saveDao) throws QueryExecutionException {
     
         try {
             saveDao.query(EM_SAVE_QUERY, Params.fill(beans, new Mapper<User>() {
@@ -67,7 +64,7 @@ public class UserQuery implements TypedSaveQuery<User>, TypedLoadQuery<User>, Ty
     }
 
     @Override
-    public List<User> load(Criteria criteria) throws QueryExecutionException {
+    public List<User> load(Criteria criteria, GenericLoadQuery loadDao) throws QueryExecutionException {
         
         int pageSize = 10;
                 
@@ -119,7 +116,7 @@ public class UserQuery implements TypedSaveQuery<User>, TypedLoadQuery<User>, Ty
     
 
     @Override
-    public int update(Criteria beans, Criteria criteria) throws QueryExecutionException {
+    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao) throws QueryExecutionException {
         
         int pageSize = 10;
                 

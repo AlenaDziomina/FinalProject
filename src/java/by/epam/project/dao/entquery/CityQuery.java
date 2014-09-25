@@ -24,12 +24,8 @@ import java.util.List;
  *
  * @author User
  */
-public class CityQuery implements TypedSaveQuery<City>, TypedLoadQuery<City>, TypedUpdateQuery<City>{
+public class CityQuery implements TypedQuery<City>{
 
-    private static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
-    private static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
-    private static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
-    
     private static final String EM_SAVE_QUERY = 
             "Insert into city(id_country, login, password, email, phone, discount, balance, lang) values (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String EM_LOAD_QUERY = 
@@ -40,12 +36,12 @@ public class CityQuery implements TypedSaveQuery<City>, TypedLoadQuery<City>, Ty
             "Update city set ";
     
     @Override
-    public void save(List<City> beans) throws QueryExecutionException {
+    public void save(List<City> beans, GenericSaveQuery saveDao) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<City> load(Criteria criteria) throws QueryExecutionException {
+    public List<City> load(Criteria criteria, GenericLoadQuery loadDao) throws QueryExecutionException {
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
@@ -87,7 +83,7 @@ public class CityQuery implements TypedSaveQuery<City>, TypedLoadQuery<City>, Ty
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria) throws QueryExecutionException {
+    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
