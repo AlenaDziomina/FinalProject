@@ -20,6 +20,11 @@ public class Description {
     public Description() {
     }
 
+    public Description(int id, String text) {
+        this.idDescription = id;
+        this.text = text;
+    }
+
     public Integer getIdDescription() {
         return idDescription;
     }

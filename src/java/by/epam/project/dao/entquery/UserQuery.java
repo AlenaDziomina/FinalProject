@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.query;
+package by.epam.project.dao.entquery;
 
 
 import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.DaoException;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.Mapper;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -33,6 +34,8 @@ public class UserQuery implements TypedSaveQuery<User>, TypedLoadQuery<User>, Ty
             "Insert into user(id_role, login, password, email, phone, discount, balance, lang) values (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String EM_LOAD_QUERY = 
             "Select * from user u left join role r on (u.id_role = r.id_role) where ";
+    private static final String ALL_LOAD_QUERY = 
+            "Select * from user u left join role r on (u.id_role = r.id_role);";
     private static final String EM_UPDATE_QUERY = 
             "Update user set ";
     
@@ -86,6 +89,10 @@ public class UserQuery implements TypedSaveQuery<User>, TypedLoadQuery<User>, Ty
                 return sb.toString();
             }  
         }.mapQuery();
+        
+        if (paramList.isEmpty()) {
+            queryStr = ALL_LOAD_QUERY;
+        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, new RowMapper<User>() {

@@ -6,10 +6,14 @@
 
 package by.epam.project.dao;
 
-import by.epam.project.dao.query.RoleQuery;
+import by.epam.project.dao.entquery.CityQuery;
+import by.epam.project.dao.entquery.CountryQuery;
+import by.epam.project.dao.entquery.RoleQuery;
+import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
-import by.epam.project.dao.query.UserQuery;
+import by.epam.project.entity.City;
+import by.epam.project.entity.Country;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
 import java.util.ArrayList;
@@ -100,6 +104,26 @@ public class MysqlGuestDao implements GuestDao {
                     return null;
                 } 
             }
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+
+    @Override
+    public List<Country> toShowCountries(Criteria criteria) throws DaoException {
+        try {
+            List<Country> countries = new CountryQuery().load(criteria);
+            return countries;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+
+    @Override
+    public List<City> toShowCities(Criteria criteria) throws DaoException {
+        try {
+            List<City> cities = new CityQuery().load(criteria);
+            return cities;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }

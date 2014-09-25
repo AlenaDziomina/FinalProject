@@ -7,7 +7,10 @@
 package by.epam.project.dao;
 
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.City;
+import by.epam.project.entity.Country;
 import by.epam.project.entity.User;
+import java.util.List;
 
 /**
  *
@@ -18,6 +21,7 @@ public interface GuestDao extends AbstractDao {
     //metods
     public void toRegistrate(Criteria criteria) throws DaoException;
     public User toLogin(Criteria criteria) throws DaoException;
-    
+    public List<Country> toShowCountries(Criteria criteria) throws DaoException;
+    public List<City> toShowCities(Criteria criteria) throws DaoException;
     
 }

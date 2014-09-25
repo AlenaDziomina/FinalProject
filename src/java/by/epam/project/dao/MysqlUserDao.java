@@ -8,7 +8,7 @@ package by.epam.project.dao;
 
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
-import by.epam.project.dao.query.UserQuery;
+import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.entity.User;
 import java.util.List;
 

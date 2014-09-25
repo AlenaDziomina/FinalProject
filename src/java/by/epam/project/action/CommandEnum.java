@@ -51,6 +51,16 @@ public enum CommandEnum {
             setCurrentCommand(new GoRedactCounry());
         }
     },
+    GOCREATENEWCOUNTRY {
+        {
+            setCurrentCommand(new GoCreateNewCounry());
+        }
+    },
+    GOEDITCOUNTRY {
+        {
+            setCurrentCommand(new GoEditCountry());
+        }
+    },
     GOREDACTCITY {
         {
             setCurrentCommand(new GoRedactCity());
@@ -59,6 +69,11 @@ public enum CommandEnum {
     GOREDACTHOTEL {
         {
             setCurrentCommand(new GoRedacrHotel());
+        }
+    },
+    SHOWCOUNTRY {
+        {
+            setCurrentCommand(new ShowCountry());
         }
     };
             

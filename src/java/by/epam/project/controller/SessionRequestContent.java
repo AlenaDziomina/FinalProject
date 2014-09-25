@@ -6,8 +6,10 @@
 
 package by.epam.project.controller;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ public final class SessionRequestContent {
     private final HashMap<String, Object> requestAttributes = new HashMap();
     private final HashMap<String, String[]> requestParameters = new HashMap();
     private final HashMap<String, Object> sessionAttributes = new HashMap();
+    private final List<String> deletedSessionAttributes = new ArrayList();
     private Locale locale;
     
     public SessionRequestContent(){
@@ -82,6 +85,10 @@ public final class SessionRequestContent {
             for (Entry<String, Object> e : this.sessionAttributes.entrySet()) {
                 session.setAttribute(e.getKey(), e.getValue());
             }
+            for (String attrName : this.deletedSessionAttributes) {
+                session.removeAttribute(attrName);
+            }
+            
         }
         
     }
@@ -92,6 +99,10 @@ public final class SessionRequestContent {
     
      public Object getSessionAttribute(String attrName) {
         return this.sessionAttributes.get(attrName);
+    }
+
+    public void deleteSessionAttribute(String attrName) {
+        this.deletedSessionAttributes.add(attrName);
     }
 
     

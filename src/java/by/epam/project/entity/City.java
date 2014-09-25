@@ -19,7 +19,7 @@ public class City {
     private String name;
     private Short status;
     private String picture;
-    private Country country;
+    private Integer idCountry;
     private Description description;
     private Collection<Hotel> hotelCollection;
 
@@ -58,12 +58,12 @@ public class City {
         this.picture = picture;
     }
 
-    public Country getCountry() {
-        return country;
+    public Integer getIdCountry() {
+        return idCountry;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setCountry(Integer id) {
+        this.idCountry = id;
     }
 
     public Description getDescription() {

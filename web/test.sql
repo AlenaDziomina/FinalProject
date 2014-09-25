@@ -124,9 +124,16 @@
 --        constraint fk_hotel_description_id foreign key (id_description) references description(id_description)
 -- )
 
+-- insert into description(text) values 
+-- ('<h>ITALY</h><p>Italy, one of the most romantic and most visited countries in the world. Every corner of this country - is unique and unique. </p>
+-- <p>Italy - the country that have nothing to compare - as she is beautiful and majestic. Fragile, delicate from the endless bridges and canals of Venice. Center of the universe "caput mundi" - the great Rome. Cultural and artistic heart of the world since the Renaissance - Florence proud. And how many of them still, small historic towns of Italy, sealed for centuries by artists and poets, perennial caches past and present! This country can not be used, and every building here, each bend of the street - a work of art of the Supreme Creator.</p>
+-- <p>Italy is a country of miracles. You have a great opportunity to visit this beautiful fairy tale, to plunge into the unknown beauty, ride a gondola under the starry sky of Venice, wander through the ancient streets of the world, to go to eat in a small cafe, which can be found on every corner.</p>');
 
+--select * from description;
 
+--  insert into country (name, picture, id_description) values ('Italy', '/images/italy.jpg', 1);
 
+select * from country;
 
 
 

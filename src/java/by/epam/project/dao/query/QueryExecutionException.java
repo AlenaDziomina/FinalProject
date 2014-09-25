@@ -14,7 +14,7 @@ import by.epam.project.dao.DaoException;
  */
 public class QueryExecutionException extends Exception {
 
-    QueryExecutionException(DaoException ex) {
+    public QueryExecutionException(DaoException ex) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

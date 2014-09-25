@@ -28,6 +28,14 @@ public interface AbstractDao {
     static final String PARAM_NAME_BALANCE = "balance";
     static final String PARAM_NAME_DATE = "date";
     static final String PARAM_NAME_ID_ROLE = "id_role";
+    static final String PARAM_NAME_ID_COUNTRY = "id_country";
+    static final String PARAM_NAME_NAME_COUNTRY = "name_country";
+    static final String PARAM_NAME_STATUS_COUNTRY = "status_country";
+    static final String PARAM_NAME_PICTURE_COUNTRY = "picture_country";
+    static final String PARAM_NAME_ID_CITY = "id_city";
+    static final String PARAM_NAME_NAME_CITY = "name_city";
+    static final String PARAM_NAME_STATUS_CITY = "status_city";
+    static final String PARAM_NAME_PICTURE_CITY = "picture_city";
     
     static public Connection getConnection() throws DaoException{
         try {

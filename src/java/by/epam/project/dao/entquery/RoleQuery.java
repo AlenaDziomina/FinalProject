@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.query;
+package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
+import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.ClientType;
 import by.epam.project.dao.DaoException;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.Role;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+
 
 /**
  *
