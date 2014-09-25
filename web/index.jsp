@@ -10,6 +10,7 @@
     Role: ${role}<br/>
     Balance: ${balance}</br>
     Language: ${language}</br>
+    <input type="button" onclick="popup()" value="Click Me!"></br></br>
 
     <form action="controller" method="GET" name="indexForm">    
         <input type="hidden" name="command" value="getsession" />

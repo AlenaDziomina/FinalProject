@@ -10,6 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <LINK REL="stylesheet" HREF="<%=request.getContextPath()%>/css/style.css" TITLE="style" /> 
         <title><fmt:message key="title" bundle="${ rb }" /></title>
+        <script src="<%=request.getContextPath()%>/js/main.js"></script>
     </head>
     <body>
         <div id="header">
