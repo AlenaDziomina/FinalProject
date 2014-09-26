@@ -30,15 +30,15 @@ public class MysqlGenericSaveQuery implements GenericSaveQuery {
     public MysqlGenericSaveQuery(){}
     
     @Override
-    public  <T> void query(String query, Params params) throws DaoException {
+    public  <T> void query(String query, Params params, Connection conn) throws DaoException {
         if (params == null) {
             throw new DaoException(PARAMS_IS_NULL_ERROR);
         }
-        Connection conn = null;
+
         PreparedStatement ps = null;
         
         try {
-            conn = ConnectionPool.getConnection();
+            
             ps = conn.prepareStatement(query);
                  
             for (Object[] paramarray : params.params()) {
@@ -56,9 +56,6 @@ public class MysqlGenericSaveQuery implements GenericSaveQuery {
                
                 if (ps != null && !ps.isClosed()){
                     ps.close();
-                }
-                if (conn != null) {
-                    ConnectionPool.returnConnection(conn);
                 }
                 
             } catch (SQLException ex) {

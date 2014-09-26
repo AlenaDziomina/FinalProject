@@ -25,17 +25,17 @@ public class MysqlGenericUpdateQuery implements GenericUpdateQuery {
     public MysqlGenericUpdateQuery(){}
 
     @Override
-    public int query(String query, Object[] params) throws DaoException {
+    public int query(String query, Object[] params, Connection conn) throws DaoException {
         if (params == null)
             throw new DaoException(PARAMS_IS_NULL_ERROR);
         
         
-        Connection conn = null;
+        
         PreparedStatement ps = null;
         
         int updCount = 0;
         try {
-            conn = ConnectionPool.getConnection();
+            
             ps = conn.prepareStatement(query);
             
             for (int i = 0; i < params.length; i++) {
@@ -52,10 +52,7 @@ public class MysqlGenericUpdateQuery implements GenericUpdateQuery {
                 if (ps != null && !ps.isClosed()){
                     ps.close();
                 }
-                if (conn != null) {
-                    ConnectionPool.returnConnection(conn);
-                }
-                
+               
             } catch (SQLException ex) {
                 LOCALLOG.info("Error in close connection.");
             }

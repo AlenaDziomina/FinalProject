@@ -24,13 +24,18 @@ public abstract class LoginLogic {
         
     public static User checkLogin(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
-        AbstractDao dao = DaoFactory.getInstance(role);  
+        AbstractDao dao = null;
         try {
+            dao = DaoFactory.getInstance(role);  
             Method method = dao.getClass().getMethod("toLogin", Criteria.class);
             User person = (User) method.invoke(dao, criteria);
             return person;       
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             throw new DaoException("No such dao method");
+        } finally {
+            if (dao != null) {
+                dao.close();
+            } 
         }
     }
 }

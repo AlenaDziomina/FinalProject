@@ -12,6 +12,8 @@ import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.MysqlGenericLoadQuery;
 import by.epam.project.dao.query.MysqlGenericSaveQuery;
 import by.epam.project.dao.query.MysqlGenericUpdateQuery;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,5 +24,24 @@ public interface MysqlDao {
     static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
     static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
     static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
+    
+    static Connection getConnection() throws DaoException{
+        try {
+            return ConnectionPool.getConnection();
+        } catch (SQLException ex) {
+            throw new DaoException("Cant take connection to database.");
+        }
+    }
+    
+    static void returnConnection(Connection con) throws DaoException {
+        try {
+            ConnectionPool.returnConnection(con);
+        } catch (SQLException ex) {
+            throw new DaoException("Cant return connection in pool.");
+        }
+    }
+    
+    
+    
     
 }

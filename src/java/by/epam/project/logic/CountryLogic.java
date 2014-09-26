@@ -26,8 +26,10 @@ public abstract class CountryLogic {
 
     public static List<Country> getCountries(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
-        AbstractDao dao = DaoFactory.getInstance(role);  
+        AbstractDao dao = null;
+        
         try {
+            dao = DaoFactory.getInstance(role); 
             Method method = dao.getClass().getMethod("toShowCountries", Criteria.class);
             List<Country> countries = (List<Country>) method.invoke(dao, criteria);
             Method meth = dao.getClass().getMethod("toShowCities", Criteria.class);
@@ -40,6 +42,10 @@ public abstract class CountryLogic {
             return countries;       
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             return null;
+        } finally {
+            if (dao != null) {
+                dao.close();
+            } 
         }
         
         

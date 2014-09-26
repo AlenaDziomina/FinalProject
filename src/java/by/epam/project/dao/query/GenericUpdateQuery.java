@@ -7,6 +7,7 @@
 package by.epam.project.dao.query;
 
 import by.epam.project.dao.DaoException;
+import java.sql.Connection;
 
 /**
  *
@@ -14,6 +15,6 @@ import by.epam.project.dao.DaoException;
  */
 public interface GenericUpdateQuery {
     
-    public int query(String query, Object[] params) throws DaoException;
+    public int query(String query, Object[] params, Connection conn) throws DaoException;
     
 }

@@ -16,6 +16,7 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,17 @@ import java.util.List;
  */
 public class MysqlGuestDao implements MysqlDao, GuestDao {
     
-    protected MysqlGuestDao(){}
+    private Connection mysqlConn;
+    
+    protected MysqlGuestDao() throws DaoException{
+        mysqlConn = MysqlDao.getConnection();
+    }
+    
+    @Override
+    public void close() throws DaoException {
+        MysqlDao.returnConnection(mysqlConn);
+    }
+    
 
     @Override
     public void toRegistrate(Criteria criteria) throws DaoException {
@@ -37,7 +48,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         }
         test1.addParam(PARAM_NAME_LOGIN, login);
         try {
-            List<User> person = new UserQuery().load(test1, loadDao);
+            List<User> person = new UserQuery().load(test1, loadDao, mysqlConn);
             if (!person.isEmpty()) {
                 throw new DaoException("Login is not unique.");
             }
@@ -52,7 +63,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         }
         test2.addParam(PARAM_NAME_EMAIL, email);
         try {
-            List<User> person = new UserQuery().load(test2, loadDao);
+            List<User> person = new UserQuery().load(test2, loadDao, mysqlConn);
             if (!person.isEmpty()) {
                 throw new DaoException("Email is not unique.");
             }
@@ -68,7 +79,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         }
         test3.addParam(PARAM_NAME_ROLE, role);
         try {
-            List<Role> listRole = new RoleQuery().load(test3, loadDao);
+            List<Role> listRole = new RoleQuery().load(test3, loadDao, mysqlConn);
             if (listRole.isEmpty() || listRole.size() > 1) {
                 throw new DaoException("Unnoun role in database.");
             } else {
@@ -84,17 +95,19 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         list.add(new User(criteria));
         
         try {
-            new UserQuery().save(list, saveDao);
+            new UserQuery().save(list, saveDao, mysqlConn);
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }
+        
+        //MysqlDao.returnConnection(mysqlConn);
     }
     
     @Override
     public User toLogin(Criteria criteria) throws DaoException {
         
         try {
-            List<User> person = new UserQuery().load(criteria, loadDao);
+            List<User> person = new UserQuery().load(criteria, loadDao, mysqlConn);
             if (person == null || person.size() > 1) {
                 throw new DaoException("Error result of search.");
             } else {
@@ -112,7 +125,7 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
     @Override
     public List<Country> toShowCountries(Criteria criteria) throws DaoException {
         try {
-            List<Country> countries = new CountryQuery().load(criteria, loadDao);
+            List<Country> countries = new CountryQuery().load(criteria, loadDao, mysqlConn);
             return countries;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
@@ -122,12 +135,14 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
     @Override
     public List<City> toShowCities(Criteria criteria) throws DaoException {
         try {
-            List<City> cities = new CityQuery().load(criteria, loadDao);
+            List<City> cities = new CityQuery().load(criteria, loadDao, mysqlConn);
             return cities;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }
     }
+
+    
 
         
 }

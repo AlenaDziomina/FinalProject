@@ -15,6 +15,7 @@ import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Description;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,12 +37,12 @@ public class CityQuery implements TypedQuery<City>{
             "Update city set ";
     
     @Override
-    public void save(List<City> beans, GenericSaveQuery saveDao) throws QueryExecutionException {
+    public void save(List<City> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<City> load(Criteria criteria, GenericLoadQuery loadDao) throws QueryExecutionException {
+    public List<City> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
@@ -64,7 +65,7 @@ public class CityQuery implements TypedQuery<City>{
         }
         
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, new RowMapper<City>() {
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new RowMapper<City>() {
                 @Override
                 public City mapRow(ResultSet rs, int rowNum) throws SQLException {
                     City bean = new City();
@@ -83,7 +84,7 @@ public class CityQuery implements TypedQuery<City>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao) throws QueryExecutionException {
+    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

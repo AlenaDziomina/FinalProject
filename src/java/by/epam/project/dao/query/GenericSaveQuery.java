@@ -7,11 +7,12 @@
 package by.epam.project.dao.query;
 
 import by.epam.project.dao.DaoException;
+import java.sql.Connection;
 
 /**
  *
  * @author User
  */
 public interface GenericSaveQuery {
-    public abstract <T> void query(String query, Params params) throws DaoException;
+    public abstract <T> void query(String query, Params params, Connection conn) throws DaoException;
 }

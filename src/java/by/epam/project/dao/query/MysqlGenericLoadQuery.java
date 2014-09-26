@@ -6,9 +6,9 @@
 
 package by.epam.project.dao.query;
 
+import static by.epam.project.controller.ProjectServlet.LOCALLOG;
 import by.epam.project.dao.ConnectionPool;
 import by.epam.project.dao.DaoException;
-import static by.epam.project.controller.ProjectServlet.LOCALLOG;
 import by.epam.project.dao.query.Params.RowMapper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,17 +36,16 @@ public class MysqlGenericLoadQuery implements GenericLoadQuery {
 
    
     @Override
-    public <T> List<T> query(String query, Object[] params, int pageSize, RowMapper<T> mapper) throws DaoException {
+    public <T> List<T> query(String query, Object[] params, int pageSize, Connection conn, RowMapper<T> mapper) throws DaoException {
+        
         
         if (params == null)
             throw new DaoException(PARAMS_IS_NULL_ERROR);
         
         List<T> result = new ArrayList<>();
-        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            conn = ConnectionPool.getConnection();
             ps = conn.prepareStatement(query);
             ps.setFetchSize(pageSize);
             for (int i = 0; i < params.length; i++) {
@@ -67,10 +66,6 @@ public class MysqlGenericLoadQuery implements GenericLoadQuery {
                 if (ps != null && !ps.isClosed()){
                     ps.close();
                 }
-                if (conn != null) {
-                    ConnectionPool.returnConnection(conn);
-                }
-                
             } catch (SQLException ex) {
                 LOCALLOG.info("Error in close connection.");
             }

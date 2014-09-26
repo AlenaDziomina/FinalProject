@@ -24,13 +24,19 @@ public abstract class LocalLogic {
 
     public static User setUserLocal(Criteria bean, Criteria criteria) throws DaoException {
         ClientType role = (ClientType) bean.getParam(PARAM_NAME_ROLE);
-        AbstractDao dao = DaoFactory.getInstance(role);  
+        AbstractDao dao = null; 
+        
         try {
+            dao = DaoFactory.getInstance(role); 
             Method method = dao.getClass().getMethod("toChangeOwnUser", Criteria.class, Criteria.class);
             User person = (User) method.invoke(dao, bean, criteria);
             return person;       
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             return null;
+        } finally {
+            if (dao != null) {
+                dao.close();
+            } 
         }
     }
     

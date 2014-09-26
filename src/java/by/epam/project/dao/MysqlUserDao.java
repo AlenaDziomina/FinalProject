@@ -6,10 +6,11 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
-import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.entity.User;
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -18,13 +19,22 @@ import java.util.List;
  */
 public class MysqlUserDao extends MysqlGuestDao implements MysqlDao, UserDao {
    
-    protected MysqlUserDao(){}
+    private Connection mysqlConn;
+    
+    protected MysqlUserDao() throws DaoException{
+        mysqlConn = MysqlDao.getConnection();
+    }
+    
+    @Override
+    public void close() throws DaoException {
+        MysqlDao.returnConnection(mysqlConn);
+    }
 
     @Override
     public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
         
         try {
-            int updCount = new UserQuery().update(bean, criteria, updateDao);
+            int updCount = new UserQuery().update(bean, criteria, updateDao, mysqlConn);
             if (updCount <= 0 || updCount > 1) {
                 throw new DaoException("Error in update results.");
             } 
@@ -33,7 +43,7 @@ public class MysqlUserDao extends MysqlGuestDao implements MysqlDao, UserDao {
         }
         
         try {
-            List<User> person = new UserQuery().load(bean, loadDao);
+            List<User> person = new UserQuery().load(bean, loadDao, mysqlConn);
             if (person == null || person.size() > 1) {
                 throw new DaoException("Error result of search.");
             } else {

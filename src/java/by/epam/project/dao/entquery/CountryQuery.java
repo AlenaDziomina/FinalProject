@@ -14,6 +14,7 @@ import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,12 +37,12 @@ public class CountryQuery implements TypedQuery<Country>{
             "Update user set ";
 
     @Override
-    public void save(List<Country> beans, GenericSaveQuery saveDao) throws QueryExecutionException {
+    public void save(List<Country> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Country> load(Criteria criteria, GenericLoadQuery loadDao) throws QueryExecutionException {
+    public List<Country> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
@@ -63,7 +64,7 @@ public class CountryQuery implements TypedQuery<Country>{
         }
         
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, new RowMapper<Country>() {
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new RowMapper<Country>() {
                 @Override
                 public Country mapRow(ResultSet rs, int rowNum) throws SQLException {
                     Country bean = new Country();
@@ -82,7 +83,7 @@ public class CountryQuery implements TypedQuery<Country>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao) throws QueryExecutionException {
+    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

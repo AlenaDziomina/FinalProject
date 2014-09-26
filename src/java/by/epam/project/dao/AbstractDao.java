@@ -39,22 +39,9 @@ public interface AbstractDao {
     static final String PARAM_NAME_STATUS_CITY = "status_city";
     static final String PARAM_NAME_PICTURE_CITY = "picture_city";
     
+    public abstract void close() throws DaoException;
     
     
-    static public Connection getConnection() throws DaoException{
-        try {
-            return ConnectionPool.getConnection();
-        } catch (SQLException ex) {
-            throw new DaoException("Cant take connection to database.");
-        }
-    }
     
-    static public void returnConnection(Connection con) throws DaoException {
-        try {
-            ConnectionPool.returnConnection(con);
-        } catch (SQLException ex) {
-            throw new DaoException("Cant return connection in pool.");
-        }
-    }
     
 }

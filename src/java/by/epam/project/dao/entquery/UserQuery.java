@@ -15,6 +15,7 @@ import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.User;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class UserQuery implements TypedQuery<User>{
     public UserQuery(){}
     
     @Override
-    public void save(List<User> beans, GenericSaveQuery saveDao) throws QueryExecutionException {
+    public void save(List<User> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
     
         try {
             saveDao.query(EM_SAVE_QUERY, Params.fill(beans, new Mapper<User>() {
@@ -56,7 +57,7 @@ public class UserQuery implements TypedQuery<User>{
                     objects[7] = bean.getLanguage();
                     return objects;
                 }
-            }));
+            }), conn);
         } catch (DaoException ex) {
             throw new QueryExecutionException(ex);
         }
@@ -64,7 +65,7 @@ public class UserQuery implements TypedQuery<User>{
     }
 
     @Override
-    public List<User> load(Criteria criteria, GenericLoadQuery loadDao) throws QueryExecutionException {
+    public List<User> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
         
         int pageSize = 10;
                 
@@ -92,7 +93,7 @@ public class UserQuery implements TypedQuery<User>{
         }
         
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, new RowMapper<User>() {
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new RowMapper<User>() {
                 @Override
                 public User mapRow(ResultSet rs, int rowNum) throws SQLException {
                     User bean = new User();
@@ -116,7 +117,7 @@ public class UserQuery implements TypedQuery<User>{
     
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao) throws QueryExecutionException {
+    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
         
         int pageSize = 10;
                 
@@ -143,7 +144,7 @@ public class UserQuery implements TypedQuery<User>{
         paramList.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray());
+            return updateDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
              throw new QueryExecutionException(ex);
         }

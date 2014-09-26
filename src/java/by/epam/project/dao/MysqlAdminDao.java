@@ -6,10 +6,7 @@
 
 package by.epam.project.dao;
 
-import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.QueryExecutionException;
-import by.epam.project.entity.Country;
-import java.util.List;
+import java.sql.Connection;
 
 /**
  *
@@ -17,8 +14,15 @@ import java.util.List;
  */
 public class MysqlAdminDao extends MysqlUserDao implements MysqlDao,  AdminDao {
     
-    protected MysqlAdminDao(){}
-
+    private Connection mysqlConn;
     
+    protected MysqlAdminDao() throws DaoException{
+        mysqlConn = MysqlDao.getConnection();
+    }
+    
+    @Override
+    public void close() throws DaoException {
+        MysqlDao.returnConnection(mysqlConn);
+    }
 
 }

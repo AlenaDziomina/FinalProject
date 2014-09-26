@@ -12,6 +12,7 @@ import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.Role;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,18 +28,18 @@ public class RoleQuery implements TypedQuery<Role>{
     private static final String EM_LOAD_QUERY = "Select * from role where role_name = ?;";
 
     @Override
-    public void save(List<Role> beans, GenericSaveQuery saveDao) throws QueryExecutionException {
+    public void save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Role> load(Criteria criteria, GenericLoadQuery loadDao) throws QueryExecutionException {
+    public List<Role> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
         int pageSize = 10;
         Object param1 = ((ClientType)criteria.getParam(PARAM_NAME_ROLE)).toString();       
         Object[] params = {param1};
         
         try {
-            return loadDao.query(EM_LOAD_QUERY, params, pageSize, new RowMapper<Role>() {
+            return loadDao.query(EM_LOAD_QUERY, params, pageSize, conn, new RowMapper<Role>() {
                 @Override
                 public Role mapRow(ResultSet rs, int rowNum) throws SQLException {
                     Role bean = new Role();
@@ -53,7 +54,7 @@ public class RoleQuery implements TypedQuery<Role>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao) throws QueryExecutionException {
+    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
