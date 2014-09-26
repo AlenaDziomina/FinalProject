@@ -7,11 +7,14 @@
 package by.epam.project.dao.query;
 
 import static by.epam.project.controller.ProjectServlet.LOCALLOG;
-import by.epam.project.dao.ConnectionPool;
 import by.epam.project.dao.DaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,30 +33,39 @@ public class MysqlGenericSaveQuery implements GenericSaveQuery {
     public MysqlGenericSaveQuery(){}
     
     @Override
-    public  <T> void query(String query, Params params, Connection conn) throws DaoException {
+    public  <T> List<Integer> query(String query, Connection conn, Params params) throws DaoException {
         if (params == null) {
             throw new DaoException(PARAMS_IS_NULL_ERROR);
         }
+        List<Integer> resultList = new ArrayList<>();
 
         PreparedStatement ps = null;
-        
+        ResultSet rs = null;
         try {
             
-            ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                  
             for (Object[] paramarray : params.params()) {
                 for (int i = 0; i < paramarray.length; i++) {
                     ps.setObject(i + 1, paramarray[i]);
                 }
-                ps.executeUpdate();
+                if(ps.executeUpdate()>0){
+                    rs = ps.getGeneratedKeys();
+                    while (rs.next()){
+                        resultList.add(rs.getInt(1));
+                    }
+                }
                 ps.clearParameters();                            
             }
+            return resultList;
         }
         catch (SQLException ex) {
             throw new DaoException(ex.getMessage(), ex);
         } finally {
             try {
-               
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
                 if (ps != null && !ps.isClosed()){
                     ps.close();
                 }

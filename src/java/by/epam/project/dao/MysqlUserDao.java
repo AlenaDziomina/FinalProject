@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class MysqlUserDao extends MysqlGuestDao implements MysqlDao, UserDao {
    
-    private Connection mysqlConn;
+    private final Connection mysqlConn;
     
     protected MysqlUserDao() throws DaoException{
         mysqlConn = MysqlDao.getConnection();

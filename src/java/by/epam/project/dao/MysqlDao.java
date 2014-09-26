@@ -14,6 +14,8 @@ import by.epam.project.dao.query.MysqlGenericSaveQuery;
 import by.epam.project.dao.query.MysqlGenericUpdateQuery;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,7 +36,15 @@ public interface MysqlDao {
     }
     
     static void returnConnection(Connection con) throws DaoException {
+        
         try {
+            con.commit();
+        } catch (SQLException ex) {
+            throw new DaoException("Error in commit connection in pool.");
+        }
+        
+        try {
+            
             ConnectionPool.returnConnection(con);
         } catch (SQLException ex) {
             throw new DaoException("Cant return connection in pool.");

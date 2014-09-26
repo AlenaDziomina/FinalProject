@@ -34,6 +34,7 @@ public class ConnectionPool {
     private ConnectionPool() { }
     public static Connection getConnection() throws SQLException {
         Connection connection = dataSource.getConnection();
+        connection.setAutoCommit(false);
         return connection;
     }
     

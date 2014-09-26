@@ -8,7 +8,8 @@
     
     <form name="updateCountry" method="POST" action="controller">
         <div class="innerColumn">
-            <input type="hidden" name="command" value="redactCountry" />
+            <input type="hidden" name="command" value="saveRedactCountry" />
+            
             <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
@@ -40,7 +41,7 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <textarea name="text" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
+                    <textarea name="text_description" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
                     </div>
                 </div>
             </div>
@@ -51,6 +52,9 @@
                 
                     <input type="submit" value="Save"/>
                 
+            </div>
+            <div class="parameterRow">
+                <div id="erNote">${errorSaveData}</div>
             </div>
             
         </div>

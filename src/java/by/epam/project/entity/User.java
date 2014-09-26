@@ -38,7 +38,7 @@ public final class User {
     public User(Criteria criteria){
         setIdUser((Integer) criteria.getParam(PARAM_NAME_ID_USER));
         setLogin((String) criteria.getParam(PARAM_NAME_LOGIN));
-        setPassword((String) criteria.getParam(PARAM_NAME_PASSWORD));
+        setPassword((Integer) criteria.getParam(PARAM_NAME_PASSWORD));
         setEmail((String) criteria.getParam(PARAM_NAME_EMAIL));
         setPhone((String) criteria.getParam(PARAM_NAME_PHONE));
         setRole((ClientType) criteria.getParam(PARAM_NAME_ROLE));

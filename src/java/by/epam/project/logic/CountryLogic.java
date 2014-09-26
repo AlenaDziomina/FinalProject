@@ -14,6 +14,7 @@ import by.epam.project.dao.DaoFactory;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Description;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -49,6 +50,30 @@ public abstract class CountryLogic {
         }
         
         
+    }
+
+    public static Integer redactCountry(Criteria criteria) throws DaoException {
+        ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
+        Integer idCountry = (Integer) criteria.getParam(PARAM_NAME_ID_COUNTRY);
+        AbstractDao dao = null;
+
+        try {
+            dao = DaoFactory.getInstance(role); 
+            Method method;
+            if (idCountry == null) {      
+                method = dao.getClass().getMethod("toCreateNewCountry", Criteria.class);
+            } else {
+                method = dao.getClass().getMethod("toUpdateCountry", Criteria.class);
+            }
+            Integer currIdCountry = (Integer) method.invoke(dao, criteria);
+            return currIdCountry;    
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            return null;
+        } finally {
+            if (dao != null) {
+                dao.close();
+            } 
+        }
     }
     
 }

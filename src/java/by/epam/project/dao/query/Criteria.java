@@ -33,5 +33,9 @@ public class Criteria {
     public Collection<Object> getAll(){        
         return params.values();
     }
+    
+    public void remuveParam(String name){
+        params.remove(name);
+    }
    
 }

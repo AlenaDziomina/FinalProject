@@ -17,6 +17,7 @@ public interface ActionCommand {
     static final String PARAM_NAME_LOCALE = "locale";
     static final String PARAM_NAME_PAGE = "page";
     static final String PARAM_NAME_COUNTRY_LIST = "countryList";
+    static final String PARAM_NAME_CITY_LIST = "cityList";
     static final String PARAM_NAME_COUNTRY_COUNT = "countryCount";
     static final String PARAM_NAME_SELECT_ID = "selectId";
     static final String PARAM_NAME_CURRENT_COUNTRY = "currCountry";

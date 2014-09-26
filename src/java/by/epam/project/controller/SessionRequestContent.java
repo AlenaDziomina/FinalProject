@@ -7,6 +7,7 @@
 package by.epam.project.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -61,8 +62,24 @@ public final class SessionRequestContent {
         
     }
     
+    public void setParameter(String paramName, String param){
+        String[] prms = requestParameters.get(paramName);
+        if (prms == null) {
+            prms = new String[]{param};
+            requestParameters.put(paramName, prms);
+        } else {
+            List<String> list = new ArrayList<>(Arrays.asList(prms));
+            list.add(param);
+            requestParameters.replace(paramName, (String[]) list.toArray());
+        }
+    }
+    
     public void setAttribute(String attrName, Object attr) {
-        this.requestAttributes.put(attrName, attr);
+        if (this.requestAttributes.containsKey(attrName)){
+            this.requestAttributes.replace(attrName, attr);
+        } else {
+            this.requestAttributes.put(attrName, attr);
+        }
     }
     
     public void sessionInvalidate(){
@@ -94,7 +111,11 @@ public final class SessionRequestContent {
     }
 
     public void setSessionAttribute(String attrName, Object attr) {
-        this.sessionAttributes.put(attrName, attr);
+        if (this.sessionAttributes.containsKey(attrName)) {
+            this.sessionAttributes.replace(attrName, attr);
+        } else {
+            this.sessionAttributes.put(attrName, attr);
+        }
     }
     
      public Object getSessionAttribute(String attrName) {
@@ -102,6 +123,7 @@ public final class SessionRequestContent {
     }
 
     public void deleteSessionAttribute(String attrName) {
+        this.sessionAttributes.remove(attrName);
         this.deletedSessionAttributes.add(attrName);
     }
 

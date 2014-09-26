@@ -12,9 +12,9 @@ import by.epam.project.controller.SessionRequestContent;
  *
  * @author User
  */
-class GoRedactCity implements ActionCommand {
+class GoShowCity implements ActionCommand {
 
-    public GoRedactCity() {
+    public GoShowCity() {
     }
 
     @Override

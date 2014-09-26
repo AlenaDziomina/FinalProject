@@ -21,9 +21,9 @@ import java.util.List;
  *
  * @author User
  */
-class GoRedactCounry implements ActionCommand {
+class GoShowCountry implements ActionCommand {
 
-    public GoRedactCounry() {
+    public GoShowCountry() {
     }
 
     @Override

@@ -133,8 +133,9 @@
 
 --  insert into country (name, picture, id_description) values ('Italy', '/images/italy.jpg', 1);
 
-select * from country;
-
+-- select * from peoples;
+-- insert into peoples(f_fio) values ('ttt');
+SELECT * from peoples where id = LAST_INSERT_ID();
 
 
 

@@ -43,15 +43,15 @@
         
         <div id="menu">
             
-            <a href="controller?command=goRedactCountry" class="menuHref">
+            <a href="controller?command=goShowCountry" class="menuHref">
                 <img src="#" id="menuText" alt="<fmt:message key="countries" bundle="${ rb }" />">
             </a>
 
-            <a href="controller?command=goRedactCity" class="menuHref">
+            <a href="controller?command=goShowCity" class="menuHref">
                 <img src="#" id="menuText" alt="<fmt:message key="cities" bundle="${ rb }" />">
             </a>
 
-            <a href="controller?command=goRedactHotel" class="menuHref">
+            <a href="controller?command=goShowHotel" class="menuHref">
                 <img src="#" id="menuText" alt="<fmt:message key="hotels" bundle="${ rb }" />">
             </a>
             

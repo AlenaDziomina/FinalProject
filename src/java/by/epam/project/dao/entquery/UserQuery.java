@@ -10,14 +10,11 @@ package by.epam.project.dao.entquery;
 import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.*;
-import by.epam.project.dao.query.Params.Mapper;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.entity.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,35 +37,29 @@ public class UserQuery implements TypedQuery<User>{
     public UserQuery(){}
     
     @Override
-    public void save(List<User> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
-    
+    public List<Integer> save(List<User> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            saveDao.query(EM_SAVE_QUERY, Params.fill(beans, new Mapper<User>() {
-                @Override
-                public Object[] map(User bean) {
-                    Object[] objects = new Object[8];
-                    objects[0] = bean.getIdRole();
-                    objects[1] = bean.getLogin();
-                    objects[2] = bean.getPassword();
-                    objects[3] = bean.getEmail();
-                    objects[4] = bean.getPhone();
-                    objects[5] = bean.getDiscount();
-                    objects[6] = bean.getBalance();
-                    objects[7] = bean.getLanguage();
-                    return objects;
-                }
-            }), conn);
+            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (User bean) -> {
+                Object[] objects = new Object[8];
+                objects[0] = bean.getIdRole();
+                objects[1] = bean.getLogin();
+                objects[2] = bean.getPassword();
+                objects[3] = bean.getEmail();
+                objects[4] = bean.getPhone();
+                objects[5] = bean.getDiscount();
+                objects[6] = bean.getBalance();
+                objects[7] = bean.getLanguage();
+                return objects;
+            }));
         } catch (DaoException ex) {
             throw new QueryExecutionException(ex);
-        }
-        
+        }  
     }
 
     @Override
     public List<User> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
         
-        int pageSize = 10;
-                
+        int pageSize = 10;              
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
         String queryStr = new QueryMapper() {
@@ -93,21 +84,17 @@ public class UserQuery implements TypedQuery<User>{
         }
         
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new RowMapper<User>() {
-                @Override
-                public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    User bean = new User();
-                    bean.setIdUser(rs.getInt("id_user"));
-                    bean.setLogin(rs.getString("login"));
-                    bean.setRole(rs.getString("role_name"));
-                    bean.setDiscount(rs.getInt("discount"));
-                    bean.setBalance(rs.getFloat("balance"));
-                    bean.setEmail(rs.getString("email"));
-                    bean.setPhone(rs.getString("phone"));
-                    bean.setLanguage(rs.getString("lang"));
-                    
-                    return bean;
-                }
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+                User bean = new User();
+                bean.setIdUser(rs.getInt("id_user"));
+                bean.setLogin(rs.getString("login"));
+                bean.setRole(rs.getString("role_name"));
+                bean.setDiscount(rs.getInt("discount"));
+                bean.setBalance(rs.getFloat("balance"));
+                bean.setEmail(rs.getString("email"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setLanguage(rs.getString("lang"));
+                return bean;
             });
         } catch (DaoException ex) {
              throw new QueryExecutionException(ex);
@@ -118,9 +105,6 @@ public class UserQuery implements TypedQuery<User>{
 
     @Override
     public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
-        
-        int pageSize = 10;
-                
         List paramList = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);

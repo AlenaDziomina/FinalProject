@@ -6,13 +6,18 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.dao.query.Criteria;
+
 /**
  *
  * @author User
  */
 public interface AdminDao extends AbstractDao {
     
-//    public void creade_direction();
+    public Integer toCreateNewCountry(Criteria criteria)throws DaoException;
+    public Integer toUpdateCountry(Criteria criteria) throws DaoException;
+    public Integer toEditDescription(Criteria criteria) throws DaoException;
+
 //    public void create_tour();
 //    public void delete_direction();
 //    public void delete_tour();

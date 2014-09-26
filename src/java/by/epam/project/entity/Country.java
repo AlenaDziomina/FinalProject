@@ -6,6 +6,9 @@
 
 package by.epam.project.entity;
 
+import static by.epam.project.action.ActionCommand.PARAM_NAME_CITY_LIST;
+import static by.epam.project.dao.AbstractDao.*;
+import by.epam.project.dao.query.Criteria;
 import java.util.Collection;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Collection;
  * @author User
  */
 
-public class Country {
+public final class Country {
     
     private Integer idCountry;
     private String name;
@@ -23,6 +26,16 @@ public class Country {
     private Collection<City> cityCollection;
 
     public Country() {
+    }
+
+    public Country(Criteria criteria) {
+        this.setIdCountry((Integer) criteria.getParam(PARAM_NAME_ID_COUNTRY));
+        this.setName((String) criteria.getParam(PARAM_NAME_NAME_COUNTRY));
+        this.setPicture((String) criteria.getParam(PARAM_NAME_PICTURE_COUNTRY));
+        this.setStatus((Short) criteria.getParam(PARAM_NAME_STATUS_COUNTRY));
+        Description desc = new Description((Integer)criteria.getParam(PARAM_NAME_ID_DESCRIPTION), (String) criteria.getParam(PARAM_NAME_TEXT_DESCRIPTION));
+        this.setDescription(desc);
+        this.setCityCollection((Collection<City>) criteria.getParam(PARAM_NAME_CITY_LIST));
     }
 
     public Integer getIdCountry() {

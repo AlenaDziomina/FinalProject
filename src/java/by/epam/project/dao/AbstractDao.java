@@ -6,12 +6,6 @@
 
 package by.epam.project.dao;
 
-
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.MysqlGenericLoadQuery;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 /**
  *
  * @author User
@@ -34,6 +28,8 @@ public interface AbstractDao {
     static final String PARAM_NAME_NAME_COUNTRY = "name_country";
     static final String PARAM_NAME_STATUS_COUNTRY = "status_country";
     static final String PARAM_NAME_PICTURE_COUNTRY = "picture_country";
+    static final String PARAM_NAME_ID_DESCRIPTION = "id_description";
+    static final String PARAM_NAME_TEXT_DESCRIPTION = "text_description";
     static final String PARAM_NAME_ID_CITY = "id_city";
     static final String PARAM_NAME_NAME_CITY = "name_city";
     static final String PARAM_NAME_STATUS_CITY = "status_city";

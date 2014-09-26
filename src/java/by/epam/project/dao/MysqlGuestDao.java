@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class MysqlGuestDao implements MysqlDao, GuestDao {
     
-    private Connection mysqlConn;
+    private final Connection mysqlConn;
     
     protected MysqlGuestDao() throws DaoException{
         mysqlConn = MysqlDao.getConnection();
@@ -73,11 +73,11 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         
         Integer id_role;
         Criteria test3 = new Criteria();
-        Object role = criteria.getParam(PARAM_NAME_ROLE);
+        ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
         if (role == null) {
             throw new DaoException("Role is empty.");
         }
-        test3.addParam(PARAM_NAME_ROLE, role);
+        test3.addParam(PARAM_NAME_ROLE, role.name());
         try {
             List<Role> listRole = new RoleQuery().load(test3, loadDao, mysqlConn);
             if (listRole.isEmpty() || listRole.size() > 1) {
