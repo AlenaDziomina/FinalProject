@@ -16,6 +16,10 @@ public interface AdminDao extends AbstractDao {
     
     public Integer toCreateNewCountry(Criteria criteria)throws DaoException;
     public Integer toUpdateCountry(Criteria criteria) throws DaoException;
+    public Integer toCreateNewCity(Criteria criteria)throws DaoException;
+    public Integer toUpdateCity(Criteria criteria) throws DaoException;
+    public Integer toCreateNewHotel(Criteria criteria)throws DaoException;
+    public Integer toUpdateHotel(Criteria criteria) throws DaoException;
     public Integer toEditDescription(Criteria criteria) throws DaoException;
 
 //    public void create_tour();

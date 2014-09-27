@@ -34,6 +34,11 @@ public interface AbstractDao {
     static final String PARAM_NAME_NAME_CITY = "name_city";
     static final String PARAM_NAME_STATUS_CITY = "status_city";
     static final String PARAM_NAME_PICTURE_CITY = "picture_city";
+    static final String PARAM_NAME_ID_HOTEL = "id_hotel";
+    static final String PARAM_NAME_NAME_HOTEL = "name_hotel";
+    static final String PARAM_NAME_STATUS_HOTEL = "status_hotel";
+    static final String PARAM_NAME_STARS_HOTEL = "stars_hotel";
+    static final String PARAM_NAME_PICTURE_HOTEL = "picture_hotel";
     
     public abstract void open() throws DaoException;
     

@@ -6,22 +6,36 @@
 
 package by.epam.project.entity;
 
+import static by.epam.project.dao.AbstractDao.*;
+import by.epam.project.dao.query.Criteria;
+
 /**
  *
  * @author User
  */
 
-public class Hotel {
+public final class Hotel {
     
     private Integer idHotel;
     private String name;
     private Integer stars;
     private Short status;
     private String picture;
-    private City city;
+    private Integer idCity;
     private Description description;
 
     public Hotel() {
+    }
+    
+    public Hotel(Criteria criteria) {
+        this.setIdHotel((Integer) criteria.getParam(PARAM_NAME_ID_HOTEL));
+        this.setName((String) criteria.getParam(PARAM_NAME_NAME_HOTEL));
+        this.setPicture((String) criteria.getParam(PARAM_NAME_PICTURE_HOTEL));
+        this.setStatus((Short) criteria.getParam(PARAM_NAME_STATUS_HOTEL));
+        this.setStars((Integer) criteria.getParam(PARAM_NAME_STARS_HOTEL));
+        Description desc = new Description((Integer)criteria.getParam(PARAM_NAME_ID_DESCRIPTION), (String) criteria.getParam(PARAM_NAME_TEXT_DESCRIPTION));
+        this.setDescription(desc);
+        this.setIdCity((Integer) criteria.getParam(PARAM_NAME_ID_CITY));
     }
 
     public Integer getIdHotel() {
@@ -64,12 +78,12 @@ public class Hotel {
         this.picture = picture;
     }
 
-    public City getCity() {
-        return city;
+    public Integer getIdCity() {
+        return idCity;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setIdCity(Integer idCity) {
+        this.idCity = idCity;
     }
 
     public Description getDescription() {

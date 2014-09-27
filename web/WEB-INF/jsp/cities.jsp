@@ -25,19 +25,16 @@
     
     <div class="centerColumn">
         <div class="innerColumn">
-             <div id="erNote">${errorGetListMessage}</div>
-        <img class="currimg" id="images" src="<%=request.getContextPath()%>${currCity.picture}">
-        <div class="cueetext">
-             ${currCity.description.text}
-        </div>
-        
-        <form method="POST" action="controller">
-            <input type="hidden" name="command" value="goEditCity" />
-            <input type="submit" value="Edit City"/>
-        </form>
-        
-        <div id="textDiv"></div>
-        <div id="textDiv2"></div>
+            <div id="erNote">${errorGetListMessage}</div>
+            <img class="currimg" id="images" src="<%=request.getContextPath()%>${currCity.picture}">
+            <div class="cueetext">
+                 ${currCity.description.text}
+            </div>
+
+            <form method="POST" action="controller">
+                <input type="hidden" name="command" value="goEditCity" />
+                <input type="submit" value="Edit City"/>
+            </form>
         </div>
     </div>
         

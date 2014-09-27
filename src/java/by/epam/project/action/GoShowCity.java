@@ -6,8 +6,6 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_COUNT;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_LIST;
 import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_LOGIN;
@@ -15,8 +13,7 @@ import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
-import by.epam.project.entity.Country;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.logic.CityLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import java.util.List;

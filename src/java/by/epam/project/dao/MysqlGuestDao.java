@@ -8,12 +8,14 @@ package by.epam.project.dao;
 
 import by.epam.project.dao.entquery.CityQuery;
 import by.epam.project.dao.entquery.CountryQuery;
+import by.epam.project.dao.entquery.HotelQuery;
 import by.epam.project.dao.entquery.RoleQuery;
 import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Hotel;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
 import java.sql.Connection;
@@ -149,6 +151,16 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         try {
             List<City> cities = new CityQuery().load(criteria, loadDao, mysqlConn);
             return cities;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+
+    @Override
+    public List<Hotel> toShowHotels(Criteria criteria) throws DaoException {
+        try {
+            List<Hotel> hotels = new HotelQuery().load(criteria, loadDao, mysqlConn);
+            return hotels;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }
