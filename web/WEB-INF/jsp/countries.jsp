@@ -10,7 +10,7 @@
     
     <div class="leftColumn">
         <div class="innerColumn">
-            <select class="container" size="4" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCountry'}, 'POST'))">               
+            <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCountry'}, 'POST'))">               
                 <c:forEach items="${countryList}" var="row">
                     <option class="menuHref" value="${row.idCountry}">${row.name}</option>
                 </c:forEach>
