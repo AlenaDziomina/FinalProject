@@ -54,12 +54,12 @@ public class Params {
         
         public String mapQuery();
         
-        public static void append(String critName, String columnName, Criteria criteria, List<Object> list, StringBuilder sb){
+        public static void append(String critName, String columnName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
             
             Object obj = criteria.getParam(critName);
             if (obj != null){
                 if (!list.isEmpty()) {
-                    sb.append(" and ");
+                    sb.append(separator);
                 }
                 sb.append(columnName);
                 sb.append(" = ?");

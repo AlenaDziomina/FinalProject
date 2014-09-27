@@ -58,10 +58,11 @@ public class CountryQuery implements TypedQuery<Country>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb);
-                append(PARAM_NAME_NAME_COUNTRY, "name", criteria, paramList, sb);
-                append(PARAM_NAME_STATUS_COUNTRY, "status", criteria, paramList, sb);
-                append(PARAM_NAME_PICTURE_COUNTRY, "picture", criteria, paramList, sb);
+                String separator = " and ";
+                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
+                append(PARAM_NAME_NAME_COUNTRY, "name", criteria, paramList, sb, separator);
+                append(PARAM_NAME_STATUS_COUNTRY, "status", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PICTURE_COUNTRY, "picture", criteria, paramList, sb, separator);
                 
                 return sb.toString();
             }  
@@ -94,12 +95,14 @@ public class CountryQuery implements TypedQuery<Country>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_NAME_COUNTRY, "name", criteria, paramList, sb);
-                append(PARAM_NAME_STATUS_COUNTRY, "status", criteria, paramList, sb);
-                append(PARAM_NAME_PICTURE_COUNTRY, "picture", criteria, paramList, sb);
-                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb);
+                String separator = " , ";
+                append(PARAM_NAME_NAME_COUNTRY, "name", criteria, paramList, sb, separator);
+                append(PARAM_NAME_STATUS_COUNTRY, "status", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PICTURE_COUNTRY, "picture", criteria, paramList, sb, separator);
+                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
                 sb.append(" where ");
-                append(PARAM_NAME_ID_COUNTRY, "id_country", beans, paramList2, sb);
+                separator = " and ";
+                append(PARAM_NAME_ID_COUNTRY, "id_country", beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

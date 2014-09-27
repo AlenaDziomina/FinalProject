@@ -58,11 +58,12 @@ public class CityQuery implements TypedQuery<City>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_ID_CITY, "id_city", criteria, paramList, sb);
-                append(PARAM_NAME_NAME_CITY, "name", criteria, paramList, sb);
-                append(PARAM_NAME_STATUS_CITY, "status", criteria, paramList, sb);
-                append(PARAM_NAME_PICTURE_CITY, "picture", criteria, paramList, sb);
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb);
+                String separator = " and ";
+                append(PARAM_NAME_ID_CITY, "id_city", criteria, paramList, sb, separator);
+                append(PARAM_NAME_NAME_CITY, "name", criteria, paramList, sb, separator);
+                append(PARAM_NAME_STATUS_CITY, "status", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PICTURE_CITY, "picture", criteria, paramList, sb, separator);
+                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
                 
                 return sb.toString();
             }  
@@ -95,13 +96,15 @@ public class CityQuery implements TypedQuery<City>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_ID_COUNTRY, "id_country", beans, paramList2, sb);
-                append(PARAM_NAME_NAME_CITY, "name", criteria, paramList, sb);
-                append(PARAM_NAME_STATUS_CITY, "status", criteria, paramList, sb);
-                append(PARAM_NAME_PICTURE_CITY, "picture", criteria, paramList, sb);
-                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb);
+                String separator = " , ";
+                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList2, sb, separator);
+                append(PARAM_NAME_NAME_CITY, "name", criteria, paramList, sb, separator);
+                append(PARAM_NAME_STATUS_CITY, "status", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PICTURE_CITY, "picture", criteria, paramList, sb, separator);
+                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
                 sb.append(" where ");
-                append(PARAM_NAME_ID_CITY, "id_city", beans, paramList2, sb);
+                separator = " and ";
+                append(PARAM_NAME_ID_CITY, "id_city", beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

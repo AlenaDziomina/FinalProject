@@ -17,6 +17,7 @@ import by.epam.project.entity.Country;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,12 @@ import java.util.List;
  */
 public class MysqlGuestDao implements MysqlDao, GuestDao {
     
-    private final Connection mysqlConn;
+    protected Connection mysqlConn;
     
-    protected MysqlGuestDao() throws DaoException{
+    protected MysqlGuestDao() throws DaoException{}
+    
+    @Override
+    public void open() throws DaoException {
         mysqlConn = MysqlDao.getConnection();
     }
     
@@ -37,6 +41,14 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         MysqlDao.returnConnection(mysqlConn);
     }
     
+    @Override
+    public void rollback() throws DaoException {
+        try {
+            mysqlConn.rollback();
+        } catch (SQLException ex) {
+            throw new DaoException("Rollback failed.");
+        }
+    }
 
     @Override
     public void toRegistrate(Criteria criteria) throws DaoException {

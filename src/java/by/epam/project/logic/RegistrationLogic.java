@@ -26,9 +26,14 @@ public abstract class RegistrationLogic {
         AbstractDao dao = null; 
         try {
             dao = DaoFactory.getInstance(role);
+            dao.open();
             Method method = dao.getClass().getMethod("toRegistrate", Criteria.class);
             method.invoke(dao, criteria);
-                 
+        } catch (DaoException ex) {
+            if (dao != null) {
+                dao.rollback();
+            }
+            throw ex;         
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             throw new DaoException("No such dao method");
         } finally {

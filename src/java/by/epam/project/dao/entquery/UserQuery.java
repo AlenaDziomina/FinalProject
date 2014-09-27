@@ -65,15 +65,16 @@ public class UserQuery implements TypedQuery<User>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_ID_USER, "id_user", criteria, paramList, sb);
-                append(PARAM_NAME_LOGIN, "login", criteria, paramList, sb);
-                append(PARAM_NAME_PASSWORD, "password", criteria, paramList, sb);
-                append(PARAM_NAME_EMAIL, "email", criteria, paramList, sb);
-                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb);
-                append(PARAM_NAME_DISCOUNT, "discount", criteria, paramList, sb);
-                append(PARAM_NAME_BALANCE, "balance", criteria, paramList, sb);
-                append(PARAM_NAME_PHONE, "phone", criteria, paramList, sb);
-                append(PARAM_NAME_LANGUAGE, "lang", criteria, paramList, sb);
+                String separator = " and ";
+                append(PARAM_NAME_ID_USER, "id_user", criteria, paramList, sb, separator);
+                append(PARAM_NAME_LOGIN, "login", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PASSWORD, "password", criteria, paramList, sb, separator);
+                append(PARAM_NAME_EMAIL, "email", criteria, paramList, sb, separator);
+                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb, separator);
+                append(PARAM_NAME_DISCOUNT, "discount", criteria, paramList, sb, separator);
+                append(PARAM_NAME_BALANCE, "balance", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PHONE, "phone", criteria, paramList, sb, separator);
+                append(PARAM_NAME_LANGUAGE, "lang", criteria, paramList, sb, separator);
                 
                 return sb.toString();
             }  
@@ -111,16 +112,18 @@ public class UserQuery implements TypedQuery<User>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_PASSWORD, "password", criteria, paramList, sb);
-                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb);
-                append(PARAM_NAME_DISCOUNT, "discount", criteria, paramList, sb);
-                append(PARAM_NAME_BALANCE, "balance", criteria, paramList, sb);
-                append(PARAM_NAME_PHONE, "phone", criteria, paramList, sb);
-                append(PARAM_NAME_LANGUAGE, "lang", criteria, paramList, sb);
+                String separator = " , ";
+                append(PARAM_NAME_PASSWORD, "password", criteria, paramList, sb, separator);
+                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb, separator);
+                append(PARAM_NAME_DISCOUNT, "discount", criteria, paramList, sb, separator);
+                append(PARAM_NAME_BALANCE, "balance", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PHONE, "phone", criteria, paramList, sb, separator);
+                append(PARAM_NAME_LANGUAGE, "lang", criteria, paramList, sb, separator);
                 sb.append(" where ");
-                append(PARAM_NAME_ID_USER, "id_user", beans, paramList2, sb);
-                append(PARAM_NAME_LOGIN, "login", beans, paramList2, sb);
-                append(PARAM_NAME_EMAIL, "email", beans, paramList2, sb);
+                separator = " and ";
+                append(PARAM_NAME_ID_USER, "id_user", beans, paramList2, sb, separator);
+                append(PARAM_NAME_LOGIN, "login", beans, paramList2, sb, separator);
+                append(PARAM_NAME_EMAIL, "email", beans, paramList2, sb, separator);
                 
                 return sb.toString();
             }  

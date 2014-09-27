@@ -35,7 +35,11 @@ public interface AbstractDao {
     static final String PARAM_NAME_STATUS_CITY = "status_city";
     static final String PARAM_NAME_PICTURE_CITY = "picture_city";
     
+    public abstract void open() throws DaoException;
+    
     public abstract void close() throws DaoException;
+
+    public abstract void rollback() throws DaoException;
     
     
     

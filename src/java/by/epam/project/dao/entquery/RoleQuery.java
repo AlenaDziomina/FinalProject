@@ -58,8 +58,9 @@ public class RoleQuery implements TypedQuery<Role>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb);
-                append(PARAM_NAME_ROLE, "role_name", criteria, paramList, sb);
+                String separator = " and ";
+                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb, separator);
+                append(PARAM_NAME_ROLE, "role_name", criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -91,9 +92,11 @@ public class RoleQuery implements TypedQuery<Role>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_ROLE, "role_name", criteria, paramList, sb);
+                String separator = " , ";
+                append(PARAM_NAME_ROLE, "role_name", criteria, paramList, sb, separator);
                 sb.append(" where ");
-                append(PARAM_NAME_ID_ROLE, "id_role", beans, paramList2, sb);
+                separator = " and ";
+                append(PARAM_NAME_ID_ROLE, "id_role", beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

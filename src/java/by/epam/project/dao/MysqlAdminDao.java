@@ -13,7 +13,7 @@ import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +23,15 @@ import java.util.List;
  */
 public class MysqlAdminDao extends MysqlUserDao implements MysqlDao,  AdminDao {
     
-    private final Connection mysqlConn;
-    
-    protected MysqlAdminDao() throws DaoException{
-        mysqlConn = MysqlDao.getConnection();
-    }
+    protected MysqlAdminDao() throws DaoException{}
     
     @Override
-    public void close() throws DaoException {
-        MysqlDao.returnConnection(mysqlConn);
+    public void rollback() throws DaoException {
+        try {
+            mysqlConn.rollback();
+        } catch (SQLException ex) {
+            throw new DaoException("Rollback failed.");
+        }
     }
     
     @Override
@@ -53,10 +53,10 @@ public class MysqlAdminDao extends MysqlUserDao implements MysqlDao,  AdminDao {
                     }
                 }
             } else {
-                Criteria beans = new Criteria();
-                beans.addParam(PARAM_NAME_TEXT_DESCRIPTION, desc.getText());
                 Criteria crit = new Criteria();
-                crit.addParam(PARAM_NAME_ID_DESCRIPTION, desc.getIdDescription());
+                crit.addParam(PARAM_NAME_TEXT_DESCRIPTION, desc.getText());
+                Criteria beans = new Criteria();
+                beans.addParam(PARAM_NAME_ID_DESCRIPTION, desc.getIdDescription());
                 new DescriptionQuery().update(beans, crit, updateDao, mysqlConn);
                 return desc.getIdDescription();
             }
@@ -91,18 +91,20 @@ public class MysqlAdminDao extends MysqlUserDao implements MysqlDao,  AdminDao {
         try {
             Integer idDescription = toEditDescription(criteria);
             Integer idCountry = (Integer) criteria.getParam(PARAM_NAME_ID_COUNTRY);
-            Criteria beans = new Criteria();
-            beans.addParam(PARAM_NAME_NAME_COUNTRY, criteria.getParam(PARAM_NAME_NAME_COUNTRY));
-            beans.addParam(PARAM_NAME_PICTURE_COUNTRY, criteria.getParam(PARAM_NAME_PICTURE_COUNTRY));
-            beans.addParam(PARAM_NAME_STATUS_COUNTRY, criteria.getParam(PARAM_NAME_STATUS_COUNTRY));
-            beans.addParam(PARAM_NAME_ID_DESCRIPTION, idDescription);
             Criteria crit = new Criteria();
-            crit.addParam(PARAM_NAME_ID_COUNTRY, idCountry);
+            crit.addParam(PARAM_NAME_NAME_COUNTRY, criteria.getParam(PARAM_NAME_NAME_COUNTRY));
+            crit.addParam(PARAM_NAME_PICTURE_COUNTRY, criteria.getParam(PARAM_NAME_PICTURE_COUNTRY));
+            crit.addParam(PARAM_NAME_STATUS_COUNTRY, criteria.getParam(PARAM_NAME_STATUS_COUNTRY));
+            crit.addParam(PARAM_NAME_ID_DESCRIPTION, idDescription);
+            Criteria beans = new Criteria();
+            beans.addParam(PARAM_NAME_ID_COUNTRY, idCountry);
             new CountryQuery().update(beans, crit, updateDao, mysqlConn);
             return idCountry;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }
     }
+
+    
 
 }

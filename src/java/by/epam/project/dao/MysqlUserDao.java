@@ -10,7 +10,7 @@ import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
 import by.epam.project.entity.User;
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -19,17 +19,17 @@ import java.util.List;
  */
 public class MysqlUserDao extends MysqlGuestDao implements MysqlDao, UserDao {
    
-    private final Connection mysqlConn;
-    
-    protected MysqlUserDao() throws DaoException{
-        mysqlConn = MysqlDao.getConnection();
-    }
-    
-    @Override
-    public void close() throws DaoException {
-        MysqlDao.returnConnection(mysqlConn);
-    }
+    protected MysqlUserDao() throws DaoException{}
 
+    @Override
+    public void rollback() throws DaoException {
+        try {
+            mysqlConn.rollback();
+        } catch (SQLException ex) {
+            throw new DaoException("Rollback failed.");
+        }
+    }
+    
     @Override
     public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
         

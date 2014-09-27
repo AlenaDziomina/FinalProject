@@ -14,8 +14,6 @@ import by.epam.project.dao.query.MysqlGenericSaveQuery;
 import by.epam.project.dao.query.MysqlGenericUpdateQuery;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +25,8 @@ public interface MysqlDao {
     static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
     static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
     
-    static Connection getConnection() throws DaoException{
+    
+    public static Connection getConnection() throws DaoException{
         try {
             return ConnectionPool.getConnection();
         } catch (SQLException ex) {
@@ -35,7 +34,7 @@ public interface MysqlDao {
         }
     }
     
-    static void returnConnection(Connection con) throws DaoException {
+    public static void returnConnection(Connection con) throws DaoException {
         
         try {
             con.commit();

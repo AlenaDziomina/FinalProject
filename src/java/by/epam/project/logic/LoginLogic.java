@@ -27,9 +27,15 @@ public abstract class LoginLogic {
         AbstractDao dao = null;
         try {
             dao = DaoFactory.getInstance(role);  
+            dao.open();
             Method method = dao.getClass().getMethod("toLogin", Criteria.class);
             User person = (User) method.invoke(dao, criteria);
-            return person;       
+            return person;  
+        } catch (DaoException ex) {
+            if (dao != null) {
+                dao.rollback();
+            }
+            throw ex;
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             throw new DaoException("No such dao method");
         } finally {

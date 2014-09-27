@@ -53,8 +53,9 @@ public class DescriptionQuery implements TypedQuery<Description>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb);
-                append(PARAM_NAME_TEXT_DESCRIPTION, "text", criteria, paramList, sb);
+                String separator = " and ";
+                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
+                append(PARAM_NAME_TEXT_DESCRIPTION, "text", criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -85,9 +86,11 @@ public class DescriptionQuery implements TypedQuery<Description>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(PARAM_NAME_TEXT_DESCRIPTION, "text", criteria, paramList, sb);
+                String separator = " , ";
+                append(PARAM_NAME_TEXT_DESCRIPTION, "text", criteria, paramList, sb, separator);
                 sb.append(" where ");
-                append(PARAM_NAME_ID_DESCRIPTION, "id_description", beans, paramList2, sb);
+                separator = " and ";
+                append(PARAM_NAME_ID_DESCRIPTION, "id_description", beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

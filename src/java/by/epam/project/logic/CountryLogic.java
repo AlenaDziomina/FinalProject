@@ -14,7 +14,6 @@ import by.epam.project.dao.DaoFactory;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
-import by.epam.project.entity.Description;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -31,6 +30,7 @@ public abstract class CountryLogic {
         
         try {
             dao = DaoFactory.getInstance(role); 
+            dao.open();
             Method method = dao.getClass().getMethod("toShowCountries", Criteria.class);
             List<Country> countries = (List<Country>) method.invoke(dao, criteria);
             Method meth = dao.getClass().getMethod("toShowCities", Criteria.class);
@@ -40,7 +40,12 @@ public abstract class CountryLogic {
                 List<City> cities = (List<City>) meth.invoke(dao, crit);
                 country.setCityCollection(cities);
             }
-            return countries;       
+            return countries;   
+        } catch (DaoException ex) {
+            if (dao != null) {
+                dao.rollback();
+            }
+            throw ex;
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             return null;
         } finally {
@@ -59,6 +64,7 @@ public abstract class CountryLogic {
 
         try {
             dao = DaoFactory.getInstance(role); 
+            dao.open();
             Method method;
             if (idCountry == null) {      
                 method = dao.getClass().getMethod("toCreateNewCountry", Criteria.class);
@@ -67,7 +73,15 @@ public abstract class CountryLogic {
             }
             Integer currIdCountry = (Integer) method.invoke(dao, criteria);
             return currIdCountry;    
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (DaoException ex) {
+            if (dao != null) {
+                dao.rollback();
+            }
+            throw ex;
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex ) {
+            if (dao != null) {
+                dao.rollback();
+            }
             return null;
         } finally {
             if (dao != null) {

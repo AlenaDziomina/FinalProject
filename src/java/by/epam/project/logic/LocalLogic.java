@@ -28,9 +28,15 @@ public abstract class LocalLogic {
         
         try {
             dao = DaoFactory.getInstance(role); 
+            dao.open();
             Method method = dao.getClass().getMethod("toChangeOwnUser", Criteria.class, Criteria.class);
             User person = (User) method.invoke(dao, bean, criteria);
-            return person;       
+            return person; 
+        } catch (DaoException ex) {
+            if (dao != null) {
+                dao.rollback();
+            }
+            throw ex;
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             return null;
         } finally {
