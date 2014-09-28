@@ -77,6 +77,7 @@ public class CityQuery implements TypedQuery<City>{
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 City bean = new City();
                 bean.setIdCity(rs.getInt("id_city"));
+                bean.setIdCountry(rs.getInt("id_country"));
                 bean.setName(rs.getString("name"));
                 bean.setStatus(rs.getShort("status"));
                 bean.setPicture(rs.getString("picture"));

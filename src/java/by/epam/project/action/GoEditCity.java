@@ -8,6 +8,7 @@ package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.entity.City;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
@@ -24,6 +25,8 @@ public class GoEditCity implements ActionCommand {
         
         request.deleteSessionAttribute(PARAM_NAME_CITY_LIST);
         request.deleteSessionAttribute(PARAM_NAME_CITY_COUNT);
+        City currCity = (City) request.getSessionAttribute(PARAM_NAME_CURRENT_CITY);
+        
         new GoShowCountry().execute(request);
         String page = ConfigurationManager.getProperty("path.page.editcity");
         request.setSessionAttribute(PARAM_NAME_PAGE, page);

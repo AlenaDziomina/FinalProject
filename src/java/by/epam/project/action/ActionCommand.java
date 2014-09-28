@@ -21,6 +21,7 @@ public interface ActionCommand {
     static final String PARAM_NAME_COUNTRY_COUNT = "countryCount";
     static final String PARAM_NAME_CURRENT_COUNTRY = "currCountry";
     static final String PARAM_NAME_CITY_LIST = "cityList";
+    static final String PARAM_NAME_CURR_CITY_LIST = "currCityList";
     static final String PARAM_NAME_CITY_COUNT = "cityCount";
     static final String PARAM_NAME_CURRENT_CITY = "currCity";
     static final String PARAM_NAME_HOTEL_LIST = "hotelList";

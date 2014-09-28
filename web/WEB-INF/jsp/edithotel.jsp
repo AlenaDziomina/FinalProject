@@ -6,21 +6,28 @@
 
 <div id="main">
     
-    <form name="updateHotel" method="POST" action="controller">
+    <form id="updHotel" method="POST" action="controller">
         <div class="innerColumn">
             <input type="hidden" name="command" value="saveRedactHotel" />
             
-            <input type="hidden" name="id_country" value=""/>
+            <input type="hidden" name="id_country" value="$(currCountry.idCountry)"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH">Select country: </h1>
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                        <select class="selectContainer" size="1" onclick="if(this.value)(selectCountryShowCity(this.value))">      
-                            <option class="selectItem" value="${cityList}"> - Select - </option>
+                        <select class="selectContainer" size="1" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCitiesOfCountry'}, 'POST'))">      
+                            <option class="selectItem" value="0"> - Select - </option>
                             <c:forEach items="${countryList}" var="row">
-                                <option class="selectItem" value="${row.cityCollection}">${row.name}</option>
+                                <c:choose>
+                                    <c:when test="${row.idCountry == currCountry.idCountry}">
+                                        <option class="selectItem" value="${row.idCountry}" selected="true">${row.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option class="selectItem" value="${row.idCountry}">${row.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </select>
                     </div>
@@ -36,7 +43,7 @@
                     <div class="innerColumn">
                         <select name="citySelection" class="selectContainer" size="1" onclick="if(this.value)(selectCity(this.value))">      
                             <option class="selectItem" value=""> - Select - </option>
-                            <c:forEach items="${cityList}" var="row">
+                            <c:forEach items="${currCityList}" var="row">
                                 <option class="selectItem" value="${row.idCity}">${row.name}</option>
                             </c:forEach>
                         </select>

@@ -120,7 +120,12 @@ public enum CommandEnum {
         {
             setCurrentCommand(new SaveRedactHotel());
         }
-    },;
+    },
+    SHOWCITIESOFCOUNTRY {
+        {
+            setCurrentCommand(new ShowCitiesOfCountry());
+        }
+    };
             
             
     

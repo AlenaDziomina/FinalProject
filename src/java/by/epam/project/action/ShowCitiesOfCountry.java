@@ -6,31 +6,29 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_CITY_LIST;
 import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_LIST;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_CURR_CITY_LIST;
+import static by.epam.project.action.ActionCommand.PARAM_NAME_CURRENT_COUNTRY;
 import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
+import static by.epam.project.action.ActionCommand.PARAM_NAME_SELECT_ID;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author User
  */
-public class GoCreateNewHotel implements ActionCommand {
+public class ShowCitiesOfCountry implements ActionCommand {
 
-    public GoCreateNewHotel() {
+    public ShowCitiesOfCountry() {
     }
 
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
-        
-        request.deleteSessionAttribute(PARAM_NAME_CURRENT_HOTEL);
-        request.deleteSessionAttribute(PARAM_NAME_HOTEL_LIST);
-        request.deleteSessionAttribute(PARAM_NAME_HOTEL_COUNT);
+        String page = (String) request.getSessionAttribute(PARAM_NAME_PAGE);
         
         List<Country> countryList = (List<Country>) request.getSessionAttribute(PARAM_NAME_COUNTRY_LIST);
         if (countryList == null || countryList.isEmpty()){
@@ -43,10 +41,17 @@ public class GoCreateNewHotel implements ActionCommand {
             new GoShowCity().execute(request);
             cityList = (List<City>) request.getSessionAttribute(PARAM_NAME_CITY_LIST);
         }
-        request.setAttribute(PARAM_NAME_CURR_CITY_LIST, cityList);
-        
-        String page = ConfigurationManager.getProperty("path.page.edithotel");
-        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+
+        Integer idCountry = Integer.decode(request.getParameter(PARAM_NAME_SELECT_ID));
+       
+        for (Country c: countryList) {
+            if (Objects.equals(c.getIdCountry(), idCountry)) {
+                request.setSessionAttribute(PARAM_NAME_CURR_CITY_LIST, c.getCityCollection());
+                request.setAttribute(PARAM_NAME_CURRENT_COUNTRY, c);
+                return page;
+            }
+        }
+        request.setSessionAttribute(PARAM_NAME_CURR_CITY_LIST, cityList);
         return page;
     }
     

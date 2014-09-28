@@ -45,33 +45,34 @@ function selectCountry(n){
 }
 
 function selectCity(n){
-    var form = document.getElementByName("updateHotel");
-    var id = form.elements("id_city");
+    var form = document.getElementById("updHotel");
+    var id = form.id_city;
     id.setAttribute("value", n);
     
 }
 
 function selectStars(n){
-    var form = document.getElementByName("updateHotel");
-    var id = form.elements("stars_hotel");
+    var form = document.getElementById("updHotel");
+    var id = form.stars_hotel;
     id.setAttribute("value", n);
 }
 
-function selectCountryShowCities(list){
-    
-    var form = document.getElementByName("updateHotel");
-    var objSel = form.elements("citySelection");
-    objSel.options.length=1;
-    
-    for (var city in list) {
-        var id = city.getAttribute("idCity");
-        var name = city.getAttribute("name");
-        addOption(objSel, name, id, false);
-    }
-    
-    
-    
-}
+//function selectCountryShowCities(path, params, method) {
+//    method = method || "post";
+//    
+//    var form = document.getElementById("updHotel");
+//    var objSel = form.citySelection;
+//    objSel.options.length=1;
+//    
+//    for (var city in list) {
+//        var id = city.getAttribute("idCity");
+//        var name = city.getAttribute("name");
+//        addOption(objSel, name, id, false);
+//    }
+//    
+//    
+//    
+//}
 
 function post(path, params, method) {
     method = method || "post";

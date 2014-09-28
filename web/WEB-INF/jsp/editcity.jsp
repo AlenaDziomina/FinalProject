@@ -10,17 +10,24 @@
         <div class="innerColumn">
             <input type="hidden" name="command" value="saveRedactCity" />
             
-            <input type="hidden" name="id_country" value=""/>
+            <input type="hidden" name="id_country" value="${currCity.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Select country: </h1>
+                    <h1 class="labelH">Select country:</h1>
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
                         <select class="selectContainer" size="1" onclick="if(this.value)(selectCountry(this.value))">      
                             <option class="selectItem" value=""> - Select - </option>
                             <c:forEach items="${countryList}" var="row">
-                                <option class="selectItem" value="${row.idCountry}">${row.name}</option>
+                                <c:choose>
+                                    <c:when test="${row.idCountry == currCity.idCountry}">
+                                        <option class="selectItem" value="${row.idCountry}" selected="true">${row.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option class="selectItem" value="${row.idCountry}">${row.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </select>
                     </div>
