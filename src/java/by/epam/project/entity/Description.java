@@ -23,7 +23,7 @@ public class Description {
     public Description() {
     }
 
-    public Description(int id, String text) {
+    public Description(Integer id, String text) {
         this.idDescription = id;
         this.text = text;
     }

@@ -7,6 +7,7 @@
 package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.dao.query.Criteria;
 
 /**
  *
@@ -29,4 +30,15 @@ public interface ActionCommand {
     
     
     String execute(SessionRequestContent request) throws DaoLogicException;
+    
+    public static void checkParam(SessionRequestContent request, Criteria criteria, String name){
+        
+        String param = (String) request.getParameter(name);
+        if (param != null && !param.isEmpty()) {
+            Integer currParam = Integer.decode(param);
+            if (currParam > 0) {
+                criteria.addParam(name, currParam);
+            }
+        }
+    }
 }

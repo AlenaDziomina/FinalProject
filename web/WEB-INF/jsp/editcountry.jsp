@@ -49,12 +49,10 @@
             <br/>
         
             <div class="parameterRow">
-                
+                <div class="centrale">
                     <input type="submit" value="Save"/>
-                
-            </div>
-            <div class="parameterRow">
-                <div id="erNote">${errorSaveData}</div>
+                    <div id="erNote">${errorSaveData}</div>
+                </div>
             </div>
             
         </div>

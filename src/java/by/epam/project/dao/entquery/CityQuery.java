@@ -97,7 +97,7 @@ public class CityQuery implements TypedQuery<City>{
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList2, sb, separator);
+                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
                 append(PARAM_NAME_NAME_CITY, "name", criteria, paramList, sb, separator);
                 append(PARAM_NAME_STATUS_CITY, "status", criteria, paramList, sb, separator);
                 append(PARAM_NAME_PICTURE_CITY, "picture", criteria, paramList, sb, separator);

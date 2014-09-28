@@ -62,7 +62,7 @@ public class Params {
                     sb.append(separator);
                 }
                 sb.append(columnName);
-                sb.append(" = ?");
+                sb.append(" = ? ");
                 list.add(obj);
             }
         }

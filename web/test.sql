@@ -109,6 +109,7 @@
 --        constraint fk_city_description_id foreign key (id_description) references description(id_description)
 -- );
 
+alter table hotel modify column id_description int default null;
 
 -- CREATE TABLE hotel (
 --        id_hotel             int NOT NULL auto_increment,
@@ -135,7 +136,7 @@
 
 -- select * from peoples;
 -- insert into peoples(f_fio) values ('ttt');
-SELECT * from peoples where id = LAST_INSERT_ID();
+--SELECT * from peoples where id = LAST_INSERT_ID();
 
 
 

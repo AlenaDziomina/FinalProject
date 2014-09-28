@@ -6,13 +6,12 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
-import static by.epam.project.action.ActionCommand.checkParam;
+import static by.epam.project.action.ActionCommand.*;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.logic.CityLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 
@@ -20,9 +19,9 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-class SaveRedactCountry implements ActionCommand {
+public class SaveRedactCity implements ActionCommand {
 
-    public SaveRedactCountry() {
+    public SaveRedactCity() {
     }
 
     @Override
@@ -32,24 +31,25 @@ class SaveRedactCountry implements ActionCommand {
         Criteria criteria = new Criteria();
         
         checkParam(request, criteria, PARAM_NAME_ID_COUNTRY);
+        checkParam(request, criteria, PARAM_NAME_ID_CITY);
         checkParam(request, criteria, PARAM_NAME_ID_DESCRIPTION);
         
         criteria.addParam(PARAM_NAME_ROLE, request.getSessionAttribute(PARAM_NAME_ROLE));
         criteria.addParam(PARAM_NAME_LOGIN, request.getSessionAttribute(PARAM_NAME_ROLE));
-        criteria.addParam(PARAM_NAME_NAME_COUNTRY, request.getParameter(PARAM_NAME_NAME_COUNTRY));
-        criteria.addParam(PARAM_NAME_PICTURE_COUNTRY, request.getParameter(PARAM_NAME_PICTURE_COUNTRY));
+        criteria.addParam(PARAM_NAME_NAME_CITY, request.getParameter(PARAM_NAME_NAME_CITY));
+        criteria.addParam(PARAM_NAME_PICTURE_CITY, request.getParameter(PARAM_NAME_PICTURE_CITY));
         criteria.addParam(PARAM_NAME_TEXT_DESCRIPTION, request.getParameter(PARAM_NAME_TEXT_DESCRIPTION));
         
         try {
-            Integer resIdCountry = CountryLogic.redactCountry(criteria);
-            if (resIdCountry == null) {
-                page = ConfigurationManager.getProperty("path.page.editcountry");
+            Integer resIdCity = CityLogic.redactCity(criteria);
+            if (resIdCity == null) {
+                page = ConfigurationManager.getProperty("path.page.editcity");
                 request.setSessionAttribute(PARAM_NAME_PAGE, page);
                 request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
             } else {
-                new GoShowCountry().execute(request);
-                request.setParameter(PARAM_NAME_SELECT_ID, resIdCountry.toString());
-                page = new ShowCountry().execute(request);
+                new GoShowCity().execute(request);
+                request.setParameter(PARAM_NAME_SELECT_ID, resIdCity.toString());
+                page = new ShowCity().execute(request);
                 request.setSessionAttribute(PARAM_NAME_PAGE, page);
             }
             return page;

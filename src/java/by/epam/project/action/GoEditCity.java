@@ -14,18 +14,19 @@ import by.epam.project.manager.ConfigurationManager;
  *
  * @author User
  */
-class GoCreateNewCounry implements ActionCommand {
+public class GoEditCity implements ActionCommand {
 
-    public GoCreateNewCounry() {
+    public GoEditCity() {
     }
 
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
-        String page = ConfigurationManager.getProperty("path.page.editcountry");
+        
+        request.deleteSessionAttribute(PARAM_NAME_CITY_LIST);
+        request.deleteSessionAttribute(PARAM_NAME_CITY_COUNT);
+        new GoShowCountry().execute(request);
+        String page = ConfigurationManager.getProperty("path.page.editcity");
         request.setSessionAttribute(PARAM_NAME_PAGE, page);
-        request.deleteSessionAttribute(PARAM_NAME_CURRENT_COUNTRY);
-        request.deleteSessionAttribute(PARAM_NAME_COUNTRY_LIST);
-        request.deleteSessionAttribute(PARAM_NAME_COUNTRY_COUNT);
         return page;
     }
     

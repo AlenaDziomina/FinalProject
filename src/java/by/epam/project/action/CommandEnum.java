@@ -51,9 +51,14 @@ public enum CommandEnum {
             setCurrentCommand(new GoShowCountry());
         }
     },
+    SHOWCOUNTRY {
+        {
+            setCurrentCommand(new ShowCountry());
+        }
+    },
     GOCREATENEWCOUNTRY {
         {
-            setCurrentCommand(new GoCreateNewCounry());
+            setCurrentCommand(new GoCreateNewCountry());
         }
     },
     GOEDITCOUNTRY {
@@ -71,16 +76,51 @@ public enum CommandEnum {
             setCurrentCommand(new GoShowCity());
         }
     },
+    SHOWCITY {
+        {
+            setCurrentCommand(new ShowCity());
+        }
+    },
+    GOCREATENEWCITY {
+        {
+            setCurrentCommand(new GoCreateNewCity());
+        }
+    },
+    GOEDITCITY {
+        {
+            setCurrentCommand(new GoEditCity());
+        }
+    },
+    SAVEREDACTCITY {
+        {
+            setCurrentCommand(new SaveRedactCity());
+        }
+    },
     GOSHOWHOTEL {
         {
             setCurrentCommand(new GoShowHotel());
         }
     },
-    SHOWCOUNTRY {
+    SHOWHOTEL {
         {
-            setCurrentCommand(new ShowCountry());
+            setCurrentCommand(new ShowHotel());
         }
-    };
+    },
+    GOCREATENEWHOTEL {
+        {
+            setCurrentCommand(new GoCreateNewHotel());
+        }
+    },
+    GOEDITHOTEL {
+        {
+            setCurrentCommand(new GoEditHotel());
+        }
+    },
+    SAVEREDACTHOTEL {
+        {
+            setCurrentCommand(new SaveRedactHotel());
+        }
+    },;
             
             
     
