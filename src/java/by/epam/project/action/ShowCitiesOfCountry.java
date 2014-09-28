@@ -6,14 +6,11 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_LIST;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_CURRENT_COUNTRY;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_SELECT_ID;
+import static by.epam.project.action.ActionCommand.*;
+
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
-import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 import java.util.Objects;
 
