@@ -10,7 +10,8 @@
         <div class="innerColumn">
             <input type="hidden" name="command" value="saveRedactHotel" />
             
-            <input type="hidden" name="id_country" value="$(currCountry.idCountry)"/>
+            
+            <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH">Select country: </h1>
@@ -34,7 +35,7 @@
                 </div>
             </div>
             
-            <input type="hidden" name="id_city" value=""/>
+            <input type="hidden" name="id_city" value="${currHotel.idCity}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH">Select city: </h1>
@@ -44,7 +45,14 @@
                         <select name="citySelection" class="selectContainer" size="1" onclick="if(this.value)(selectCity(this.value))">      
                             <option class="selectItem" value=""> - Select - </option>
                             <c:forEach items="${currCityList}" var="row">
-                                <option class="selectItem" value="${row.idCity}">${row.name}</option>
+                                <c:choose>
+                                    <c:when test="${row.idCity == currHotel.idCity}">
+                                        <option class="selectItem" value="${row.idCity}" selected="true">${row.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option class="selectItem" value="${row.idCity}">${row.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </select>
                     </div>
@@ -63,7 +71,7 @@
                 </div>
             </div>
             
-            <input type="hidden" name="stars_hotel" value=""/>        
+            <input type="hidden" name="stars_hotel" value="${currHotel.stars}"/>        
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH">Select hotel stars: </h1>
@@ -72,11 +80,16 @@
                     <div class="innerColumn">
                         <select name="citySelection" class="selectContainer" size="1" onclick="if(this.value)(selectStars(this.value))">      
                             <option class="selectItem" value=""> - Select - </option>
-                            <option class="selectItem" value="1"> 1* </option>
-                            <option class="selectItem" value="2"> 2* </option>
-                            <option class="selectItem" value="3"> 3* </option>
-                            <option class="selectItem" value="4"> 4* </option>
-                            <option class="selectItem" value="5"> 5* </option>
+                            <c:forEach var="i" begin="1" end="5">
+                                <c:choose>
+                                    <c:when test="${i == currHotel.stars}">
+                                        <option class="selectItem" value="${i}" selected="true">${i}*</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option class="selectItem" value="${i}">${i}*</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

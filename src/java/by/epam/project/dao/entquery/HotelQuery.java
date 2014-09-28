@@ -36,7 +36,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
     public List<Integer> save(List<Hotel> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
             return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (Hotel bean) -> {
-                Object[] objects = new Object[3];
+                Object[] objects = new Object[5];
                 objects[0] = bean.getIdCity();
                 objects[1] = bean.getName();
                 objects[2] = bean.getStars();
@@ -83,7 +83,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
                 bean.setStars(rs.getInt("stars"));
                 bean.setPicture(rs.getString("picture"));
                 bean.setDescription(new Description(rs.getInt("id_description"), rs.getString("text")));
-                bean.setIdCity(rs.getInt("id_country"));
+                bean.setIdCity(rs.getInt("id_city"));
                 return bean;
             });
         } catch (DaoException ex) {

@@ -12,6 +12,7 @@ import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Hotel;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 
@@ -40,6 +41,20 @@ public class GoEditHotel implements ActionCommand {
             new GoShowCity().execute(request);
             cityList = (List<City>) request.getSessionAttribute(PARAM_NAME_CITY_LIST);
         }
+        
+        Hotel hotel = (Hotel) request.getSessionAttribute(PARAM_NAME_CURRENT_HOTEL);
+        Integer idCity = hotel.getIdCity();
+        for (City c: cityList) {
+            if (c.getIdCity().equals(idCity)) {
+                Integer idCountry = c.getIdCountry();
+                for (Country cntr: countryList) {
+                    if (cntr.getIdCountry().equals(idCountry)){
+                         request.setAttribute(PARAM_NAME_CURRENT_COUNTRY, cntr);
+                    }
+                }
+            }
+        }
+        
         request.setAttribute(PARAM_NAME_CURR_CITY_LIST, cityList);
         
         request.deleteSessionAttribute(PARAM_NAME_HOTEL_LIST);
