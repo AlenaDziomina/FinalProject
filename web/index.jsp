@@ -14,7 +14,7 @@
 
     <form action="controller" method="GET" name="indexForm">    
         <input type="hidden" name="command" value="getsession" />
-        <input type="submit" value="GetSession">
+        <input type="submit" value="<fmt:message key="getSession" bundle="${ rb }" />">
     </form>
 </div>
     

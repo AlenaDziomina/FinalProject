@@ -55,5 +55,13 @@
                 <img src="#" id="menuText" alt="<fmt:message key="hotels" bundle="${ rb }" />">
             </a>
             
+            <a href="controller?command=goShowDirections" class="menuHref">
+                <img src="#" id="menuText" alt="<fmt:message key="directions" bundle="${ rb }" />">
+            </a>
+            
+            <a href="controller?command=goShowTours" class="menuHref">
+                <img src="#" id="menuText" alt="<fmt:message key="tours" bundle="${ rb }" />">
+            </a>
+            
 
         </div>

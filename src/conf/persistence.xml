@@ -10,7 +10,6 @@
     <class>by.epam.project.entity.TourType</class>
     <class>by.epam.project.entity.TransportationMode</class>
     <class>by.epam.project.entity.Tour</class>
-    <class>by.epam.project.entity.Direction_1</class>
     <class>by.epam.project.entity.Direction</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
