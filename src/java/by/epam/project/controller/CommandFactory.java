@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.factory;
+package by.epam.project.controller;
 
 import by.epam.project.action.ActionCommand;
 import by.epam.project.action.CommandEnum;

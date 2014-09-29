@@ -6,42 +6,12 @@
 
 
 
-function popup() {
-    alert("Hello World");
-}
-
-function fsrc(n){
-    
-    
-    
-    document.getElementById("images").src = n;
-    
-    
-    
-    var div = document.getElementById("textDiv");
-    div.textContent = n;
-    var text = div.textContent;
-    
-        
-//    var StringArray = Java.type("java.lang.String[]");
-//    var a = new StringArray(5);
-//
-//    // Set the value of the first element
-//    a[0] = "Scripting is great!";
-//    
-//    var div2 = document.getElementById("textDiv2");
-//    div2.textContent = a[0];
-//    var text2 = div2.textContent;
-    
-}
 
 function selectCountry(n){
     var form = document.getElementById("updCity");
     var id = form.id_country;
     id.setAttribute("value", n);
-    
-    
-    
+  
 }
 
 function selectCity(n){
@@ -57,22 +27,6 @@ function selectStars(n){
     id.setAttribute("value", n);
 }
 
-//function selectCountryShowCities(path, params, method) {
-//    method = method || "post";
-//    
-//    var form = document.getElementById("updHotel");
-//    var objSel = form.citySelection;
-//    objSel.options.length=1;
-//    
-//    for (var city in list) {
-//        var id = city.getAttribute("idCity");
-//        var name = city.getAttribute("name");
-//        addOption(objSel, name, id, false);
-//    }
-//    
-//    
-//    
-//}
 
 function post(path, params, method) {
     method = method || "post";
