@@ -6,13 +6,13 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
+import static by.epam.project.action.ActionCommand.*;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.Country;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.entity.Direction;
+import by.epam.project.logic.DirectionLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import java.util.List;
@@ -21,14 +21,12 @@ import java.util.List;
  *
  * @author User
  */
-class GoShowCountry implements ActionCommand {
-
-    public GoShowCountry() {
-    }
+public class GoShowDirections implements ActionCommand {
+    
 
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
-        String page = ConfigurationManager.getProperty("path.page.countries");
+        String page = ConfigurationManager.getProperty("path.page.directions");
         request.setSessionAttribute(PARAM_NAME_PAGE, page);
         
         Criteria criteria = new Criteria();
@@ -36,10 +34,10 @@ class GoShowCountry implements ActionCommand {
         criteria.addParam(PARAM_NAME_ROLE, request.getSessionAttribute(PARAM_NAME_ROLE));
         
         try {
-            List<Country> countrys = CountryLogic.getCountries(criteria);
-            if (countrys != null || !countrys.isEmpty()) {
-                request.setSessionAttribute(PARAM_NAME_COUNTRY_LIST, countrys);
-                request.setSessionAttribute(PARAM_NAME_COUNTRY_COUNT, countrys.size());
+            List<Direction> directions = DirectionLogic.getDirections(criteria);
+            if (directions != null || !directions.isEmpty()) {
+                request.setSessionAttribute(PARAM_NAME_DIRECTION_LIST, directions);
+                request.setSessionAttribute(PARAM_NAME_DIRECTION_COUNT, directions.size());
             } else {
                 request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
             }
@@ -48,8 +46,5 @@ class GoShowCountry implements ActionCommand {
         } catch (DaoException ex) {
             throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
         }
-        
-        
     }
-    
 }

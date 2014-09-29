@@ -28,7 +28,12 @@ public interface ActionCommand {
     static final String PARAM_NAME_HOTEL_COUNT = "hotelCount";
     static final String PARAM_NAME_CURRENT_HOTEL = "currHotel";
     static final String PARAM_NAME_SELECT_ID = "selectId";
-    
+    static final String PARAM_NAME_DIRECTION_LIST = "directionList";
+    static final String PARAM_NAME_DIRECTION_COUNT = "directionCount";
+    static final String PARAM_NAME_CURRENT_DIRECTION = "currDirection";
+    static final String PARAM_NAME_TOUR_TYPE_LIST = "tourTypeList";
+    static final String PARAM_NAME_TOUR_TYPE_COUNT = "tourTypeCount";
+    static final String PARAM_NAME_TRANS_MODE_LIST = "transModeList";
     
     String execute(SessionRequestContent request) throws DaoLogicException;
     

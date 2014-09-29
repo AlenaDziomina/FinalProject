@@ -17,7 +17,7 @@
             </select>
             <form method="POST" action="controller">
                 <input type="hidden" name="command" value="goCreateNewHotel" />
-                <input type="submit" value="New Hotel"/>
+                <input type="submit" value="<fmt:message key="newHotel" bundle="${ rb }" />"/>
             </form>
             
        </div>
@@ -33,7 +33,7 @@
 
             <form method="POST" action="controller">
                 <input type="hidden" name="command" value="goEditHotel" />
-                <input type="submit" value="Edit Hotel"/>
+                <input type="submit" value="<fmt:message key="editHotel" bundle="${ rb }" />"/>
             </form>
         </div>
     </div>

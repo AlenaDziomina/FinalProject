@@ -23,13 +23,13 @@
                 <div id="login_container">
                     <c:choose>
                         <c:when test="${empty login}">
-                            <a href="controller?command=gologin"><fmt:message key="login" bundle="${ rb }" /></a>
+                            <a href="controller?command=gologin"><fmt:message key="tologin" bundle="${ rb }" /></a>
                             <fmt:message key="or" bundle="${ rb }" />
                             <a href="controller?command=goregistration"><fmt:message key="registration" bundle="${ rb }" /></a>
                         </c:when>
                         <c:otherwise>
                             <fmt:message key="welcome" bundle="${ rb }" />, ${login}
-                            <a href="controller?command=logout"><fmt:message key="logout" bundle="${ rb }" /></a>
+                            <a href="controller?command=logout"><fmt:message key="tologout" bundle="${ rb }" /></a>
                         </c:otherwise>
                     </c:choose>
                 </div>

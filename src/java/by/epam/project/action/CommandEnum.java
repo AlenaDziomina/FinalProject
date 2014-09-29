@@ -125,6 +125,16 @@ public enum CommandEnum {
         {
             setCurrentCommand(new ShowCitiesOfCountry());
         }
+    },
+    GOSHOWDIRECTIONS {
+        {
+            setCurrentCommand(new GoShowDirections());
+        }
+    },
+    GOCREATENEWDIRECTION {
+        {
+            setCurrentCommand(new GoCreateNewDirection());
+        }
     };
             
             

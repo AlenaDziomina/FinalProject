@@ -12,12 +12,12 @@
         <div class="innerColumn">
             <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCountry'}, 'POST'))">               
                 <c:forEach items="${countryList}" var="row">
-                    <option class="menuHref" value="${row.idCountry}">${row.name}</option>
+                    <option class="menuHref" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                 </c:forEach>
             </select>
             <form method="POST" action="controller">
                 <input type="hidden" name="command" value="goCreateNewCountry" />
-                <input type="submit" value="New Country"/>
+                <input type="submit" value="<fmt:message key="newCountry" bundle="${ rb }" />"/>
             </form>
             
        </div>
@@ -33,7 +33,7 @@
 
             <form method="POST" action="controller">
                 <input type="hidden" name="command" value="goEditCountry" />
-                <input type="submit" value="Edit Country"/>
+                <input type="submit" value="<fmt:message key="editCountry" bundle="${ rb }" />"/>
             </form>
         </div>
     </div>
@@ -42,7 +42,7 @@
         <div class="innerColumn">
             <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCity'}, 'POST'))">               
                 <c:forEach items="${currCountry.cityCollection}" var="row">
-                    <option class="menuHref" value="${row.idCity}">${row.name}</option>
+                    <option class="menuHref" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                 </c:forEach>
             </select>
        </div>

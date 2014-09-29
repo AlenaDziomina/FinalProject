@@ -14,19 +14,19 @@
             <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Select country: </h1>
+                    <h1 class="labelH"><fmt:message key="selectCountry" bundle="${ rb }" />: </h1>
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
                         <select class="selectContainer" size="1" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCitiesOfCountry'}, 'POST'))">      
-                            <option class="selectItem" value="0"> - Select - </option>
+                            <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                             <c:forEach items="${countryList}" var="row">
                                 <c:choose>
                                     <c:when test="${row.idCountry == currCountry.idCountry}">
-                                        <option class="selectItem" value="${row.idCountry}" selected="true">${row.name}</option>
+                                        <option class="selectItem" value="${row.idCountry}" selected="true"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option class="selectItem" value="${row.idCountry}">${row.name}</option>
+                                        <option class="selectItem" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -38,19 +38,19 @@
             <input type="hidden" name="id_city" value="${currHotel.idCity}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Select city: </h1>
+                    <h1 class="labelH"><fmt:message key="selectCity" bundle="${ rb }" />: </h1>
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
                         <select name="citySelection" class="selectContainer" size="1" onclick="if(this.value)(selectCity(this.value))">      
-                            <option class="selectItem" value=""> - Select - </option>
+                            <option class="selectItem" value=""> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                             <c:forEach items="${currCityList}" var="row">
                                 <c:choose>
                                     <c:when test="${row.idCity == currHotel.idCity}">
-                                        <option class="selectItem" value="${row.idCity}" selected="true">${row.name}</option>
+                                        <option class="selectItem" value="${row.idCity}" selected="true"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option class="selectItem" value="${row.idCity}">${row.name}</option>
+                                        <option class="selectItem" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -62,7 +62,7 @@
             <input type="hidden" name="id_hotel" value="${currHotel.idHotel}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Hotel name: </h1> 
+                    <h1 class="labelH"><fmt:message key="hotelName" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
@@ -74,12 +74,12 @@
             <input type="hidden" name="stars_hotel" value="${currHotel.stars}"/>        
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Select hotel stars: </h1>
+                    <h1 class="labelH"><fmt:message key="selectHotelStars" bundle="${ rb }" />: </h1>
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
                         <select name="citySelection" class="selectContainer" size="1" onclick="if(this.value)(selectStars(this.value))">      
-                            <option class="selectItem" value=""> - Select - </option>
+                            <option class="selectItem" value=""> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                             <c:forEach var="i" begin="1" end="5">
                                 <c:choose>
                                     <c:when test="${i == currHotel.stars}">
@@ -98,7 +98,7 @@
             
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Hotel picture:</h1> 
+                    <h1 class="labelH"><fmt:message key="hotelPicture" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
@@ -110,7 +110,7 @@
             <input type="hidden" name="id_description" value="${currHotel.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Hotel description:</h1> 
+                    <h1 class="labelH"><fmt:message key="hotelDescription" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
@@ -123,7 +123,7 @@
         
             <div class="parameterRow">
                 <div class="centrale">
-                    <input type="submit" value="Save"/>
+                    <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />"/>
                     <div id="erNote">${errorSaveData}</div>
                 </div>
             </div>

@@ -9,7 +9,10 @@ package by.epam.project.dao;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
+import by.epam.project.entity.TourType;
+import by.epam.project.entity.TransportationMode;
 import by.epam.project.entity.User;
 import java.util.List;
 
@@ -25,4 +28,8 @@ public interface GuestDao extends AbstractDao {
     public List<Country> toShowCountries(Criteria criteria) throws DaoException;
     public List<City> toShowCities(Criteria criteria) throws DaoException;
     public List<Hotel> toShowHotels(Criteria criteria) throws DaoException;
+    public List<TourType> toShowTourTypes (Criteria criteria) throws DaoException;
+    public List<TransportationMode> toShowTransModes (Criteria criteria) throws DaoException;
+    public List<Direction> toShowDirections(Criteria criteria) throws DaoException;
+    
 }

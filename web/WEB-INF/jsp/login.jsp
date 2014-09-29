@@ -12,14 +12,14 @@
     
     <form name="loginForm" method="POST" action="controller">
         <input type="hidden" name="command" value="login" />
-        Login:<br/>
+        <fmt:message key="login" bundle="${ rb }" />:<br/>
         <input type="text" name="login" value=""/><br/>
-        Password:<br/>
+        <fmt:message key="password" bundle="${ rb }" />:<br/>
         <input type="password" name="password" value=""/><br/>      
         <div id="erNote">${errorLoginPassMessage}</div>   
         <div id="erNote">${wrongAction}</div>
         <div id="erNote">${nullPage}</div>
-        <input type="submit" value="Log in"/>
+        <input type="submit" value="<fmt:message key="log_in" bundle="${ rb }" />"/>
     </form>
         
 </body>

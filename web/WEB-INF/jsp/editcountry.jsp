@@ -13,7 +13,7 @@
             <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Country name: </h1> 
+                    <h1 class="labelH"><fmt:message key="countryName" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
@@ -25,7 +25,7 @@
             
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Country picture:</h1> 
+                    <h1 class="labelH"><fmt:message key="countryPicture" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
@@ -37,7 +37,7 @@
             <input type="hidden" name="id_description" value="${currCountry.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
-                    <h1 class="labelH">Country description:</h1> 
+                    <h1 class="labelH"><fmt:message key="countryDescription" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
@@ -50,7 +50,7 @@
         
             <div class="parameterRow">
                 <div class="centrale">
-                    <input type="submit" value="Save"/>
+                    <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />"/>
                     <div id="erNote">${errorSaveData}</div>
                 </div>
             </div>

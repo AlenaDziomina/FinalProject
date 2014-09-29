@@ -6,17 +6,23 @@
 
 package by.epam.project.dao;
 
-import by.epam.project.dao.entquery.CityQuery;
+import by.epam.project.dao.entquery.*;
 import by.epam.project.dao.entquery.CountryQuery;
+import by.epam.project.dao.entquery.DirectionQuery;
 import by.epam.project.dao.entquery.HotelQuery;
 import by.epam.project.dao.entquery.RoleQuery;
+import by.epam.project.dao.entquery.TourTypeQuery;
+import by.epam.project.dao.entquery.TransModeQuery;
 import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.Role;
+import by.epam.project.entity.TourType;
+import by.epam.project.entity.TransportationMode;
 import by.epam.project.entity.User;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -161,6 +167,36 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         try {
             List<Hotel> hotels = new HotelQuery().load(criteria, loadDao, mysqlConn);
             return hotels;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+    
+    @Override
+    public List<TourType> toShowTourTypes (Criteria criteria) throws DaoException {
+        try {
+            List<TourType> types = new TourTypeQuery().load(criteria, loadDao, mysqlConn);
+            return types;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+    
+    @Override
+    public List<TransportationMode> toShowTransModes (Criteria criteria) throws DaoException {
+        try {
+            List<TransportationMode> modes = new TransModeQuery().load(criteria, loadDao, mysqlConn);
+            return modes;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+
+    @Override
+    public List<Direction> toShowDirections(Criteria criteria) throws DaoException {
+        try {
+            List<Direction> directions = new DirectionQuery().load(criteria, loadDao, mysqlConn);
+            return directions;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }
