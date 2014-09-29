@@ -6,6 +6,12 @@
     <class>by.epam.project.entity.City</class>
     <class>by.epam.project.entity.Description</class>
     <class>by.epam.project.entity.Hotel</class>
+    <class>by.epam.project.entity.DirectionStayHotels</class>
+    <class>by.epam.project.entity.TourType</class>
+    <class>by.epam.project.entity.TransportationMode</class>
+    <class>by.epam.project.entity.Tour</class>
+    <class>by.epam.project.entity.Direction_1</class>
+    <class>by.epam.project.entity.Direction</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/newdb"/>

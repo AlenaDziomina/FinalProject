@@ -109,7 +109,7 @@
 --        constraint fk_city_description_id foreign key (id_description) references description(id_description)
 -- );
 
-alter table hotel modify column id_description int default null;
+--alter table hotel modify column id_description int default null;
 
 -- CREATE TABLE hotel (
 --        id_hotel             int NOT NULL auto_increment,
@@ -125,6 +125,9 @@ alter table hotel modify column id_description int default null;
 --        constraint fk_hotel_description_id foreign key (id_description) references description(id_description)
 -- )
 
+
+
+
 -- insert into description(text) values 
 -- ('<h>ITALY</h><p>Italy, one of the most romantic and most visited countries in the world. Every corner of this country - is unique and unique. </p>
 -- <p>Italy - the country that have nothing to compare - as she is beautiful and majestic. Fragile, delicate from the endless bridges and canals of Venice. Center of the universe "caput mundi" - the great Rome. Cultural and artistic heart of the world since the Renaissance - Florence proud. And how many of them still, small historic towns of Italy, sealed for centuries by artists and poets, perennial caches past and present! This country can not be used, and every building here, each bend of the street - a work of art of the Supreme Creator.</p>
@@ -138,6 +141,109 @@ alter table hotel modify column id_description int default null;
 -- insert into peoples(f_fio) values ('ttt');
 --SELECT * from peoples where id = LAST_INSERT_ID();
 
+-- CREATE TABLE tour_type (
+--     id_tour_type     int not null auto_increment,
+--     name_tour_type   varchar(60) not null,
+--     primary key (id_tour_type),
+--     unique (id_tour_type)
+-- );
+
+-- insert into tour_type(name_tour_type) values ("excursion tour"), 
+--                                             ("recreation tour "),
+--                                             ("weekend tour"),
+--                                             ("shopping tour"),
+--                                             ("ski tour");
+
+-- CREATE TABLE transportation_mode (
+--     id_mode     int not null auto_increment,
+--     name_mode   varchar(60) not null,
+--     primary key (id_mode),
+--     unique (id_mode)
+-- );
+
+--insert into transportation_mode(name_mode) values ("air"), ("bus"), ("train"), ("ship");
+
+
+-- CREATE TABLE direction (
+--         id_direction         int NOT NULL auto_increment,
+--         id_tour_type        int not null,
+--         id_mode             int not null,
+--         id_description       int not null,
+--         name                 varchar(80) NOT NULL,
+--         picture             varchar(60) not null,
+--         text                 varchar(20) NULL,
+--         status               TINYINT default 1,
+--         primary key (id_direction),
+--         unique (id_direction),
+--         constraint fk_direction_type_id foreign key (id_tour_type) references tour_type(id_tour_type),
+--         constraint fk_direction_mode_id foreign key (id_mode) references transportation_mode(id_mode),
+--         constraint fk_direction_description_id foreign key (id_description) references description(id_description)
+-- )
+
+-- CREATE TABLE direction_cities (
+--        id_city              int NOT NULL,
+--        id_direction         int NOT NULL,
+--        constraint fk_direction_cities_id_city foreign key (id_city) references city(id_city) on delete cascade,
+--        constraint fk_direction_cities_id_direction foreign key (id_direction) references direction(id_direction) on delete cascade
+-- )
+
+
+-- CREATE TABLE direction_countries (
+--        id_country           int NOT NULL,
+--        id_direction         int NOT NULL,
+--        constraint fk_direction_countries_id_country foreign key (id_country) references country(id_country) on delete cascade,
+--        constraint fk_direction_countrues_id_direction foreign key (id_direction) references direction(id_direction) on delete cascade
+-- )
+
+-- CREATE TABLE direction_stay_hotels (
+--        id_stay              int NOT NULL,
+--        stay_no              int NOT NULL,
+--        id_hotel             int NOT NULL,
+--        id_direction         int NOT NULL,
+--        status               TINYINT default 1,
+--        primary key (id_stay),
+--        unique (id_stay),
+--        constraint fk_direction_stay_hotels_id_hotel foreign key (id_hotel) references hotel(id_hotel),
+--        constraint fk_direction_stay_hotels_id_direction foreign key (id_direction) references direction(id_direction)
+-- )
+
+
+-- CREATE TABLE room_type (
+--     id_room_type int not null auto_increment,
+--     name_room_type   varchar(20) not null,
+--     primary key (id_room_type),
+--     unique (id_room_type)
+-- );
+
+
+--insert into room_type(name_room_type) values ("Budget"), ("Economy"), ("Moderate"), ("Deluxe"), ("Premium");
+
+-- CREATE TABLE hotel_rooms (
+--     id_room int not null auto_increment,
+--     id_hotel int not null,
+--     id_room_type int not null,
+--     price float,
+--     primary key (id_room),
+--     unique (id_room),
+--     constraint fk_hotel_rooms_id_hotel foreign key (id_hotel) references hotel(id_hotel),
+--     constraint fk_hotel_room_id_room_type foreign key (id_room_type) references room_type(id_room_type)
+-- );
+
+
+-- CREATE TABLE tour (
+--     id_tour int not null auto_increment,
+--     id_direction int not null,
+--     departure_date date,
+--     days_count  int,
+--     price   float,
+--     discount    int,
+--     total_seats int,
+--     free_seats int default 0,
+--     primary key (id_tour),
+--     unique (id_tour),
+--     constraint fk_tour_id_direction foreign key (id_direction) references direction(id_direction)
+-- 
+--     )
 
 
 
@@ -147,76 +253,10 @@ alter table hotel modify column id_description int default null;
 
 
 
--- -- CREATE TABLE direction (
--- --        name                 varchar(20) NULL,
--- --        id_direction         int NOT NULL,
--- --        text                 varchar(20) NULL,
--- --        type                 varchar(20) NULL,
--- --        status               int NULL
--- -- )
--- -- go
--- -- 
--- -- 
--- -- ALTER TABLE direction
--- --        ADD PRIMARY KEY NONCLUSTERED (id_direction)
--- -- go
--- -- 
--- --       
--- --       /*
--- --       ACTION is CREATE Table direction_cityes
--- --       */
--- -- 
--- -- CREATE TABLE direction_cityes (
--- --        id_city              int NOT NULL,
--- --        id_direction         int NOT NULL
--- -- )
--- -- go
--- -- 
--- -- 
--- -- ALTER TABLE direction_cityes
--- --        ADD PRIMARY KEY NONCLUSTERED (id_city, id_direction)
--- -- go
--- -- 
--- --       
--- --       /*
--- --       ACTION is CREATE Table direction_countrys
--- --       */
--- -- 
--- -- CREATE TABLE direction_countrys (
--- --        id_country           int NOT NULL,
--- --        id_direction         int NOT NULL
--- -- )
--- -- go
--- -- 
--- -- 
--- -- ALTER TABLE direction_countrys
--- --        ADD PRIMARY KEY NONCLUSTERED (id_country, id_direction)
--- -- go
--- -- 
--- --       
--- --       /*
--- --       ACTION is CREATE Table hotels
--- --       */
--- -- 
 
--- -- CREATE TABLE direction_stays_hotels (
--- --        id_stay              int NOT NULL,
--- --        id_direction         int NOT NULL,
--- --        stay_no              int NULL,
--- --        id_hotel             int NOT NULL,
--- --        status               int NULL
--- -- )
--- -- go
--- -- 
--- -- 
--- -- ALTER TABLE direction_stays_hotels
--- --        ADD PRIMARY KEY NONCLUSTERED (id_stay)
--- -- go
--- -- 
--- --       
--- --       /*
--- --       ACTION is CREATE Table order
--- --       */
+
+
+
 -- -- 
 -- -- CREATE TABLE order (
 -- --        date                 datetime NULL,
