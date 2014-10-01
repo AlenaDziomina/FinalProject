@@ -11,6 +11,7 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
+import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransportationMode;
 import by.epam.project.entity.User;
@@ -31,5 +32,6 @@ public interface GuestDao extends AbstractDao {
     public List<TourType> toShowTourTypes (Criteria criteria) throws DaoException;
     public List<TransportationMode> toShowTransModes (Criteria criteria) throws DaoException;
     public List<Direction> toShowDirections(Criteria criteria) throws DaoException;
+    public List<LinkDirectionCountry> toShowLinkDirectionCountry(Criteria criteria) throws DaoException;
     
 }

@@ -8,6 +8,8 @@ package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.dao.query.Criteria;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  *
@@ -66,5 +68,32 @@ public interface ActionCommand {
                 criteria.addParam(name, currParam);
             }
         }
+    }
+    
+    public static void checkParam(SessionRequestContent request, Criteria criteria, String name1, String name2){
+        
+        String param = (String) request.getParameter(name1);
+        if (param != null && !param.isEmpty()) {
+            Integer currParam = Integer.decode(param);
+            if (currParam > 0) {
+                criteria.addParam(name2, currParam);
+            }
+        }
+    }
+    
+    public static void checkArrParam(SessionRequestContent request, Criteria criteria, String name1, String name2){
+        String[] arr = (String[]) request.getAllParameters(name2);
+        Collection<Integer> set = new HashSet();
+        if (arr != null && arr.length > 0) {
+            for (String param : arr) {
+                if (param != null && !param.isEmpty()) {
+                    Integer currParam = Integer.decode(param);
+                    if (currParam > 0) {
+                        set.add(currParam);
+                    }
+                }
+            }
+        }
+        criteria.addParam(name1, set);
     }
 }

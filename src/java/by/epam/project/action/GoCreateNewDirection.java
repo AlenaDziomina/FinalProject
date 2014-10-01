@@ -7,14 +7,7 @@
 package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
-import by.epam.project.entity.City;
-import by.epam.project.entity.Country;
-import by.epam.project.entity.Hotel;
-import by.epam.project.entity.TourType;
-import by.epam.project.entity.TransportationMode;
 import by.epam.project.manager.ConfigurationManager;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

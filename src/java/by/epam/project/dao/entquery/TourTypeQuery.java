@@ -6,10 +6,8 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_ROLE;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR_TYPE;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_TOUR_TYPE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
@@ -19,11 +17,9 @@ import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.entity.Role;
 import by.epam.project.entity.TourType;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

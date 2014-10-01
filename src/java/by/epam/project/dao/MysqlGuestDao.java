@@ -20,6 +20,7 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
+import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransportationMode;
@@ -197,6 +198,16 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         try {
             List<Direction> directions = new DirectionQuery().load(criteria, loadDao, mysqlConn);
             return directions;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+
+    @Override
+    public List<LinkDirectionCountry> toShowLinkDirectionCountry(Criteria criteria) throws DaoException {
+        try {
+            List<LinkDirectionCountry> links = new DirectionCountryQuery().load(criteria, loadDao, mysqlConn);
+            return links;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }

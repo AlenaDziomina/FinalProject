@@ -9,7 +9,6 @@ package by.epam.project.controller;
 import by.epam.project.action.ActionCommand;
 import by.epam.project.action.CommandEnum;
 import by.epam.project.action.EmptyCommand;
-import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.manager.MessageManager;
 
 /**

@@ -10,14 +10,18 @@ import static by.epam.project.dao.MysqlDao.saveDao;
 import by.epam.project.dao.entquery.CityQuery;
 import by.epam.project.dao.entquery.CountryQuery;
 import by.epam.project.dao.entquery.DescriptionQuery;
+import by.epam.project.dao.entquery.DirectionCountryQuery;
+import by.epam.project.dao.entquery.DirectionQuery;
 import by.epam.project.dao.entquery.HotelQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
-import java.sql.SQLException;
+import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.entity.LinkDirectionCountryFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -172,6 +176,33 @@ public class MysqlAdminDao extends MysqlUserDao implements MysqlDao,  AdminDao {
             beans.addParam(PARAM_NAME_ID_HOTEL, idHotel);
             new HotelQuery().update(beans, crit, updateDao, mysqlConn);
             return idHotel;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+
+    @Override
+    public Integer toCreateNewDirection(Criteria criteria) throws DaoException {
+        try {
+            Integer idDescription = toEditDescription(criteria);
+            criteria.addParam(PARAM_NAME_ID_DESCRIPTION, idDescription);
+            List list = new ArrayList<>();
+            list.add(new Direction(criteria));
+            List<Integer> res = new DirectionQuery().save(list, saveDao, mysqlConn);
+            if (res == null || res.isEmpty()) {
+                throw new DaoException("Error in hotel query.");
+            } else {
+                Integer idDirection = res.get(0);
+                criteria.addParam(PARAM_NAME_ID_DIRECTION, idDirection);
+                
+                List<LinkDirectionCountry> linkList1 = LinkDirectionCountryFactory.getInstances(criteria);
+                List<Integer> res1 = new DirectionCountryQuery().save(linkList1, saveDao, mysqlConn);
+                
+                
+                
+                
+                return idDirection;
+            }
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }

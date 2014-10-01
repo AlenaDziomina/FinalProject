@@ -150,6 +150,11 @@ public enum CommandEnum {
         {
             setCurrentCommand(new IfCitySelected());
         }
+    },
+    SHOWDIRECTION {
+        {
+            setCurrentCommand(new ShowDirection());
+        }
     };
             
             

@@ -9,7 +9,6 @@ package by.epam.project.action;
 import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_LOGIN;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
 import by.epam.project.dao.DaoException;

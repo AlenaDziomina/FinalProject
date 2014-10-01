@@ -8,10 +8,8 @@ package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.PARAM_NAME_CITY_LIST;
 import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_LIST;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_CURR_CITY_LIST;
 import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
 import by.epam.project.controller.SessionRequestContent;
-import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;

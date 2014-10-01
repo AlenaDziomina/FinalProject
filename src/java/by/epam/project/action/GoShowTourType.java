@@ -6,17 +6,12 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_HOTEL_COUNT;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_HOTEL_LIST;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_LOGIN;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.Hotel;
 import by.epam.project.entity.TourType;
-import by.epam.project.logic.HotelLogic;
 import by.epam.project.logic.TourTypeLogic;
 import by.epam.project.manager.MessageManager;
 import java.util.List;

@@ -7,7 +7,19 @@
 <div id="main">
     
     <c:forEach items="${directionList}" var="row">
-        DirectionName: ${row.name}</br>
+        <div class="parameterRowB">
+            <img class="smallimg" id="images" src="<%=request.getContextPath()%>${row.picture}">
+            <a href="controller?command=showDirection&id_direction=${row.idDirection}">${row.name}</a>
+            DirectionCountryTags: 
+            <c:forEach items="${row.countryCollection}" var="cntr">
+                ${cntr.name} ${cntr.idCountry} </br>
+            </c:forEach>
+                
+                
+                
+                       
+        </div>
+        
         
     </c:forEach>
         

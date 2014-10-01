@@ -417,3 +417,10 @@ li {
     float: left;
     width: 78%;
 }
+
+.smallimg {
+    width: 150px;
+    height: auto;
+    float: left;
+    margin: 20px;
+}
