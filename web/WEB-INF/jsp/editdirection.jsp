@@ -97,7 +97,7 @@
                             
             <div class="parameterRow">
                 <label  onclick="funcAdd()">ADD HOTEL</label>
-                <div id="currHotelTag" class="checkBoxGroup">
+                <div id="currHotelTag" class="checkBoxGroup2">
                     <input type="checkbox" name="hotelTag" value="0">hotel0<br>
                 </div>
             </div>

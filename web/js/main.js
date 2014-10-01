@@ -140,15 +140,16 @@ function funcAdd(){
     checkbox.type = "checkbox";
     checkbox.name = "hotelTag";
     checkbox.value = i;
-    checkbox.id = "id";
+    checkbox.id = "id"+i;
     
 
     var label = document.createElement('label');
-    label.htmlFor = "id";
-    label.appendChild(document.createTextNode(txt));
-            
+    label.htmlFor = "id"+i;
+    
+    label.appendChild(document.createTextNode(txt));      
     elem.appendChild(checkbox);
     elem.appendChild(label);
+    elem.appendChild(document.createElement("br"));
 }
 
 
