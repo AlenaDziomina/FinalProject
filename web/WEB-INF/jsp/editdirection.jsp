@@ -140,59 +140,49 @@
             </c:forEach>
                 
         
-        <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
+            <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
-                <div class="labelColumn">
-                    <h1 class="labelH"><fmt:message key="countryName" bundle="${ rb }" />: </h1> 
+                <div class="tagColumnS">
+                    <h1 class="labelHT"><fmt:message key="directName" bundle="${ rb }" />: </h1> 
+                    
+                        <input type="text" class="inputLineContainerM" name="name_country" value="${currCountry.name}"/>
+                    
+                    <h1 class="labelHT"><fmt:message key="directPicture" bundle="${ rb }" />:</h1> 
+                    
+                        <input type="text" class="inputLineContainerM" name="picture_country"   value="${currCountry.picture}"/>
+                    
                 </div>
-                <div class="inputColumn">
-                    <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="name_country" value="${currCountry.name}"/>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="parameterRow">
-                <div class="labelColumn">
-                    <h1 class="labelH"><fmt:message key="countryPicture" bundle="${ rb }" />:</h1> 
-                </div>
-                <div class="inputColumn">
-                    <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="picture_country"   value="${currCountry.picture}"/>
-                    </div>
-                </div>      
+                <div class="tagColumnM">
+                    <h1 class="labelHT"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
+                    
+                        <input type="text" class="inputMultilineineContainerB" name="name_country" value="${currCountry.name}"/>
+                    
+                </div>    
             </div>
             
             <input type="hidden" name="id_description" value="${currCountry.description.idDescription}"/>
             <div class="parameterRow">
-                <div class="labelColumn">
-                    <h1 class="labelH"><fmt:message key="countryDescription" bundle="${ rb }" />:</h1> 
+                <div class="labelColumnS">
+                    <h1 class="labelH"><fmt:message key="directDescription" bundle="${ rb }" />:</h1> 
                 </div>
-                <div class="inputColumn">
+                <div class="inputColumnL">
                     <div class="innerColumn">
-                    <textarea name="text_description" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
+                    <textarea name="text_description" class="inputMultilineineContainerD">${currCountry.description.text}</textarea>
                     </div>
                 </div>
             </div>        
-                
-                
-                
-            
-            
-        <div class="parameterRow">
-            <div class="centrale">    
-                <label  onclick="restoreCheck()">saveAll</label>
-                <input type="submit" value="<fmt:message key="SAVE" bundle="${ rb }" />" onclick="saveAll()"/>
-                <div id="erNote">${errorSaveData}</div>
-            </div>
-        </div>   
+                   
+            <div class="parameterRow">
+                <div class="centrale">    
+                    <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAll()"/>
+                    <div id="erNote">${errorSaveData}</div>
+                </div>
+            </div>   
         
+        
+        </div>  
     </form>
     
-       
-        
-        
 
 </div>
 

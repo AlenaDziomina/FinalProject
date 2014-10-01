@@ -381,3 +381,39 @@ li {
     float: left;
 }
 
+.inputLineContainerM {
+    font-family: "League Gotic",Arial,sans-serif;
+    font-size: 17px;
+    padding: 5px;
+    text-align: left;
+    width: 100%;
+}
+
+.inputMultilineineContainerB {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+    text-align:justify;
+    width: 97%;
+    height: auto;
+    min-height: 100px;
+}
+
+.inputMultilineineContainerD {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+    text-align:justify;
+    width: 97%;
+    height: auto;
+    min-height: 100px;
+}
+
+.labelColumnS {
+    float: left;
+    width: 20%;
+}
+.inputColumnL {
+    float: left;
+    width: 78%;
+}
