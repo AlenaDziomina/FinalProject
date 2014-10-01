@@ -135,6 +135,21 @@ public enum CommandEnum {
         {
             setCurrentCommand(new GoCreateNewDirection());
         }
+    },
+    SAVEREDACTDIRECTION {
+        {
+            setCurrentCommand(new SaveRedactDirection());
+        }
+    },
+    IFCOUNTRYSELECTED {
+        {
+            setCurrentCommand(new IfCountrySelected());
+        }
+    }, 
+    IFCITYSELECTED {
+        {
+            setCurrentCommand(new IfCitySelected());
+        }
     };
             
             

@@ -62,6 +62,17 @@ public final class SessionRequestContent {
         
     }
     
+    public String[] getAllParameters(String name){
+        
+        String[] params = this.requestParameters.get(name);
+        if (null == params || params.length < 1) {
+            return null;
+        } else {
+            return params;
+        }
+        
+    }
+    
     public void setParameter(String paramName, String param){
         String[] prms = requestParameters.get(paramName);
         if (prms == null) {
@@ -74,12 +85,20 @@ public final class SessionRequestContent {
         }
     }
     
+    
+    
     public void setAttribute(String attrName, Object attr) {
         if (this.requestAttributes.containsKey(attrName)){
             this.requestAttributes.replace(attrName, attr);
         } else {
             this.requestAttributes.put(attrName, attr);
         }
+    }
+    
+    public Object getAttribute(String attrName) {
+        
+        return this.requestAttributes.get(attrName);
+        
     }
     
     public void sessionInvalidate(){

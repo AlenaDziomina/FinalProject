@@ -8,6 +8,7 @@ package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
 import by.epam.project.controller.SessionRequestContent;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_LOGIN;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
 import by.epam.project.dao.DaoException;
@@ -35,6 +36,7 @@ class GoShowCity implements ActionCommand {
         Criteria criteria = new Criteria();
         criteria.addParam(PARAM_NAME_LOGIN, request.getSessionAttribute(PARAM_NAME_LOGIN));
         criteria.addParam(PARAM_NAME_ROLE, request.getSessionAttribute(PARAM_NAME_ROLE));
+        criteria.addParam(PARAM_NAME_ID_COUNTRY, request.getAttribute(PARAM_NAME_ID_COUNTRY));
         
         try {
             List<City> cities = CityLogic.getCities(criteria);

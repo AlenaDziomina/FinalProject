@@ -11,6 +11,7 @@ import static by.epam.project.action.ActionCommand.*;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +27,10 @@ public class ShowCitiesOfCountry implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
         String page = (String) request.getSessionAttribute(PARAM_NAME_PAGE);
+        
+        if (page == ConfigurationManager.getProperty("path.page.editdirection")){
+            new ProcessSavedParameters().execute(request);
+        }
         
         List<Country> countryList = (List<Country>) request.getSessionAttribute(PARAM_NAME_COUNTRY_LIST);
         if (countryList == null || countryList.isEmpty()){

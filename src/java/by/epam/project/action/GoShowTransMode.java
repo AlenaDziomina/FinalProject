@@ -32,8 +32,8 @@ public class GoShowTransMode implements ActionCommand {
         try {
             List<TransportationMode> modes = TransModeLogic.getTransModes(criteria);
             if (modes != null || !modes.isEmpty()) {
-                request.setSessionAttribute(PARAM_NAME_TOUR_TYPE_LIST, modes);
-                request.setSessionAttribute(PARAM_NAME_TOUR_TYPE_COUNT, modes.size());
+                request.setSessionAttribute(PARAM_NAME_TRANS_MODE_LIST, modes);
+                request.setSessionAttribute(PARAM_NAME_TRANS_MODE_COUNT, modes.size());
             } else {
                 request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
             }

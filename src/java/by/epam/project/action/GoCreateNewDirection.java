@@ -7,10 +7,13 @@
 package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Hotel;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransportationMode;
 import by.epam.project.manager.ConfigurationManager;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,38 +26,22 @@ public class GoCreateNewDirection implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoLogicException {
         
         request.deleteSessionAttribute(PARAM_NAME_CURRENT_DIRECTION);
+        request.deleteSessionAttribute(PARAM_NAME_CURR_COUNTRY_TAGS);
+        request.deleteSessionAttribute(PARAM_NAME_CURR_CITY_TAGS);
+        request.deleteSessionAttribute(PARAM_NAME_CURR_HOTEL_TAGS);
         request.deleteSessionAttribute(PARAM_NAME_DIRECTION_LIST);
         request.deleteSessionAttribute(PARAM_NAME_DIRECTION_COUNT);
         
-        List<Country> countryList = (List<Country>) request.getSessionAttribute(PARAM_NAME_COUNTRY_LIST);
-        if (countryList == null || countryList.isEmpty()){
-            new GoShowCountry().execute(request);
-            countryList = (List<Country>) request.getSessionAttribute(PARAM_NAME_COUNTRY_LIST);
-        }
+        new GoShowCountry().execute(request);
+        new GoShowCity().execute(request);
+        new GoShowHotel().execute(request);
+        new GoShowTourType().execute(request);
+        new GoShowTransMode().execute(request);
         
-//        List<City> cityList = (List<City>) request.getSessionAttribute(PARAM_NAME_CITY_LIST);
-//        if (cityList == null || cityList.isEmpty()){
-//            new GoShowCity().execute(request);
-//            cityList = (List<City>) request.getSessionAttribute(PARAM_NAME_CITY_LIST);
-//        }
-//        
-//        List<Hotel> hotelList = (List<Hotel>) request.getSessionAttribute(PARAM_NAME_HOTEL_LIST);
-//        if (cityList == null || cityList.isEmpty()){
-//            new GoShowHotel().execute(request);
-//            hotelList = (List<Hotel>) request.getSessionAttribute(PARAM_NAME_CITY_LIST);
-//        }
+        request.setSessionAttribute(PARAM_NAME_COUNTRY_TAG_LIST, request.getSessionAttribute(PARAM_NAME_COUNTRY_LIST));
+        request.setSessionAttribute(PARAM_NAME_CITY_TAG_LIST, request.getSessionAttribute(PARAM_NAME_CITY_LIST));
         
-        List<TourType> tourTypeList = (List<TourType>) request.getSessionAttribute(PARAM_NAME_TOUR_TYPE_LIST);
-        if (tourTypeList == null || tourTypeList.isEmpty()){
-            new GoShowTourType().execute(request);
-            tourTypeList = (List<TourType>) request.getSessionAttribute(PARAM_NAME_TOUR_TYPE_LIST);
-        }
         
-        List<TransportationMode> transModeList = (List<TransportationMode>) request.getSessionAttribute(PARAM_NAME_TRANS_MODE_LIST);
-        if (transModeList == null || transModeList.isEmpty()){
-            new GoShowTransMode().execute(request);
-            transModeList = (List<TransportationMode>) request.getSessionAttribute(PARAM_NAME_TRANS_MODE_LIST);
-        }
         
         String page = ConfigurationManager.getProperty("path.page.editdirection");
         request.setSessionAttribute(PARAM_NAME_PAGE, page);
