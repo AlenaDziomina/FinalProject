@@ -51,6 +51,7 @@ public interface ActionCommand {
     static final String PARAM_NAME_CURR_ID_HOTEL = "currIdHotel";
     static final String PARAM_NAME_COUNTRY_TAG_LIST = "countryTagList";
     static final String PARAM_NAME_CITY_TAG_LIST = "cityTagList";
+    static final String PARAM_NAME_HOTEL_TAG_LIST = "hotelTagList";
     
     
     

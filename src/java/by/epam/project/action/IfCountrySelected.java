@@ -27,11 +27,14 @@ public class IfCountrySelected implements ActionCommand {
         String page = (String) request.getSessionAttribute(PARAM_NAME_PAGE);
         
         new ProcessSavedParameters().execute(request);
-        
+        request.setAttribute(PARAM_NAME_CURR_ID_CITY, "0");
+
         String currCountry = request.getParameter(PARAM_NAME_CURR_ID_COUNTRY);
         if (currCountry != null && !currCountry.isEmpty()){
             Integer idCountry = Integer.decode(currCountry);
-            request.setAttribute(PARAM_NAME_ID_COUNTRY, idCountry);
+            if (idCountry > 0){
+                request.setAttribute(PARAM_NAME_ID_COUNTRY, idCountry);
+            }
             new GoShowCity().execute(request);
             List<City> cityList = (List<City>) request.getSessionAttribute(PARAM_NAME_CITY_LIST);
             

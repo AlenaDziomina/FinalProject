@@ -33,7 +33,9 @@ public class IfCitySelected implements ActionCommand {
         String currCity = request.getParameter(PARAM_NAME_CURR_ID_CITY);
         if (currCity != null && !currCity.isEmpty()){
             Integer idCity = Integer.decode(currCity);
-            request.setAttribute(PARAM_NAME_ID_CITY, idCity);
+            if (idCity > 0) {
+                request.setAttribute(PARAM_NAME_ID_CITY, idCity);
+            }
             new GoShowHotel().execute(request);
         }
         request.setSessionAttribute(PARAM_NAME_PAGE, page);

@@ -6,18 +6,19 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_COUNT;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_LIST;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_HOTEL;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_LOGIN;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.Country;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.entity.Hotel;
+import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.MessageManager;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -49,9 +50,35 @@ public class ProcessSavedParameters implements ActionCommand{
         String currHotel = request.getParameter(PARAM_NAME_CURR_ID_HOTEL);
         request.setAttribute(PARAM_NAME_CURR_ID_HOTEL, currHotel);
         
+        createCurrHotelTag(request);
+        
+        
         
         
         return null;
+    }
+
+    private void createCurrHotelTag(SessionRequestContent request) throws DaoLogicException {
+        String[] currHotelTags = request.getAllParameters(PARAM_NAME_CURR_HOTEL_TAGS);
+        if (currHotelTags != null) {
+            List<Hotel> hotelTagList = new ArrayList();
+            for (String tag : currHotelTags) {
+                Integer idHotel = Integer.decode(tag);
+                if (idHotel > 0) {
+                    Criteria criteria = new Criteria();
+                    criteria.addParam(PARAM_NAME_LOGIN, request.getSessionAttribute(PARAM_NAME_LOGIN));
+                    criteria.addParam(PARAM_NAME_ROLE, request.getSessionAttribute(PARAM_NAME_ROLE));
+                    criteria.addParam(PARAM_NAME_ID_HOTEL, idHotel);
+                    try {
+                        List<Hotel> hotels = HotelLogic.getHotels(criteria);
+                        hotelTagList.addAll(hotels);
+                    } catch (DaoException ex) {
+                        throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
+                    }
+                }
+            }
+            request.setAttribute(PARAM_NAME_HOTEL_TAG_LIST, hotelTagList);
+        }
     }
     
     

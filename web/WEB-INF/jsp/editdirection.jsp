@@ -56,51 +56,61 @@
                     
                     
                 
-            <div class="parameterRow">
-                <div class="tagColumn">
-                    <h1 class="labelHT">1. <fmt:message key="selectCountry" bundle="${ rb }" />:</h1>
-                    <div class="centraleContainer">
-                        <select id="currCountry" class="selectContainer" size="1" onchange="postDir('controller', 'ifCountrySelected', 'POST')">      
-                            <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
-                            <c:forEach items="${countryList}" var="row">
-                                <option class="selectItem" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
+            <div class="parameterRowB">
+                <div class="tagColumnS">
+                    <h1 class="labelHT"><fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
+                    <div id="currHotelTag" class="checkBoxGroup2">
                         
-                <div class="tagColumn">
-                    <h1 class="labelHT">2. <fmt:message key="selectCity" bundle="${ rb }" />:</h1>
-                    <div class="centraleContainer">
-                        <select id="currCity" class="selectContainer" size="1" onchange="postDir('controller', 'ifCitySelected', 'POST')">      
-                            <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
-                            <c:forEach items="${cityList}" var="row">
-                                <option class="selectItem" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
-                            </c:forEach>
-                        </select> 
                     </div>
                 </div>
-                                
-                <div class="tagColumn">
-                    <h1 class="labelHT">3. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
-                    <div class="centraleContainer">
-                        <select id="currHotel" class="selectContainer" size="1">      
-                            <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
-                            <c:forEach items="${hotelList}" var="row">
-                                <option class="selectItem" value="${row.idHotel}">${row.name}</option>
-                            </c:forEach>
-                        </select> 
-                    </div> 
+                
+                <div class="tagColumnM">
+                    <div class="tagColumnL">
+                        <h1 class="labelHT">1. <fmt:message key="selectCountry" bundle="${ rb }" />:</h1>
+                        <div class="centraleContainerS">
+                            <select id="currCountry" class="selectContainer" size="1" onchange="postDir('controller', 'ifCountrySelected', 'POST')">      
+                                <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
+                                <c:forEach items="${countryList}" var="row">
+                                    <option class="selectItem" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tagColumnL">
+                        <h1 class="labelHT">2. <fmt:message key="selectCity" bundle="${ rb }" />:</h1>
+                        <div class="centraleContainerS">
+                            <select id="currCity" class="selectContainer" size="1" onchange="postDir('controller', 'ifCitySelected', 'POST')">      
+                                <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
+                                <c:forEach items="${cityList}" var="row">
+                                    <option class="selectItem" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
+                                </c:forEach>
+                            </select> 
+                        </div>
+                    </div>
+
+                    <div class="tagColumnL">
+                        <h1 class="labelHT">3. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
+                        <div class="centraleContainerS">
+                            <select id="currHotel" class="selectContainer" size="1">      
+                                <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
+                                <c:forEach items="${hotelList}" var="row">
+                                    <option class="selectItem" value="${row.idHotel}">${row.name}</option>
+                                </c:forEach>
+                            </select> 
+                        </div> 
+                    </div>
+
+                    <div class="tagColumnL">
+                        <h1 class="labelHT">4. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
+                        <div class="centraleContainerB">
+                            <label id="menuText" onclick="funcAdd()">ADD HOTEL</label>
+                        </div>
+                    </div>
                 </div>
-                                
             </div>
                             
-            <div class="parameterRow">
-                <label  onclick="funcAdd()">ADD HOTEL</label>
-                <div id="currHotelTag" class="checkBoxGroup2">
-                    <input type="checkbox" name="hotelTag" value="0">hotel0<br>
-                </div>
-            </div>
+            
               
                     
             <c:forEach items="${currCountryTag}" var="tag">
@@ -123,30 +133,64 @@
             </script>
             
                 
-            <c:forEach items="${hotelTagsList}" var="row">
+            <c:forEach items="${hotelTagList}" var="row">
                 <script type='text/javascript'>
-                    checkCities(${row.idHotel});
+                    restoreCheck("${row.idHotel}", "${row.name}");
                 </script>
             </c:forEach>
                 
+        
+        <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
+            <div class="parameterRow">
+                <div class="labelColumn">
+                    <h1 class="labelH"><fmt:message key="countryName" bundle="${ rb }" />: </h1> 
+                </div>
+                <div class="inputColumn">
+                    <div class="innerColumn">
+                    <input type="text" class="inputLineContainer" name="name_country" value="${currCountry.name}"/>
+                    </div>
+                </div>
+            </div>
             
             
+            <div class="parameterRow">
+                <div class="labelColumn">
+                    <h1 class="labelH"><fmt:message key="countryPicture" bundle="${ rb }" />:</h1> 
+                </div>
+                <div class="inputColumn">
+                    <div class="innerColumn">
+                    <input type="text" class="inputLineContainer" name="picture_country"   value="${currCountry.picture}"/>
+                    </div>
+                </div>      
+            </div>
+            
+            <input type="hidden" name="id_description" value="${currCountry.description.idDescription}"/>
+            <div class="parameterRow">
+                <div class="labelColumn">
+                    <h1 class="labelH"><fmt:message key="countryDescription" bundle="${ rb }" />:</h1> 
+                </div>
+                <div class="inputColumn">
+                    <div class="innerColumn">
+                    <textarea name="text_description" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
+                    </div>
+                </div>
+            </div>        
+                
+                
+                
             
             
-        <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="funcAdd()"/>
-            
-            
-        </div>
+        <div class="parameterRow">
+            <div class="centrale">    
+                <label  onclick="restoreCheck()">saveAll</label>
+                <input type="submit" value="<fmt:message key="SAVE" bundle="${ rb }" />" onclick="saveAll()"/>
+                <div id="erNote">${errorSaveData}</div>
+            </div>
+        </div>   
         
     </form>
     
-    <div class="parameterRow">
-        <div class="centrale">
-            <label  onclick="funcAdd()">LABEL</label>
-            <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="funcAdd()"/>
-            <div id="erNote">${errorSaveData}</div>
-        </div>
-    </div>   
+       
         
         
 

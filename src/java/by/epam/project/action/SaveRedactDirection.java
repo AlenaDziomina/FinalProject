@@ -19,6 +19,7 @@ public class SaveRedactDirection implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoLogicException {
         
         String page = ConfigurationManager.getProperty("path.page.editdirection");
+        new ProcessSavedParameters().execute(request);
         return page;
     }
     

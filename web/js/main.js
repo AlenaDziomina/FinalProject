@@ -4,7 +4,30 @@
  * and open the template in the editor.
  */
 
+function restoreCheck(str, txt){
+    
+    var form = document.getElementById("updDirection");
+    var elem = document.getElementById("currHotelTag");
+      
+    var checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.name = "hotelTag";
+    checkbox.value = str;
+    checkbox.id = "id"+str;
+    checkbox.checked = "true";
 
+
+    var label = document.createElement('label');
+    label.htmlFor = "id"+str;
+
+    label.appendChild(document.createTextNode(txt));      
+    elem.appendChild(checkbox);
+    elem.appendChild(label);
+    elem.appendChild(document.createElement("br"));
+    
+  
+    
+}
 
 function check(atrName, atr){
     var str = String(atr);
@@ -27,6 +50,17 @@ function select(selName, atr){
     select.value=atr;
 }
 
+function saveAll(){
+    var form = document.getElementById("updDirection");
+    saveCountryTags(form);
+    saveCityTags(form);
+    saveMode(form);
+    saveTourType(form);
+    saveCurrIdCountry(form);
+    saveCurrIdCity(form);
+    saveHotelTags(form);
+}
+
 function postDir(path, comnd, method) {
     
     method = method || "post";
@@ -40,6 +74,7 @@ function postDir(path, comnd, method) {
     saveTourType(form);
     saveCurrIdCountry(form);
     saveCurrIdCity(form);
+    saveHotelTags(form);
 
     var elem = document.createElement("input");
     elem.type = "hidden";
@@ -128,28 +163,52 @@ function saveCityTags(form) {
     }
 }
 
+function saveHotelTags(form) {
+    
+    var tableInputTags = document.getElementsByTagName("input");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].type==="checkbox" && tableInputTags[i].name==="hotelTag") 
+        {
+            var tag = tableInputTags[i];
+            var val = tag.value;
+            if (tag.checked) {
+                var elem = document.createElement("input");
+                elem.type = "hidden";
+                elem.name = "currHotelTag";
+                elem.value=val;
+                form.appendChild(elem);
+            }
+        }
+    }
+}
+
 function funcAdd(){
     var form = document.getElementById("updDirection");
     var elem = document.getElementById("currHotelTag");
     
     var select = document.getElementById("currHotel");
     var i = select.value;
-    var txt = select.options[i].text;
+    if (i !== "0") {
+        var txt = select.options[i].text;
     
-    var checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
-    checkbox.name = "hotelTag";
-    checkbox.value = i;
-    checkbox.id = "id"+i;
-    
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "hotelTag";
+        checkbox.value = i;
+        checkbox.id = "id"+i;
+        checkbox.checked = "true";
 
-    var label = document.createElement('label');
-    label.htmlFor = "id"+i;
+
+        var label = document.createElement('label');
+        label.htmlFor = "id"+i;
+
+        label.appendChild(document.createTextNode(txt));      
+        elem.appendChild(checkbox);
+        elem.appendChild(label);
+        elem.appendChild(document.createElement("br"));
+    }
     
-    label.appendChild(document.createTextNode(txt));      
-    elem.appendChild(checkbox);
-    elem.appendChild(label);
-    elem.appendChild(document.createElement("br"));
 }
 
 
