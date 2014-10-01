@@ -44,7 +44,7 @@ public interface AbstractDao {
     static final String PARAM_NAME_NAME_DIRECTION = "name_direction";
     static final String PARAM_NAME_PICTURE_DIRECTION = "picture_direction";
     static final String PARAM_NAME_STATUS_DIRECTION = "status_direction";
-    static final String PARAM_NAME_TEXT_DIRECTION = "status_direction";
+    static final String PARAM_NAME_TEXT_DIRECTION = "text_direction";
     
     static final String PARAM_NAME_ID_TOUR_TYPE = "id_tour_type";
     static final String PARAM_NAME_NAME_TOUR_TYPE = "name_tour_type";

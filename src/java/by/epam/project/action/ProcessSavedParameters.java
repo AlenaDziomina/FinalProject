@@ -9,16 +9,20 @@ package by.epam.project.action;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_HOTEL;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_LOGIN;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_DIRECTION;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_DIRECTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DESCRIPTION;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DIRECTION;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.Description;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.MessageManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -52,7 +56,7 @@ public class ProcessSavedParameters implements ActionCommand{
         
         createCurrHotelTag(request);
         
-        
+        createCurrDirect(request);
         
         
         return null;
@@ -79,6 +83,21 @@ public class ProcessSavedParameters implements ActionCommand{
             }
             request.setAttribute(PARAM_NAME_HOTEL_TAG_LIST, hotelTagList);
         }
+    }
+
+    private void createCurrDirect(SessionRequestContent request) {
+        Direction currDir = (Direction) request.getSessionAttribute(PARAM_NAME_CURRENT_DIRECTION);
+        if (currDir == null) {
+            currDir = new Direction();
+            currDir.setDescription(new Description());
+        }
+        
+        currDir.setName(request.getParameter(PARAM_NAME_NAME_DIRECTION));
+        currDir.setPicture(request.getParameter(PARAM_NAME_PICTURE_DIRECTION));
+        currDir.setText(request.getParameter(PARAM_NAME_TEXT_DIRECTION));
+        currDir.getDescription().setText(request.getParameter(PARAM_NAME_TEXT_DESCRIPTION));
+        
+        request.setSessionAttribute(PARAM_NAME_CURRENT_DIRECTION, currDir);
     }
     
     

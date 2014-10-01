@@ -75,6 +75,8 @@ function postDir(path, comnd, method) {
     saveCurrIdCountry(form);
     saveCurrIdCity(form);
     saveHotelTags(form);
+    saveTextValDir(form);
+    saveMultitextValDir(form);
 
     var elem = document.createElement("input");
     elem.type = "hidden";
@@ -85,6 +87,51 @@ function postDir(path, comnd, method) {
     document.body.appendChild(form);
     form.submit();
     
+}
+
+function saveMultitextValDir(form) {
+    var tableInputTags = document.getElementsByTagName("textarea");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].name==="text_direction") {
+            var elem = document.createElement("input");
+            elem.type = "hidden";
+            elem.name = "text_direction";
+            elem.value= tableInputTags[i].value;
+            form.appendChild(elem);   
+        }
+        if(tableInputTags[i].name==="text_description") {
+            var elem = document.createElement("input");
+            elem.type = "hidden";
+            elem.name = "text_description";
+            elem.value= tableInputTags[i].value;
+            form.appendChild(elem);   
+        }
+    }
+}
+
+function saveTextValDir(form) {
+    var tableInputTags = document.getElementsByTagName("input");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].type==="text")  
+        {
+            if (tableInputTags[i].name==="name_direction"){
+                var elem = document.createElement("input");
+                elem.type = "hidden";
+                elem.name = "name_direction";
+                elem.value= tableInputTags[i].value;
+                form.appendChild(elem);   
+            }
+            if (tableInputTags[i].name==="picture_direction"){
+                var elem = document.createElement("input");
+                elem.type = "hidden";
+                elem.name = "picture_direction";
+                elem.value= tableInputTags[i].value;
+                form.appendChild(elem);   
+            }
+        }
+    }
 }
 
 function saveCurrIdCity(form){

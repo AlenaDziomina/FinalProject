@@ -140,34 +140,28 @@
             </c:forEach>
                 
         
-            <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
+            <input type="hidden" name="id_direction" value="${currDirection.idDirection}"/>
             <div class="parameterRow">
                 <div class="tagColumnS">
                     <h1 class="labelHT"><fmt:message key="directName" bundle="${ rb }" />: </h1> 
-                    
-                        <input type="text" class="inputLineContainerM" name="name_country" value="${currCountry.name}"/>
-                    
+                    <input type="text" class="inputLineContainerM" name="name_direction" value="${currDirection.name}"/> 
                     <h1 class="labelHT"><fmt:message key="directPicture" bundle="${ rb }" />:</h1> 
-                    
-                        <input type="text" class="inputLineContainerM" name="picture_country"   value="${currCountry.picture}"/>
-                    
+                    <input type="text" class="inputLineContainerM" name="picture_direction"   value="${currDirection.picture}"/>
                 </div>
                 <div class="tagColumnM">
                     <h1 class="labelHT"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
-                    
-                        <input type="text" class="inputMultilineineContainerB" name="name_country" value="${currCountry.name}"/>
-                    
+                    <textarea name="text_direction" class="inputMultilineineContainerB">${currDirection.text}</textarea>
                 </div>    
             </div>
             
-            <input type="hidden" name="id_description" value="${currCountry.description.idDescription}"/>
+            <input type="hidden" name="id_description" value="${currDirection.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="labelColumnS">
                     <h1 class="labelH"><fmt:message key="directDescription" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumnL">
                     <div class="innerColumn">
-                    <textarea name="text_description" class="inputMultilineineContainerD">${currCountry.description.text}</textarea>
+                    <textarea name="text_description" class="inputMultilineineContainerD">${currDirection.description.text}</textarea>
                     </div>
                 </div>
             </div>        
@@ -179,7 +173,8 @@
                 </div>
             </div>   
         
-        
+            
+                
         </div>  
     </form>
     
