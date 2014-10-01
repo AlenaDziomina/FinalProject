@@ -27,6 +27,10 @@ public final class Hotel {
     public Hotel() {
     }
     
+    public Hotel(Integer idHotel) {
+        setIdHotel(idHotel);
+    }
+    
     public Hotel(Criteria criteria) {
         this.setIdHotel((Integer) criteria.getParam(PARAM_NAME_ID_HOTEL));
         this.setName((String) criteria.getParam(PARAM_NAME_NAME_HOTEL));

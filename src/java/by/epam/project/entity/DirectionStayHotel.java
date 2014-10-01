@@ -11,7 +11,7 @@ package by.epam.project.entity;
  * @author User
  */
 
-public class DirectionStayHotels {
+public class DirectionStayHotel {
     
     private Integer idStay;
     private Integer stayNo;
@@ -19,11 +19,12 @@ public class DirectionStayHotels {
     private Hotel stayHotel;
     private Short status;
     
-    public DirectionStayHotels() {
+    public DirectionStayHotel() {
     }
-    public DirectionStayHotels(Integer idStay, int stayNo) {
-        this.idStay = idStay;
+    public DirectionStayHotel(Integer idDirection, Integer idHotel, Integer stayNo) {
+        this.idDirection = idDirection;
         this.stayNo = stayNo;
+        this.stayHotel = new Hotel(idHotel);
     }
 
     public Integer getIdStay() {

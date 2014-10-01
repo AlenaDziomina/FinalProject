@@ -10,8 +10,10 @@ import static by.epam.project.dao.MysqlDao.saveDao;
 import by.epam.project.dao.entquery.CityQuery;
 import by.epam.project.dao.entquery.CountryQuery;
 import by.epam.project.dao.entquery.DescriptionQuery;
+import by.epam.project.dao.entquery.DirectionCityQuery;
 import by.epam.project.dao.entquery.DirectionCountryQuery;
 import by.epam.project.dao.entquery.DirectionQuery;
+import by.epam.project.dao.entquery.DirectionStayHotelQuery;
 import by.epam.project.dao.entquery.HotelQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.QueryExecutionException;
@@ -19,9 +21,11 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
+import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
+import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
-import by.epam.project.entity.LinkDirectionCountryFactory;
+import by.epam.project.entity.LinkDirectionFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,11 +199,14 @@ public class MysqlAdminDao extends MysqlUserDao implements MysqlDao,  AdminDao {
                 Integer idDirection = res.get(0);
                 criteria.addParam(PARAM_NAME_ID_DIRECTION, idDirection);
                 
-                List<LinkDirectionCountry> linkList1 = LinkDirectionCountryFactory.getInstances(criteria);
+                List<LinkDirectionCountry> linkList1 = LinkDirectionFactory.getLinkCountryInstances(criteria);
                 List<Integer> res1 = new DirectionCountryQuery().save(linkList1, saveDao, mysqlConn);
                 
+                List<LinkDirectionCity> linkList2 = LinkDirectionFactory.getLinkCityInstances(criteria);
+                List<Integer> res2 = new DirectionCityQuery().save(linkList2, saveDao, mysqlConn);
                 
-                
+                List<DirectionStayHotel> linkList3 = LinkDirectionFactory.getStayHotelInstances(criteria);
+                List<Integer> res3 = new DirectionStayHotelQuery().save(linkList3, saveDao, mysqlConn);
                 
                 return idDirection;
             }

@@ -180,6 +180,8 @@
 --         constraint fk_direction_description_id foreign key (id_description) references description(id_description)
 -- )
 
+--alter table direction modify column text TEXT;
+
 -- CREATE TABLE direction_cities (
 --        id_city              int NOT NULL,
 --        id_direction         int NOT NULL,
@@ -207,6 +209,7 @@
 --        constraint fk_direction_stay_hotels_id_direction foreign key (id_direction) references direction(id_direction)
 -- )
 
+alter table direction_stay_hotels modify column id_stay int not null auto_increment;
 
 -- CREATE TABLE room_type (
 --     id_room_type int not null auto_increment,

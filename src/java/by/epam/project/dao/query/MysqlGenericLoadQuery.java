@@ -7,7 +7,6 @@
 package by.epam.project.dao.query;
 
 import static by.epam.project.controller.ProjectServlet.LOCALLOG;
-import by.epam.project.dao.ConnectionPool;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.query.Params.RowMapper;
 import java.sql.Connection;

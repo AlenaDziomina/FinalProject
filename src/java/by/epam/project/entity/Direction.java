@@ -42,7 +42,7 @@ public final class Direction {
     private Short status;
     private Collection<Country> countryCollection;
     private Collection<City> cityCollection;
-    private Collection<DirectionStayHotels> stayCollection;
+    private Collection<DirectionStayHotel> stayCollection;
     private Collection<Tour> tourCollection;
     
    
@@ -125,7 +125,7 @@ public final class Direction {
     public Collection<Country> getCountryCollection() {
         return countryCollection;
     }
-    public void setCountryCollection(Collection<Country> tourCollection) {
+    public void setCountryCollection(Collection<Country> countryCollection) {
         this.countryCollection = countryCollection;
     }
     
@@ -136,10 +136,10 @@ public final class Direction {
         this.cityCollection = cityCollection;
     }
     
-    public Collection<DirectionStayHotels> getStayCollection() {
+    public Collection<DirectionStayHotel> getStayCollection() {
         return stayCollection;
     }
-    public void setStayCollection(Collection<DirectionStayHotels> stayCollection) {
+    public void setStayCollection(Collection<DirectionStayHotel> stayCollection) {
         this.stayCollection = stayCollection;
     }
 

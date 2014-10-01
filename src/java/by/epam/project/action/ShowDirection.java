@@ -7,6 +7,7 @@
 package by.epam.project.action;
 
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.manager.ConfigurationManager;
 
 /**
  *
@@ -16,7 +17,12 @@ public class ShowDirection implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String page = ConfigurationManager.getProperty("path.page.direction");
+        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+        String str = request.getParameter(PARAM_NAME_SELECT_ID);
+        Integer id = Integer.decode(str);
+        
+        return page;
     }
     
 }

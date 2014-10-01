@@ -19,7 +19,9 @@ import by.epam.project.dao.query.QueryExecutionException;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Direction;
+import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
+import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.TourType;
@@ -208,6 +210,26 @@ public class MysqlGuestDao implements MysqlDao, GuestDao {
         try {
             List<LinkDirectionCountry> links = new DirectionCountryQuery().load(criteria, loadDao, mysqlConn);
             return links;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+    
+    @Override
+    public List<LinkDirectionCity> toShowLinkDirectionCity(Criteria criteria) throws DaoException {
+        try {
+            List<LinkDirectionCity> links = new DirectionCityQuery().load(criteria, loadDao, mysqlConn);
+            return links;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+
+    @Override
+    public List<DirectionStayHotel> toShowDirectionStayHotel(Criteria criteria) throws DaoException {
+        try {
+            List<DirectionStayHotel> stays = new DirectionStayHotelQuery().load(criteria, loadDao, mysqlConn);
+            return stays;
         } catch (QueryExecutionException ex) {
             throw new DaoException("Error in query.");
         }

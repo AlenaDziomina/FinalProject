@@ -51,6 +51,11 @@ public interface AbstractDao {
     static final String PARAM_NAME_ID_MODE = "id_mode";
     static final String PARAM_NAME_NAME_MODE = "name_mode";
     
+    static final String PARAM_NAME_ID_STAY = "id_stay";
+    static final String PARAM_NAME_STAY_NO = "stay_no";
+    static final String PARAM_NAME_STATUS_STAY = "status_stay";
+    
+    
     
     public abstract void open() throws DaoException;
     

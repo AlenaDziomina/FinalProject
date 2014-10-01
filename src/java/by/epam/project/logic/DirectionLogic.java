@@ -12,15 +12,17 @@ import by.epam.project.dao.ClientType;
 import by.epam.project.dao.DaoException;
 import by.epam.project.dao.DaoFactory;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Direction;
+import by.epam.project.entity.DirectionStayHotel;
+import by.epam.project.entity.Hotel;
+import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,6 +42,8 @@ public abstract class DirectionLogic {
             
             if (directions != null) {
                 getCountryCollection(dao, directions);
+                getCityCollection(dao, directions);
+                getStayHotelCollection(dao, directions);
             }
             
             
@@ -58,6 +62,73 @@ public abstract class DirectionLogic {
         }
         
         
+    }
+    
+    private static void getStayHotelCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
+        try {
+            Method meth = dao.getClass().getMethod("toShowDirectionStayHotel", Criteria.class);
+            for (Direction dir : directions) {
+                Criteria crit = new Criteria();
+                crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+                List<DirectionStayHotel> stays = (List<DirectionStayHotel>) meth.invoke(dao, crit);
+                if (stays != null) {
+                    dir.setStayCollection(getHotelInfo(dao, stays));
+                }
+            }
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            throw new DaoException("Error in get direction links to hotels.");
+        }
+    }
+    
+    public static List<DirectionStayHotel> getHotelInfo(AbstractDao dao, List<DirectionStayHotel> stays) throws DaoException {
+        try {
+            Method meth = dao.getClass().getMethod("toShowHotels", Criteria.class);
+            for (DirectionStayHotel st : stays) {
+                Criteria crit = new Criteria();
+                crit.addParam(PARAM_NAME_ID_HOTEL, st.getStayHotel().getIdHotel());
+                List<Hotel> hotels = (List<Hotel>) meth.invoke(dao, crit);
+                if (hotels != null && !hotels.isEmpty()) {
+                    st.setStayHotel(hotels.get(0));
+                }
+            }
+            return stays;
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            throw new DaoException("Error in getCityInfo");
+        }
+    }
+    
+    private static void getCityCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
+        try {
+            Method meth = dao.getClass().getMethod("toShowLinkDirectionCity", Criteria.class);
+            for (Direction dir : directions) {
+                Criteria crit = new Criteria();
+                crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+                List<LinkDirectionCity> links = (List<LinkDirectionCity>) meth.invoke(dao, crit);
+                if (links != null) {
+                    dir.setCityCollection(getCityInfo(dao, links));
+                }
+            }
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            throw new DaoException("Error in get direction links to cities.");
+        }
+    }
+    
+    public static List<City> getCityInfo(AbstractDao dao, List<LinkDirectionCity> links) throws DaoException {
+        try {
+            Method meth = dao.getClass().getMethod("toShowCities", Criteria.class);
+            List<City> list = new ArrayList<>();
+            for (LinkDirectionCity link : links) {
+                Criteria crit = new Criteria();
+                crit.addParam(PARAM_NAME_ID_CITY, link.getIdCity());
+                List<City> cities = (List<City>) meth.invoke(dao, crit);
+                if (cities != null) {
+                    list.addAll(cities);
+                }
+            }
+            return list;
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            throw new DaoException("Error in getCityInfo");
+        }
     }
     
     private static void getCountryCollection(AbstractDao dao, List<Direction> directions) throws DaoException {  
@@ -127,5 +198,9 @@ public abstract class DirectionLogic {
             } 
         }
     }
+
+    
+
+    
     
 }
