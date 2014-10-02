@@ -18,10 +18,7 @@ public class LogoutCommand implements ActionCommand{
     @Override
     public String execute(SessionRequestContent request) {
         String page = ConfigurationManager.getProperty("path.page.index");
-        
-        // уничтожение сессии
         request.sessionInvalidate();
-        
         return page;
     }
     

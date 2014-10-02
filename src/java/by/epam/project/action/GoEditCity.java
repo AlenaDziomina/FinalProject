@@ -7,7 +7,7 @@
 package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_LIST;
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -37,7 +37,7 @@ public class GoEditCity implements ActionCommand {
         }
         
         String page = ConfigurationManager.getProperty("path.page.editcity");
-        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+        request.setSessionAttribute(JSP_PAGE, page);
         return page;
     }
     

@@ -16,14 +16,14 @@ import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_STAY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_STAY_NO;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.dao.query.QueryExecutionException;
+import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
@@ -61,7 +61,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException(ex);
+            throw new QueryExecutionException("",ex);
         }
     }
 
@@ -99,7 +99,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
 
@@ -127,7 +127,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         try {
             return updateDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
     

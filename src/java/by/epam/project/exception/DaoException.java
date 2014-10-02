@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.exception;
 
 /**
  *
@@ -12,12 +12,12 @@ package by.epam.project.dao;
  */
 public class DaoException extends Exception {
 
-    public DaoException(String message) {
-        super(message);
+    public DaoException(String msg) {
+        super(msg);
     }
 
-    public DaoException(String message, Exception ex) {
-        super(message, ex);
+    public DaoException(String msg, Exception ex) {
+        super(msg, ex);
     }
 
     

@@ -6,7 +6,7 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
@@ -24,7 +24,7 @@ public class IfCountrySelected implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
         
-        String page = (String) request.getSessionAttribute(PARAM_NAME_PAGE);
+        String page = (String) request.getSessionAttribute(JSP_PAGE);
         
         new ProcessSavedParameters().execute(request);
         request.setAttribute(PARAM_NAME_CURR_ID_CITY, "0");
@@ -47,7 +47,7 @@ public class IfCountrySelected implements ActionCommand {
             }
             request.setSessionAttribute(PARAM_NAME_HOTEL_LIST, commonHotelList);
         }
-        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+        request.setSessionAttribute(JSP_PAGE, page);
         return page;
     }
     

@@ -6,7 +6,7 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
 
@@ -18,7 +18,7 @@ public class IfCitySelected implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
-        String page = (String) request.getSessionAttribute(PARAM_NAME_PAGE);
+        String page = (String) request.getSessionAttribute(JSP_PAGE);
         
         new ProcessSavedParameters().execute(request);
         
@@ -30,7 +30,7 @@ public class IfCitySelected implements ActionCommand {
             }
             new GoShowHotel().execute(request);
         }
-        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+        request.setSessionAttribute(JSP_PAGE, page);
         return page;
     }
     

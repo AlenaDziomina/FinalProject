@@ -6,18 +6,20 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.exception.DaoInitException;
+
 /**
  *
  * @author User
  */
 public class MysqlDaoFactory extends DaoFactory {
 
-    public static AbstractDao getInstance(ClientType type) throws DaoException {
+    public static AbstractDao getInstance(ClientType type) throws DaoInitException {
         switch(type) {
             case GUEST: return new MysqlGuestDao();
             case USER: return new MysqlUserDao();
             case ADMIN: return new MysqlAdminDao();
-            default: throw new DaoException("Unnoun user dao.");
+            default: throw new DaoInitException(type.toString());
         }
     }
     

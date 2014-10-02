@@ -8,6 +8,7 @@ package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.*;
 
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -25,7 +26,7 @@ public class ShowCitiesOfCountry implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
-        String page = (String) request.getSessionAttribute(PARAM_NAME_PAGE);
+        String page = (String) request.getSessionAttribute(JSP_PAGE);
         
        
         

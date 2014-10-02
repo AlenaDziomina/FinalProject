@@ -6,6 +6,7 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -18,7 +19,7 @@ public class GetSessionCommand implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) {
         String page = ConfigurationManager.getProperty("path.page.sessionprop");
-        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+        request.setSessionAttribute(JSP_PAGE, page);
         return page;
     }
     

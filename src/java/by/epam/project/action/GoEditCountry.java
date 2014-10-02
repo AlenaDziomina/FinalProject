@@ -6,7 +6,8 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_PAGE;
+
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -22,7 +23,7 @@ class GoEditCountry implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
         String page = ConfigurationManager.getProperty("path.page.editcountry");
-        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+        request.setSessionAttribute(JSP_PAGE, page);
         request.deleteSessionAttribute(PARAM_NAME_COUNTRY_LIST);
         request.deleteSessionAttribute(PARAM_NAME_COUNTRY_COUNT);
         return page;

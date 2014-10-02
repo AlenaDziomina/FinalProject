@@ -6,12 +6,21 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.controller.JspParamNames.JSP_ID_USER;
+import static by.epam.project.controller.JspParamNames.JSP_LENG;
+import static by.epam.project.controller.JspParamNames.JSP_LOCALE;
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
+import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LANGUAGE;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.User;
-import by.epam.project.logic.LocalLogic;
+import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.LocaleManager;
 import by.epam.project.manager.MessageManager;
@@ -28,36 +37,32 @@ public class LocalCommand implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws DaoLogicException {
         
-        String leng = request.getParameter(PARAM_NAME_LENG);
-        Locale locale = LocaleManager.getLocale(leng);
-        if (locale != null) {
-            request.setSessionAttribute(PARAM_NAME_LOCALE, locale);
-        }
-        String page = (String)request.getSessionAttribute(PARAM_NAME_PAGE);
+        String page = (String)request.getSessionAttribute(JSP_PAGE);
         if (page == null) {
             page = ConfigurationManager.getProperty("path.page.index");
-            request.setSessionAttribute(PARAM_NAME_PAGE, page);
+            request.setSessionAttribute(JSP_PAGE, page);
+        }
+        
+        String leng = request.getParameter(JSP_LENG);
+        Locale locale = LocaleManager.getLocale(leng);
+        if (locale != null) {
+            request.setSessionAttribute(JSP_LOCALE, locale);
         }
         
         Criteria bean = new Criteria();
-        bean.addParam(PARAM_NAME_LOGIN, request.getSessionAttribute(PARAM_NAME_LOGIN));
-        bean.addParam(PARAM_NAME_ID_USER, request.getSessionAttribute(PARAM_NAME_ID_USER));
-        bean.addParam(PARAM_NAME_ROLE, request.getSessionAttribute(PARAM_NAME_ROLE));
+        bean.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
+        bean.addParam(DAO_ID_USER, request.getSessionAttribute(JSP_ID_USER));
+        bean.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         
         Criteria criteria = new Criteria();
-        Locale currLocale = (Locale)(request.getSessionAttribute(PARAM_NAME_LOCALE));
-        criteria.addParam(PARAM_NAME_LANGUAGE, currLocale.getLanguage());
-        
+        Locale currLocale = (Locale)(request.getSessionAttribute(JSP_LOCALE));
+        criteria.addParam(DAO_USER_LANGUAGE, currLocale.getLanguage());
         
         try {
-            User updUser = LocalLogic.setUserLocal(bean, criteria);           
+            User user = UserLogic.updateUser(bean, criteria);           
         } catch (DaoException ex) {
             throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
         }
-        
-        
-        
-        
         return page;
     }
     

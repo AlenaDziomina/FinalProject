@@ -6,9 +6,14 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_DAYS_COUNT;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_DEPARTURE_DATE;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_DISCOUNT_TOUR;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_FREE_SEATS;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_PRICE_TOUR;
+import static by.epam.project.dao.AbstractDao.PARAM_NAME_TOTAL_SEATS;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
@@ -18,10 +23,10 @@ import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.entity.LinkDirectionCity;
-import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.entity.Tour;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,24 +34,30 @@ import java.util.List;
  *
  * @author User
  */
-public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
-
+public class TourQuery implements TypedQuery<Tour>{
+    
+    
     private static final String EM_SAVE_QUERY = 
-            "Insert into direction_cities(id_direction, id_city) values (?, ?);";
+            "Insert into tour(id_direction, departure_date, days_count, price, discount, total_seats, free_seats) values (?,?,?,?,?,?,?);";
     private static final String EM_LOAD_QUERY = 
-            "Select * from direction_cities where ";
+            "Select * from tour where ";
     private static final String ALL_LOAD_QUERY = 
-            "Select * from direction_cities;";
+            "Select * from tour;";
     private static final String EM_UPDATE_QUERY = 
-            "Update direction_cities set ";
+            "Update tour set ";
 
     @Override
-    public List<Integer> save(List<LinkDirectionCity> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> save(List<Tour> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (LinkDirectionCity bean) -> {
-                Object[] objects = new Object[2];
+            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (Tour bean) -> {
+                Object[] objects = new Object[7];
                 objects[0] = bean.getIdDirection();
-                objects[1] = bean.getIdCity();
+                objects[1] = bean.getDepartureDate();
+                objects[2] = bean.getDaysCount();
+                objects[3] = bean.getPrice();
+                objects[4] = bean.getDiscount();
+                objects[5] = bean.getTotalSeats();
+                objects[6] = bean.getFreeSeats();
                 return objects;
             }));
         } catch (DaoException ex) {
@@ -55,7 +66,7 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
     }
 
     @Override
-    public List<LinkDirectionCity> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
+    public List<Tour> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
@@ -64,8 +75,14 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
             @Override
             public String mapQuery() { 
                 String separator = " and ";
+                append(PARAM_NAME_ID_TOUR, "id_tour", criteria, paramList, sb, separator);
                 append(PARAM_NAME_ID_DIRECTION, "id_direction", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_CITY, "id_city", criteria, paramList, sb, separator);
+                append(PARAM_NAME_DEPARTURE_DATE, "departure_date", criteria, paramList, sb, separator);
+                append(PARAM_NAME_DAYS_COUNT, "days_count", criteria, paramList, sb, separator);
+                append(PARAM_NAME_PRICE_TOUR, "price", criteria, paramList, sb, separator);
+                append(PARAM_NAME_DISCOUNT_TOUR, "discount", criteria, paramList, sb, separator);
+                append(PARAM_NAME_TOTAL_SEATS, "total_seats", criteria, paramList, sb, separator);
+                append(PARAM_NAME_FREE_SEATS, "free_seats", criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -75,11 +92,15 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         }
         
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
-                LinkDirectionCity bean = new LinkDirectionCity();
-                bean.setIdCity(rs.getInt("id_city"));
-                bean.setIdDirection(rs.getInt("id_direction"));
-                return bean;
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new Params.RowMapper<Tour>() {
+                @Override
+                public Tour mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    Tour bean = new Tour();
+                    bean.setIdTour(rs.getInt("id_tour"));
+                    bean.setIdDirection(rs.getInt("id_direction"));
+                    bean.setDepartureDate(rs.getDate("departure_date"));
+                    return bean;
+                }
             });
         } catch (DaoException ex) {
              throw new QueryExecutionException("",ex);
@@ -95,10 +116,10 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_ID_CITY, "id_city", criteria, paramList, sb, separator);
+//                append(PARAM_NAME_ROLE, "role_name", criteria, paramList, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_DIRECTION, "id_direction", beans, paramList2, sb, separator);
+//                append(PARAM_NAME_ID_ROLE, "id_role", beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -114,5 +135,3 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
     
     
 }
-
-

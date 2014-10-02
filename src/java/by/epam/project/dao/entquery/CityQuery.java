@@ -6,8 +6,9 @@
 
 package by.epam.project.dao.entquery;
 
+import by.epam.project.exception.QueryExecutionException;
 import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -45,7 +46,7 @@ public class CityQuery implements TypedQuery<City>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException(ex);
+            throw new QueryExecutionException("City not saved.", ex);
         }
     }
 
@@ -85,7 +86,7 @@ public class CityQuery implements TypedQuery<City>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("City not loaded.", ex);
         }
     }
 
@@ -114,7 +115,7 @@ public class CityQuery implements TypedQuery<City>{
         try {
             return updateDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("City not updated.", ex);
         }
     }
     

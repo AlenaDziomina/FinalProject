@@ -7,6 +7,7 @@
 package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.*;
+import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.manager.ConfigurationManager;
@@ -25,7 +26,7 @@ public class ShowCity implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoLogicException {
         
         String page = ConfigurationManager.getProperty("path.page.cities");
-        request.setSessionAttribute(PARAM_NAME_PAGE, page);
+        request.setSessionAttribute(JSP_PAGE, page);
         List<City> list = (List<City>) request.getSessionAttribute(PARAM_NAME_CITY_LIST);
         if (list == null || list.isEmpty()){
             new GoShowCity().execute(request);

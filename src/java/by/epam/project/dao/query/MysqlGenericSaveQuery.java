@@ -7,7 +7,7 @@
 package by.epam.project.dao.query;
 
 import static by.epam.project.controller.ProjectServlet.LOCALLOG;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

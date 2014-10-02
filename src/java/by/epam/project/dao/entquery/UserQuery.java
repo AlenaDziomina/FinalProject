@@ -6,13 +6,29 @@
 
 package by.epam.project.dao.entquery;
 
-
-import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.DaoException;
-import by.epam.project.dao.query.*;
+import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ID_ROLE;
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericLoadQuery;
+import by.epam.project.dao.query.GenericSaveQuery;
+import by.epam.project.dao.query.GenericUpdateQuery;
+import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
+import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.dao.query.TypedQuery;
+import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
+import static by.epam.project.entity.User.DB_USER;
+import static by.epam.project.entity.User.DB_USER_BALANCE;
+import static by.epam.project.entity.User.DB_USER_DISCOUNT;
+import static by.epam.project.entity.User.DB_USER_EMAIL;
+import static by.epam.project.entity.User.DB_USER_ID_ROLE;
+import static by.epam.project.entity.User.DB_USER_ID_USER;
+import static by.epam.project.entity.User.DB_USER_LANGUAGE;
+import static by.epam.project.entity.User.DB_USER_LOGIN;
+import static by.epam.project.entity.User.DB_USER_PASSWORD;
+import static by.epam.project.entity.User.DB_USER_PHONE;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -23,36 +39,62 @@ import java.util.List;
  * @author User
  */
 public class UserQuery implements TypedQuery<User>{
-        
+    
+    public static final String DAO_ID_USER = "idUser";
+    public static final String DAO_USER_LOGIN = "login";
+    public static final String DAO_USER_PASSWORD = "password";
+    public static final String DAO_USER_EMAIL = "email";
+    public static final String DAO_USER_PHONE = "phone";
+    public static final String DAO_USER_LANGUAGE = "language";
+    public static final String DAO_USER_DISCOUNT = "discount";
+    public static final String DAO_USER_BALANCE = "balance";
    
-    private static final String EM_SAVE_QUERY = 
-            "Insert into user(id_role, login, password, email, phone, discount, balance, lang) values (?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String EM_LOAD_QUERY = 
-            "Select * from user u left join role r on (u.id_role = r.id_role) where ";
-    private static final String ALL_LOAD_QUERY = 
-            "Select * from user u left join role r on (u.id_role = r.id_role);";
-    private static final String EM_UPDATE_QUERY = 
-            "Update user set ";
+    private static final String SAVE_QUERY = 
+            "Insert into " + DB_USER + "(" + DB_USER_LOGIN + ", " 
+            + DB_USER_PASSWORD + ", " + DB_USER_EMAIL + ", " 
+            + DB_USER_PHONE + ", " + DB_USER_ID_ROLE + ", "
+            + DB_USER_LANGUAGE + ", " + DB_USER_DISCOUNT + ", "
+            + DB_USER_BALANCE + ") values (?, ?, ?, ?, ?, ?, ?, ?);";
+    
+    private static final String LOAD_QUERY = 
+            "Select * from " + DB_USER;
+
+    private static final String UPDATE_QUERY = 
+            "Update " + DB_USER + " set ";
     
     public UserQuery(){}
+    
+    public static final User createBean(Criteria criteria) {
+        User bean = new User();
+        bean.setIdUser((Integer) criteria.getParam(DAO_ID_USER));
+        bean.setLogin((String) criteria.getParam(DAO_USER_LOGIN));
+        bean.setPassword((Integer) criteria.getParam(DAO_USER_PASSWORD));
+        bean.setEmail((String) criteria.getParam(DAO_USER_EMAIL));
+        bean.setRole(new Role((Integer)criteria.getParam(DAO_ID_ROLE)));
+        bean.setPhone((String) criteria.getParam(DAO_USER_PHONE));
+        bean.setLanguage((String) criteria.getParam(DAO_USER_LANGUAGE));
+        bean.setDiscount((Integer) criteria.getParam(DAO_USER_DISCOUNT));
+        bean.setBalance((Float) criteria.getParam(DAO_USER_BALANCE));
+        return bean;
+    }
     
     @Override
     public List<Integer> save(List<User> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (User bean) -> {
-                Object[] objects = new Object[8];
-                objects[0] = bean.getIdRole();
-                objects[1] = bean.getLogin();
-                objects[2] = bean.getPassword();
-                objects[3] = bean.getEmail();
-                objects[4] = bean.getPhone();
-                objects[5] = bean.getDiscount();
-                objects[6] = bean.getBalance();
-                objects[7] = bean.getLanguage();
-                return objects;
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (User bean) -> {
+                Object[] obj = new Object[8];
+                obj[0] = bean.getLogin();
+                obj[1] = bean.getPassword();
+                obj[2] = bean.getEmail();
+                obj[3] = bean.getPhone();
+                obj[4] = bean.getRole().getIdRole();
+                obj[5] = bean.getLanguage();
+                obj[6] = bean.getDiscount();
+                obj[7] = bean.getBalance();              
+                return obj;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException(ex);
+            throw new QueryExecutionException("User not saved.", ex);
         }  
     }
 
@@ -61,87 +103,88 @@ public class UserQuery implements TypedQuery<User>{
         
         int pageSize = 10;              
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
+        StringBuilder sb = new StringBuilder(" where ");
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_USER, "id_user", criteria, paramList, sb, separator);
-                append(PARAM_NAME_LOGIN, "login", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PASSWORD, "password", criteria, paramList, sb, separator);
-                append(PARAM_NAME_EMAIL, "email", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb, separator);
-                append(PARAM_NAME_DISCOUNT, "discount", criteria, paramList, sb, separator);
-                append(PARAM_NAME_BALANCE, "balance", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PHONE, "phone", criteria, paramList, sb, separator);
-                append(PARAM_NAME_LANGUAGE, "lang", criteria, paramList, sb, separator);
-                
+                append(DAO_ID_USER, DB_USER_ID_USER, criteria, paramList, sb, separator);
+                append(DAO_USER_LOGIN, DB_USER_LOGIN, criteria, paramList, sb, separator);
+                append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList, sb, separator);
+                append(DAO_USER_EMAIL, DB_USER_EMAIL, criteria, paramList, sb, separator);
+                append(DAO_ID_ROLE, DB_USER_ID_ROLE, criteria, paramList, sb, separator);
+                append(DAO_USER_PHONE, DB_USER_PHONE, criteria, paramList, sb, separator);
+                append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList, sb, separator);
+                append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList, sb, separator);
+                append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList, sb, separator);
+
                 return sb.toString();
             }  
         }.mapQuery();
         
         if (paramList.isEmpty()) {
-            queryStr = ALL_LOAD_QUERY;
+            queryStr = LOAD_QUERY;
+        } else {
+            queryStr = LOAD_QUERY + queryStr;
         }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 User bean = new User();
-                bean.setIdUser(rs.getInt("id_user"));
-                bean.setLogin(rs.getString("login"));
-                bean.setRole(rs.getString("role_name"));
-                bean.setDiscount(rs.getInt("discount"));
-                bean.setBalance(rs.getFloat("balance"));
-                bean.setEmail(rs.getString("email"));
-                bean.setPhone(rs.getString("phone"));
-                bean.setLanguage(rs.getString("lang"));
+                bean.setIdUser(rs.getInt(DB_USER_ID_USER));
+                bean.setLogin(rs.getString(DB_USER_LOGIN));
+                bean.setEmail(rs.getString(DB_USER_EMAIL));
+                bean.setRole(new Role(rs.getInt(DB_USER_ID_ROLE)));
+                bean.setPhone(rs.getString(DB_USER_PHONE));
+                bean.setLanguage(rs.getString(DB_USER_LANGUAGE));
+                bean.setDiscount(rs.getInt(DB_USER_DISCOUNT));
+                bean.setBalance(rs.getFloat(DB_USER_BALANCE));
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("User not loaded", ex);
         }
-
     }
     
-
     @Override
     public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
-        List paramList = new ArrayList<>();
+        List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_PASSWORD, "password", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb, separator);
-                append(PARAM_NAME_DISCOUNT, "discount", criteria, paramList, sb, separator);
-                append(PARAM_NAME_BALANCE, "balance", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PHONE, "phone", criteria, paramList, sb, separator);
-                append(PARAM_NAME_LANGUAGE, "lang", criteria, paramList, sb, separator);
+                append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList1, sb, separator);
+                append(DAO_USER_EMAIL, DB_USER_EMAIL, criteria, paramList1, sb, separator);
+                append(DAO_ID_ROLE, DB_USER_ID_ROLE, criteria, paramList1, sb, separator);
+                append(DAO_USER_PHONE, DB_USER_PHONE, criteria, paramList1, sb, separator);
+                append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList1, sb, separator);
+                append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList1, sb, separator);
+                append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_USER, "id_user", beans, paramList2, sb, separator);
-                append(PARAM_NAME_LOGIN, "login", beans, paramList2, sb, separator);
-                append(PARAM_NAME_EMAIL, "email", beans, paramList2, sb, separator);
+                append(DAO_ID_USER, DB_USER_ID_USER, beans, paramList2, sb, separator);
+                append(DAO_USER_LOGIN, DB_USER_LOGIN, beans, paramList2, sb, separator);
+                append(DAO_USER_PASSWORD, DB_USER_PASSWORD, beans, paramList2, sb, separator);
+                append(DAO_USER_EMAIL, DB_USER_EMAIL, beans, paramList2, sb, separator);
+                append(DAO_ID_ROLE, DB_USER_ID_ROLE, beans, paramList2, sb, separator);
+                append(DAO_USER_PHONE, DB_USER_PHONE, beans, paramList2, sb, separator);
+                append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, beans, paramList2, sb, separator);
+                append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, beans, paramList2, sb, separator);
+                append(DAO_USER_BALANCE, DB_USER_BALANCE, beans, paramList2, sb, separator);
                 
                 return sb.toString();
             }  
         }.mapQuery();
-        paramList.addAll(paramList2);
+        paramList1.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray(), conn);
+            return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
-        }
-        
-    }
-
-    
-                
-
-            
+             throw new QueryExecutionException("User not updated.", ex);
+        }       
+    }      
 }
 
     

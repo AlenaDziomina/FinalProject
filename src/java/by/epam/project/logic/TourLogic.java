@@ -7,31 +7,33 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ROLE;
 import by.epam.project.dao.ClientType;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.DaoFactory;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.User;
+import by.epam.project.entity.Tour;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  *
  * @author User
  */
-public abstract class LocalLogic {
-
-    public static User setUserLocal(Criteria bean, Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) bean.getParam(PARAM_NAME_ROLE);
-        AbstractDao dao = null; 
+public class TourLogic {
+    
+    public static List<Tour> getTours(Criteria criteria) throws DaoException {
+        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
+        AbstractDao dao = null;
         
         try {
             dao = DaoFactory.getInstance(role); 
             dao.open();
-            Method method = dao.getClass().getMethod("toChangeOwnUser", Criteria.class, Criteria.class);
-            User person = (User) method.invoke(dao, bean, criteria);
-            return person; 
+            Method method = dao.getClass().getMethod("toShowTours", Criteria.class);
+            List<Tour> types = (List<Tour>) method.invoke(dao, criteria);
+           
+            return types;   
         } catch (DaoException ex) {
             if (dao != null) {
                 dao.rollback();
@@ -44,6 +46,7 @@ public abstract class LocalLogic {
                 dao.close();
             } 
         }
+        
     }
     
 }

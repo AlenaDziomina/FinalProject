@@ -6,6 +6,7 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.User;
 
@@ -16,6 +17,7 @@ import by.epam.project.entity.User;
 public interface UserDao extends AbstractDao {
     //metods
     
+    @Override
     public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException;
     
 //    public void to_view_orders(); 

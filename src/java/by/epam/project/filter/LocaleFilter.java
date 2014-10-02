@@ -6,6 +6,7 @@
 
 package by.epam.project.filter;
 
+import static by.epam.project.controller.JspParamNames.JSP_LOCALE;
 import by.epam.project.manager.LocaleManager;
 import java.io.IOException;
 import java.util.Locale;
@@ -41,13 +42,13 @@ public class LocaleFilter implements Filter {
             throws IOException, ServletException {
         
         HttpSession session = ((HttpServletRequest)request).getSession(true);
-        Locale locale = (Locale) session.getAttribute("locale");
+        Locale locale = (Locale) session.getAttribute(JSP_LOCALE);
         if (locale == null) {
             if (defLocale != null) {
-                session.setAttribute("locale", defLocale);
+                session.setAttribute(JSP_LOCALE, defLocale);
             } else {
                 Locale loc = response.getLocale();
-                session.setAttribute("locale", response.getLocale());
+                session.setAttribute(JSP_LOCALE, response.getLocale());
             }
         }
         

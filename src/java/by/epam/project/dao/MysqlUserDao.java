@@ -6,9 +6,10 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.QueryExecutionException;
+import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.entity.User;
 import java.util.List;
 
@@ -16,9 +17,9 @@ import java.util.List;
  *
  * @author User
  */
-public class MysqlUserDao extends MysqlGuestDao implements MysqlDao, UserDao {
+public class MysqlUserDao extends MysqlGuestDao implements UserDao {
    
-    protected MysqlUserDao() throws DaoException{}
+    protected MysqlUserDao(){}
     
     @Override
     public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
@@ -47,6 +48,4 @@ public class MysqlUserDao extends MysqlGuestDao implements MysqlDao, UserDao {
             throw new DaoException("Error in query.");
         }
     }
-
-
 }

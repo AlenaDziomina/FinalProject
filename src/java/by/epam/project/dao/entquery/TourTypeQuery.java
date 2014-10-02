@@ -8,14 +8,14 @@ package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR_TYPE;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_TOUR_TYPE;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.dao.query.QueryExecutionException;
+import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.TourType;
 import java.sql.Connection;
@@ -47,7 +47,7 @@ public class TourTypeQuery implements TypedQuery<TourType>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException(ex);
+            throw new QueryExecutionException("",ex);
         }
     }
 
@@ -79,7 +79,7 @@ public class TourTypeQuery implements TypedQuery<TourType>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
 
@@ -104,7 +104,7 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         try {
             return updateDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
 

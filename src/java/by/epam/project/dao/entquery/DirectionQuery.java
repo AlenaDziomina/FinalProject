@@ -6,8 +6,9 @@
 
 package by.epam.project.dao.entquery;
 
+import by.epam.project.exception.QueryExecutionException;
 import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -57,7 +58,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException(ex);
+            throw new QueryExecutionException("",ex);
         }
     }
 
@@ -100,7 +101,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
 
@@ -131,7 +132,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
         try {
             return updateDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
     

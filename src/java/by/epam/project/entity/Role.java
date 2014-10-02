@@ -10,21 +10,29 @@ package by.epam.project.entity;
  *
  * @author User
  */
-public class Role {
+public final class Role {
+    public static final String DB_ROLE = "role";
+    public static final String DB_ROLE_ID_ROLE = "id_role";
+    public static final String DB_ROLE_NAME_ROLE = "role_name";
+    
     private Integer idRole;
     private String roleName;
     
     public Role(){}
+
+    public Role(int idRole) {
+        setIdRole(idRole);
+    }
     
-    public void setIdRole(Integer id) {
-        this.idRole = id;
+    public void setIdRole(Integer idRole) {
+        this.idRole = idRole;
     }
     
     public Integer getIdRole(){
         return this.idRole;
     }
     
-    public void setRoleNAme(String name){
+    public void setRoleName(String name){
         this.roleName = name;
     }
     

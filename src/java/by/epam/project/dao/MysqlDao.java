@@ -6,6 +6,7 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
@@ -19,14 +20,33 @@ import java.sql.SQLException;
  *
  * @author User
  */
-public interface MysqlDao {
+public class MysqlDao implements AbstractDao {
     
-    static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
-    static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
-    static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
+    protected Connection mysqlConn;
+    protected static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
+    protected static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
+    protected static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
     
+    @Override
+    public void open() throws DaoException {
+        mysqlConn = MysqlDao.getConnection();
+    }
     
-    public static Connection getConnection() throws DaoException{
+    @Override
+    public void close() throws DaoException {
+        MysqlDao.returnConnection(mysqlConn);
+    }
+    
+    @Override
+    public void rollback() throws DaoException {
+        try {
+            mysqlConn.rollback();
+        } catch (SQLException ex) {
+            throw new DaoException("Rollback failed.");
+        }
+    }
+    
+    private static Connection getConnection() throws DaoException{
         try {
             return ConnectionPool.getConnection();
         } catch (SQLException ex) {
@@ -34,7 +54,7 @@ public interface MysqlDao {
         }
     }
     
-    public static void returnConnection(Connection con) throws DaoException {
+    private static void returnConnection(Connection con) throws DaoException {
         
         try {
             con.commit();
@@ -49,8 +69,5 @@ public interface MysqlDao {
             throw new DaoException("Cant return connection in pool.");
         }
     }
-    
-    
-    
     
 }

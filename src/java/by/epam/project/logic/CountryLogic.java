@@ -9,8 +9,9 @@ package by.epam.project.logic;
 import by.epam.project.dao.AbstractDao;
 import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.ClientType;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.DaoFactory;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -25,7 +26,7 @@ import java.util.List;
 public abstract class CountryLogic {
 
     public static List<Country> getCountries(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
+        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
         AbstractDao dao = null;
         
         try {
@@ -58,7 +59,7 @@ public abstract class CountryLogic {
     }
 
     public static Integer redactCountry(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(PARAM_NAME_ROLE);
+        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
         Integer idCountry = (Integer) criteria.getParam(PARAM_NAME_ID_COUNTRY);
         AbstractDao dao = null;
 

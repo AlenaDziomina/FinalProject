@@ -6,6 +6,7 @@
 
 package by.epam.project.dao;
 
+import by.epam.project.exception.DaoException;
 import static by.epam.project.dao.MysqlDao.saveDao;
 import by.epam.project.dao.entquery.CityQuery;
 import by.epam.project.dao.entquery.CountryQuery;
@@ -16,7 +17,7 @@ import by.epam.project.dao.entquery.DirectionQuery;
 import by.epam.project.dao.entquery.DirectionStayHotelQuery;
 import by.epam.project.dao.entquery.HotelQuery;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.QueryExecutionException;
+import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
@@ -33,9 +34,9 @@ import java.util.List;
  *
  * @author User
  */
-public class MysqlAdminDao extends MysqlUserDao implements MysqlDao,  AdminDao {
+public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     
-    protected MysqlAdminDao() throws DaoException{}
+    protected MysqlAdminDao(){}
     
     @Override
     public Integer toEditDescription(Criteria criteria) throws DaoException {

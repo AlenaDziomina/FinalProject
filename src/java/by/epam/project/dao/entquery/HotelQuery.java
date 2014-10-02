@@ -6,8 +6,9 @@
 
 package by.epam.project.dao.entquery;
 
+import by.epam.project.exception.QueryExecutionException;
 import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.*;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.entity.Description;
@@ -45,7 +46,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException(ex);
+            throw new QueryExecutionException("",ex);
         }
     }
 
@@ -87,7 +88,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
 
@@ -117,7 +118,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
         try {
             return updateDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("",ex);
         }
     }
     

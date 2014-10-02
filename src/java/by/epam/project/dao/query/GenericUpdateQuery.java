@@ -6,7 +6,7 @@
 
 package by.epam.project.dao.query;
 
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
 import java.sql.Connection;
 
 /**

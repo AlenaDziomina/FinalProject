@@ -6,12 +6,20 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.DaoException;
-import by.epam.project.dao.query.*;
+import by.epam.project.exception.DaoException;
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericLoadQuery;
+import by.epam.project.dao.query.GenericSaveQuery;
+import by.epam.project.dao.query.GenericUpdateQuery;
+import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.Params.RowMapper;
+import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Role;
+import static by.epam.project.entity.Role.DB_ROLE;
+import static by.epam.project.entity.Role.DB_ROLE_ID_ROLE;
+import static by.epam.project.entity.Role.DB_ROLE_NAME_ROLE;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,26 +34,29 @@ import java.util.List;
  */
 public class RoleQuery implements TypedQuery<Role>{
     
+    public static final String DAO_ID_ROLE = "idRole";
+    public static final String DAO_ROLE_NAME = "nameRole";
     
-    private static final String EM_SAVE_QUERY = 
-            "Insert into role(role_name) values (?);";
-    private static final String EM_LOAD_QUERY = 
-            "Select * from role where ";
-    private static final String ALL_LOAD_QUERY = 
-            "Select * from role;";
-    private static final String EM_UPDATE_QUERY = 
-            "Update role set ";
+    private static final String SAVE_QUERY = 
+            "Insert into " + DB_ROLE + "(" 
+            + DB_ROLE_NAME_ROLE + ") values (?);";
+    
+    private static final String LOAD_QUERY = 
+            "Select * from " + DB_ROLE;
+    
+    private static final String UPDATE_QUERY = 
+            "Update " + DB_ROLE + " set ";
 
     @Override
     public List<Integer> save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (Role bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Role bean) -> {
                 Object[] objects = new Object[1];
                 objects[0] = bean.getRoleName();
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException(ex);
+            throw new QueryExecutionException("Role not saved.",ex);
         }
     }
 
@@ -54,19 +65,21 @@ public class RoleQuery implements TypedQuery<Role>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
+        StringBuilder sb = new StringBuilder(" where ");
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_ROLE, "id_role", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ROLE, "role_name", criteria, paramList, sb, separator);
+                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, criteria, paramList, sb, separator);
+                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
         
         if (paramList.isEmpty()) {
-            queryStr = ALL_LOAD_QUERY;
+            queryStr = LOAD_QUERY;
+        } else {
+            queryStr = LOAD_QUERY + queryStr;
         }
         
         try {
@@ -74,41 +87,38 @@ public class RoleQuery implements TypedQuery<Role>{
                 @Override
                 public Role mapRow(ResultSet rs, int rowNum) throws SQLException {
                     Role bean = new Role();
-                    bean.setIdRole(rs.getInt("id_role"));
-                    bean.setRoleNAme(rs.getString("role_name"));
+                    bean.setIdRole(rs.getInt(DB_ROLE_ID_ROLE));
+                    bean.setRoleName(rs.getString(DB_ROLE_NAME_ROLE));
                     return bean;
                 }
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("Role not loaded.", ex);
         }
     }
 
     @Override
     public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {        
-        List paramList = new ArrayList<>();
+        List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_ROLE, "role_name", criteria, paramList, sb, separator);
+                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_ROLE, "id_role", beans, paramList2, sb, separator);
+                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
-        paramList.addAll(paramList2);
+        paramList1.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray(), conn);
+            return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException(ex);
+             throw new QueryExecutionException("Role not updated.", ex);
         }
     }
-
-    
-    
 }

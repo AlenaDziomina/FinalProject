@@ -6,11 +6,22 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.controller.JspParamNames.JSP_LOCALE;
+import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.controller.JspParamNames.JSP_USER_EMAIL;
+import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.controller.JspParamNames.JSP_USER_PASSWORD;
+import static by.epam.project.controller.JspParamNames.JSP_USER_PHONE;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.DaoException;
+import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_EMAIL;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LANGUAGE;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PASSWORD;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PHONE;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.logic.RegistrationLogic;
+import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.MessageManager;
 import java.util.Locale;
 
@@ -27,18 +38,16 @@ public class RegistrationCommand implements ActionCommand {
         String page = null;
         Criteria criteria = new Criteria();
         
-        criteria.addParam(PARAM_NAME_LOGIN, request.getParameter(PARAM_NAME_LOGIN));
-        criteria.addParam(PARAM_NAME_PASSWORD, request.getParameter(PARAM_NAME_PASSWORD).hashCode());
-        criteria.addParam(PARAM_NAME_EMAIL, request.getParameter(PARAM_NAME_EMAIL));
-        criteria.addParam(PARAM_NAME_PHONE, request.getParameter(PARAM_NAME_PHONE));
-        Locale locale = (Locale)(request.getSessionAttribute(PARAM_NAME_LOCALE));
-        criteria.addParam(PARAM_NAME_LANGUAGE, locale.getLanguage());
-        criteria.addParam(PARAM_NAME_ROLE, request.getSessionAttribute(PARAM_NAME_ROLE));
-               
-        // проверка логина и пароля
+        criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
+        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        criteria.addParam(DAO_USER_PASSWORD, request.getParameter(JSP_USER_PASSWORD).hashCode());
+        criteria.addParam(DAO_USER_EMAIL, request.getParameter(JSP_USER_EMAIL));
+        criteria.addParam(DAO_USER_PHONE, request.getParameter(JSP_USER_PHONE));
+        Locale locale = (Locale)(request.getSessionAttribute(JSP_LOCALE));
+        criteria.addParam(DAO_USER_LANGUAGE, locale.getLanguage());
         
         try {
-            RegistrationLogic.getRegistration(criteria);
+            UserLogic.userRegistration(criteria);
         } catch (DaoException ex) {
             throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
         }

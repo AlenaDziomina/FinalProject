@@ -6,6 +6,9 @@
 
 package by.epam.project.filter;
 
+
+
+import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
 import by.epam.project.dao.ClientType;
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -15,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -41,13 +43,13 @@ public class ServletSecurityFilter implements Filter {
             throws IOException, ServletException {
         
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        ClientType type = (ClientType) session.getAttribute("role");
+        ClientType type = (ClientType)session.getAttribute(JSP_ROLE_TYPE);
         if (type == null) {
             type = ClientType.GUEST;
-            session.setAttribute("role", type);
         }
+        session.setAttribute(JSP_ROLE_TYPE, type);
+        
         
         chain.doFilter(request, response);
         

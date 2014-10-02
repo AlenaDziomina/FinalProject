@@ -1,6 +1,7 @@
 
 package by.epam.project.dao.query;
 
+import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
 import java.util.List;
 

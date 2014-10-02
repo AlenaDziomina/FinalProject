@@ -22,7 +22,7 @@ public class Tour {
     private Integer discount;
     private Integer totalSeats;
     private Integer freeSeats;
-    private Direction direction;
+    private Integer idDirection;
 
     public Tour() {
     }
@@ -79,11 +79,11 @@ public class Tour {
         this.freeSeats = freeSeats;
     }
 
-    public Direction getDirection() {
-        return direction;
+    public Integer getIdDirection() {
+        return idDirection;
     }
-    public void setIdDirection(Direction direction) {
-        this.direction = direction;
+    public void setIdDirection(Integer idDirection) {
+        this.idDirection = idDirection;
     }
 
    
