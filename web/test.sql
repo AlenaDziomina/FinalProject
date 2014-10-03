@@ -280,6 +280,7 @@
 --     constraint fk_tourist_id_order foreign key (id_order) references orders(id_order)
 -- );
 
+--alter table orders modify column final_price float not null;
 
 
     
