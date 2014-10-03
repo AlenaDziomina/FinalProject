@@ -46,6 +46,7 @@ public class DescriptionQuery implements TypedQuery<Description>{
         bean.setText((String) criteria.getParam(DAO_DESCRIPTION_TEXT));
         return bean;
     }
+    
        
     @Override
     public List<Integer> save(List<Description> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
@@ -92,8 +93,6 @@ public class DescriptionQuery implements TypedQuery<Description>{
              throw new QueryExecutionException("Decription not loaded.", ex);
         }
     }
-
-   
 
     @Override
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {

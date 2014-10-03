@@ -121,78 +121,38 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
     
     @Override
-    public List<TourType> toShowTourTypes (Criteria criteria) throws DaoException {
-        try {
-            List<TourType> types = new TourTypeQuery().load(criteria, loadDao, mysqlConn);
-            return types;
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+    public List<TourType> showTourTypes (Criteria criteria) throws DaoException {
+            return new TourTypeQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override
-    public List<TransportationMode> toShowTransModes (Criteria criteria) throws DaoException {
-        try {
-            List<TransportationMode> modes = new TransModeQuery().load(criteria, loadDao, mysqlConn);
-            return modes;
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+    public List<TransportationMode> showTransModes (Criteria criteria) throws DaoException {
+        return new TransModeQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
     public List<Direction> showDirections(Criteria criteria) throws DaoException {
-        try {
-            List<Direction> directions = new DirectionQuery().load(criteria, loadDao, mysqlConn);
-            return directions;
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+        return new DirectionQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
-    public List<LinkDirectionCountry> toShowLinkDirectionCountry(Criteria criteria) throws DaoException {
-        try {
-            List<LinkDirectionCountry> links = new DirectionCountryQuery().load(criteria, loadDao, mysqlConn);
-            return links;
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+    public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException {
+        return new DirectionCountryQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override
-    public List<LinkDirectionCity> toShowLinkDirectionCity(Criteria criteria) throws DaoException {
-        try {
-            List<LinkDirectionCity> links = new DirectionCityQuery().load(criteria, loadDao, mysqlConn);
-            return links;
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+    public List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException {
+        return new DirectionCityQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
-    public List<DirectionStayHotel> toShowDirectionStayHotel(Criteria criteria) throws DaoException {
-        try {
-            List<DirectionStayHotel> stays = new DirectionStayHotelQuery().load(criteria, loadDao, mysqlConn);
-            return stays;
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+    public List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException {
+        return new DirectionStayHotelQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
-    public List<Tour> toShowTours(Criteria criteria) throws DaoException {
-        try {
-            List<Tour> tours = new TourQuery().load(criteria, loadDao, mysqlConn);
-            return tours;
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+    public List<Tour> showTours(Criteria criteria) throws DaoException {
+        return new TourQuery().load(criteria, loadDao, mysqlConn);
     }
-
-    
-
-    
-
-        
+   
 }

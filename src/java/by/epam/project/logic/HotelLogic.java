@@ -87,14 +87,13 @@ public class HotelLogic {
     
     private static Integer updateHotel(Criteria criteria, AbstractDao dao) throws DaoException {
         Criteria beans1 = new Criteria();
+        Criteria beans2 = new Criteria();
         beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        beans2.addParam(DAO_ID_HOTEL, criteria.getParam(DAO_ID_HOTEL));
         criteria.remuveParam(DAO_ID_HOTEL);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
         Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        
-        Criteria beans2 = new Criteria();
-        beans2.addParam(DAO_ID_HOTEL, criteria.getParam(DAO_ID_HOTEL));
         return dao.updateHotel(beans2, criteria).get(0);
     }
 }

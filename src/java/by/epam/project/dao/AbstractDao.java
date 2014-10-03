@@ -83,28 +83,28 @@ public interface AbstractDao {
     default public List<Direction> showDirections(Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
-    default public List<TourType> toShowTourTypes (Criteria criteria) throws DaoException{
+    default public List<TourType> showTourTypes (Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
-    default public List<TransportationMode> toShowTransModes (Criteria criteria) throws DaoException{
+    default public List<TransportationMode> showTransModes (Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
     
-    default public List<LinkDirectionCountry> toShowLinkDirectionCountry(Criteria criteria) throws DaoException{
+    default public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
-    default public List<LinkDirectionCity> toShowLinkDirectionCity(Criteria criteria) throws DaoException{
+    default public List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
-    default public List<DirectionStayHotel> toShowDirectionStayHotel(Criteria criteria) throws DaoException{
+    default public List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
-    default public List<Tour> toShowTours(Criteria criteria) throws DaoException{
+    default public List<Tour> showTours(Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
     
     //user
-    default public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
+    default public User changeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
         throw new DaoException("error access");
     }
     

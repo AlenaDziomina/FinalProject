@@ -30,7 +30,7 @@ public abstract class UserLogic {
         AbstractDao dao = DaoFactory.getInstance(role); 
         dao.open();
         try {
-            User person = dao.toChangeOwnUser(bean, criteria);
+            User person = dao.changeOwnUser(bean, criteria);
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_ROLE, person.getRole().getIdRole());
             List<Role> roles = dao.showRoles(crit);

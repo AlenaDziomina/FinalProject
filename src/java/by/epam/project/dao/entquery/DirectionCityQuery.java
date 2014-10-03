@@ -6,8 +6,8 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
@@ -28,27 +28,33 @@ import java.util.List;
  * @author User
  */
 public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
+    
+    public static final String DB_DIRCITY = "direction_cities";
+    public static final String DB_DIRCITY_ID_CITY = "id_city";
+    public static final String DB_DIRCITY_ID_DIRECTION = "id_direction";
 
-    private static final String EM_SAVE_QUERY = 
-            "Insert into direction_cities(id_direction, id_city) values (?, ?);";
-    private static final String EM_LOAD_QUERY = 
-            "Select * from direction_cities where ";
-    private static final String ALL_LOAD_QUERY = 
-            "Select * from direction_cities;";
-    private static final String EM_UPDATE_QUERY = 
-            "Update direction_cities set ";
+    private static final String SAVE_QUERY = 
+            "Insert into " + DB_DIRCITY + "(" + DB_DIRCITY_ID_CITY + ", "
+            + DB_DIRCITY_ID_DIRECTION + ") values (?, ?);";
+    
+    private static final String LOAD_QUERY = 
+            "Select * from " + DB_DIRCITY;
+    
+    private static final String UPDATE_QUERY = 
+            "Update " + DB_DIRCITY + " set ";
+
 
     @Override
     public List<Integer> save(List<LinkDirectionCity> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (LinkDirectionCity bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (LinkDirectionCity bean) -> {
                 Object[] objects = new Object[2];
                 objects[0] = bean.getIdDirection();
                 objects[1] = bean.getIdCity();
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("",ex);
+            throw new QueryExecutionException("Direction link to city not saved.", ex);
         }
     }
 
@@ -57,55 +63,57 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
+        StringBuilder sb = new StringBuilder(" where ");
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_DIRECTION, "id_direction", criteria, paramList, sb, separator);
-                append(DAO_ID_CITY, "id_city", criteria, paramList, sb, separator);
+                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, criteria, paramList, sb, separator);
+                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
         
         if (paramList.isEmpty()) {
-            queryStr = ALL_LOAD_QUERY;
+            queryStr = LOAD_QUERY;
+        } else {
+            queryStr = LOAD_QUERY + queryStr;
         }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 LinkDirectionCity bean = new LinkDirectionCity();
-                bean.setIdCity(rs.getInt("id_city"));
-                bean.setIdDirection(rs.getInt("id_direction"));
+                bean.setIdCity(rs.getInt(DB_DIRCITY_ID_CITY));
+                bean.setIdDirection(rs.getInt(DB_DIRCITY_ID_DIRECTION));
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Direction link to city not loaded.", ex);
         }
     }
 
     @Override
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {        
-        List paramList = new ArrayList<>();
+        List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(DAO_ID_CITY, "id_city", criteria, paramList, sb, separator);
+                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_DIRECTION, "id_direction", beans, paramList2, sb, separator);
+                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
-        paramList.addAll(paramList2);
+        paramList1.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray(), conn);
+            return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Direction link to city not updated.", ex);
         }
     }
 

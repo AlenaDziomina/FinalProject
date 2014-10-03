@@ -22,7 +22,7 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
     protected MysqlUserDao(){}
     
     @Override
-    public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
+    public User changeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
         
         try {
             int updCount = new UserQuery().update(bean, criteria, updateDao, mysqlConn).get(0);

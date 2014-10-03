@@ -145,12 +145,12 @@ public class HotelQuery implements TypedQuery<Hotel>{
                 sb.append(" where ");
                 separator = " and ";
                 append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, beans, paramList2, sb, separator);
-                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList2, sb, separator);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList2, sb, separator);
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList2, sb, separator);
-                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList2, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList2, sb, separator);
-                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList2, sb, separator);
+                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, beans, paramList2, sb, separator);
+                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, beans, paramList2, sb, separator);
+                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, beans, paramList2, sb, separator);
+                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, beans, paramList2, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, beans, paramList2, sb, separator);
+                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

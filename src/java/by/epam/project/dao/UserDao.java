@@ -15,14 +15,8 @@ import by.epam.project.entity.User;
  * @author User
  */
 public interface UserDao extends AbstractDao {
-    //metods
     
     @Override
-    public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException;
-    
-//    public void to_view_orders(); 
-//    public void to_view_ballance(); 
-//    public void to_book_tour();
-//    public void to_pay_tour();
+    public User changeOwnUser(Criteria bean, Criteria criteria) throws DaoException;
 
 }

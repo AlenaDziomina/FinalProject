@@ -16,13 +16,13 @@ import java.util.Date;
 public class Tour {
     
     private Integer idTour;
-    private Date departureDate;
+    private Date departDate;
     private Integer daysCount;
     private Float price;
     private Integer discount;
     private Integer totalSeats;
     private Integer freeSeats;
-    private Integer idDirection;
+    private Direction direction;
 
     public Tour() {
     }
@@ -37,11 +37,11 @@ public class Tour {
         this.idTour = idTour;
     }
 
-    public Date getDepartureDate() {
-        return departureDate;
+    public Date getDepartDate() {
+        return departDate;
     }
-    public void setDepartureDate(Date departureDate) {
-        this.departureDate = departureDate;
+    public void setDepartDate(Date departDate) {
+        this.departDate = departDate;
     }
 
     public Integer getDaysCount() {
@@ -79,11 +79,11 @@ public class Tour {
         this.freeSeats = freeSeats;
     }
 
-    public Integer getIdDirection() {
-        return idDirection;
+    public Direction getDirection() {
+        return direction;
     }
-    public void setIdDirection(Integer idDirection) {
-        this.idDirection = idDirection;
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
    

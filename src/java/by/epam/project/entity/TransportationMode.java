@@ -21,9 +21,8 @@ public class TransportationMode implements Serializable {
     public TransportationMode() {
     }
 
-    public TransportationMode(Integer idMode, String nameMode) {
+    public TransportationMode(Integer idMode) {
         this.idMode = idMode;
-        this.nameMode = nameMode;
     }
 
     public Integer getIdMode() {

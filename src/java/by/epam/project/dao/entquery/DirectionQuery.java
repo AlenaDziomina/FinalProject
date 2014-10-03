@@ -8,6 +8,8 @@ package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.AbstractDao.*;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
+import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -28,27 +30,51 @@ import java.util.List;
  */
 public class DirectionQuery implements TypedQuery<Direction>{
     
-   
-    private static final String EM_SAVE_QUERY = 
-            "Insert into direction(name, id_tour_type, id_mode, id_description, picture, text) values (?, ?, ?, ?, ?, ?);";
-    private static final String EM_LOAD_QUERY = 
-            "Select * from direction d "
-            + "left join description s on (s.id_description = d.id_description) "
-            + "left join tour_type t on (t.id_tour_type = d.id_tour_type) "
-            + "left join transportation_mode m on (m.id_mode = d.id_mode) where ";
-    private static final String ALL_LOAD_QUERY = 
-            "Select * from direction d "
-            + "left join description s on (s.id_description = d.id_description) "
-            + "left join tour_type t on (t.id_tour_type = d.id_tour_type) "
-            + "left join transportation_mode m on (m.id_mode = d.id_mode);";
+    public static final String DB_DIRECTION = "direction";
+    public static final String DB_DIRECTION_ID_DIRECTION = "id_direction";
+    public static final String DB_DIRECTION_ID_TOURTYPE = "id_tour_type";
+    public static final String DB_DIRECTION_ID_TRANSMODE = "id_mode";
+    public static final String DB_DIRECTION_ID_DESCRIPTION = "id_description";
+    public static final String DB_DIRECTION_NAME = "name";
+    public static final String DB_DIRECTION_PICTURE = "picture";
+    public static final String DB_DIRECTION_TEXT = "text";
+    public static final String DB_DIRECTION_STATUS = "status";
     
-    private static final String EM_UPDATE_QUERY = 
-            "Update direction set ";
+    public static final String DAO_ID_DIRECTION = "idDirection";
+    public static final String DAO_DIRECTION_NAME = "nameDirection";
+    public static final String DAO_DIRECTION_PICTURE = "pictureDirection";
+    public static final String DAO_DIRECTION_TEXT = "textDirection";
+    public static final String DAO_DIRECTION_STATUS = "statusDirection";
+   
+    private static final String SAVE_QUERY = 
+            "Insert into " + DB_DIRECTION + "(" + DB_DIRECTION_NAME + ", "
+            + DB_DIRECTION_ID_TOURTYPE + ", " + DB_DIRECTION_ID_TRANSMODE + ", "
+            + DB_DIRECTION_ID_DESCRIPTION + ", " + DB_DIRECTION_PICTURE + ", "
+            + DB_DIRECTION_TEXT + ") values (?, ?, ?, ?, ?, ?);";
+    
+    private static final String LOAD_QUERY = 
+            "Select * from " + DB_DIRECTION;
+    
+    private static final String UPDATE_QUERY = 
+            "Update " + DB_DIRECTION + " set ";
 
+    public static final Direction createBean(Criteria criteria) {
+        Direction bean = new Direction();
+        bean.setIdDirection((Integer) criteria.getParam(DAO_ID_DIRECTION));
+        bean.setName((String) criteria.getParam(DAO_DIRECTION_NAME));
+        bean.setPicture((String) criteria.getParam(DAO_DIRECTION_PICTURE));
+        bean.setStatus((Short) criteria.getParam(DAO_DIRECTION_STATUS));
+        bean.setText((String) criteria.getParam(DAO_DIRECTION_TEXT));
+        bean.setDescription(DescriptionQuery.createBean(criteria));
+        bean.setTourType(TourTypeQuery.createBean(criteria));
+        bean.setTransMode(TransModeQuery.createBean(criteria));
+        return bean;
+    }
+    
     @Override
     public List<Integer> save(List<Direction> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (Direction bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Direction bean) -> {
                 Object[] objects = new Object[6];
                 objects[0] = bean.getName();
                 objects[1] = bean.getTourType().getIdTourType();
@@ -59,7 +85,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("",ex);
+            throw new QueryExecutionException("Direction not saved", ex);
         }
     }
 
@@ -68,72 +94,83 @@ public class DirectionQuery implements TypedQuery<Direction>{
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
+        StringBuilder sb = new StringBuilder(" where ");
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_DIRECTION, "id_direction", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_TOUR_TYPE, "id_tour_type", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_MODE, "id_mode", criteria, paramList, sb, separator);
-                append(PARAM_NAME_NAME_DIRECTION, "name", criteria, paramList, sb, separator);
-                append(PARAM_NAME_STATUS_DIRECTION, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PICTURE_DIRECTION, "picture", criteria, paramList, sb, separator);
-                
+                append(DAO_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, criteria, paramList, sb, separator);
+                append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, criteria, paramList, sb, separator);
+                append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, criteria, paramList, sb, separator);
+                append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, criteria, paramList, sb, separator);
+                append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, criteria, paramList, sb, separator);
+                append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, criteria, paramList, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, criteria, paramList, sb, separator);
+                append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
         
         if (paramList.isEmpty()) {
-            queryStr = ALL_LOAD_QUERY;
+            queryStr = LOAD_QUERY;
+        } else {
+            queryStr = LOAD_QUERY + queryStr;
         }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 Direction bean = new Direction();
-                bean.setIdDirection(rs.getInt("id_direction"));
-                bean.setName(rs.getString("name"));
-                bean.setStatus(rs.getShort("status"));
-                bean.setPicture(rs.getString("picture"));
-                bean.setText(rs.getString("d.text"));
-                bean.setTransMode(new TransportationMode(rs.getInt("id_mode"), rs.getString("name_mode")));
-                bean.setTourType(new TourType(rs.getInt("id_tour_type"), rs.getString("name_tour_type")));
-                bean.setDescription(new Description(rs.getInt("id_description")));
+                bean.setIdDirection(rs.getInt(DB_DIRECTION_ID_DIRECTION));
+                bean.setName(rs.getString(DB_DIRECTION_NAME));
+                bean.setStatus(rs.getShort(DB_DIRECTION_STATUS));
+                bean.setPicture(rs.getString(DB_DIRECTION_PICTURE));
+                bean.setText(rs.getString(DB_DIRECTION_TEXT));
+                bean.setTransMode(new TransportationMode(rs.getInt(DB_DIRECTION_ID_TRANSMODE)));
+                bean.setTourType(new TourType(rs.getInt(DB_DIRECTION_ID_TOURTYPE)));
+                bean.setDescription(new Description(rs.getInt(DB_DIRECTION_ID_DESCRIPTION)));
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Direction not loaded.", ex);
         }
     }
 
     @Override
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
-        List paramList = new ArrayList<>();
+        List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_NAME_DIRECTION, "name", criteria, paramList, sb, separator);
-                append(PARAM_NAME_STATUS_DIRECTION, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PICTURE_DIRECTION, "picture", criteria, paramList, sb, separator);
-                append(PARAM_NAME_TEXT_DIRECTION, "text", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_TOUR_TYPE, "id_tour_type", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_MODE, "id_mode", criteria, paramList, sb, separator);
-                append(DAO_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
+                append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, criteria, paramList1, sb, separator);
+                append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, criteria, paramList1, sb, separator);
+                append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, criteria, paramList1, sb, separator);
+                append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, criteria, paramList1, sb, separator);
+                append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, criteria, paramList1, sb, separator);
+                append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, criteria, paramList1, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_DIRECTION, "id_direction", beans, paramList2, sb, separator);
+                append(PARAM_NAME_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, beans, paramList2, sb, separator);
+                append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, beans, paramList2, sb, separator);
+                append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, beans, paramList2, sb, separator);
+                append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, beans, paramList2, sb, separator);
+                append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, beans, paramList2, sb, separator);
+                append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, beans, paramList2, sb, separator);
+                append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, beans, paramList2, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, beans, paramList2, sb, separator);
+                
                 return sb.toString();
             }  
         }.mapQuery();
-        paramList.addAll(paramList2);
+        paramList1.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray(), conn);
+            return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Direction not updated.", ex);
         }
     }
     

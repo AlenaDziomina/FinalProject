@@ -143,11 +143,11 @@ public class CityQuery implements TypedQuery<City>{
                 sb.append(" where ");
                 separator = " and ";
                 append(DAO_ID_CITY, DB_CITY_ID_CITY, beans, paramList2, sb, separator);
-                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList2, sb, separator);
-                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList2, sb, separator);
-                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList2, sb, separator);
-                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList2, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList2, sb, separator);
+                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, beans, paramList2, sb, separator);
+                append(DAO_CITY_NAME, DB_CITY_NAME, beans, paramList2, sb, separator);
+                append(DAO_CITY_STATUS, DB_CITY_STATUS, beans, paramList2, sb, separator);
+                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, beans, paramList2, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

@@ -12,6 +12,8 @@ import by.epam.project.dao.ClientType;
 import by.epam.project.dao.DaoFactory;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
@@ -23,8 +25,6 @@ import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.exception.DaoException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,175 +36,127 @@ public abstract class DirectionLogic {
     
     public static List<Direction> getDirections(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = null;
-        
+        AbstractDao dao = DaoFactory.getInstance(role); 
+        dao.open();
         try {
-            dao = DaoFactory.getInstance(role); 
-            dao.open();
-            Method method = dao.getClass().getMethod("toShowDirections", Criteria.class);
-            List<Direction> directions = (List<Direction>) method.invoke(dao, criteria);
-            
-            if (directions != null) {
-                getCountryCollection(dao, directions);
-                getCityCollection(dao, directions);
-                getStayHotelCollection(dao, directions);
-            }
-            
+            List<Direction> directions = dao.showDirections(criteria);
+            fillDirections(directions, dao);
             
             return directions;   
         } catch (DaoException ex) {
-            if (dao != null) {
-                dao.rollback();
-            }
+            dao.rollback();
             throw ex;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            return null;
         } finally {
-            if (dao != null) {
-                dao.close();
-            } 
+            dao.close();
         }
-        
-        
+    }
+    
+    private static void fillDirections(List<Direction> directions, AbstractDao dao) throws DaoException {
+        getCountryCollection(dao, directions);
+        getCityCollection(dao, directions);
+        getStayHotelCollection(dao, directions);  
     }
     
     private static void getStayHotelCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
-        try {
-            Method meth = dao.getClass().getMethod("toShowDirectionStayHotel", Criteria.class);
-            for (Direction dir : directions) {
-                Criteria crit = new Criteria();
-                crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
-                List<DirectionStayHotel> stays = (List<DirectionStayHotel>) meth.invoke(dao, crit);
-                if (stays != null) {
-                    dir.setStayCollection(getHotelInfo(dao, stays));
-                }
-            }
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            throw new DaoException("Error in get direction links to hotels.");
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+            List<DirectionStayHotel> stays = dao.showDirectionStayHotel(crit);
+            dir.setStayCollection(getHotelInfo(dao, stays));
         }
     }
     
     public static List<DirectionStayHotel> getHotelInfo(AbstractDao dao, List<DirectionStayHotel> stays) throws DaoException {
-        try {
-            Method meth = dao.getClass().getMethod("toShowHotels", Criteria.class);
-            for (DirectionStayHotel st : stays) {
-                Criteria crit = new Criteria();
-                crit.addParam(DAO_ID_HOTEL, st.getStayHotel().getIdHotel());
-                List<Hotel> hotels = (List<Hotel>) meth.invoke(dao, crit);
-                if (hotels != null && !hotels.isEmpty()) {
-                    st.setStayHotel(hotels.get(0));
-                }
-            }
-            return stays;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            throw new DaoException("Error in getCityInfo");
+        for (DirectionStayHotel st : stays) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_HOTEL, st.getStayHotel().getIdHotel());
+            List<Hotel> hotels = dao.showHotels(crit);
+            st.setStayHotel(hotels.get(0));
         }
+        return stays;
     }
     
     private static void getCityCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
-        try {
-            Method meth = dao.getClass().getMethod("toShowLinkDirectionCity", Criteria.class);
-            for (Direction dir : directions) {
-                Criteria crit = new Criteria();
-                crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
-                List<LinkDirectionCity> links = (List<LinkDirectionCity>) meth.invoke(dao, crit);
-                if (links != null) {
-                    dir.setCityCollection(getCityInfo(dao, links));
-                }
-            }
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            throw new DaoException("Error in get direction links to cities.");
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+            List<LinkDirectionCity> links = dao.showLinkDirectionCity(crit);
+            dir.setCityCollection(getCityInfo(dao, links));
         }
     }
     
     public static List<City> getCityInfo(AbstractDao dao, List<LinkDirectionCity> links) throws DaoException {
-        try {
-            Method meth = dao.getClass().getMethod("toShowCities", Criteria.class);
-            List<City> list = new ArrayList<>();
-            for (LinkDirectionCity link : links) {
-                Criteria crit = new Criteria();
-                crit.addParam(DAO_ID_CITY, link.getIdCity());
-                List<City> cities = (List<City>) meth.invoke(dao, crit);
-                if (cities != null) {
-                    list.addAll(cities);
-                }
+        List<City> list = new ArrayList<>();
+        for (LinkDirectionCity link : links) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_CITY, link.getIdCity());
+            List<City> cities = dao.showCities(crit);
+            if (cities != null) {
+                list.addAll(cities);
             }
-            return list;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            throw new DaoException("Error in getCityInfo");
         }
+        return list;
     }
     
     private static void getCountryCollection(AbstractDao dao, List<Direction> directions) throws DaoException {  
-        try {
-            Method meth = dao.getClass().getMethod("toShowLinkDirectionCountry", Criteria.class);
-            for (Direction dir : directions) {
-                Criteria crit = new Criteria();
-                crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
-                List<LinkDirectionCountry> links = (List<LinkDirectionCountry>) meth.invoke(dao, crit);
-                if (links != null) {
-                    dir.setCountryCollection(getCountryInfo(dao, links));
-                }
-            }
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            throw new DaoException("Error in get direction links to counties.");
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+            List<LinkDirectionCountry> links = dao.showLinkDirectionCountry(crit);
+            dir.setCountryCollection(getCountryInfo(dao, links));
         }
     }
     
     public static List<Country> getCountryInfo(AbstractDao dao, List<LinkDirectionCountry> links) throws DaoException {
-        try {
-            Method meth = dao.getClass().getMethod("toShowCountries", Criteria.class);
-            List<Country> list = new ArrayList<>();
-            for (LinkDirectionCountry link : links) {
-                Criteria crit = new Criteria();
-                crit.addParam(DAO_ID_COUNTRY, link.getIdCountry());
-                List<Country> countries = (List<Country>) meth.invoke(dao, crit);
-                if (countries != null) {
-                    list.addAll(countries);
-                }
+        List<Country> list = new ArrayList<>();
+        for (LinkDirectionCountry link : links) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_COUNTRY, link.getIdCountry());
+            List<Country> countries = dao.showCountries(crit);
+            if (countries != null) {
+                list.addAll(countries);
             }
-            return list;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            throw new DaoException("Error in getCountryInfo");
         }
+        return list;
     }
 
     public static Integer redactDirection(Criteria criteria) throws DaoException {
         
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
         Integer idDirection = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
-        AbstractDao dao = null;
-
-        try {
-            dao = DaoFactory.getInstance(role); 
-            dao.open();
-            Method method;
+        AbstractDao dao = DaoFactory.getInstance(role); 
+        dao.open();
+        try {   
             if (idDirection == null) {      
-                method = dao.getClass().getMethod("toCreateNewDirection", Criteria.class);
+                return createDirection(criteria, dao);
             } else {
-                method = dao.getClass().getMethod("toUpdateDirection", Criteria.class);
-            }
-            Integer currIdDirection = (Integer) method.invoke(dao, criteria);
-            return currIdDirection;    
-        } catch (DaoException ex) {
-            if (dao != null) {
-                dao.rollback();
-            }
-            throw ex;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex ) {
-            if (dao != null) {
-                dao.rollback();
-            }
-            return null;
-        } finally {
-            if (dao != null) {
-                dao.close();
+                return updateDirection(criteria, dao);
             } 
+        } catch (DaoException ex) {
+            dao.rollback();
+            throw ex;
+        } finally {
+            dao.close();
         }
     }
 
+    private static final Integer createDirection(Criteria criteria, AbstractDao dao) throws DaoException {
+        Integer idDescription = dao.createNewDescription(criteria).get(0);
+        criteria.remuveParam(DAO_ID_DESCRIPTION);
+        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+        return dao.createNewDirection(criteria).get(0);   
+    }
     
-
-    
+    private static Integer updateDirection(Criteria criteria, AbstractDao dao) throws DaoException {
+        Criteria beans1 = new Criteria();
+        Criteria beans2 = new Criteria();
+        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        beans2.addParam(DAO_ID_DIRECTION, criteria.getParam(DAO_ID_DIRECTION));
+        criteria.remuveParam(DAO_ID_DIRECTION);
+        criteria.remuveParam(DAO_ID_DESCRIPTION);
+        Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
+        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+        return dao.updateDirection(beans2, criteria).get(0);
+    }
     
 }

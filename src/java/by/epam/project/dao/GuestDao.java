@@ -43,16 +43,16 @@ public interface GuestDao extends AbstractDao {
     @Override
     public List<Hotel> showHotels(Criteria criteria) throws DaoException;
     @Override
-    public List<TourType> toShowTourTypes (Criteria criteria) throws DaoException;
+    public List<TourType> showTourTypes (Criteria criteria) throws DaoException;
     @Override
-    public List<TransportationMode> toShowTransModes (Criteria criteria) throws DaoException;
+    public List<TransportationMode> showTransModes (Criteria criteria) throws DaoException;
     @Override
-    public List<LinkDirectionCountry> toShowLinkDirectionCountry(Criteria criteria) throws DaoException;
+    public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException;
     @Override
-    public List<LinkDirectionCity> toShowLinkDirectionCity(Criteria criteria) throws DaoException;
+    public List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException;
     @Override
-    public List<DirectionStayHotel> toShowDirectionStayHotel(Criteria criteria) throws DaoException;
+    public List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException;
     @Override
-    public List<Tour> toShowTours(Criteria criteria) throws DaoException;
+    public List<Tour> showTours(Criteria criteria) throws DaoException;
     
 }

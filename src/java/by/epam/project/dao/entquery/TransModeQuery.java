@@ -6,8 +6,6 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_MODE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_MODE;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
@@ -29,25 +27,40 @@ import java.util.List;
  */
 public class TransModeQuery implements TypedQuery<TransportationMode>{
     
-    private static final String EM_SAVE_QUERY = 
-            "Insert into transportation_mode (name_mode) values (?);";
-    private static final String EM_LOAD_QUERY = 
-            "Select * from transportation_mode where ";
-    private static final String ALL_LOAD_QUERY = 
-            "Select * from transportation_mode;";
-    private static final String EM_UPDATE_QUERY = 
-            "Update transportation_mode set ";
+    public static final String DB_TRANSMODE = "transportation_mode";
+    public static final String DB_TRANSMODE_ID_MODE = "id_mode";
+    public static final String DB_TRANSMODE_NAME = "name_mode";
+    
+    public static final String DAO_ID_TRANSMODE = "idMode";
+    public static final String DAO_TRANSMODE_NAME = "nameMode";
+    
+    private static final String SAVE_QUERY = 
+            "Insert into " + DB_TRANSMODE + "("
+            + DB_TRANSMODE_NAME + ") values (?);";
+    
+    private static final String LOAD_QUERY = 
+            "Select * from " + DB_TRANSMODE;
+    
+    private static final String UPDATE_QUERY = 
+            "Update " + DB_TRANSMODE + " set ";
 
+    public static final TransportationMode createBean(Criteria criteria) {
+        TransportationMode bean = new TransportationMode();
+        bean.setIdMode((Integer)criteria.getParam(DAO_ID_TRANSMODE));
+        bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));
+        return bean;
+    }
+    
     @Override
     public List<Integer> save(List<TransportationMode> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (TransportationMode bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (TransportationMode bean) -> {
                 Object[] objects = new Object[1];
                 objects[0] = bean.getNameMode();
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("",ex);
+            throw new QueryExecutionException("Transportation mode not saved.", ex);
         }
     }
     
@@ -56,30 +69,32 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
+        StringBuilder sb = new StringBuilder(" where ");
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_MODE, "id_mode", criteria, paramList, sb, separator);
-                append(PARAM_NAME_NAME_MODE, "name_mode", criteria, paramList, sb, separator);
+                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, criteria, paramList, sb, separator);
+                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
         
         if (paramList.isEmpty()) {
-            queryStr = ALL_LOAD_QUERY;
+            queryStr = LOAD_QUERY;
+        } else {
+            queryStr = LOAD_QUERY + queryStr;
         }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 TransportationMode bean = new TransportationMode();
-                bean.setIdMode(rs.getInt("id_mode"));
-                bean.setNameMode(rs.getString("name_mode"));
+                bean.setIdMode(rs.getInt(DB_TRANSMODE_ID_MODE));
+                bean.setNameMode(rs.getString(DB_TRANSMODE_NAME));
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Transportation mode not loaded.", ex);
         }
     }
 
@@ -87,26 +102,26 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
 
     @Override
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
-        List paramList = new ArrayList<>();
+        List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_NAME_MODE, "name_mode", criteria, paramList, sb, separator);
+                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_MODE, "id_mode", beans, paramList2, sb, separator);
+                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
-        paramList.addAll(paramList2);
+        paramList1.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray(), conn);
+            return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Transportation mode not updated." ,ex);
         }
     }
     

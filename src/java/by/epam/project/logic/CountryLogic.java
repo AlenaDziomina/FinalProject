@@ -86,13 +86,12 @@ public abstract class CountryLogic {
     
     private static Integer updateCountry(Criteria criteria, AbstractDao dao) throws DaoException {
         Criteria beans1 = new Criteria();
+        Criteria beans2 = new Criteria();
         beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        beans2.addParam(DAO_ID_COUNTRY, criteria.getParam(DAO_ID_COUNTRY));
         criteria.remuveParam(DAO_ID_COUNTRY);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
         Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
-        
-        Criteria beans2 = new Criteria();
-        beans2.addParam(DAO_ID_COUNTRY, criteria.getParam(DAO_ID_COUNTRY));
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
         return dao.updateCountry(beans2, criteria).get(0);
     }

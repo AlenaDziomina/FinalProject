@@ -133,10 +133,10 @@ public class CountryQuery implements TypedQuery<Country>{
                 sb.append(" where ");
                 separator = " and ";
                 append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, beans, paramList2, sb, separator);
-                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList2, sb, separator);
-                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList2, sb, separator);
-                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList2, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList2, sb, separator);
+                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, beans, paramList2, sb, separator);
+                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, beans, paramList2, sb, separator);
+                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, beans, paramList2, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

@@ -39,7 +39,7 @@ public class GoShowDirections implements ActionCommand {
         
         try {
             List<Direction> directions = DirectionLogic.getDirections(criteria);
-            if (directions != null || !directions.isEmpty()) {
+            if (directions != null && !directions.isEmpty()) {
                 request.setSessionAttribute(PARAM_NAME_DIRECTION_LIST, directions);
                 request.setSessionAttribute(PARAM_NAME_DIRECTION_COUNT, directions.size());
             } else {

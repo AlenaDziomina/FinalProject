@@ -6,17 +6,6 @@
 
 package by.epam.project.entity;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_MODE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR_TYPE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_MODE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_TOUR_TYPE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DIRECTION;
-import by.epam.project.dao.entquery.DescriptionQuery;
-import by.epam.project.dao.query.Criteria;
 import java.util.Collection;
 
 /**
@@ -28,12 +17,12 @@ public final class Direction {
     
     private Integer idDirection;
     private String name;
-    private TourType tourType;
-    private TransportationMode transMode;
     private String text;
-    private Description description;
+    private TourType tourType;
     private String picture;
     private Short status;
+    private TransportationMode transMode;
+    private Description description;
     private Collection<Country> countryCollection;
     private Collection<City> cityCollection;
     private Collection<DirectionStayHotel> stayCollection;
@@ -45,20 +34,7 @@ public final class Direction {
     public Direction(Integer idDirection) {
         this.idDirection = idDirection;
     }
-    public Direction(Criteria criteria) {
-        this.setIdDirection((Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION));
-        this.setName((String) criteria.getParam(PARAM_NAME_NAME_DIRECTION));
-        this.setPicture((String) criteria.getParam(PARAM_NAME_PICTURE_DIRECTION));
-        this.setStatus((Short) criteria.getParam(PARAM_NAME_STATUS_DIRECTION));
-        this.setText((String) criteria.getParam(PARAM_NAME_TEXT_DIRECTION));
-        this.setDescription(DescriptionQuery.createBean(criteria));
-        TourType type = new TourType((Integer)criteria.getParam(PARAM_NAME_ID_TOUR_TYPE), (String) criteria.getParam(PARAM_NAME_NAME_TOUR_TYPE));
-        this.setTourType(type);
-        TransportationMode mode = new TransportationMode((Integer)criteria.getParam(PARAM_NAME_ID_MODE), (String) criteria.getParam(PARAM_NAME_NAME_MODE));
-        this.setTransMode(mode);
-        
-    }
-
+    
     public Integer getIdDirection() {
         return idDirection;
     }

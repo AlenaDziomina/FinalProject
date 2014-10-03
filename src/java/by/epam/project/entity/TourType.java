@@ -19,9 +19,8 @@ public class TourType {
     public TourType() {
     }
 
-    public TourType(Integer idTourType, String nameTourType) {
+    public TourType(Integer idTourType) {
         this.idTourType = idTourType;
-        this.nameTourType = nameTourType;
     }
 
     public Integer getIdTourType() {

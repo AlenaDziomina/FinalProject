@@ -25,13 +25,12 @@ public abstract class TourTypeLogic {
     
     public static List<TourType> getTourTypes(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = null;
+        AbstractDao dao = DaoFactory.getInstance(role); 
+        dao.open();
         
         try {
-            dao = DaoFactory.getInstance(role); 
-            dao.open();
-            Method method = dao.getClass().getMethod("toShowTourTypes", Criteria.class);
-            List<TourType> types = (List<TourType>) method.invoke(dao, criteria);
+            
+            List<TourType> types = dao.showTourTypes(criteria);
            
             return types;   
         } catch (DaoException ex) {
