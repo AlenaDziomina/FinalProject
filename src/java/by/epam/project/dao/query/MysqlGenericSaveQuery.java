@@ -42,9 +42,7 @@ public class MysqlGenericSaveQuery implements GenericSaveQuery {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            
-            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                 
+            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);    
             for (Object[] paramarray : params.params()) {
                 for (int i = 0; i < paramarray.length; i++) {
                     ps.setObject(i + 1, paramarray[i]);

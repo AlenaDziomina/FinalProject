@@ -6,21 +6,21 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.controller.JspParamNames.JSP_DESCRIPTION_TEXT;
 import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_HOTEL;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_DIRECTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DESCRIPTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DIRECTION;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
+import by.epam.project.exception.DaoException;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.MessageManager;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class ProcessSavedParameters implements ActionCommand{
                     Criteria criteria = new Criteria();
                     criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
                     criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-                    criteria.addParam(PARAM_NAME_ID_HOTEL, idHotel);
+                    criteria.addParam(DAO_ID_HOTEL, idHotel);
                     try {
                         List<Hotel> hotels = HotelLogic.getHotels(criteria);
                         hotelTagList.addAll(hotels);
@@ -97,7 +97,7 @@ public class ProcessSavedParameters implements ActionCommand{
         currDir.setName(request.getParameter(PARAM_NAME_NAME_DIRECTION));
         currDir.setPicture(request.getParameter(PARAM_NAME_PICTURE_DIRECTION));
         currDir.setText(request.getParameter(PARAM_NAME_TEXT_DIRECTION));
-        currDir.getDescription().setText(request.getParameter(PARAM_NAME_TEXT_DESCRIPTION));
+        currDir.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));
         
         request.setSessionAttribute(PARAM_NAME_CURRENT_DIRECTION, currDir);
     }

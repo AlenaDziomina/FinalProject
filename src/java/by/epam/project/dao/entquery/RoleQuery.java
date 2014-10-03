@@ -17,9 +17,6 @@ import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Role;
-import static by.epam.project.entity.Role.DB_ROLE;
-import static by.epam.project.entity.Role.DB_ROLE_ID_ROLE;
-import static by.epam.project.entity.Role.DB_ROLE_NAME_ROLE;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,6 +31,10 @@ import java.util.List;
  */
 public class RoleQuery implements TypedQuery<Role>{
     
+    public static final String DB_ROLE = "role";
+    public static final String DB_ROLE_ID_ROLE = "id_role";
+    public static final String DB_ROLE_NAME_ROLE = "role_name";
+    
     public static final String DAO_ID_ROLE = "idRole";
     public static final String DAO_ROLE_NAME = "nameRole";
     
@@ -47,6 +48,14 @@ public class RoleQuery implements TypedQuery<Role>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_ROLE + " set ";
 
+    public static final Role createBean(Criteria criteria) {
+        
+        Role bean = new Role();
+        bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));
+        bean.setRoleName((String)criteria.getParam(DAO_ROLE_NAME));
+        return bean;
+    }
+    
     @Override
     public List<Integer> save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
@@ -98,7 +107,7 @@ public class RoleQuery implements TypedQuery<Role>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {        
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {        
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);

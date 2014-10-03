@@ -6,17 +6,22 @@
 
 package by.epam.project.dao.entquery;
 
-import by.epam.project.exception.QueryExecutionException;
-import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_LIST;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.entity.City;
+import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
+import by.epam.project.entity.Hotel;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,21 +30,49 @@ import java.util.List;
  */
 public class CityQuery implements TypedQuery<City>{
 
-    private static final String EM_SAVE_QUERY = 
-            "Insert into city(id_country, name, picture, id_description) values (?, ?, ?, ?);";
-    private static final String EM_LOAD_QUERY = 
-            "Select * from city c left join description d on (c.id_description = d.id_description) where ";
-    private static final String ALL_LOAD_QUERY = 
-            "Select * from city c left join description d on (c.id_description = d.id_description);";
-    private static final String EM_UPDATE_QUERY = 
-            "Update city set ";
+    public static final String DB_CITY = "city";
+    public static final String DB_CITY_ID_CITY = "id_city";
+    public static final String DB_CITY_ID_COUNTRY = "id_country";
+    public static final String DB_CITY_NAME = "name";
+    public static final String DB_CITY_STATUS = "status";
+    public static final String DB_CITY_PICTURE = "picture";
+    public static final String DB_CITY_ID_DESCRIPTION = "id_description";
+    
+    public static final String DAO_ID_CITY = "idCity";
+    public static final String DAO_CITY_NAME = "nameCity";
+    public static final String DAO_CITY_STATUS = "statusCity";
+    public static final String DAO_CITY_PICTURE = "pictureCity";
+    public static final String DAO_CITY_LIST = "cityList";
+
+    private static final String SAVE_QUERY = 
+            "Insert into " + DB_CITY + "(" + DB_CITY_ID_COUNTRY + ", "
+            + DB_CITY_NAME + ", " + DB_CITY_PICTURE + ", " 
+            + DB_CITY_ID_DESCRIPTION + ") values (?, ?, ?, ?);";
+    
+    private static final String LOAD_QUERY = 
+            "Select * from " + DB_CITY;
+    
+    private static final String UPDATE_QUERY = 
+            "Update " + DB_CITY + " set ";
+    
+    public static final City createBean(Criteria criteria){
+        City bean = new City();
+        bean.setIdCity((Integer) criteria.getParam(DAO_ID_CITY));
+        bean.setName((String) criteria.getParam(DAO_CITY_NAME));
+        bean.setPicture((String) criteria.getParam(DAO_CITY_PICTURE));
+        bean.setStatus((Short) criteria.getParam(DAO_CITY_STATUS));
+        bean.setDescription(DescriptionQuery.createBean(criteria));
+        bean.setHotelCollection((Collection<Hotel>) criteria.getParam(DAO_HOTEL_LIST));
+        bean.setCountry(CountryQuery.createBean(criteria));
+        return bean;
+    }
     
     @Override
     public List<Integer> save(List<City> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (City bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (City bean) -> {
                 Object[] objects = new Object[4];
-                objects[0] = bean.getIdCountry();
+                objects[0] = bean.getCountry().getIdCountry();
                 objects[1] = bean.getName();
                 objects[2] = bean.getPicture();
                 objects[3] = bean.getDescription().getIdDescription();
@@ -55,34 +88,37 @@ public class CityQuery implements TypedQuery<City>{
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
+        StringBuilder sb = new StringBuilder(" where ");
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_CITY, "id_city", criteria, paramList, sb, separator);
-                append(PARAM_NAME_NAME_CITY, "name", criteria, paramList, sb, separator);
-                append(PARAM_NAME_STATUS_CITY, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PICTURE_CITY, "picture", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
+                append(DAO_ID_CITY, DB_CITY_ID_CITY, criteria, paramList, sb, separator);
+                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList, sb, separator);
+                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList, sb, separator);
+                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList, sb, separator);
+                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList, sb, separator);
                 
                 return sb.toString();
             }  
         }.mapQuery();
         
         if (paramList.isEmpty()) {
-            queryStr = ALL_LOAD_QUERY;
+            queryStr = LOAD_QUERY;
+        } else {
+            queryStr = LOAD_QUERY + queryStr;
         }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 City bean = new City();
-                bean.setIdCity(rs.getInt("id_city"));
-                bean.setIdCountry(rs.getInt("id_country"));
-                bean.setName(rs.getString("name"));
-                bean.setStatus(rs.getShort("status"));
-                bean.setPicture(rs.getString("picture"));
-                bean.setDescription(new Description(rs.getInt("id_description"), rs.getString("text")));
+                bean.setIdCity(rs.getInt(DB_CITY_ID_CITY));
+                bean.setCountry(new Country(rs.getInt(DB_CITY_ID_COUNTRY)));
+                bean.setName(rs.getString(DB_CITY_NAME));
+                bean.setStatus(rs.getShort(DB_CITY_STATUS));
+                bean.setPicture(rs.getString(DB_CITY_PICTURE));
+                bean.setDescription(new Description(rs.getInt(DB_CITY_ID_DESCRIPTION)));
                 return bean;
             });
         } catch (DaoException ex) {
@@ -91,29 +127,34 @@ public class CityQuery implements TypedQuery<City>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
-        List paramList = new ArrayList<>();
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+        List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
-                append(PARAM_NAME_NAME_CITY, "name", criteria, paramList, sb, separator);
-                append(PARAM_NAME_STATUS_CITY, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PICTURE_CITY, "picture", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
+                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList1, sb, separator);
+                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList1, sb, separator);
+                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList1, sb, separator);
+                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList1, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_CITY, "id_city", beans, paramList2, sb, separator);
+                append(DAO_ID_CITY, DB_CITY_ID_CITY, beans, paramList2, sb, separator);
+                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList2, sb, separator);
+                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList2, sb, separator);
+                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList2, sb, separator);
+                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList2, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
-        paramList.addAll(paramList2);
+        paramList1.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray(), conn);
+            return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new QueryExecutionException("City not updated.", ex);
         }

@@ -6,25 +6,11 @@
 
 package by.epam.project.entity;
 
-import by.epam.project.dao.query.Criteria;
-
 /**
  *
  * @author User
  */
 public final class User {
-    
-    public static final String DB_USER = "user";
-    public static final String DB_USER_ID_USER = "id_user";
-    public static final String DB_USER_ID_ROLE = "id_role";
-    public static final String DB_USER_LOGIN = "login";
-    public static final String DB_USER_PASSWORD = "password";
-    public static final String DB_USER_EMAIL = "email";
-    public static final String DB_USER_PHONE = "phone";
-    public static final String DB_USER_DISCOUNT = "discount";
-    public static final String DB_USER_BALANCE = "balance";
-    public static final String DB_USER_LANGUAGE = "lang";
-    public static final String DB_USER_STATUS = "status";
     
     private Integer idUser;
     private Role role;   

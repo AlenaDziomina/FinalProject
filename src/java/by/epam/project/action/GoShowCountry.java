@@ -7,6 +7,8 @@
 package by.epam.project.action;
 
 
+import static by.epam.project.controller.JspParamNames.JSP_COUNTRY_COUNT;
+import static by.epam.project.controller.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
@@ -42,8 +44,8 @@ class GoShowCountry implements ActionCommand {
         try {
             List<Country> countrys = CountryLogic.getCountries(criteria);
             if (countrys != null || !countrys.isEmpty()) {
-                request.setSessionAttribute(PARAM_NAME_COUNTRY_LIST, countrys);
-                request.setSessionAttribute(PARAM_NAME_COUNTRY_COUNT, countrys.size());
+                request.setSessionAttribute(JSP_COUNTRY_LIST, countrys);
+                request.setSessionAttribute(JSP_COUNTRY_COUNT, countrys.size());
             } else {
                 request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
             }

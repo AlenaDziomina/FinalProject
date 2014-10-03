@@ -16,9 +16,9 @@ import by.epam.project.dao.entquery.TourTypeQuery;
 import by.epam.project.dao.entquery.TransModeQuery;
 import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
@@ -31,6 +31,7 @@ import by.epam.project.entity.TransportationMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoLogicException;
+import by.epam.project.exception.QueryExecutionException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +81,17 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<Country> toShowCountries(Criteria criteria) throws DaoException {
+    public List<Description> showDescriptions(Criteria criteria) throws DaoException {
+        try {
+            List<Description> desc = new DescriptionQuery().load(criteria, loadDao, mysqlConn);
+            return desc;
+        } catch (QueryExecutionException ex) {
+            throw new DaoException("Error in query.");
+        }
+    }
+    
+    @Override
+    public List<Country> showCountries(Criteria criteria) throws DaoException {
         try {
             List<Country> countries = new CountryQuery().load(criteria, loadDao, mysqlConn);
             return countries;
@@ -90,7 +101,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<City> toShowCities(Criteria criteria) throws DaoException {
+    public List<City> showCities(Criteria criteria) throws DaoException {
         try {
             List<City> cities = new CityQuery().load(criteria, loadDao, mysqlConn);
             return cities;
@@ -100,7 +111,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<Hotel> toShowHotels(Criteria criteria) throws DaoException {
+    public List<Hotel> showHotels(Criteria criteria) throws DaoException {
         try {
             List<Hotel> hotels = new HotelQuery().load(criteria, loadDao, mysqlConn);
             return hotels;
@@ -130,7 +141,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<Direction> toShowDirections(Criteria criteria) throws DaoException {
+    public List<Direction> showDirections(Criteria criteria) throws DaoException {
         try {
             List<Direction> directions = new DirectionQuery().load(criteria, loadDao, mysqlConn);
             return directions;

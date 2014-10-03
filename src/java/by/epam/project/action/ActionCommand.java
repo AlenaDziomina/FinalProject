@@ -17,23 +17,6 @@ import java.util.HashSet;
  */
 public interface ActionCommand {
     
-    
-    
-    
-    
-    static final String PARAM_NAME_COUNTRY_LIST = "countryList";
-    static final String PARAM_NAME_COUNTRY_COUNT = "countryCount";
-    static final String PARAM_NAME_CURRENT_COUNTRY = "currCountry";
-    
-    static final String PARAM_NAME_CITY_LIST = "cityList";
-    static final String PARAM_NAME_CURR_CITY_LIST = "currCityList";
-    static final String PARAM_NAME_CITY_COUNT = "cityCount";
-    static final String PARAM_NAME_CURRENT_CITY = "currCity";
-    
-    static final String PARAM_NAME_HOTEL_LIST = "hotelList";
-    static final String PARAM_NAME_HOTEL_COUNT = "hotelCount";
-    static final String PARAM_NAME_CURRENT_HOTEL = "currHotel";
-    
     static final String PARAM_NAME_SELECT_ID = "selectId";
     static final String PARAM_NAME_DIRECTION_LIST = "directionList";
     static final String PARAM_NAME_DIRECTION_COUNT = "directionCount";
@@ -71,19 +54,19 @@ public interface ActionCommand {
         }
     }
     
-    public static void checkParam(SessionRequestContent request, Criteria criteria, String name1, String name2){
+    public static void checkParam(SessionRequestContent request, Criteria criteria, String reqName, String critName){
         
-        String param = (String) request.getParameter(name1);
+        String param = (String) request.getParameter(reqName);
         if (param != null && !param.isEmpty()) {
             Integer currParam = Integer.decode(param);
             if (currParam > 0) {
-                criteria.addParam(name2, currParam);
+                criteria.addParam(critName, currParam);
             }
         }
     }
     
-    public static void checkArrParam(SessionRequestContent request, Criteria criteria, String name1, String name2){
-        String[] arr = (String[]) request.getAllParameters(name2);
+    public static void checkArrParam(SessionRequestContent request, Criteria criteria, String reqName, String critName){
+        String[] arr = (String[]) request.getAllParameters(reqName);
         Collection<Integer> set = new HashSet();
         if (arr != null && arr.length > 0) {
             for (String param : arr) {
@@ -95,6 +78,6 @@ public interface ActionCommand {
                 }
             }
         }
-        criteria.addParam(name1, set);
+        criteria.addParam(critName, set);
     }
 }

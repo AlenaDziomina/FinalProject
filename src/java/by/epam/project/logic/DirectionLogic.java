@@ -9,8 +9,10 @@ package by.epam.project.logic;
 import by.epam.project.dao.AbstractDao;
 import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.ClientType;
-import by.epam.project.exception.DaoException;
 import by.epam.project.dao.DaoFactory;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
@@ -20,6 +22,7 @@ import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.exception.DaoException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -86,7 +89,7 @@ public abstract class DirectionLogic {
             Method meth = dao.getClass().getMethod("toShowHotels", Criteria.class);
             for (DirectionStayHotel st : stays) {
                 Criteria crit = new Criteria();
-                crit.addParam(PARAM_NAME_ID_HOTEL, st.getStayHotel().getIdHotel());
+                crit.addParam(DAO_ID_HOTEL, st.getStayHotel().getIdHotel());
                 List<Hotel> hotels = (List<Hotel>) meth.invoke(dao, crit);
                 if (hotels != null && !hotels.isEmpty()) {
                     st.setStayHotel(hotels.get(0));
@@ -120,7 +123,7 @@ public abstract class DirectionLogic {
             List<City> list = new ArrayList<>();
             for (LinkDirectionCity link : links) {
                 Criteria crit = new Criteria();
-                crit.addParam(PARAM_NAME_ID_CITY, link.getIdCity());
+                crit.addParam(DAO_ID_CITY, link.getIdCity());
                 List<City> cities = (List<City>) meth.invoke(dao, crit);
                 if (cities != null) {
                     list.addAll(cities);
@@ -154,7 +157,7 @@ public abstract class DirectionLogic {
             List<Country> list = new ArrayList<>();
             for (LinkDirectionCountry link : links) {
                 Criteria crit = new Criteria();
-                crit.addParam(PARAM_NAME_ID_COUNTRY, link.getIdCountry());
+                crit.addParam(DAO_ID_COUNTRY, link.getIdCountry());
                 List<Country> countries = (List<Country>) meth.invoke(dao, crit);
                 if (countries != null) {
                     list.addAll(countries);

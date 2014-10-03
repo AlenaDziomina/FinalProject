@@ -6,17 +6,20 @@
 
 package by.epam.project.dao.entquery;
 
-import by.epam.project.exception.QueryExecutionException;
-import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_LIST;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
+import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,20 +28,44 @@ import java.util.List;
  */
 public class CountryQuery implements TypedQuery<Country>{
     
+    public static final String DB_COUNTRY = "country";
+    public static final String DB_COUNTRY_ID_COUNTRY = "id_country";
+    public static final String DB_COUNTRY_NAME = "name";
+    public static final String DB_COUNTRY_STATUS = "status";
+    public static final String DB_COUNTRY_PICTURE = "picture";
+    public static final String DB_COUNTRY_ID_DESCRIPTION = "id_description";
+    
+    public static final String DAO_ID_COUNTRY = "idCountry";
+    public static final String DAO_COUNTRY_NAME = "nameCountry";
+    public static final String DAO_COUNTRY_PICTURE = "pictureCountry";
+    public static final String DAO_COUNTRY_STATUS = "statusCountry";
    
-    private static final String EM_SAVE_QUERY = 
-            "Insert into country(name, picture, id_description) values (?, ?, ?);";
-    private static final String EM_LOAD_QUERY = 
-            "Select * from country c left join description d on (c.id_description = d.id_description) where ";
-    private static final String ALL_LOAD_QUERY = 
-            "Select * from country c left join description d on (c.id_description = d.id_description);";
-    private static final String EM_UPDATE_QUERY = 
-            "Update country set ";
+    private static final String SAVE_QUERY = 
+            "Insert into " + DB_COUNTRY + "(" + DB_COUNTRY_NAME + ", "
+            + DB_COUNTRY_PICTURE + ", " + DB_COUNTRY_ID_DESCRIPTION
+            + ") values (?, ?, ?);";
+    
+    private static final String LOAD_QUERY = 
+            "Select * from " + DB_COUNTRY;
+    
+    private static final String UPDATE_QUERY = 
+            "Update " + DB_COUNTRY + " set ";
 
+    public static final Country createBean(Criteria criteria){
+        Country bean = new Country();
+        bean.setIdCountry((Integer) criteria.getParam(DAO_ID_COUNTRY));
+        bean.setName((String) criteria.getParam(DAO_COUNTRY_NAME));
+        bean.setPicture((String) criteria.getParam(DAO_COUNTRY_PICTURE));
+        bean.setStatus((Short) criteria.getParam(DAO_COUNTRY_STATUS));
+        bean.setDescription(DescriptionQuery.createBean(criteria));
+        bean.setCityCollection((Collection<City>) criteria.getParam(DAO_CITY_LIST));
+        return bean;
+    }
+    
     @Override
     public List<Integer> save(List<Country> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
         try {
-            return saveDao.query(EM_SAVE_QUERY, conn, Params.fill(beans, (Country bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Country bean) -> {
                 Object[] objects = new Object[3];
                 objects[0] = bean.getName();
                 objects[1] = bean.getPicture();
@@ -46,7 +73,7 @@ public class CountryQuery implements TypedQuery<Country>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("",ex);
+            throw new QueryExecutionException("Country not saved.",ex);
         }
     }
 
@@ -55,64 +82,70 @@ public class CountryQuery implements TypedQuery<Country>{
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_LOAD_QUERY);
+        StringBuilder sb = new StringBuilder(" where ");
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
-                append(PARAM_NAME_NAME_COUNTRY, "name", criteria, paramList, sb, separator);
-                append(PARAM_NAME_STATUS_COUNTRY, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PICTURE_COUNTRY, "picture", criteria, paramList, sb, separator);
-                
+                append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, criteria, paramList, sb, separator);
+                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList, sb, separator);
+                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList, sb, separator);
+                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
         
         if (paramList.isEmpty()) {
-            queryStr = ALL_LOAD_QUERY;
+            queryStr = LOAD_QUERY;
+        } else {
+            queryStr = LOAD_QUERY + queryStr;
         }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 Country bean = new Country();
-                bean.setIdCountry(rs.getInt("id_country"));
-                bean.setName(rs.getString("name"));
-                bean.setStatus(rs.getShort("status"));
-                bean.setPicture(rs.getString("picture"));
-                bean.setDescription(new Description(rs.getInt("id_description"), rs.getString("text")));
+                bean.setIdCountry(rs.getInt(DB_COUNTRY_ID_COUNTRY));
+                bean.setName(rs.getString(DB_COUNTRY_NAME));
+                bean.setStatus(rs.getShort(DB_COUNTRY_STATUS));
+                bean.setPicture(rs.getString(DB_COUNTRY_PICTURE));
+                bean.setDescription(new Description(rs.getInt(DB_COUNTRY_ID_DESCRIPTION)));
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Country not loaded.", ex);
         }
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
-        List paramList = new ArrayList<>();
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+        List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_NAME_COUNTRY, "name", criteria, paramList, sb, separator);
-                append(PARAM_NAME_STATUS_COUNTRY, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PICTURE_COUNTRY, "picture", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
+                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList1, sb, separator);
+                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList1, sb, separator);
+                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList1, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_COUNTRY, "id_country", beans, paramList2, sb, separator);
+                append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, beans, paramList2, sb, separator);
+                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList2, sb, separator);
+                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList2, sb, separator);
+                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList2, sb, separator);
+                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
-        paramList.addAll(paramList2);
+        paramList1.addAll(paramList2);
         
         try {
-            return updateDao.query(queryStr, paramList.toArray(), conn);
+            return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("",ex);
+             throw new QueryExecutionException("Country not updated.", ex);
         }
     }
     

@@ -6,22 +6,16 @@
 
 package by.epam.project.entity;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_CITY_LIST;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DESCRIPTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_MODE;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR_TYPE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_DIRECTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_MODE;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_TOUR_TYPE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DESCRIPTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DIRECTION;
+import by.epam.project.dao.entquery.DescriptionQuery;
 import by.epam.project.dao.query.Criteria;
 import java.util.Collection;
 
@@ -57,8 +51,7 @@ public final class Direction {
         this.setPicture((String) criteria.getParam(PARAM_NAME_PICTURE_DIRECTION));
         this.setStatus((Short) criteria.getParam(PARAM_NAME_STATUS_DIRECTION));
         this.setText((String) criteria.getParam(PARAM_NAME_TEXT_DIRECTION));
-        Description desc = new Description((Integer)criteria.getParam(PARAM_NAME_ID_DESCRIPTION), (String) criteria.getParam(PARAM_NAME_TEXT_DESCRIPTION));
-        this.setDescription(desc);
+        this.setDescription(DescriptionQuery.createBean(criteria));
         TourType type = new TourType((Integer)criteria.getParam(PARAM_NAME_ID_TOUR_TYPE), (String) criteria.getParam(PARAM_NAME_NAME_TOUR_TYPE));
         this.setTourType(type);
         TransportationMode mode = new TransportationMode((Integer)criteria.getParam(PARAM_NAME_ID_MODE), (String) criteria.getParam(PARAM_NAME_NAME_MODE));

@@ -11,9 +11,6 @@ package by.epam.project.entity;
  * @author User
  */
 public final class Role {
-    public static final String DB_ROLE = "role";
-    public static final String DB_ROLE_ID_ROLE = "id_role";
-    public static final String DB_ROLE_NAME_ROLE = "role_name";
     
     private Integer idRole;
     private String roleName;

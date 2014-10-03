@@ -7,6 +7,7 @@
 package by.epam.project.dao;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
+import java.util.List;
 
 /**
  *
@@ -15,20 +16,22 @@ import by.epam.project.dao.query.Criteria;
 public interface AdminDao extends AbstractDao {
     
     @Override
-    public Integer toCreateNewCountry(Criteria criteria)throws DaoException;
+    public List<Integer> createNewDescription(Criteria criteria) throws DaoException;
     @Override
-    public Integer toUpdateCountry(Criteria criteria) throws DaoException;
+    public List<Integer> updateDescription(Criteria beans, Criteria crit) throws DaoException;
     @Override
-    public Integer toCreateNewCity(Criteria criteria)throws DaoException;
+    public List<Integer> createNewCountry(Criteria criteria)throws DaoException;
     @Override
-    public Integer toUpdateCity(Criteria criteria) throws DaoException;
+    public List<Integer> updateCountry(Criteria bean, Criteria criteria) throws DaoException;
     @Override
-    public Integer toCreateNewHotel(Criteria criteria)throws DaoException;
+    public List<Integer> createNewCity(Criteria criteria)throws DaoException;
     @Override
-    public Integer toUpdateHotel(Criteria criteria) throws DaoException;
+    public List<Integer> updateCity(Criteria bean, Criteria criteria) throws DaoException;
     @Override
-    public Integer toEditDescription(Criteria criteria) throws DaoException;
+    public List<Integer> createNewHotel(Criteria criteria)throws DaoException;
     @Override
-    public Integer toCreateNewDirection(Criteria criteria) throws DaoException;
+    public List<Integer> updateHotel(Criteria bean, Criteria criteria) throws DaoException;
+    @Override
+    public List<Integer> createNewDirection(Criteria criteria) throws DaoException;
     
 }

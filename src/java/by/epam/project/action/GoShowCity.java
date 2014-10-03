@@ -6,11 +6,14 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.controller.JspParamNames.JSP_CITY_COUNT;
+import static by.epam.project.controller.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.controller.JspParamNames.JSP_ID_COUNTRY;
 import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
@@ -38,13 +41,13 @@ class GoShowCity implements ActionCommand {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        criteria.addParam(PARAM_NAME_ID_COUNTRY, request.getAttribute(PARAM_NAME_ID_COUNTRY));
+        criteria.addParam(DAO_ID_COUNTRY, request.getAttribute(JSP_ID_COUNTRY));
         
         try {
             List<City> cities = CityLogic.getCities(criteria);
             if (cities != null || !cities.isEmpty()) {
-                request.setSessionAttribute(PARAM_NAME_CITY_LIST, cities);
-                request.setSessionAttribute(PARAM_NAME_CITY_COUNT, cities.size());
+                request.setSessionAttribute(JSP_CITY_LIST, cities);
+                request.setSessionAttribute(JSP_CITY_COUNT, cities.size());
             } else {
                 request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
             }

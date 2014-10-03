@@ -6,8 +6,8 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.PARAM_NAME_COUNTRY_LIST;
 import static by.epam.project.action.ActionCommand.PARAM_NAME_CURR_COUNTRY_TAGS;
+import static by.epam.project.controller.JspParamNames.JSP_COUNTRY_LIST;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.Country;
 import java.util.ArrayList;
@@ -23,10 +23,10 @@ public class GoEditDirection implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoLogicException {
         
         
-        List<Country> countryList = (List<Country>) request.getSessionAttribute(PARAM_NAME_COUNTRY_LIST);
+        List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
         if (countryList == null || countryList.isEmpty()){
             new GoShowCountry().execute(request);
-            countryList = (List<Country>) request.getSessionAttribute(PARAM_NAME_COUNTRY_LIST);
+            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
         }
         
         List<Country> countryTagList = new ArrayList<>();

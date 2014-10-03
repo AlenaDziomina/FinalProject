@@ -6,29 +6,26 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DESCRIPTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_HOTEL;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_STAY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_COUNTRY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_COUNTRY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_STAY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_STAY_NO;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_NAME;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_PICTURE;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.entity.Country;
-import by.epam.project.entity.Description;
 import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -75,10 +72,10 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
-                append(PARAM_NAME_NAME_COUNTRY, "name", criteria, paramList, sb, separator);
-                append(PARAM_NAME_STATUS_COUNTRY, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_PICTURE_COUNTRY, "picture", criteria, paramList, sb, separator);
+                append(DAO_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
+                append(DAO_COUNTRY_NAME, "name", criteria, paramList, sb, separator);
+                append(DAO_COUNTRY_STATUS, "status", criteria, paramList, sb, separator);
+                append(DAO_COUNTRY_PICTURE, "picture", criteria, paramList, sb, separator);
                 
                 return sb.toString();
             }  
@@ -104,7 +101,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
         List paramList = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
@@ -114,7 +111,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 String separator = " , ";
                 append(PARAM_NAME_STAY_NO, "stay_no", criteria, paramList, sb, separator);
                 append(PARAM_NAME_STATUS_STAY, "status", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_HOTEL, "id_hotel", criteria, paramList, sb, separator);
+                append(DAO_ID_HOTEL, "id_hotel", criteria, paramList, sb, separator);
                 append(PARAM_NAME_ID_DIRECTION, "id_direction", criteria, paramList, sb, separator);
                 sb.append(" where ");
                 separator = " and ";

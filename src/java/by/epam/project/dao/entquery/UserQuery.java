@@ -6,7 +6,6 @@
 
 package by.epam.project.dao.entquery;
 
-import by.epam.project.exception.DaoException;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ID_ROLE;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
@@ -15,20 +14,11 @@ import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
-import static by.epam.project.entity.User.DB_USER;
-import static by.epam.project.entity.User.DB_USER_BALANCE;
-import static by.epam.project.entity.User.DB_USER_DISCOUNT;
-import static by.epam.project.entity.User.DB_USER_EMAIL;
-import static by.epam.project.entity.User.DB_USER_ID_ROLE;
-import static by.epam.project.entity.User.DB_USER_ID_USER;
-import static by.epam.project.entity.User.DB_USER_LANGUAGE;
-import static by.epam.project.entity.User.DB_USER_LOGIN;
-import static by.epam.project.entity.User.DB_USER_PASSWORD;
-import static by.epam.project.entity.User.DB_USER_PHONE;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -39,6 +29,18 @@ import java.util.List;
  * @author User
  */
 public class UserQuery implements TypedQuery<User>{
+    
+    public static final String DB_USER = "user";
+    public static final String DB_USER_ID_USER = "id_user";
+    public static final String DB_USER_ID_ROLE = "id_role";
+    public static final String DB_USER_LOGIN = "login";
+    public static final String DB_USER_PASSWORD = "password";
+    public static final String DB_USER_EMAIL = "email";
+    public static final String DB_USER_PHONE = "phone";
+    public static final String DB_USER_DISCOUNT = "discount";
+    public static final String DB_USER_BALANCE = "balance";
+    public static final String DB_USER_LANGUAGE = "lang";
+    public static final String DB_USER_STATUS = "status";
     
     public static final String DAO_ID_USER = "idUser";
     public static final String DAO_USER_LOGIN = "login";
@@ -70,7 +72,7 @@ public class UserQuery implements TypedQuery<User>{
         bean.setLogin((String) criteria.getParam(DAO_USER_LOGIN));
         bean.setPassword((Integer) criteria.getParam(DAO_USER_PASSWORD));
         bean.setEmail((String) criteria.getParam(DAO_USER_EMAIL));
-        bean.setRole(new Role((Integer)criteria.getParam(DAO_ID_ROLE)));
+        bean.setRole(RoleQuery.createBean(criteria));
         bean.setPhone((String) criteria.getParam(DAO_USER_PHONE));
         bean.setLanguage((String) criteria.getParam(DAO_USER_LANGUAGE));
         bean.setDiscount((Integer) criteria.getParam(DAO_USER_DISCOUNT));
@@ -147,7 +149,7 @@ public class UserQuery implements TypedQuery<User>{
     }
     
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);

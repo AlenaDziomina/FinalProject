@@ -6,18 +6,18 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
             public String mapQuery() { 
                 String separator = " and ";
                 append(PARAM_NAME_ID_DIRECTION, "id_direction", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
+                append(DAO_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -85,7 +85,7 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {        
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {        
         List paramList = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
@@ -93,7 +93,7 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(PARAM_NAME_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
+                append(DAO_ID_COUNTRY, "id_country", criteria, paramList, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
                 append(PARAM_NAME_ID_DIRECTION, "id_direction", beans, paramList2, sb, separator);

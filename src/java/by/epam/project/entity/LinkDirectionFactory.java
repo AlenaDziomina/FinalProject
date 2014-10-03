@@ -6,10 +6,10 @@
 
 package by.epam.project.entity;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_HOTEL;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import by.epam.project.dao.query.Criteria;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +22,7 @@ import java.util.List;
 public abstract class LinkDirectionFactory {
     public static List<LinkDirectionCountry> getLinkCountryInstances(Criteria criteria) {
         Integer dir = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
-        Collection<Integer> cntr = (Collection<Integer>) criteria.getParam(PARAM_NAME_ID_COUNTRY);
+        Collection<Integer> cntr = (Collection<Integer>) criteria.getParam(DAO_ID_COUNTRY);
         List<LinkDirectionCountry> list = new ArrayList<>();
         for (Integer c : cntr) {
             list.add(new LinkDirectionCountry(dir, c));
@@ -33,7 +33,7 @@ public abstract class LinkDirectionFactory {
 
     public static  List<LinkDirectionCity> getLinkCityInstances(Criteria criteria) {
         Integer dir = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
-        Collection<Integer> cntr = (Collection<Integer>) criteria.getParam(PARAM_NAME_ID_CITY);
+        Collection<Integer> cntr = (Collection<Integer>) criteria.getParam(DAO_ID_CITY);
         List<LinkDirectionCity> list = new ArrayList<>();
         for (Integer c : cntr) {
             list.add(new LinkDirectionCity(dir, c));
@@ -44,7 +44,7 @@ public abstract class LinkDirectionFactory {
 
     public static List<DirectionStayHotel> getStayHotelInstances(Criteria criteria) {
         Integer dir = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
-        Collection<Integer> hotels = (Collection<Integer>) criteria.getParam(PARAM_NAME_ID_HOTEL);
+        Collection<Integer> hotels = (Collection<Integer>) criteria.getParam(DAO_ID_HOTEL);
         List<DirectionStayHotel> list = new ArrayList<>();
         Integer i = 0;
         for (Integer id : hotels) {

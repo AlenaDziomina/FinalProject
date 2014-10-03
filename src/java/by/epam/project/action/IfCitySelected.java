@@ -6,9 +6,9 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.controller.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
 
 /**
  *
@@ -26,7 +26,7 @@ public class IfCitySelected implements ActionCommand {
         if (currCity != null && !currCity.isEmpty()){
             Integer idCity = Integer.decode(currCity);
             if (idCity > 0) {
-                request.setAttribute(PARAM_NAME_ID_CITY, idCity);
+                request.setAttribute(JSP_ID_CITY, idCity);
             }
             new GoShowHotel().execute(request);
         }

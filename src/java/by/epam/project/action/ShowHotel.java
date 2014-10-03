@@ -7,6 +7,8 @@
 package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.*;
+import static by.epam.project.controller.JspParamNames.JSP_CURRENT_HOTEL;
+import static by.epam.project.controller.JspParamNames.JSP_HOTEL_LIST;
 import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.Hotel;
@@ -27,15 +29,15 @@ public class ShowHotel implements ActionCommand {
         
         String page = ConfigurationManager.getProperty("path.page.hotels");
         request.setSessionAttribute(JSP_PAGE, page);
-        List<Hotel> list = (List<Hotel>) request.getSessionAttribute(PARAM_NAME_HOTEL_LIST);
+        List<Hotel> list = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
         if (list == null || list.isEmpty()){
             new GoShowHotel().execute(request);
-            list = (List<Hotel>) request.getSessionAttribute(PARAM_NAME_HOTEL_LIST);
+            list = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
         }
         Integer id = Integer.decode(request.getParameter(PARAM_NAME_SELECT_ID));
         for (Hotel c: list) {
             if (Objects.equals(c.getIdHotel(), id)) {
-                request.setSessionAttribute(PARAM_NAME_CURRENT_HOTEL, c);
+                request.setSessionAttribute(JSP_CURRENT_HOTEL, c);
                 return page;
             }
         }

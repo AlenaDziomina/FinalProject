@@ -7,15 +7,17 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.ClientType;
-import by.epam.project.exception.DaoException;
 import by.epam.project.dao.DaoFactory;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.City;
+import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import by.epam.project.exception.DaoException;
 import java.util.List;
 
 /**
@@ -26,61 +28,75 @@ public class HotelLogic {
     
     public static List<Hotel> getHotels(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = null;
-        
+        AbstractDao dao = DaoFactory.getInstance(role); 
+        dao.open();
         try {
-            dao = DaoFactory.getInstance(role); 
-            dao.open();
-            Method method = dao.getClass().getMethod("toShowHotels", Criteria.class);
-            List<Hotel> hotels = (List<Hotel>) method.invoke(dao, criteria);
+            List<Hotel> hotels = dao.showHotels(criteria);
+            fillHotels(hotels, dao);
             return hotels;   
         } catch (DaoException ex) {
-            if (dao != null) {
-                dao.rollback();
-            }
+            dao.rollback();
             throw ex;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            return null;
         } finally {
-            if (dao != null) {
-                dao.close();
-            } 
+            dao.close();
         }
-        
-        
     }
 
     public static Integer redactHotel(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        Integer idHotel = (Integer) criteria.getParam(PARAM_NAME_ID_HOTEL);
-        AbstractDao dao = null;
+        Integer idHotel = (Integer) criteria.getParam(DAO_ID_HOTEL);
+        AbstractDao dao = DaoFactory.getInstance(role); 
+        dao.open();
 
         try {
-            dao = DaoFactory.getInstance(role); 
-            dao.open();
-            Method method;
             if (idHotel == null) {      
-                method = dao.getClass().getMethod("toCreateNewHotel", Criteria.class);
+                return createHotel(criteria, dao);
             } else {
-                method = dao.getClass().getMethod("toUpdateHotel", Criteria.class);
+                return updateHotel(criteria, dao);
             }
-            Integer currIdHotel = (Integer) method.invoke(dao, criteria);
-            return currIdHotel;    
         } catch (DaoException ex) {
-            if (dao != null) {
-                dao.rollback();
-            }
+            dao.rollback();
             throw ex;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex ) {
-            if (dao != null) {
-                dao.rollback();
-            }
-            return null;
         } finally {
-            if (dao != null) {
-                dao.close();
-            } 
+            dao.close();
+        }
+    }
+    private static void fillHotels(List<Hotel> hotels, AbstractDao dao) throws DaoException {
+        if (hotels != null) {
+            for (Hotel hotel : hotels) {
+                Criteria crit = new Criteria();
+                crit.addParam(DAO_ID_DESCRIPTION, hotel.getDescription().getIdDescription());
+                crit.addParam(DAO_ID_CITY, hotel.getCity().getIdCity());
+                
+                List<Description> desc = dao.showDescriptions(crit);
+                if (desc != null && !desc.isEmpty()) {
+                    hotel.setDescription(desc.get(0));
+                }
+                List<City> cities = dao.showCities(crit);
+                if (cities != null && !cities.isEmpty()) {
+                    hotel.setCity(cities.get(0));
+                }
+            }
         }
     }
     
+    private static Integer createHotel(Criteria criteria, AbstractDao dao) throws DaoException {
+        Integer idDescription = dao.createNewDescription(criteria).get(0);
+        criteria.remuveParam(DAO_ID_DESCRIPTION);
+        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+        return dao.createNewHotel(criteria).get(0);   
+    }
+    
+    private static Integer updateHotel(Criteria criteria, AbstractDao dao) throws DaoException {
+        Criteria beans = new Criteria();
+        beans.addParam(DAO_ID_HOTEL, criteria.getParam(DAO_ID_HOTEL));
+        beans.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        criteria.remuveParam(DAO_ID_HOTEL);
+        criteria.remuveParam(DAO_ID_DESCRIPTION);
+        
+        Integer idDescription = dao.updateDescription(beans, criteria).get(0);
+        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+        return dao.updateHotel(beans, criteria).get(0);
+    }
 }
+

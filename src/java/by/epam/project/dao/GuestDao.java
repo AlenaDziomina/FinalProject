@@ -35,17 +35,17 @@ public interface GuestDao extends AbstractDao {
     @Override
     public Integer createNewUser(Criteria criteria) throws DaoException;   
     @Override
-    public List<Country> toShowCountries(Criteria criteria) throws DaoException;
+    public List<Direction> showDirections(Criteria criteria) throws DaoException;
     @Override
-    public List<City> toShowCities(Criteria criteria) throws DaoException;
+    public List<Country> showCountries(Criteria criteria) throws DaoException;
     @Override
-    public List<Hotel> toShowHotels(Criteria criteria) throws DaoException;
+    public List<City> showCities(Criteria criteria) throws DaoException;
+    @Override
+    public List<Hotel> showHotels(Criteria criteria) throws DaoException;
     @Override
     public List<TourType> toShowTourTypes (Criteria criteria) throws DaoException;
     @Override
     public List<TransportationMode> toShowTransModes (Criteria criteria) throws DaoException;
-    @Override
-    public List<Direction> toShowDirections(Criteria criteria) throws DaoException;
     @Override
     public List<LinkDirectionCountry> toShowLinkDirectionCountry(Criteria criteria) throws DaoException;
     @Override

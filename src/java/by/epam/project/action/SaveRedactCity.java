@@ -7,15 +7,27 @@
 package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.*;
+import static by.epam.project.controller.JspParamNames.JSP_CITY_NAME;
+import static by.epam.project.controller.JspParamNames.JSP_CITY_PICTURE;
+import static by.epam.project.controller.JspParamNames.JSP_DESCRIPTION_TEXT;
+import static by.epam.project.controller.JspParamNames.JSP_ID_CITY;
+import static by.epam.project.controller.JspParamNames.JSP_ID_COUNTRY;
+import static by.epam.project.controller.JspParamNames.JSP_ID_DESCRIPTION;
 import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_NAME;
+import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_PICTURE;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_DESCRIPTION_TEXT;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.exception.DaoException;
 import by.epam.project.logic.CityLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
@@ -35,15 +47,15 @@ public class SaveRedactCity implements ActionCommand {
         String page = null;
         Criteria criteria = new Criteria();
         
-        checkParam(request, criteria, PARAM_NAME_ID_COUNTRY);
-        checkParam(request, criteria, PARAM_NAME_ID_CITY);
-        checkParam(request, criteria, PARAM_NAME_ID_DESCRIPTION);
+        checkParam(request, criteria, JSP_ID_COUNTRY, DAO_ID_COUNTRY);
+        checkParam(request, criteria, JSP_ID_CITY, DAO_ID_CITY);
+        checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
         
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        criteria.addParam(PARAM_NAME_NAME_CITY, request.getParameter(PARAM_NAME_NAME_CITY));
-        criteria.addParam(PARAM_NAME_PICTURE_CITY, request.getParameter(PARAM_NAME_PICTURE_CITY));
-        criteria.addParam(PARAM_NAME_TEXT_DESCRIPTION, request.getParameter(PARAM_NAME_TEXT_DESCRIPTION));
+        criteria.addParam(DAO_CITY_NAME, request.getParameter(JSP_CITY_NAME));
+        criteria.addParam(DAO_CITY_PICTURE, request.getParameter(JSP_CITY_PICTURE));
+        criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
         
         try {
             Integer resIdCity = CityLogic.redactCity(criteria);

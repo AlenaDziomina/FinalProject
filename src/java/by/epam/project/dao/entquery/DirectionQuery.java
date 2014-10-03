@@ -6,9 +6,8 @@
 
 package by.epam.project.dao.entquery;
 
-import by.epam.project.exception.QueryExecutionException;
 import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -16,6 +15,8 @@ import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransportationMode;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 bean.setText(rs.getString("d.text"));
                 bean.setTransMode(new TransportationMode(rs.getInt("id_mode"), rs.getString("name_mode")));
                 bean.setTourType(new TourType(rs.getInt("id_tour_type"), rs.getString("name_tour_type")));
-                bean.setDescription(new Description(rs.getInt("id_description"), rs.getString("s.text")));
+                bean.setDescription(new Description(rs.getInt("id_description")));
                 return bean;
             });
         } catch (DaoException ex) {
@@ -106,7 +107,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
     }
 
     @Override
-    public int update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
         List paramList = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(EM_UPDATE_QUERY);
@@ -120,7 +121,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 append(PARAM_NAME_TEXT_DIRECTION, "text", criteria, paramList, sb, separator);
                 append(PARAM_NAME_ID_TOUR_TYPE, "id_tour_type", criteria, paramList, sb, separator);
                 append(PARAM_NAME_ID_MODE, "id_mode", criteria, paramList, sb, separator);
-                append(PARAM_NAME_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
+                append(DAO_ID_DESCRIPTION, "id_description", criteria, paramList, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
                 append(PARAM_NAME_ID_DIRECTION, "id_direction", beans, paramList2, sb, separator);

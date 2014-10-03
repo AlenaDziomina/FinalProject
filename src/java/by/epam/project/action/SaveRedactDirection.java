@@ -8,26 +8,28 @@ package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.checkArrParam;
 import static by.epam.project.action.ActionCommand.checkParam;
+import static by.epam.project.controller.JspParamNames.JSP_DESCRIPTION_TEXT;
+import static by.epam.project.controller.JspParamNames.JSP_ID_CITY;
+import static by.epam.project.controller.JspParamNames.JSP_ID_COUNTRY;
+import static by.epam.project.controller.JspParamNames.JSP_ID_DESCRIPTION;
+import static by.epam.project.controller.JspParamNames.JSP_ID_HOTEL;
 import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_COUNTRY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DESCRIPTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_HOTEL;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_MODE;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR_TYPE;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_DIRECTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_DIRECTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DESCRIPTION;
 import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DIRECTION;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_DESCRIPTION_TEXT;
+import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.exception.DaoException;
 import by.epam.project.logic.DirectionLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
@@ -46,7 +48,7 @@ public class SaveRedactDirection implements ActionCommand {
         
         Criteria criteria = new Criteria();
         checkParam(request, criteria, PARAM_NAME_ID_DIRECTION);
-        checkParam(request, criteria, PARAM_NAME_ID_DESCRIPTION);
+        checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
         checkParam(request, criteria, PARAM_NAME_CURR_TOUR_TYPE, PARAM_NAME_ID_TOUR_TYPE);
         checkParam(request, criteria, PARAM_NAME_CURR_TRANS_MODE, PARAM_NAME_ID_MODE);
         
@@ -56,11 +58,11 @@ public class SaveRedactDirection implements ActionCommand {
         criteria.addParam(PARAM_NAME_PICTURE_DIRECTION, request.getParameter(PARAM_NAME_PICTURE_DIRECTION));
         criteria.addParam(PARAM_NAME_TEXT_DIRECTION, request.getParameter(PARAM_NAME_TEXT_DIRECTION));
         criteria.addParam(PARAM_NAME_STATUS_DIRECTION, request.getParameter(PARAM_NAME_STATUS_DIRECTION));
-        criteria.addParam(PARAM_NAME_TEXT_DESCRIPTION, request.getParameter(PARAM_NAME_TEXT_DESCRIPTION));
+        criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
         
-        checkArrParam(request, criteria, PARAM_NAME_ID_COUNTRY, PARAM_NAME_CURR_COUNTRY_TAGS);
-        checkArrParam(request, criteria, PARAM_NAME_ID_CITY, PARAM_NAME_CURR_CITY_TAGS);
-        checkArrParam(request, criteria, PARAM_NAME_ID_HOTEL, PARAM_NAME_CURR_HOTEL_TAGS);
+        checkArrParam(request, criteria, JSP_ID_COUNTRY, PARAM_NAME_CURR_COUNTRY_TAGS);
+        checkArrParam(request, criteria, JSP_ID_CITY, PARAM_NAME_CURR_CITY_TAGS);
+        checkArrParam(request, criteria, JSP_ID_HOTEL, PARAM_NAME_CURR_HOTEL_TAGS);
         
         
         try {

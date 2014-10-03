@@ -6,9 +6,6 @@
 
 package by.epam.project.entity;
 
-import static by.epam.project.dao.AbstractDao.*;
-import by.epam.project.dao.query.Criteria;
-
 /**
  *
  * @author User
@@ -16,12 +13,21 @@ import by.epam.project.dao.query.Criteria;
 
 public final class Hotel {
     
+    public static final String DB_HOTEL = "hotel";
+    public static final String DB_HOTEL_ID_HOTEL = "id_hotel";
+    public static final String DB_HOTEL_ID_CITY = "id_city";
+    public static final String DB_HOTEL_NAME = "name";
+    public static final String DB_HOTEL_STARS = "stars";
+    public static final String DB_HOTEL_STATUS = "status";
+    public static final String DB_HOTEL_PICTURE = "picture";
+    public static final String DB_HOTEL_ID_DESCRIPTION = "id_description";
+    
     private Integer idHotel;
     private String name;
     private Integer stars;
     private Short status;
     private String picture;
-    private Integer idCity;
+    private City city;
     private Description description;
 
     public Hotel() {
@@ -29,17 +35,6 @@ public final class Hotel {
     
     public Hotel(Integer idHotel) {
         setIdHotel(idHotel);
-    }
-    
-    public Hotel(Criteria criteria) {
-        this.setIdHotel((Integer) criteria.getParam(PARAM_NAME_ID_HOTEL));
-        this.setName((String) criteria.getParam(PARAM_NAME_NAME_HOTEL));
-        this.setPicture((String) criteria.getParam(PARAM_NAME_PICTURE_HOTEL));
-        this.setStatus((Short) criteria.getParam(PARAM_NAME_STATUS_HOTEL));
-        this.setStars((Integer) criteria.getParam(PARAM_NAME_STARS_HOTEL));
-        Description desc = new Description((Integer)criteria.getParam(PARAM_NAME_ID_DESCRIPTION), (String) criteria.getParam(PARAM_NAME_TEXT_DESCRIPTION));
-        this.setDescription(desc);
-        this.setIdCity((Integer) criteria.getParam(PARAM_NAME_ID_CITY));
     }
 
     public Integer getIdHotel() {
@@ -82,12 +77,12 @@ public final class Hotel {
         this.picture = picture;
     }
 
-    public Integer getIdCity() {
-        return idCity;
+    public City getCity() {
+        return city;
     }
 
-    public void setIdCity(Integer idCity) {
-        this.idCity = idCity;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public Description getDescription() {

@@ -6,11 +6,14 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.controller.JspParamNames.JSP_HOTEL_COUNT;
+import static by.epam.project.controller.JspParamNames.JSP_HOTEL_LIST;
+import static by.epam.project.controller.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.controller.JspParamNames.JSP_PAGE;
 import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_CITY;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
@@ -38,13 +41,13 @@ class GoShowHotel implements ActionCommand {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        criteria.addParam(PARAM_NAME_ID_CITY, request.getAttribute(PARAM_NAME_ID_CITY));
+        criteria.addParam(DAO_ID_CITY, request.getAttribute(JSP_ID_CITY));
         
         try {
             List<Hotel> hotels = HotelLogic.getHotels(criteria);
             if (hotels != null || !hotels.isEmpty()) {
-                request.setSessionAttribute(PARAM_NAME_HOTEL_LIST, hotels);
-                request.setSessionAttribute(PARAM_NAME_HOTEL_COUNT, hotels.size());
+                request.setSessionAttribute(JSP_HOTEL_LIST, hotels);
+                request.setSessionAttribute(JSP_HOTEL_COUNT, hotels.size());
             } else {
                 request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
             }
