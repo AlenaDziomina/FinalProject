@@ -9,6 +9,7 @@ package by.epam.project.dao.entquery;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
@@ -42,6 +43,9 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
     
     private static final String UPDATE_QUERY = 
             "Update " + DB_DIRCITY + " set ";
+    
+    private static final String DELETE_QUERY = 
+            "Delete from " + DB_DIRCITY + " where ";
 
 
     @Override
@@ -117,8 +121,28 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         }
     }
 
-    
-    
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        List paramList = new ArrayList<>();
+        StringBuilder sb = new StringBuilder(DELETE_QUERY);
+        String queryStr = new Params.QueryMapper() {
+            @Override
+            public String mapQuery() { 
+                String separator = " and ";
+                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, criteria, paramList, sb, separator);
+                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList, sb, separator);
+                return sb.toString();
+            }  
+        }.mapQuery();
+        
+        try {
+            return deleteDao.query(queryStr, paramList.toArray(), conn);
+        } catch (DaoException ex) {
+             throw new QueryExecutionException("Direction link to city not deleted.", ex);
+        }
+        
+    }
 }
+
 
 

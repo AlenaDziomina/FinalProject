@@ -89,7 +89,6 @@ public interface AbstractDao {
     default public List<TransportationMode> showTransModes (Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
-    
     default public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     }
@@ -136,5 +135,25 @@ public interface AbstractDao {
     default public List<Integer> createNewDirection(Criteria criteria) throws DaoException{
         throw new DaoException("error access");
     };
-    
+    default public List<Integer> createNewDirectionCountryLinks(Criteria criteria) throws DaoException{
+         throw new DaoException("error access");
+    };
+    default public List<Integer> createNewDirectionCityLinks(Criteria criteria) throws DaoException{
+         throw new DaoException("error access");
+    };
+    default public List<Integer> createNewDirectionStayHotels(Criteria criteria) throws DaoException{
+        throw new DaoException("error access");
+    };
+    default public List<Integer> updateDirection(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoException("error access");
+    };
+    default public List<Integer> updateDirectionCountryLinks(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoException("error access");
+    };
+    default public List<Integer> updateDirectionCityLinks(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoException("error access");
+    };
+    default public List<Integer> updateDirectionStayHotels(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoException("error access");
+    };
 }

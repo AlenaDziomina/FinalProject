@@ -25,27 +25,16 @@ public class TransModeLogic {
     
     public static List<TransportationMode> getTransModes(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = null;
-        
+        AbstractDao dao = DaoFactory.getInstance(role); 
+        dao.open();
         try {
-            dao = DaoFactory.getInstance(role); 
-            dao.open();
-            Method method = dao.getClass().getMethod("toShowTransModes", Criteria.class);
-            List<TransportationMode> modes = (List<TransportationMode>) method.invoke(dao, criteria);
-           
+            List<TransportationMode> modes = dao.showTransModes(criteria);
             return modes;   
         } catch (DaoException ex) {
-            if (dao != null) {
-                dao.rollback();
-            }
+            dao.rollback();
             throw ex;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            return null;
         } finally {
-            if (dao != null) {
-                dao.close();
-            } 
+            dao.close();
         }
-        
     }
 }

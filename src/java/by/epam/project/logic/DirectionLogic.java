@@ -41,7 +41,6 @@ public abstract class DirectionLogic {
         try {
             List<Direction> directions = dao.showDirections(criteria);
             fillDirections(directions, dao);
-            
             return directions;   
         } catch (DaoException ex) {
             dao.rollback();
@@ -69,9 +68,9 @@ public abstract class DirectionLogic {
     public static List<DirectionStayHotel> getHotelInfo(AbstractDao dao, List<DirectionStayHotel> stays) throws DaoException {
         for (DirectionStayHotel st : stays) {
             Criteria crit = new Criteria();
-            crit.addParam(DAO_ID_HOTEL, st.getStayHotel().getIdHotel());
+            crit.addParam(DAO_ID_HOTEL, st.getHotel().getIdHotel());
             List<Hotel> hotels = dao.showHotels(crit);
-            st.setStayHotel(hotels.get(0));
+            st.setHotel(hotels.get(0));
         }
         return stays;
     }
@@ -144,7 +143,17 @@ public abstract class DirectionLogic {
         Integer idDescription = dao.createNewDescription(criteria).get(0);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        return dao.createNewDirection(criteria).get(0);   
+        List<Integer> res =  dao.createNewDirection(criteria);   
+        if (res == null || res.isEmpty()) {
+            throw new DaoException("Error in hotel query.");
+        } else {
+            Integer idDirection = res.get(0);
+            criteria.addParam(PARAM_NAME_ID_DIRECTION, idDirection);
+            List<Integer> res1 = dao.createNewDirectionCountryLinks(criteria);
+            List<Integer> res2 = dao.createNewDirectionCityLinks(criteria);
+            List<Integer> res3 = dao.createNewDirectionStayHotels(criteria);
+            return idDirection;
+        }
     }
     
     private static Integer updateDirection(Criteria criteria, AbstractDao dao) throws DaoException {
@@ -156,7 +165,19 @@ public abstract class DirectionLogic {
         criteria.remuveParam(DAO_ID_DESCRIPTION);
         Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        return dao.updateDirection(beans2, criteria).get(0);
+        List<Integer> res = dao.updateDirection(beans2, criteria);
+        if (res == null || res.isEmpty()) {
+            throw new DaoException("Error in hotel query.");
+        } else {
+            Integer idDirection = res.get(0);
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_DIRECTION, idDirection);
+            criteria.addParam(DAO_ID_DIRECTION, idDirection);
+            List<Integer> res1 = dao.updateDirectionCountryLinks(crit, criteria);
+            List<Integer> res2 = dao.updateDirectionCityLinks(crit, criteria);
+            List<Integer> res3 = dao.updateDirectionStayHotels(crit, criteria);
+            return idDirection;
+        }
     }
     
 }

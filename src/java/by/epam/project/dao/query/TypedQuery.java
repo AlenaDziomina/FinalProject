@@ -14,4 +14,5 @@ public interface TypedQuery <T> {
     public List<T> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException; 
     public List<Integer> save(List<T> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException; 
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException; 
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException;
 }

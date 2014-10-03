@@ -10,6 +10,7 @@ import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
@@ -43,6 +44,9 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
     
     private static final String UPDATE_QUERY = 
             "Update " + DB_DIRCOUNTRY + " set ";
+    
+    private static final String DELETE_QUERY = 
+            "Delete from " + DB_DIRCOUNTRY + " where ";
 
     @Override
     public List<Integer> save(List<LinkDirectionCountry> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
@@ -117,7 +121,26 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
         }
     }
 
-    
-    
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        List paramList = new ArrayList<>();
+        StringBuilder sb = new StringBuilder(DELETE_QUERY);
+        String queryStr = new Params.QueryMapper() {
+            @Override
+            public String mapQuery() { 
+                String separator = " and ";
+                append(DAO_ID_DIRECTION, DB_DIRCOUNTRY_ID_DIRECTION, criteria, paramList, sb, separator);
+                append(DAO_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, criteria, paramList, sb, separator);
+                return sb.toString();
+            }  
+        }.mapQuery();
+        
+        try {
+            return deleteDao.query(queryStr, paramList.toArray(), conn);
+        } catch (DaoException ex) {
+             throw new QueryExecutionException("Direction link to country not deleted.", ex);
+        }
+        
+    }
 }
 

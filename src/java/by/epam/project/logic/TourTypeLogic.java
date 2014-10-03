@@ -29,22 +29,13 @@ public abstract class TourTypeLogic {
         dao.open();
         
         try {
-            
             List<TourType> types = dao.showTourTypes(criteria);
-           
             return types;   
         } catch (DaoException ex) {
-            if (dao != null) {
-                dao.rollback();
-            }
+            dao.rollback();
             throw ex;
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            return null;
         } finally {
-            if (dao != null) {
-                dao.close();
-            } 
+            dao.close();
         }
-        
     }
 }

@@ -162,6 +162,11 @@ public class HotelQuery implements TypedQuery<Hotel>{
              throw new QueryExecutionException("Hotel not updated.", ex);
         }
     }
+
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

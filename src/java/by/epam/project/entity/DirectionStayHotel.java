@@ -15,16 +15,20 @@ public class DirectionStayHotel {
     
     private Integer idStay;
     private Integer stayNo;
-    private Integer idDirection;
-    private Hotel stayHotel;
+    private Direction direction;
+    private Hotel hotel;
     private Short status;
     
     public DirectionStayHotel() {
     }
+    public DirectionStayHotel(Integer idStay) {
+        this.idStay = idStay;
+    }
+    
     public DirectionStayHotel(Integer idDirection, Integer idHotel, Integer stayNo) {
-        this.idDirection = idDirection;
         this.stayNo = stayNo;
-        this.stayHotel = new Hotel(idHotel);
+        this.direction = new Direction(idDirection);
+        this.hotel = new Hotel(idHotel);
     }
 
     public Integer getIdStay() {
@@ -41,18 +45,18 @@ public class DirectionStayHotel {
         this.stayNo = stayNo;
     }
 
-    public Integer getIdDirection() {
-        return idDirection;
+    public Direction getDirection() {
+        return direction;
     }
-    public void setIdDirection(Integer idDirection) {
-        this.idDirection = idDirection;
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
     
-    public Hotel getStayHotel(){
-        return this.stayHotel;
+    public Hotel getHotel(){
+        return this.hotel;
     }
-    public void setStayHotel(Hotel stayHotel){
-        this.stayHotel = stayHotel;
+    public void setHotel(Hotel hotel){
+        this.hotel = hotel;
     }
     
     public Short getStatus() {

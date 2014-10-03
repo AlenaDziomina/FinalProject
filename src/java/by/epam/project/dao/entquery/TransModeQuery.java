@@ -8,6 +8,7 @@ package by.epam.project.dao.entquery;
 
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
@@ -123,6 +124,11 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
         } catch (DaoException ex) {
              throw new QueryExecutionException("Transportation mode not updated." ,ex);
         }
+    }
+
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

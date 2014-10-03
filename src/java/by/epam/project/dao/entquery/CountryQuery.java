@@ -148,6 +148,11 @@ public class CountryQuery implements TypedQuery<Country>{
              throw new QueryExecutionException("Country not updated.", ex);
         }
     }
+
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

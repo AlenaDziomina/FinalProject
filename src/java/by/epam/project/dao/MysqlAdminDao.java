@@ -10,7 +10,6 @@ import static by.epam.project.dao.MysqlDao.saveDao;
 import by.epam.project.dao.entquery.CityQuery;
 import by.epam.project.dao.entquery.CountryQuery;
 import by.epam.project.dao.entquery.DescriptionQuery;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import by.epam.project.dao.entquery.DirectionCityQuery;
 import by.epam.project.dao.entquery.DirectionCountryQuery;
 import by.epam.project.dao.entquery.DirectionQuery;
@@ -22,7 +21,6 @@ import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.LinkDirectionFactory;
 import by.epam.project.exception.DaoException;
-import by.epam.project.exception.QueryExecutionException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,32 +81,56 @@ public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
 
     @Override
     public List<Integer> createNewDirection(Criteria criteria) throws DaoException {
-        try {
-            Integer idDescription = createNewDescription(criteria).get(0);
-            criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-            List list = new ArrayList<>();
-            list.add(DirectionQuery.createBean(criteria));
-            List<Integer> res = new DirectionQuery().save(list, saveDao, mysqlConn);
-            if (res == null || res.isEmpty()) {
-                throw new DaoException("Error in hotel query.");
-            } else {
-                Integer idDirection = res.get(0);
-                criteria.addParam(PARAM_NAME_ID_DIRECTION, idDirection);
-                
-                List<LinkDirectionCountry> linkList1 = LinkDirectionFactory.getLinkCountryInstances(criteria);
-                List<Integer> res1 = new DirectionCountryQuery().save(linkList1, saveDao, mysqlConn);
-                
-                List<LinkDirectionCity> linkList2 = LinkDirectionFactory.getLinkCityInstances(criteria);
-                List<Integer> res2 = new DirectionCityQuery().save(linkList2, saveDao, mysqlConn);
-                
-                List<DirectionStayHotel> linkList3 = LinkDirectionFactory.getStayHotelInstances(criteria);
-                List<Integer> res3 = new DirectionStayHotelQuery().save(linkList3, saveDao, mysqlConn);
-                
-                return res;
-            }
-        } catch (QueryExecutionException ex) {
-            throw new DaoException("Error in query.");
-        }
+        List list = new ArrayList<>();
+        list.add(DirectionQuery.createBean(criteria));
+        return new DirectionQuery().save(list, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> createNewDirectionCountryLinks(Criteria criteria) throws DaoException {
+        List<LinkDirectionCountry> linkList = LinkDirectionFactory.getLinkCountryInstances(criteria);
+        return new DirectionCountryQuery().save(linkList, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> createNewDirectionCityLinks(Criteria criteria) throws DaoException {
+        List<LinkDirectionCity> linkList = LinkDirectionFactory.getLinkCityInstances(criteria);
+        return new DirectionCityQuery().save(linkList, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> createNewDirectionStayHotels(Criteria criteria) throws DaoException {
+        List<DirectionStayHotel> linkList = LinkDirectionFactory.getStayHotelInstances(criteria);
+        return new DirectionStayHotelQuery().save(linkList, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> updateDirection(Criteria beans, Criteria criteria) throws DaoException {
+        return new DirectionQuery().update(beans, criteria, updateDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> updateDirectionCountryLinks(Criteria beans, Criteria criteria) throws DaoException {
+        DirectionCountryQuery qu = new DirectionCountryQuery();
+        qu.delete(beans, deleteDao, mysqlConn);
+        List<LinkDirectionCountry> linkList = LinkDirectionFactory.getLinkCountryInstances(criteria);
+        return qu.save(linkList, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> updateDirectionCityLinks(Criteria beans, Criteria criteria) throws DaoException {
+        DirectionCityQuery qu = new DirectionCityQuery();
+        qu.delete(beans, deleteDao, mysqlConn);
+        List<LinkDirectionCity> linkList = LinkDirectionFactory.getLinkCityInstances(criteria);
+        return qu.save(linkList, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> updateDirectionStayHotels(Criteria beans, Criteria criteria) throws DaoException {
+        DirectionStayHotelQuery qu = new DirectionStayHotelQuery();
+        qu.delete(beans, deleteDao, mysqlConn);
+        List<DirectionStayHotel> linkList = LinkDirectionFactory.getStayHotelInstances(criteria);
+        return qu.save(linkList, saveDao, mysqlConn);
     }
 
     

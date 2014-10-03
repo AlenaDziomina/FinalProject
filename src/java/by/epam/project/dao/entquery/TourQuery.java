@@ -8,6 +8,7 @@ package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
@@ -180,5 +181,10 @@ public class TourQuery implements TypedQuery<Tour>{
              throw new QueryExecutionException("Tour not updated.", ex);
         }
     } 
+
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

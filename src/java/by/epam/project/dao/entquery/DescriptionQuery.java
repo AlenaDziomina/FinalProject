@@ -118,5 +118,10 @@ public class DescriptionQuery implements TypedQuery<Description>{
              throw new QueryExecutionException("Description not updated.", ex);
         }
     }
+
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

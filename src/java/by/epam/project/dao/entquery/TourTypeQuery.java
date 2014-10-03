@@ -6,10 +6,9 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR_TYPE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_TOUR_TYPE;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
@@ -17,7 +16,6 @@ import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.exception.QueryExecutionException;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.entity.Direction;
 import by.epam.project.entity.TourType;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -125,6 +123,11 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         } catch (DaoException ex) {
              throw new QueryExecutionException("Tour type not updated.", ex);
         }
+    }
+
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

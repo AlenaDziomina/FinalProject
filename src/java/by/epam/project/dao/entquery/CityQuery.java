@@ -159,5 +159,10 @@ public class CityQuery implements TypedQuery<City>{
              throw new QueryExecutionException("City not updated.", ex);
         }
     }
+
+    @Override
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

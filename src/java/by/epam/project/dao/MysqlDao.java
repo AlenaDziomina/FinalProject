@@ -6,13 +6,15 @@
 
 package by.epam.project.dao;
 
-import by.epam.project.exception.DaoException;
+import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
+import by.epam.project.dao.query.MysqlGenericDeleteQuery;
 import by.epam.project.dao.query.MysqlGenericLoadQuery;
 import by.epam.project.dao.query.MysqlGenericSaveQuery;
 import by.epam.project.dao.query.MysqlGenericUpdateQuery;
+import by.epam.project.exception.DaoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -26,6 +28,7 @@ public class MysqlDao implements AbstractDao {
     protected static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
     protected static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
     protected static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
+    protected static final GenericDeleteQuery deleteDao = new MysqlGenericDeleteQuery();
     
     @Override
     public void open() throws DaoException {
