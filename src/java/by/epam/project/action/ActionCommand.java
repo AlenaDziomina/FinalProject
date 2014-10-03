@@ -26,8 +26,7 @@ public interface ActionCommand {
     static final String PARAM_NAME_TRANS_MODE_LIST = "transModeList";
     static final String PARAM_NAME_TRANS_MODE_COUNT = "transModeCount";
     
-    
-    static final String PARAM_NAME_CURR_COUNTRY_TAGS = "currCountryTag";
+        static final String PARAM_NAME_CURR_COUNTRY_TAGS = "currCountryTag";
     static final String PARAM_NAME_CURR_CITY_TAGS = "currCityTag";
     static final String PARAM_NAME_CURR_HOTEL_TAGS = "currHotelTag";
     static final String PARAM_NAME_CURR_TOUR_TYPE = "currTourType";
