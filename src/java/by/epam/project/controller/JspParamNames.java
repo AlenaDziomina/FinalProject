@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.controller;
+package by.epam.project.action;
 
 /**
  *
@@ -16,6 +16,7 @@ public abstract class JspParamNames {
     public static final String JSP_PAGE = "page";
     public static final String JSP_LENG = "leng";
     public static final String JSP_LOCALE = "locale";
+    public static final String JSP_SELECT_ID = "selectId";
     
     
     //user
@@ -41,6 +42,9 @@ public abstract class JspParamNames {
     public static final String JSP_COUNTRY_LIST = "countryList";
     public static final String JSP_COUNTRY_COUNT = "countryCount";
     public static final String JSP_CURRENT_COUNTRY = "currCountry";
+    public static final String JSP_COUNTRY_TAG_LIST = "countryTagList";
+    public static final String JSP_CURR_COUNTRY_TAGS = "currCountryTag";
+    public static final String JSP_CURR_ID_COUNTRY = "currIdCountry";
     
     //city
     public static final String JSP_ID_CITY = "idCity";
@@ -50,6 +54,9 @@ public abstract class JspParamNames {
     public static final String JSP_CITY_COUNT = "cityCount";
     public static final String JSP_CURRENT_CITY = "currCity";
     public static final String JSP_CURR_CITY_LIST = "currCityList";
+    public static final String JSP_CITY_TAG_LIST = "cityTagList";
+    public static final String JSP_CURR_CITY_TAGS = "currCityTag";
+    public static final String JSP_CURR_ID_CITY = "currIdCity";
     
     //hotel
     public static final String JSP_ID_HOTEL = "idHotel";
@@ -59,6 +66,38 @@ public abstract class JspParamNames {
     public static final String JSP_HOTEL_LIST = "hotelList";
     public static final String JSP_HOTEL_COUNT = "hotelCount";
     public static final String JSP_CURRENT_HOTEL = "currHotel";
+    public static final String JSP_HOTEL_TAG_LIST = "hotelTagList";
+    public static final String JSP_CURR_HOTEL_TAGS = "currHotelTag";
+    public static final String JSP_CURR_ID_HOTEL = "currIdHotel";
+    
+    //direction
+    public static final String JSP_ID_DIRECTION = "idDirection";
+    public static final String JSP_DIRECTION_NAME = "nameDirection";
+    public static final String JSP_DIRECTION_PICTURE = "pictureDirection";
+    public static final String JSP_DIRECTION_TEXT = "textDirection";
+    public static final String JSP_DIRECTION_STATUS = "statusDirection";
+    public static final String JSP_DIRECTION_LIST = "directionList";
+    public static final String JSP_DIRECTION_COUNT = "directionCount";
+    public static final String JSP_CURRENT_DIRECTION = "currDirection";
+    
+    //tour_type
+    public static final String JSP_TOUR_TYPE_LIST = "tourTypeList";
+    public static final String JSP_TOUR_TYPE_COUNT = "tourTypeCount";
+    public static final String JSP_CURR_TOUR_TYPE = "currTourType";
+    
+    //trans_mode
+    public static final String JSP_TRANS_MODE_LIST = "transModeList";
+    public static final String JSP_TRANS_MODE_COUNT = "transModeCount";
+    public static final String JSP_CURR_TRANS_MODE = "currTransMode";
+    
+    //tour
+    
+    
+    //order
+    
+    
+    //tourist
+    
     
     
 }

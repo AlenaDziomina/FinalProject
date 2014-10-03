@@ -6,20 +6,21 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_ID_USER;
-import static by.epam.project.controller.JspParamNames.JSP_LENG;
-import static by.epam.project.controller.JspParamNames.JSP_LOCALE;
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
-import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.JspParamNames.JSP_ID_USER;
+import static by.epam.project.action.JspParamNames.JSP_LENG;
+import static by.epam.project.action.JspParamNames.JSP_LOCALE;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import by.epam.project.exception.DaoException;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LANGUAGE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.User;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.LocaleManager;
@@ -35,7 +36,7 @@ public class LocalCommand implements ActionCommand {
     
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         
         String page = (String)request.getSessionAttribute(JSP_PAGE);
         if (page == null) {
@@ -61,7 +62,7 @@ public class LocalCommand implements ActionCommand {
         try {
             User user = UserLogic.updateUser(bean, criteria);           
         } catch (DaoException ex) {
-            throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
         }
         return page;
     }

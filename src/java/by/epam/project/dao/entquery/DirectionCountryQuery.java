@@ -6,7 +6,6 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import by.epam.project.dao.query.Criteria;

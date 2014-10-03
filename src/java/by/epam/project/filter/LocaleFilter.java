@@ -6,7 +6,7 @@
 
 package by.epam.project.filter;
 
-import static by.epam.project.controller.JspParamNames.JSP_LOCALE;
+import static by.epam.project.action.JspParamNames.JSP_LOCALE;
 import by.epam.project.manager.LocaleManager;
 import java.io.IOException;
 import java.util.Locale;

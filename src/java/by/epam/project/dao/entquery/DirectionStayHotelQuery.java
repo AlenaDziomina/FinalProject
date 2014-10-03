@@ -6,16 +6,6 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_STAY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_STAY;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_STAY_NO;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_NAME;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_PICTURE;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DirectionCountryQuery.DB_DIRCOUNTRY_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DirectionCountryQuery.DB_DIRCOUNTRY_ID_DIRECTION;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import by.epam.project.dao.query.Criteria;

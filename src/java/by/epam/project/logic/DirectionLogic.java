@@ -7,7 +7,6 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.AbstractDao.*;
 import by.epam.project.dao.ClientType;
 import by.epam.project.dao.DaoFactory;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
@@ -59,7 +58,7 @@ public abstract class DirectionLogic {
     private static void getStayHotelCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
-            crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+            crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
             List<DirectionStayHotel> stays = dao.showDirectionStayHotel(crit);
             dir.setStayCollection(getHotelInfo(dao, stays));
         }
@@ -78,7 +77,7 @@ public abstract class DirectionLogic {
     private static void getCityCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
-            crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+            crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
             List<LinkDirectionCity> links = dao.showLinkDirectionCity(crit);
             dir.setCityCollection(getCityInfo(dao, links));
         }
@@ -100,7 +99,7 @@ public abstract class DirectionLogic {
     private static void getCountryCollection(AbstractDao dao, List<Direction> directions) throws DaoException {  
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
-            crit.addParam(PARAM_NAME_ID_DIRECTION, dir.getIdDirection());
+            crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
             List<LinkDirectionCountry> links = dao.showLinkDirectionCountry(crit);
             dir.setCountryCollection(getCountryInfo(dao, links));
         }
@@ -122,7 +121,7 @@ public abstract class DirectionLogic {
     public static Integer redactDirection(Criteria criteria) throws DaoException {
         
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        Integer idDirection = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
+        Integer idDirection = (Integer) criteria.getParam(DAO_ID_DIRECTION);
         AbstractDao dao = DaoFactory.getInstance(role); 
         dao.open();
         try {   
@@ -148,7 +147,7 @@ public abstract class DirectionLogic {
             throw new DaoException("Error in hotel query.");
         } else {
             Integer idDirection = res.get(0);
-            criteria.addParam(PARAM_NAME_ID_DIRECTION, idDirection);
+            criteria.addParam(DAO_ID_DIRECTION, idDirection);
             List<Integer> res1 = dao.createNewDirectionCountryLinks(criteria);
             List<Integer> res2 = dao.createNewDirectionCityLinks(criteria);
             List<Integer> res3 = dao.createNewDirectionStayHotels(criteria);

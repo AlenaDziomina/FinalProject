@@ -8,28 +8,40 @@ package by.epam.project.action;
 
 import static by.epam.project.action.ActionCommand.checkArrParam;
 import static by.epam.project.action.ActionCommand.checkParam;
-import static by.epam.project.controller.JspParamNames.JSP_DESCRIPTION_TEXT;
-import static by.epam.project.controller.JspParamNames.JSP_ID_CITY;
-import static by.epam.project.controller.JspParamNames.JSP_ID_COUNTRY;
-import static by.epam.project.controller.JspParamNames.JSP_ID_DESCRIPTION;
-import static by.epam.project.controller.JspParamNames.JSP_ID_HOTEL;
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
-import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.ActionCommand.checkParam;
+import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
+import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_NAME;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_PICTURE;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_STATUS;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_ID_DESCRIPTION;
+import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_MODE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_TOUR_TYPE;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_STATUS_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DIRECTION;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_DESCRIPTION_TEXT;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_NAME;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_PICTURE;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_STATUS;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_TEXT;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
+import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.DirectionLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
@@ -41,28 +53,28 @@ import by.epam.project.manager.MessageManager;
 public class SaveRedactDirection implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         
         String page = null;
         new ProcessSavedParameters().execute(request);
         
         Criteria criteria = new Criteria();
-        checkParam(request, criteria, PARAM_NAME_ID_DIRECTION);
+        checkParam(request, criteria, JSP_ID_DIRECTION, DAO_ID_DIRECTION);
         checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
-        checkParam(request, criteria, PARAM_NAME_CURR_TOUR_TYPE, PARAM_NAME_ID_TOUR_TYPE);
-        checkParam(request, criteria, PARAM_NAME_CURR_TRANS_MODE, PARAM_NAME_ID_MODE);
+        checkParam(request, criteria, JSP_CURR_TOUR_TYPE, DAO_ID_TOURTYPE);
+        checkParam(request, criteria, JSP_CURR_TRANS_MODE, DAO_ID_TRANSMODE);
         
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        criteria.addParam(PARAM_NAME_NAME_DIRECTION, request.getParameter(PARAM_NAME_NAME_DIRECTION));
-        criteria.addParam(PARAM_NAME_PICTURE_DIRECTION, request.getParameter(PARAM_NAME_PICTURE_DIRECTION));
-        criteria.addParam(PARAM_NAME_TEXT_DIRECTION, request.getParameter(PARAM_NAME_TEXT_DIRECTION));
-        criteria.addParam(PARAM_NAME_STATUS_DIRECTION, request.getParameter(PARAM_NAME_STATUS_DIRECTION));
+        criteria.addParam(DAO_DIRECTION_NAME, request.getParameter(JSP_DIRECTION_NAME));
+        criteria.addParam(DAO_DIRECTION_PICTURE, request.getParameter(JSP_DIRECTION_PICTURE));
+        criteria.addParam(DAO_DIRECTION_TEXT, request.getParameter(JSP_DIRECTION_TEXT));
+        criteria.addParam(DAO_DIRECTION_STATUS, request.getParameter(JSP_DIRECTION_STATUS));
         criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
         
-        checkArrParam(request, criteria, JSP_ID_COUNTRY, PARAM_NAME_CURR_COUNTRY_TAGS);
-        checkArrParam(request, criteria, JSP_ID_CITY, PARAM_NAME_CURR_CITY_TAGS);
-        checkArrParam(request, criteria, JSP_ID_HOTEL, PARAM_NAME_CURR_HOTEL_TAGS);
+        checkArrParam(request, criteria, JSP_CURR_COUNTRY_TAGS, DAO_ID_COUNTRY);
+        checkArrParam(request, criteria, JSP_CURR_CITY_TAGS, DAO_ID_CITY);
+        checkArrParam(request, criteria, JSP_CURR_HOTEL_TAGS, DAO_ID_HOTEL);
         
         
         try {
@@ -79,7 +91,7 @@ public class SaveRedactDirection implements ActionCommand {
             }
             return page;
         } catch (DaoException ex) {
-            throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
         }
         
     }

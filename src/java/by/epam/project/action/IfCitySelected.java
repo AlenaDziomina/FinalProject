@@ -6,9 +6,11 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_ID_CITY;
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.exception.DaoUserLogicException;
 
 /**
  *
@@ -17,12 +19,12 @@ import by.epam.project.controller.SessionRequestContent;
 public class IfCitySelected implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         
         new ProcessSavedParameters().execute(request);
         
-        String currCity = request.getParameter(PARAM_NAME_CURR_ID_CITY);
+        String currCity = request.getParameter(JSP_CURR_ID_CITY);
         if (currCity != null && !currCity.isEmpty()){
             Integer idCity = Integer.decode(currCity);
             if (idCity > 0) {

@@ -6,14 +6,17 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_TYPE_COUNT;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_TYPE_LIST;
+import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import by.epam.project.exception.DaoException;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.TourType;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.TourTypeLogic;
 import by.epam.project.manager.MessageManager;
 import java.util.List;
@@ -25,7 +28,7 @@ import java.util.List;
 public class GoShowTourType implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
@@ -34,13 +37,13 @@ public class GoShowTourType implements ActionCommand {
         try {
             List<TourType> types = TourTypeLogic.getTourTypes(criteria);
             if (types != null || !types.isEmpty()) {
-                request.setSessionAttribute(PARAM_NAME_TOUR_TYPE_LIST, types);
-                request.setSessionAttribute(PARAM_NAME_TOUR_TYPE_COUNT, types.size());
+                request.setSessionAttribute(JSP_TOUR_TYPE_LIST, types);
+                request.setSessionAttribute(JSP_TOUR_TYPE_COUNT, types.size());
             } else {
                 request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
             }
         } catch (DaoException ex) {
-            throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
         }
         return null;
     }

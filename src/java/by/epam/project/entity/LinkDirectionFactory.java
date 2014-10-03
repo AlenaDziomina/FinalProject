@@ -6,9 +6,9 @@
 
 package by.epam.project.entity;
 
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import by.epam.project.dao.query.Criteria;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public abstract class LinkDirectionFactory {
     public static List<LinkDirectionCountry> getLinkCountryInstances(Criteria criteria) {
-        Integer dir = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
+        Integer dir = (Integer) criteria.getParam(DAO_ID_DIRECTION);
         Collection<Integer> cntr = (Collection<Integer>) criteria.getParam(DAO_ID_COUNTRY);
         List<LinkDirectionCountry> list = new ArrayList<>();
         for (Integer c : cntr) {
@@ -32,7 +32,7 @@ public abstract class LinkDirectionFactory {
     }
 
     public static  List<LinkDirectionCity> getLinkCityInstances(Criteria criteria) {
-        Integer dir = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
+        Integer dir = (Integer) criteria.getParam(DAO_ID_DIRECTION);
         Collection<Integer> cntr = (Collection<Integer>) criteria.getParam(DAO_ID_CITY);
         List<LinkDirectionCity> list = new ArrayList<>();
         for (Integer c : cntr) {
@@ -43,7 +43,7 @@ public abstract class LinkDirectionFactory {
     }
 
     public static List<DirectionStayHotel> getStayHotelInstances(Criteria criteria) {
-        Integer dir = (Integer) criteria.getParam(PARAM_NAME_ID_DIRECTION);
+        Integer dir = (Integer) criteria.getParam(DAO_ID_DIRECTION);
         Collection<Integer> hotels = (Collection<Integer>) criteria.getParam(DAO_ID_HOTEL);
         List<DirectionStayHotel> list = new ArrayList<>();
         Integer i = 0;

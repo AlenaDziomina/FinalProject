@@ -6,14 +6,17 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.controller.JspParamNames.JSP_HOTEL_LIST;
-import static by.epam.project.controller.JspParamNames.JSP_ID_CITY;
-import static by.epam.project.controller.JspParamNames.JSP_ID_COUNTRY;
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
+import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Hotel;
+import by.epam.project.exception.DaoUserLogicException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +27,14 @@ import java.util.List;
 public class IfCountrySelected implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         
         new ProcessSavedParameters().execute(request);
-        request.setAttribute(PARAM_NAME_CURR_ID_CITY, "0");
+        request.setAttribute(JSP_CURR_ID_CITY, "0");
 
-        String currCountry = request.getParameter(PARAM_NAME_CURR_ID_COUNTRY);
+        String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);
         if (currCountry != null && !currCountry.isEmpty()){
             Integer idCountry = Integer.decode(currCountry);
             if (idCountry > 0){

@@ -153,7 +153,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(PARAM_NAME_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, beans, paramList2, sb, separator);
+                append(DAO_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, beans, paramList2, sb, separator);
                 append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, beans, paramList2, sb, separator);
                 append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, beans, paramList2, sb, separator);
                 append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, beans, paramList2, sb, separator);

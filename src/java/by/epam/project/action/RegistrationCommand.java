@@ -6,14 +6,13 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_LOCALE;
-import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.controller.JspParamNames.JSP_USER_EMAIL;
-import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
-import static by.epam.project.controller.JspParamNames.JSP_USER_PASSWORD;
-import static by.epam.project.controller.JspParamNames.JSP_USER_PHONE;
+import static by.epam.project.action.JspParamNames.JSP_LOCALE;
+import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_USER_EMAIL;
+import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.JspParamNames.JSP_USER_PASSWORD;
+import static by.epam.project.action.JspParamNames.JSP_USER_PHONE;
 import by.epam.project.controller.SessionRequestContent;
-import by.epam.project.exception.DaoException;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_EMAIL;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LANGUAGE;
@@ -21,6 +20,8 @@ import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PASSWORD;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PHONE;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.MessageManager;
 import java.util.Locale;
@@ -34,7 +35,7 @@ public class RegistrationCommand implements ActionCommand {
     
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException{
+    public String execute(SessionRequestContent request) throws DaoUserLogicException{
         String page = null;
         Criteria criteria = new Criteria();
         
@@ -49,7 +50,7 @@ public class RegistrationCommand implements ActionCommand {
         try {
             UserLogic.userRegistration(criteria);
         } catch (DaoException ex) {
-            throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
         }
         return null;
     }

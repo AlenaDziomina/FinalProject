@@ -6,18 +6,19 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.controller.JspParamNames.JSP_COUNTRY_LIST;
-import static by.epam.project.controller.JspParamNames.JSP_CURRENT_COUNTRY;
-import static by.epam.project.controller.JspParamNames.JSP_CURRENT_HOTEL;
-import static by.epam.project.controller.JspParamNames.JSP_CURR_CITY_LIST;
-import static by.epam.project.controller.JspParamNames.JSP_HOTEL_COUNT;
-import static by.epam.project.controller.JspParamNames.JSP_HOTEL_LIST;
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
+import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_COUNT;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Hotel;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class GoEditHotel implements ActionCommand {
     }
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.edithotel");
         request.setSessionAttribute(JSP_PAGE, page);
         

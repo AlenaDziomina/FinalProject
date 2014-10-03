@@ -6,12 +6,13 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.ActionCommand.*;
-import static by.epam.project.controller.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.controller.JspParamNames.JSP_CURRENT_CITY;
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class ShowCity implements ActionCommand {
     public ShowCity(){}
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         
         String page = ConfigurationManager.getProperty("path.page.cities");
         request.setSessionAttribute(JSP_PAGE, page);
@@ -34,7 +35,7 @@ public class ShowCity implements ActionCommand {
             new GoShowCity().execute(request);
             list = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
         }
-        Integer id = Integer.decode(request.getParameter(PARAM_NAME_SELECT_ID));
+        Integer id = Integer.decode(request.getParameter(JSP_SELECT_ID));
         for (City c: list) {
             if (Objects.equals(c.getIdCity(), id)) {
                 request.setSessionAttribute(JSP_CURRENT_CITY, c);

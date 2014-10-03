@@ -6,7 +6,7 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.manager.ConfigurationManager;
 

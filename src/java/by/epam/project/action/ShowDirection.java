@@ -6,17 +6,20 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_PAGE;
-import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_ID_DIRECTION;
-import by.epam.project.exception.DaoException;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
+import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.DirectionLogic;
 import by.epam.project.logic.TourLogic;
 import by.epam.project.manager.ConfigurationManager;
@@ -30,16 +33,16 @@ import java.util.List;
 public class ShowDirection implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.direction");
         request.setSessionAttribute(JSP_PAGE, page);
-        String str = request.getParameter(PARAM_NAME_SELECT_ID);
+        String str = request.getParameter(JSP_SELECT_ID);
         Integer id = Integer.decode(str);
         
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        criteria.addParam(PARAM_NAME_ID_DIRECTION, id);
+        criteria.addParam(DAO_ID_DIRECTION, id);
         
         try {
             List<Direction> directions = DirectionLogic.getDirections(criteria);
@@ -47,7 +50,7 @@ public class ShowDirection implements ActionCommand {
                 List<Tour> tours = TourLogic.getTours(criteria);
                 Direction currDir = directions.get(0);
                 currDir.setTourCollection(tours);
-                request.setSessionAttribute(PARAM_NAME_CURRENT_DIRECTION, currDir);
+                request.setSessionAttribute(JSP_CURRENT_DIRECTION, currDir);
                 
             } else {
                 request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
@@ -55,7 +58,7 @@ public class ShowDirection implements ActionCommand {
             
             return page;
         } catch (DaoException ex) {
-            throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
         }
         
        

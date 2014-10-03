@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.action;
+package by.epam.project.exception;
 
 import javax.servlet.ServletException;
 
@@ -12,9 +12,9 @@ import javax.servlet.ServletException;
  *
  * @author User
  */
-class DaoLogicException extends ServletException {
+public class DaoUserLogicException extends ServletException {
 
-    public DaoLogicException(String msg) {
+    public DaoUserLogicException(String msg) {
         super(msg);
     }
     

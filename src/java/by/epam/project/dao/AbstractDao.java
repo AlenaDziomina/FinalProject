@@ -29,30 +29,6 @@ import java.util.List;
  */
 public interface AbstractDao {
     
-    static final String PARAM_NAME_ID_DIRECTION = "id_direction";
-    static final String PARAM_NAME_NAME_DIRECTION = "name_direction";
-    static final String PARAM_NAME_PICTURE_DIRECTION = "picture_direction";
-    static final String PARAM_NAME_STATUS_DIRECTION = "status_direction";
-    static final String PARAM_NAME_TEXT_DIRECTION = "text_direction";
-    
-    static final String PARAM_NAME_ID_TOUR_TYPE = "id_tour_type";
-    static final String PARAM_NAME_NAME_TOUR_TYPE = "name_tour_type";
-    static final String PARAM_NAME_ID_MODE = "id_mode";
-    static final String PARAM_NAME_NAME_MODE = "name_mode";
-    
-    static final String PARAM_NAME_ID_STAY = "id_stay";
-    static final String PARAM_NAME_STAY_NO = "stay_no";
-    static final String PARAM_NAME_STATUS_STAY = "status_stay";
-    
-    static final String PARAM_NAME_ID_TOUR = "id_tour";
-    static final String PARAM_NAME_DEPARTURE_DATE = "departure_date";
-    static final String PARAM_NAME_DAYS_COUNT = "days_count";
-    static final String PARAM_NAME_PRICE_TOUR = "price";
-    static final String PARAM_NAME_DISCOUNT_TOUR = "discount";
-    static final String PARAM_NAME_TOTAL_SEATS = "total_seats";
-    static final String PARAM_NAME_FREE_SEATS = "free_seats";
-    
-    
     //common
     public abstract void open() throws DaoException;   
     public abstract void close() throws DaoException;

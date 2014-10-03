@@ -6,13 +6,23 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.controller.JspParamNames.JSP_DESCRIPTION_TEXT;
-import static by.epam.project.controller.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.controller.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
+import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
+import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_NAME;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_PICTURE;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_NAME_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_PICTURE_DIRECTION;
-import static by.epam.project.dao.AbstractDao.PARAM_NAME_TEXT_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
@@ -21,6 +31,7 @@ import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.MessageManager;
 import java.util.ArrayList;
@@ -33,28 +44,28 @@ import java.util.List;
 public class ProcessSavedParameters implements ActionCommand{
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoLogicException {
+    public String execute(SessionRequestContent request) throws DaoUserLogicException {
         
-        String[] currCoutryTags = request.getAllParameters(PARAM_NAME_CURR_COUNTRY_TAGS);
-        request.setAttribute(PARAM_NAME_CURR_COUNTRY_TAGS, currCoutryTags);
+        String[] currCoutryTags = request.getAllParameters(JSP_CURR_COUNTRY_TAGS);
+        request.setAttribute(JSP_CURR_COUNTRY_TAGS, currCoutryTags);
         
-        String[] currCityTags = request.getAllParameters(PARAM_NAME_CURR_CITY_TAGS);
-        request.setAttribute(PARAM_NAME_CURR_CITY_TAGS, currCityTags);
+        String[] currCityTags = request.getAllParameters(JSP_CURR_CITY_TAGS);
+        request.setAttribute(JSP_CURR_CITY_TAGS, currCityTags);
         
-        String currTourType = request.getParameter(PARAM_NAME_CURR_TOUR_TYPE);
-        request.setAttribute(PARAM_NAME_CURR_TOUR_TYPE, currTourType);
+        String currTourType = request.getParameter(JSP_CURR_TOUR_TYPE);
+        request.setAttribute(JSP_CURR_TOUR_TYPE, currTourType);
         
-        String currTransMode = request.getParameter(PARAM_NAME_CURR_TRANS_MODE);
-        request.setAttribute(PARAM_NAME_CURR_TRANS_MODE, currTransMode);
+        String currTransMode = request.getParameter(JSP_CURR_TRANS_MODE);
+        request.setAttribute(JSP_CURR_TRANS_MODE, currTransMode);
         
-        String currCountry = request.getParameter(PARAM_NAME_CURR_ID_COUNTRY);
-        request.setAttribute(PARAM_NAME_CURR_ID_COUNTRY, currCountry);
+        String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);
+        request.setAttribute(JSP_CURR_ID_COUNTRY, currCountry);
  
-        String currCity = request.getParameter(PARAM_NAME_CURR_ID_CITY);
-        request.setAttribute(PARAM_NAME_CURR_ID_CITY, currCity);
+        String currCity = request.getParameter(JSP_CURR_ID_CITY);
+        request.setAttribute(JSP_CURR_ID_CITY, currCity);
         
-        String currHotel = request.getParameter(PARAM_NAME_CURR_ID_HOTEL);
-        request.setAttribute(PARAM_NAME_CURR_ID_HOTEL, currHotel);
+        String currHotel = request.getParameter(JSP_CURR_ID_HOTEL);
+        request.setAttribute(JSP_CURR_ID_HOTEL, currHotel);
         
         createCurrHotelTag(request);
         
@@ -64,8 +75,8 @@ public class ProcessSavedParameters implements ActionCommand{
         return null;
     }
 
-    private void createCurrHotelTag(SessionRequestContent request) throws DaoLogicException {
-        String[] currHotelTags = request.getAllParameters(PARAM_NAME_CURR_HOTEL_TAGS);
+    private void createCurrHotelTag(SessionRequestContent request) throws DaoUserLogicException {
+        String[] currHotelTags = request.getAllParameters(JSP_CURR_HOTEL_TAGS);
         if (currHotelTags != null) {
             List<Hotel> hotelTagList = new ArrayList();
             for (String tag : currHotelTags) {
@@ -79,27 +90,27 @@ public class ProcessSavedParameters implements ActionCommand{
                         List<Hotel> hotels = HotelLogic.getHotels(criteria);
                         hotelTagList.addAll(hotels);
                     } catch (DaoException ex) {
-                        throw new DaoLogicException(MessageManager.getProperty("message.daoerror"));
+                        throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
                     }
                 }
             }
-            request.setAttribute(PARAM_NAME_HOTEL_TAG_LIST, hotelTagList);
+            request.setAttribute(JSP_HOTEL_TAG_LIST, hotelTagList);
         }
     }
 
     private void createCurrDirect(SessionRequestContent request) {
-        Direction currDir = (Direction) request.getSessionAttribute(PARAM_NAME_CURRENT_DIRECTION);
+        Direction currDir = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
         if (currDir == null) {
             currDir = new Direction();
             currDir.setDescription(new Description());
         }
         
-        currDir.setName(request.getParameter(PARAM_NAME_NAME_DIRECTION));
-        currDir.setPicture(request.getParameter(PARAM_NAME_PICTURE_DIRECTION));
-        currDir.setText(request.getParameter(PARAM_NAME_TEXT_DIRECTION));
+        currDir.setName(request.getParameter(JSP_DIRECTION_NAME));
+        currDir.setPicture(request.getParameter(JSP_DIRECTION_PICTURE));
+        currDir.setText(request.getParameter(JSP_DIRECTION_TEXT));
         currDir.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));
         
-        request.setSessionAttribute(PARAM_NAME_CURRENT_DIRECTION, currDir);
+        request.setSessionAttribute(JSP_CURRENT_DIRECTION, currDir);
     }
     
     
