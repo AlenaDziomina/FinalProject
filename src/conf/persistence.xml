@@ -11,6 +11,8 @@
     <class>by.epam.project.entity.Tour</class>
     <class>by.epam.project.entity.Direction</class>
     <class>by.epam.project.entity.DirectionStayHotel</class>
+    <class>by.epam.project.entity.Tourist</class>
+    <class>by.epam.project.entity.Orders</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/newdb"/>
