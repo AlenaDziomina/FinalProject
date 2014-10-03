@@ -68,19 +68,17 @@ public class CityLogic {
     private static void fillCities(List<City> cities, AbstractDao dao) throws DaoException {
         if (cities != null) {
             for (City city : cities) {
-                Criteria crit = new Criteria();
-                crit.addParam(DAO_ID_DESCRIPTION, city.getDescription().getIdDescription());
-                crit.addParam(DAO_ID_COUNTRY, city.getCountry().getIdCountry());
+                Criteria crit1 = new Criteria();
+                crit1.addParam(DAO_ID_DESCRIPTION, city.getDescription().getIdDescription());
+                List<Description> desc = dao.showDescriptions(crit1);
+                city.setDescription(desc.get(0));
                 
-                List<Description> desc = dao.showDescriptions(crit);
-                if (desc != null && !desc.isEmpty()) {
-                    city.setDescription(desc.get(0));
-                }
-                List<Country> countries = dao.showCountries(crit);
-                if (countries != null && !countries.isEmpty()) {
-                    city.setCountry(countries.get(0));
-                }
-                List<Hotel> hotels = dao.showHotels(crit);
+                Criteria crit2 = new Criteria();
+                crit2.addParam(DAO_ID_COUNTRY, city.getCountry().getIdCountry());
+                List<Country> countries = dao.showCountries(crit2);
+                city.setCountry(countries.get(0));
+                
+                List<Hotel> hotels = dao.showHotels(crit2);
                 city.setHotelCollection(hotels);
             }
         }
@@ -94,15 +92,16 @@ public class CityLogic {
     }
     
     private static Integer updateCity(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans = new Criteria();
-        beans.addParam(DAO_ID_CITY, criteria.getParam(DAO_ID_CITY));
-        beans.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        Criteria beans1 = new Criteria();
+        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
         criteria.remuveParam(DAO_ID_COUNTRY);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
-        
-        Integer idDescription = dao.updateDescription(beans, criteria).get(0);
+        Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        return dao.updateCity(beans, criteria).get(0);
+        
+        Criteria beans2 = new Criteria();
+        beans2.addParam(DAO_ID_CITY, criteria.getParam(DAO_ID_CITY));
+        return dao.updateCity(beans2, criteria).get(0);
     }
     
     

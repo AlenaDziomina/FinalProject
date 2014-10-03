@@ -56,8 +56,8 @@ public abstract class JspParamNames {
     public static final String JSP_HOTEL_NAME = "nameHotel";
     public static final String JSP_HOTEL_STARS = "starsHotel";
     public static final String JSP_HOTEL_PICTURE = "pictureHotel";
-    public static final String JSP_HOTEL_LIST = "listHotel";
-    public static final String JSP_HOTEL_COUNT = "countHotel";
+    public static final String JSP_HOTEL_LIST = "hotelList";
+    public static final String JSP_HOTEL_COUNT = "hotelCount";
     public static final String JSP_CURRENT_HOTEL = "currHotel";
     
     

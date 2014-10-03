@@ -42,7 +42,7 @@
         <div class="innerColumn">
             <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showHotel'}, 'POST'))">               
                 <c:forEach items="${currCity.hotelCollection}" var="row">
-                    <option class="menuHref" value="${row.idHotel}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
+                    <option class="menuHref" value="${row.idHotel}">${row.name}"</option>
                 </c:forEach>
             </select>
        </div>

@@ -9,6 +9,7 @@ package by.epam.project.logic;
 import by.epam.project.dao.AbstractDao;
 import by.epam.project.dao.ClientType;
 import by.epam.project.dao.DaoFactory;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -63,10 +64,14 @@ public abstract class CountryLogic {
     private static void fillCountries(List<Country> countries, AbstractDao dao) throws DaoException {
         if (countries != null) {
             for (Country country : countries) {
-                Criteria crit = new Criteria();
-                crit.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
-                List<Description> desc = dao.showDescriptions(crit);
-                List<City> cities = dao.showCities(crit);
+                Criteria crit1 = new Criteria();
+                crit1.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
+                List<Description> desc = dao.showDescriptions(crit1);
+                country.setDescription(desc.get(0));
+                
+                Criteria crit2 = new Criteria();
+                crit2.addParam(DAO_ID_COUNTRY, country.getIdCountry());
+                List<City> cities = dao.showCities(crit2);
                 country.setCityCollection(cities);
             }
         }
@@ -80,14 +85,15 @@ public abstract class CountryLogic {
     }
     
     private static Integer updateCountry(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans = new Criteria();
-        beans.addParam(DAO_ID_COUNTRY, criteria.getParam(DAO_ID_COUNTRY));
-        beans.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        Criteria beans1 = new Criteria();
+        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
         criteria.remuveParam(DAO_ID_COUNTRY);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
+        Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
         
-        Integer idDescription = dao.updateDescription(beans, criteria).get(0);
+        Criteria beans2 = new Criteria();
+        beans2.addParam(DAO_ID_COUNTRY, criteria.getParam(DAO_ID_COUNTRY));
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        return dao.updateCountry(beans, criteria).get(0);
+        return dao.updateCountry(beans2, criteria).get(0);
     }
 }

@@ -35,7 +35,7 @@
                 </div>
             </div>
             
-            <input type="hidden" name="id_city" value="${currHotel.idCity}"/>
+            <input type="hidden" name="id_city" value="${currHotel.city.idCity}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="selectCity" bundle="${ rb }" />: </h1>
@@ -46,7 +46,7 @@
                             <option class="selectItem" value=""> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                             <c:forEach items="${currCityList}" var="row">
                                 <c:choose>
-                                    <c:when test="${row.idCity == currHotel.idCity}">
+                                    <c:when test="${row.idCity == currHotel.city.idCity}">
                                         <option class="selectItem" value="${row.idCity}" selected="true"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                                     </c:when>
                                     <c:otherwise>

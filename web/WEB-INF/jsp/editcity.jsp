@@ -10,7 +10,7 @@
         <div class="innerColumn">
             <input type="hidden" name="command" value="saveRedactCity" />
             
-            <input type="hidden" name="id_country" value="${currCity.idCountry}"/>
+            <input type="hidden" name="id_country" value="${currCity.country.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="selectCity" bundle="${ rb }" />:</h1>
@@ -21,7 +21,7 @@
                             <option class="selectItem" value=""> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                             <c:forEach items="${countryList}" var="row">
                                 <c:choose>
-                                    <c:when test="${row.idCountry == currCity.idCountry}">
+                                    <c:when test="${row.idCountry == currCity.country.idCountry}">
                                         <option class="selectItem" value="${row.idCountry}" selected="true"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                                     </c:when>
                                     <c:otherwise>

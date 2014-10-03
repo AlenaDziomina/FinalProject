@@ -64,18 +64,16 @@ public class HotelLogic {
     private static void fillHotels(List<Hotel> hotels, AbstractDao dao) throws DaoException {
         if (hotels != null) {
             for (Hotel hotel : hotels) {
-                Criteria crit = new Criteria();
-                crit.addParam(DAO_ID_DESCRIPTION, hotel.getDescription().getIdDescription());
-                crit.addParam(DAO_ID_CITY, hotel.getCity().getIdCity());
+                Criteria crit1 = new Criteria();
+                crit1.addParam(DAO_ID_DESCRIPTION, hotel.getDescription().getIdDescription());
+                List<Description> desc = dao.showDescriptions(crit1);
+                hotel.setDescription(desc.get(0));
                 
-                List<Description> desc = dao.showDescriptions(crit);
-                if (desc != null && !desc.isEmpty()) {
-                    hotel.setDescription(desc.get(0));
-                }
-                List<City> cities = dao.showCities(crit);
-                if (cities != null && !cities.isEmpty()) {
-                    hotel.setCity(cities.get(0));
-                }
+                Criteria crit2 = new Criteria();
+                crit2.addParam(DAO_ID_CITY, hotel.getCity().getIdCity());
+                List<City> cities = dao.showCities(crit2);
+                hotel.setCity(cities.get(0));
+                
             }
         }
     }
@@ -88,15 +86,16 @@ public class HotelLogic {
     }
     
     private static Integer updateHotel(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans = new Criteria();
-        beans.addParam(DAO_ID_HOTEL, criteria.getParam(DAO_ID_HOTEL));
-        beans.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        Criteria beans1 = new Criteria();
+        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
         criteria.remuveParam(DAO_ID_HOTEL);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
-        
-        Integer idDescription = dao.updateDescription(beans, criteria).get(0);
+        Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        return dao.updateHotel(beans, criteria).get(0);
+        
+        Criteria beans2 = new Criteria();
+        beans2.addParam(DAO_ID_HOTEL, criteria.getParam(DAO_ID_HOTEL));
+        return dao.updateHotel(beans2, criteria).get(0);
     }
 }
 
