@@ -25,7 +25,7 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
     public User toChangeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
         
         try {
-            int updCount = new UserQuery().update(bean, criteria, updateDao, mysqlConn);
+            int updCount = new UserQuery().update(bean, criteria, updateDao, mysqlConn).get(0);
             if (updCount <= 0 || updCount > 1) {
                 throw new DaoException("Error in update results.");
             } 

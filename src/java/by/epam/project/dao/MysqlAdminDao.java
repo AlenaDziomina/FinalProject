@@ -100,7 +100,7 @@ public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     @Override
     public List<Integer> createNewDirection(Criteria criteria) throws DaoException {
         try {
-            Integer idDescription = editDescription(criteria).get(0);
+            Integer idDescription = createNewDescription(criteria).get(0);
             criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
             List list = new ArrayList<>();
             list.add(new Direction(criteria));
