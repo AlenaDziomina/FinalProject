@@ -282,6 +282,8 @@
 
 --alter table orders modify column final_price float not null;
 
+-- alter table tour add column status TINYINT default 1;
+    
+    --alter table orders add column status TINYINT default 1;
 
-    
-    
+alter table tourist add column status TINYINT default 1;

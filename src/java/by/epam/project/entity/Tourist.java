@@ -22,6 +22,7 @@ public class Tourist {
     private String lastName;
     private Date birthDate;
     private String passport;
+    private Short status;
  
     public Tourist() {
     }
@@ -76,4 +77,10 @@ public class Tourist {
         this.order = order;
     }
 
+    public Short getStatus() {
+        return status;
+    }
+    public void setStatus(Short status) {
+        this.status = status;
+    }
 }

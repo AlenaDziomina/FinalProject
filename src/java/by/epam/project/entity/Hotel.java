@@ -13,15 +13,6 @@ package by.epam.project.entity;
 
 public final class Hotel {
     
-    public static final String DB_HOTEL = "hotel";
-    public static final String DB_HOTEL_ID_HOTEL = "id_hotel";
-    public static final String DB_HOTEL_ID_CITY = "id_city";
-    public static final String DB_HOTEL_NAME = "name";
-    public static final String DB_HOTEL_STARS = "stars";
-    public static final String DB_HOTEL_STATUS = "status";
-    public static final String DB_HOTEL_PICTURE = "picture";
-    public static final String DB_HOTEL_ID_DESCRIPTION = "id_description";
-    
     private Integer idHotel;
     private String name;
     private Integer stars;

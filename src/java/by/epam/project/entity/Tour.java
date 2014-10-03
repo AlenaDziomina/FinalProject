@@ -6,6 +6,7 @@
 
 package by.epam.project.entity;
 
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -23,6 +24,8 @@ public class Tour {
     private Integer totalSeats;
     private Integer freeSeats;
     private Direction direction;
+    private Short status;
+    private Collection<Order> orderCollection;
 
     public Tour() {
     }
@@ -84,6 +87,20 @@ public class Tour {
     }
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+    
+    public Short getStatus() {
+        return status;
+    }
+    public void setStatus(Short status) {
+        this.status = status;
+    }
+    
+    public Collection<Order> getOrderCollection() {
+        return orderCollection;
+    }
+    public void setOrderCollection(Collection<Order> orderCollection) {
+        this.orderCollection = orderCollection;
     }
 
    

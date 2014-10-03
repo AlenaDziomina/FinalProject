@@ -41,6 +41,7 @@ public class TourQuery implements TypedQuery<Tour>{
     public static final String DB_TOUR_DISCOUNT = "discount";
     public static final String DB_TOUR_TOTAL_SEATS = "total_seats";
     public static final String DB_TOUR_FREE_SEATS = "free_seats";
+    public static final String DB_TOUR_STATUS = "statusTour";
     
     public static final String DAO_ID_TOUR = "idTour";
     public static final String DAO_TOUR_DATE = "dateTour";
@@ -49,6 +50,7 @@ public class TourQuery implements TypedQuery<Tour>{
     public static final String DAO_TOUR_DISCOUNT = "discountTour";
     public static final String DAO_TOUR_TOTAL_SEATS = "totalSeatsTour";
     public static final String DAO_TOUR_FREE_SEATS = "freeSeatsTour";
+    public static final String DAO_TOUR_STATUS = "statusTour";
     
     private static final String SAVE_QUERY = 
             "Insert into " + DB_TOUR + "(" + DB_TOUR_ID_DIRECTION + ", "
@@ -73,6 +75,7 @@ public class TourQuery implements TypedQuery<Tour>{
         bean.setTotalSeats((Integer)criteria.getParam(DAO_TOUR_TOTAL_SEATS));
         bean.setFreeSeats((Integer)criteria.getParam(DAO_TOUR_FREE_SEATS));
         bean.setDirection(DirectionQuery.createBean(criteria));
+        bean.setStatus((Short)criteria.getParam(DAO_TOUR_STATUS));
         return bean;
     }
     
@@ -113,6 +116,7 @@ public class TourQuery implements TypedQuery<Tour>{
                 append(DAO_TOUR_DISCOUNT, DB_TOUR_DISCOUNT, criteria, paramList, sb, separator);
                 append(DAO_TOUR_TOTAL_SEATS, DB_TOUR_TOTAL_SEATS, criteria, paramList, sb, separator);
                 append(DAO_TOUR_FREE_SEATS, DB_TOUR_FREE_SEATS, criteria, paramList, sb, separator);
+                append(DAO_TOUR_STATUS, DB_TOUR_STATUS, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -136,6 +140,7 @@ public class TourQuery implements TypedQuery<Tour>{
                     bean.setTotalSeats(rs.getInt(DB_TOUR_TOTAL_SEATS));
                     bean.setFreeSeats(rs.getInt(DB_TOUR_FREE_SEATS));
                     bean.setDirection(new Direction(rs.getInt(DB_TOUR_ID_DIRECTION)));
+                    bean.setStatus(rs.getShort(DB_TOUR_STATUS));
                     return bean;
                 }
             });
@@ -160,6 +165,7 @@ public class TourQuery implements TypedQuery<Tour>{
                 append(DAO_TOUR_DISCOUNT, DB_TOUR_DISCOUNT, criteria, paramList1, sb, separator);
                 append(DAO_TOUR_TOTAL_SEATS, DB_TOUR_TOTAL_SEATS, criteria, paramList1, sb, separator);
                 append(DAO_TOUR_FREE_SEATS, DB_TOUR_FREE_SEATS, criteria, paramList1, sb, separator);
+                append(DAO_TOUR_STATUS, DB_TOUR_STATUS, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
                 append(DAO_ID_TOUR, DB_TOUR_ID_TOUR, beans, paramList2, sb, separator);
@@ -170,6 +176,7 @@ public class TourQuery implements TypedQuery<Tour>{
                 append(DAO_TOUR_DISCOUNT, DB_TOUR_DISCOUNT, beans, paramList2, sb, separator);
                 append(DAO_TOUR_TOTAL_SEATS, DB_TOUR_TOTAL_SEATS, beans, paramList2, sb, separator);
                 append(DAO_TOUR_FREE_SEATS, DB_TOUR_FREE_SEATS, beans, paramList2, sb, separator);
+                append(DAO_TOUR_STATUS, DB_TOUR_STATUS, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

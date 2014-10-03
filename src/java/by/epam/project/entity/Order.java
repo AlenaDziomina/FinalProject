@@ -24,6 +24,7 @@ public class Order {
     private Integer currentUserDiscount;
     private Float finalPrice;
     private Date orderDate;
+    private Short status;
     private Collection<Tourist> touristCollection;
 
     public Order() {
@@ -103,4 +104,11 @@ public class Order {
         this.touristCollection = touristCollection;
     }
 
+    public Short getStatus() {
+        return status;
+    }
+
+    public void setStatus(Short status) {
+        this.status = status;
+    }
 }

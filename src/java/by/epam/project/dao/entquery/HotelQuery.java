@@ -13,14 +13,6 @@ import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
-import static by.epam.project.entity.Hotel.DB_HOTEL;
-import static by.epam.project.entity.Hotel.DB_HOTEL_ID_CITY;
-import static by.epam.project.entity.Hotel.DB_HOTEL_ID_DESCRIPTION;
-import static by.epam.project.entity.Hotel.DB_HOTEL_ID_HOTEL;
-import static by.epam.project.entity.Hotel.DB_HOTEL_NAME;
-import static by.epam.project.entity.Hotel.DB_HOTEL_PICTURE;
-import static by.epam.project.entity.Hotel.DB_HOTEL_STARS;
-import static by.epam.project.entity.Hotel.DB_HOTEL_STATUS;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.QueryExecutionException;
 import java.sql.Connection;
@@ -33,6 +25,15 @@ import java.util.List;
  * @author User
  */
 public class HotelQuery implements TypedQuery<Hotel>{
+    
+    public static final String DB_HOTEL = "hotel";
+    public static final String DB_HOTEL_ID_HOTEL = "id_hotel";
+    public static final String DB_HOTEL_ID_CITY = "id_city";
+    public static final String DB_HOTEL_NAME = "name";
+    public static final String DB_HOTEL_STARS = "stars";
+    public static final String DB_HOTEL_STATUS = "status";
+    public static final String DB_HOTEL_PICTURE = "picture";
+    public static final String DB_HOTEL_ID_DESCRIPTION = "id_description";
     
     public static final String DAO_ID_HOTEL = "idHotel";
     public static final String DAO_HOTEL_NAME = "nameHotel";
