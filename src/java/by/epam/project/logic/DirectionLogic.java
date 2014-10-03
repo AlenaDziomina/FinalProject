@@ -140,7 +140,7 @@ public abstract class DirectionLogic {
         }
     }
 
-    private static final Integer createDirection(Criteria criteria, AbstractDao dao) throws DaoException {
+    private static Integer createDirection(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idDescription = dao.createNewDescription(criteria).get(0);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
