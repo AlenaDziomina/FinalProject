@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Grouk.Helena
  */
 public class GoShowCountry implements ActionCommand {
 
@@ -35,26 +35,19 @@ public class GoShowCountry implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");
         request.setSessionAttribute(JSP_PAGE, page);
-        
+        formCountryList(request);
+        return page;
+    }   
+    
+    public static void formCountryList(SessionRequestContent request)throws DaoUserLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        
         try {
             List<Country> countrys = CountryLogic.getCountries(criteria);
-            if (countrys != null || !countrys.isEmpty()) {
-                request.setSessionAttribute(JSP_COUNTRY_LIST, countrys);
-                request.setSessionAttribute(JSP_COUNTRY_COUNT, countrys.size());
-            } else {
-                request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
-            }
-            
-            return page;
+            request.setSessionAttribute(JSP_COUNTRY_LIST, countrys);
         } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"), ex);
         }
-        
-        
     }
-    
 }

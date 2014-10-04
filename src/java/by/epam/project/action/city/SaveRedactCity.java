@@ -8,6 +8,7 @@ package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.ActionCommand.*;
+import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CITY_NAME;
 import static by.epam.project.action.JspParamNames.JSP_CITY_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
@@ -18,6 +19,8 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import by.epam.project.action.ProcessSavedParameters;
+import static by.epam.project.action.city.GoShowCity.formCityList;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_NAME;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_PICTURE;
@@ -47,6 +50,8 @@ public class SaveRedactCity implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.editcity");
+        new ProcessSavedParameters().execute(request);
+        
         Criteria criteria = new Criteria();
         checkParam(request, criteria, JSP_CURR_ID_COUNTRY, DAO_ID_COUNTRY);
         checkParam(request, criteria, JSP_ID_CITY, DAO_ID_CITY);
@@ -59,11 +64,9 @@ public class SaveRedactCity implements ActionCommand {
         criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
         try {
             Integer resIdCity = CityLogic.redactCity(criteria);
-            new GoShowCity().execute(request);
+            formCityList(request);
             request.setParameter(JSP_SELECT_ID, resIdCity.toString());
-            page = new ShowCity().execute(request);
-            request.setSessionAttribute(JSP_PAGE, page);
-            return page;        
+            return new ShowCity().execute(request);     
         } catch (DaoAccessPermission ex) {
             request.setAttribute("errorReason", MessageManager.getProperty("message.errordaoaccess"));
             request.setAttribute("errorAdminMsg", ex.getMessage());

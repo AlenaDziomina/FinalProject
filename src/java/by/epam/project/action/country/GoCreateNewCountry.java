@@ -7,8 +7,6 @@
 package by.epam.project.action.country;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_COUNT;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.controller.SessionRequestContent;
@@ -23,11 +21,11 @@ public class GoCreateNewCountry implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
+        
+        request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
+        
         String page = ConfigurationManager.getProperty("path.page.editcountry");
         request.setSessionAttribute(JSP_PAGE, page);
-        request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
-        request.deleteSessionAttribute(JSP_COUNTRY_LIST);
-        request.deleteSessionAttribute(JSP_COUNTRY_COUNT);
         return page;
     }
     

@@ -33,17 +33,7 @@ public class ShowCitiesOfCountry implements ActionCommand {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
        
         List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        if (countryList == null || countryList.isEmpty()){
-            new GoShowCountry().execute(request);
-            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        }
-        
         List<City> cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        if (cityList == null || cityList.isEmpty()){
-            new GoShowCity().execute(request);
-            cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        }
-
         Integer idCountry = Integer.decode(request.getParameter(JSP_SELECT_ID));
        
         for (Country c: countryList) {

@@ -11,6 +11,7 @@ import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.Country;
 import by.epam.project.exception.DaoUserLogicException;
@@ -28,14 +29,12 @@ public class ShowCountry implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");
         request.setSessionAttribute(JSP_PAGE, page);
+        
+        formCountryList(request);
         List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        if (list == null || list.isEmpty()){
-            new GoShowCountry().execute(request);
-            list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        }
-        Integer id = Integer.decode(request.getParameter(JSP_SELECT_ID));
+        Integer idCountry = Integer.decode(request.getParameter(JSP_SELECT_ID));
         for (Country c: list) {
-            if (Objects.equals(c.getIdCountry(), id)) {
+            if (Objects.equals(c.getIdCountry(), idCountry)) {
                 request.setSessionAttribute(JSP_CURRENT_COUNTRY, c);
                 return page;
             }

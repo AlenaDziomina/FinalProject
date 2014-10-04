@@ -26,7 +26,10 @@
     <div class="centerColumn">
         <div class="innerColumn">
             <div id="erNote">${errorGetListMessage}</div>
-            <img class="currimg" id="images" src="<%=request.getContextPath()%>${currCountry.picture}">
+            <c:if test="${currCountry.picture != null}">
+                <img class="currimg" id="images" src="<%=request.getContextPath()%>${currCountry.picture}">
+            </c:if>
+                
             <div class="cueetext">
                  ${currCountry.description.text}
             </div>

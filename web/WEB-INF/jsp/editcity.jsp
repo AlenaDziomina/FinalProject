@@ -25,6 +25,10 @@
                     </div>
                 </div>
             </div>
+                            
+            <script type="text/javascript">
+                select("currCountry", ${currIdCountry});
+            </script>                
             
             <input type="hidden" name="idCity" value="${currCity.idCity}"/>
             <div class="parameterRow">
@@ -33,7 +37,7 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                        <input type="text" class="inputLineContainer" name="nameCity" value="${currCity.name}"/>
+                        <input type="text" name="nameCity" class="inputLineContainer" value="${currCity.name}"/>
                     </div>
                 </div>
             </div>
@@ -44,7 +48,7 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                        <input type="text" class="inputLineContainer" name="pictureCity"   value="${currCity.picture}"/>
+                        <input type="text"  name="pictureCity" class="inputLineContainer" value="${currCity.picture}"/>
                     </div>
                 </div>      
             </div>

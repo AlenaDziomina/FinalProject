@@ -6,7 +6,7 @@
 
 <div id="main">
     
-    <form name="updateCountry" method="POST" action="controller">
+    <form id="updCountry" name="updateCountry" method="POST" action="controller">
         <div class="innerColumn">
             <input type="hidden" name="command" value="saveRedactCountry" />
             
@@ -17,7 +17,7 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="nameCountry" value="${currCountry.name}"/>
+                        <input type="text" name="nameCountry" class="inputLineContainer" value="${currCountry.name}"/>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="pictureCountry"   value="${currCountry.picture}"/>
+                        <input type="text" name="pictureCountry" class="inputLineContainer" value="${currCountry.picture}"/>
                     </div>
                 </div>      
             </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <textarea name="textDescription" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
+                        <textarea name="textDescription" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,10 @@
         
             <div class="parameterRow">
                 <div class="centrale">
-                    <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />"/>
+                    <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllCountry()"/>
                     <div id="erNote">${errorSaveData}</div>
+                    <div id="erNote">${errorReason}</div>
+                    <div id="erAdminNote">${errorAdminMsg}</div>
                 </div>
             </div>
             

@@ -17,5 +17,9 @@ public class DaoUserLogicException extends ServletException {
     public DaoUserLogicException(String msg) {
         super(msg);
     }
+
+    public DaoUserLogicException(String property, DaoException ex) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

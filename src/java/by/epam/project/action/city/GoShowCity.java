@@ -7,7 +7,6 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CITY_COUNT;
 import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
@@ -36,7 +35,11 @@ public class GoShowCity implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.cities");
         request.setSessionAttribute(JSP_PAGE, page);
-        
+        formCityList(request);
+        return page;
+    }
+    
+    public static void formCityList(SessionRequestContent request) throws DaoUserLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
@@ -44,17 +47,11 @@ public class GoShowCity implements ActionCommand {
         
         try {
             List<City> cities = CityLogic.getCities(criteria);
-            if (cities != null || !cities.isEmpty()) {
-                request.setSessionAttribute(JSP_CITY_LIST, cities);
-                request.setSessionAttribute(JSP_CITY_COUNT, cities.size());
-            } else {
-                request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
-            }
-            request.setSessionAttribute(JSP_PAGE, page);
-            return page;
+            request.setSessionAttribute(JSP_CITY_LIST, cities);
         } catch (DaoException ex) {
             throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
         }
     }
+    
     
 }

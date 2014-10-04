@@ -4,6 +4,13 @@
  * and open the template in the editor.
  */
 
+function saveAllCountry() {
+    var form = document.getElementById("updCountry");
+    saveTextVal(form, "nameCountry");
+    saveTextVal(form, "pictureCountry");
+    saveMultiTExtVal(form, "textDescription");
+}
+
 function saveAllCity() {
     var form = document.getElementById("updCity");
     saveCurrIdCountry(form);
