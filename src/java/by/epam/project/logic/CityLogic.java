@@ -18,6 +18,7 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
+import by.epam.project.exception.DaoAccessPermission;
 import by.epam.project.exception.DaoException;
 import java.util.List;
 
@@ -94,13 +95,16 @@ public class CityLogic {
     private static Integer updateCity(Criteria criteria, AbstractDao dao) throws DaoException {
         Criteria beans1 = new Criteria();
         Criteria beans2 = new Criteria();
+        Integer idDescription = (Integer) criteria.getParam(DAO_ID_DESCRIPTION);
+        Integer idCity = (Integer) criteria.getParam(DAO_ID_CITY);
         beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
         beans2.addParam(DAO_ID_CITY, criteria.getParam(DAO_ID_CITY));
         criteria.remuveParam(DAO_ID_COUNTRY);
         criteria.remuveParam(DAO_ID_DESCRIPTION);
-        Integer idDescription = dao.updateDescription(beans1, criteria).get(0);
+        dao.updateDescription(beans1, criteria);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        return dao.updateCity(beans2, criteria).get(0);
+        dao.updateCity(beans2, criteria);
+        return idCity;
     }
     
     

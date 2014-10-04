@@ -15,7 +15,7 @@ import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.Params.RowMapper;
-import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.exception.DaoQueryException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Role;
 import java.sql.Connection;
@@ -58,7 +58,7 @@ public class RoleQuery implements TypedQuery<Role>{
     }
     
     @Override
-    public List<Integer> save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
             return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Role bean) -> {
                 Object[] objects = new Object[1];
@@ -66,12 +66,12 @@ public class RoleQuery implements TypedQuery<Role>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("Role not saved.",ex);
+            throw new DaoQueryException("Role not saved.",ex);
         }
     }
 
     @Override
-    public List<Role> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
+    public List<Role> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
@@ -103,12 +103,12 @@ public class RoleQuery implements TypedQuery<Role>{
                 }
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Role not loaded.", ex);
+             throw new DaoQueryException("Role not loaded.", ex);
         }
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {        
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {        
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
@@ -128,12 +128,12 @@ public class RoleQuery implements TypedQuery<Role>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Role not updated.", ex);
+             throw new DaoQueryException("Role not updated.", ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

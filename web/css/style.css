@@ -74,6 +74,11 @@ li {
     color:rgb(255,62,62);
 }
 
+#erAdminNote {
+    font-size: 15px;
+    color: darkmagenta;
+}
+
 #h_r_container {
     height: 20px;
     float: right;

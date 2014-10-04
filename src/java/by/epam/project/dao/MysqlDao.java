@@ -14,6 +14,7 @@ import by.epam.project.dao.query.MysqlGenericDeleteQuery;
 import by.epam.project.dao.query.MysqlGenericLoadQuery;
 import by.epam.project.dao.query.MysqlGenericSaveQuery;
 import by.epam.project.dao.query.MysqlGenericUpdateQuery;
+import by.epam.project.exception.DaoConnectException;
 import by.epam.project.exception.DaoException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -45,7 +46,7 @@ public class MysqlDao implements AbstractDao {
         try {
             mysqlConn.rollback();
         } catch (SQLException ex) {
-            throw new DaoException("Rollback failed.");
+            throw new DaoConnectException("Rollback failed.");
         }
     }
     
@@ -53,7 +54,7 @@ public class MysqlDao implements AbstractDao {
         try {
             return ConnectionPool.getConnection();
         } catch (SQLException ex) {
-            throw new DaoException("Cant take connection to database.");
+            throw new DaoConnectException("Cant take connection to database.");
         }
     }
     
@@ -62,14 +63,12 @@ public class MysqlDao implements AbstractDao {
         try {
             con.commit();
         } catch (SQLException ex) {
-            throw new DaoException("Error in commit connection in pool.");
+            throw new DaoConnectException("Error in commit connection in pool.");
         }
-        
         try {
-            
             ConnectionPool.returnConnection(con);
         } catch (SQLException ex) {
-            throw new DaoException("Cant return connection in pool.");
+            throw new DaoConnectException("Cant return connection in pool.");
         }
     }
     

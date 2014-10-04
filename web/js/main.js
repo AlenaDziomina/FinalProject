@@ -4,6 +4,47 @@
  * and open the template in the editor.
  */
 
+function saveAllCity() {
+    var form = document.getElementById("updCity");
+    saveCurrIdCountry(form);
+    saveTextVal(form, "nameCity");
+    saveTextVal(form, "pictureCity");
+    saveMultiTExtVal(form, "textDescription");
+}
+
+function saveTextVal(form, name) {
+    var tableInputTags = document.getElementsByTagName("input");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].type==="text")  
+        {
+            if (tableInputTags[i].name===name){
+                var elem = document.createElement("input");
+                elem.type = "hidden";
+                elem.name = name;
+                elem.value= tableInputTags[i].value;
+                form.appendChild(elem);   
+            }
+        }
+    }
+}
+
+function saveMultiTextVal(form, name) {
+    var tableInputTags = document.getElementsByTagName("textarea");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].name=== name) {
+            var elem = document.createElement("input");
+            elem.type = "hidden";
+            elem.name = name;
+            elem.value= tableInputTags[i].value;
+            form.appendChild(elem);   
+        }
+    }
+}
+
+
+
 function restoreCheck(str, txt){
     
     var form = document.getElementById("updDirection");
@@ -100,10 +141,10 @@ function saveMultitextValDir(form) {
             elem.value= tableInputTags[i].value;
             form.appendChild(elem);   
         }
-        if(tableInputTags[i].name==="text_description") {
+        if(tableInputTags[i].name==="textDescription") {
             var elem = document.createElement("input");
             elem.type = "hidden";
-            elem.name = "text_description";
+            elem.name = "textDescription";
             elem.value= tableInputTags[i].value;
             form.appendChild(elem);   
         }
@@ -116,17 +157,17 @@ function saveTextValDir(form) {
     {
         if(tableInputTags[i].type==="text")  
         {
-            if (tableInputTags[i].name==="name_direction"){
+            if (tableInputTags[i].name==="nameDirection"){
                 var elem = document.createElement("input");
                 elem.type = "hidden";
-                elem.name = "name_direction";
+                elem.name = "nameDirection";
                 elem.value= tableInputTags[i].value;
                 form.appendChild(elem);   
             }
-            if (tableInputTags[i].name==="picture_direction"){
+            if (tableInputTags[i].name==="pictureDirection"){
                 var elem = document.createElement("input");
                 elem.type = "hidden";
-                elem.name = "picture_direction";
+                elem.name = "pictureDirection";
                 elem.value= tableInputTags[i].value;
                 form.appendChild(elem);   
             }
@@ -275,14 +316,14 @@ function selectTourType(n){
 
 function selectCountry(n){
     var form = document.getElementById("updCity");
-    var id = form.id_country;
+    var id = form.idCountry;
     id.setAttribute("value", n);
   
 }
 
 function selectCity(n){
     var form = document.getElementById("updHotel");
-    var id = form.id_city;
+    var id = form.idCity;
     id.setAttribute("value", n);
     
 }

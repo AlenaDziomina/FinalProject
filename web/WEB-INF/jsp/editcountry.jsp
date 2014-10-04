@@ -10,14 +10,14 @@
         <div class="innerColumn">
             <input type="hidden" name="command" value="saveRedactCountry" />
             
-            <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
+            <input type="hidden" name="idCountry" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="countryName" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="name_country" value="${currCountry.name}"/>
+                    <input type="text" class="inputLineContainer" name="nameCountry" value="${currCountry.name}"/>
                     </div>
                 </div>
             </div>
@@ -29,19 +29,19 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="picture_country"   value="${currCountry.picture}"/>
+                    <input type="text" class="inputLineContainer" name="pictureCountry"   value="${currCountry.picture}"/>
                     </div>
                 </div>      
             </div>
             
-            <input type="hidden" name="id_description" value="${currCountry.description.idDescription}"/>
+            <input type="hidden" name="idDescription" value="${currCountry.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="countryDescription" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <textarea name="text_description" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
+                    <textarea name="textDescription" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
                     </div>
                 </div>
             </div>

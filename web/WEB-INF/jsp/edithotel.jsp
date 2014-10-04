@@ -11,7 +11,7 @@
             <input type="hidden" name="command" value="saveRedactHotel" />
             
             
-            <input type="hidden" name="id_country" value="${currCountry.idCountry}"/>
+            <input type="hidden" name="idCountry" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="selectCountry" bundle="${ rb }" />: </h1>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             
-            <input type="hidden" name="id_city" value="${currHotel.city.idCity}"/>
+            <input type="hidden" name="idCity" value="${currHotel.city.idCity}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="selectCity" bundle="${ rb }" />: </h1>
@@ -59,19 +59,19 @@
                 </div>
             </div>
             
-            <input type="hidden" name="id_hotel" value="${currHotel.idHotel}"/>
+            <input type="hidden" name="idHotel" value="${currHotel.idHotel}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="hotelName" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="name_hotel" value="${currHotel.name}"/>
+                    <input type="text" class="inputLineContainer" name="nameHotel" value="${currHotel.name}"/>
                     </div>
                 </div>
             </div>
             
-            <input type="hidden" name="stars_hotel" value="${currHotel.stars}"/>        
+            <input type="hidden" name="starsHotel" value="${currHotel.stars}"/>        
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="selectHotelStars" bundle="${ rb }" />: </h1>
@@ -102,19 +102,19 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <input type="text" class="inputLineContainer" name="picture_hotel"   value="${currHotel.picture}"/>
+                    <input type="text" class="inputLineContainer" name="pictureHotel"   value="${currHotel.picture}"/>
                     </div>
                 </div>      
             </div>
             
-            <input type="hidden" name="id_description" value="${currHotel.description.idDescription}"/>
+            <input type="hidden" name="idDescription" value="${currHotel.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="labelColumn">
                     <h1 class="labelH"><fmt:message key="hotelDescription" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                    <textarea name="text_description" class="inputMultilineineContainer">${currHotel.description.text}</textarea>
+                    <textarea name="textDescription" class="inputMultilineineContainer">${currHotel.description.text}</textarea>
                     </div>
                 </div>
             </div>

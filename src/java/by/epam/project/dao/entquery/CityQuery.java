@@ -17,7 +17,7 @@ import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoException;
-import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class CityQuery implements TypedQuery<City>{
     }
     
     @Override
-    public List<Integer> save(List<City> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> save(List<City> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
             return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (City bean) -> {
                 Object[] objects = new Object[4];
@@ -79,12 +79,12 @@ public class CityQuery implements TypedQuery<City>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("City not saved.", ex);
+            throw new DaoQueryException("City not saved.", ex);
         }
     }
 
     @Override
-    public List<City> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
+    public List<City> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
@@ -122,12 +122,12 @@ public class CityQuery implements TypedQuery<City>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("City not loaded.", ex);
+             throw new DaoQueryException("City not loaded.", ex);
         }
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
@@ -156,12 +156,12 @@ public class CityQuery implements TypedQuery<City>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("City not updated.", ex);
+             throw new DaoQueryException("City not updated.", ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

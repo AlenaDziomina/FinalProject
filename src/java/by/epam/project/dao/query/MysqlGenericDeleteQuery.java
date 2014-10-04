@@ -8,6 +8,7 @@ package by.epam.project.dao.query;
 
 import static by.epam.project.controller.ProjectServlet.LOCALLOG;
 import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoSqlException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,7 +55,7 @@ public class MysqlGenericDeleteQuery implements GenericDeleteQuery{
             return resultList;
         }
         catch (SQLException ex) {
-            throw new DaoException(ex.getMessage(), ex);
+            throw new DaoSqlException(ex.getMessage(), ex);
         } finally {
             try {
                 if (rs != null && !rs.isClosed()) {

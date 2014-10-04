@@ -25,7 +25,7 @@
             </c:forEach>
             DirectionStayHotels: </br>
             <c:forEach items="${currDir.stayCollection}" var="st">
-                ${st.stayHotel.name}${st.stayHotel.idHotel} </br>
+                ${st.hotel.name}${st.hotel.idHotel} </br>
             </c:forEach>
             Description:
             ${currDir.description.text}

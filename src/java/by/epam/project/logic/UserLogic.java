@@ -53,6 +53,7 @@ public abstract class UserLogic {
         try {
             List<User> users = dao.showUsers(criteria);
             if (users != null && !users.isEmpty()) {
+                fillUsers(users, dao); 
                 return users.get(0);  
             } else {
                 return null;
@@ -62,6 +63,14 @@ public abstract class UserLogic {
             throw ex;
         } finally {
             dao.close(); 
+        }
+    }
+    
+    private static void fillUsers(List<User> users, AbstractDao dao) throws DaoException {
+        for (User u : users) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_ROLE, u.getRole().getIdRole());
+            u.setRole(dao.showRoles(crit).get(0));
         }
     }
     

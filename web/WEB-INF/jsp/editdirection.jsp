@@ -140,28 +140,28 @@
             </c:forEach>
                 
         
-            <input type="hidden" name="id_direction" value="${currDirection.idDirection}"/>
+            <input type="hidden" name="idDirection" value="${currDirection.idDirection}"/>
             <div class="parameterRow">
                 <div class="tagColumnS">
                     <h1 class="labelHT"><fmt:message key="directName" bundle="${ rb }" />: </h1> 
-                    <input type="text" class="inputLineContainerM" name="name_direction" value="${currDirection.name}"/> 
+                    <input type="text" class="inputLineContainerM" name="nameDirection" value="${currDirection.name}"/> 
                     <h1 class="labelHT"><fmt:message key="directPicture" bundle="${ rb }" />:</h1> 
-                    <input type="text" class="inputLineContainerM" name="picture_direction"   value="${currDirection.picture}"/>
+                    <input type="text" class="inputLineContainerM" name="pictureDirection"   value="${currDirection.picture}"/>
                 </div>
                 <div class="tagColumnM">
                     <h1 class="labelHT"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
-                    <textarea name="text_direction" class="inputMultilineineContainerB">${currDirection.text}</textarea>
+                    <textarea name="textDirection" class="inputMultilineineContainerB">${currDirection.text}</textarea>
                 </div>    
             </div>
             
-            <input type="hidden" name="id_description" value="${currDirection.description.idDescription}"/>
+            <input type="hidden" name="idDescription" value="${currDirection.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="labelColumnS">
                     <h1 class="labelH"><fmt:message key="directDescription" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="inputColumnL">
                     <div class="innerColumn">
-                    <textarea name="text_description" class="inputMultilineineContainerD">${currDirection.description.text}</textarea>
+                    <textarea name="textDescription" class="inputMultilineineContainerD">${currDirection.description.text}</textarea>
                     </div>
                 </div>
             </div>        

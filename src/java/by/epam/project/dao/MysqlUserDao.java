@@ -9,7 +9,7 @@ package by.epam.project.dao;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.entquery.UserQuery;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.exception.DaoQueryException;
 import by.epam.project.entity.User;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
             if (updCount <= 0 || updCount > 1) {
                 throw new DaoException("Error in update results.");
             } 
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
         
@@ -44,7 +44,7 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
                     return null;
                 } 
             }
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }

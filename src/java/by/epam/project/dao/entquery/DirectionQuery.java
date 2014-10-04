@@ -18,7 +18,7 @@ import by.epam.project.entity.Direction;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransportationMode;
 import by.epam.project.exception.DaoException;
-import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
     }
     
     @Override
-    public List<Integer> save(List<Direction> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> save(List<Direction> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
             return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Direction bean) -> {
                 Object[] objects = new Object[6];
@@ -85,12 +85,12 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("Direction not saved", ex);
+            throw new DaoQueryException("Direction not saved", ex);
         }
     }
 
     @Override
-    public List<Direction> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
+    public List<Direction> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
@@ -131,12 +131,12 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Direction not loaded.", ex);
+             throw new DaoQueryException("Direction not loaded.", ex);
         }
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
@@ -170,12 +170,12 @@ public class DirectionQuery implements TypedQuery<Direction>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Direction not updated.", ex);
+             throw new DaoQueryException("Direction not updated.", ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

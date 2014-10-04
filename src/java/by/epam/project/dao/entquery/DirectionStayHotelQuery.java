@@ -20,7 +20,7 @@ import by.epam.project.entity.Direction;
 import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoException;
-import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
             "Delete from " + DB_DIRSTAY + " where ";
 
     @Override
-    public List<Integer> save(List<DirectionStayHotel> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> save(List<DirectionStayHotel> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
             return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (DirectionStayHotel bean) -> {
                 Object[] objects = new Object[3];
@@ -68,12 +68,12 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("Direction stay hotel not saved.", ex);
+            throw new DaoQueryException("Direction stay hotel not saved.", ex);
         }
     }
 
     @Override
-    public List<DirectionStayHotel> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
+    public List<DirectionStayHotel> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
@@ -108,12 +108,12 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Direction stay hotel not loaded.", ex);
+             throw new DaoQueryException("Direction stay hotel not loaded.", ex);
         }
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
@@ -140,12 +140,12 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Direction stay hotel not updated.", ex);
+             throw new DaoQueryException("Direction stay hotel not updated.", ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(DELETE_QUERY);
         String queryStr = new Params.QueryMapper() {
@@ -164,7 +164,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         try {
             return deleteDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Direction stay hotel not deleted.", ex);
+             throw new DaoQueryException("Direction stay hotel not deleted.", ex);
         }
         
     }

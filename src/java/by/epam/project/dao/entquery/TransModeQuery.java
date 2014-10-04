@@ -14,7 +14,7 @@ import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.exception.DaoQueryException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.TransportationMode;
 import java.sql.Connection;
@@ -53,7 +53,7 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
     }
     
     @Override
-    public List<Integer> save(List<TransportationMode> beans, GenericSaveQuery saveDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> save(List<TransportationMode> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
             return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (TransportationMode bean) -> {
                 Object[] objects = new Object[1];
@@ -61,12 +61,12 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new QueryExecutionException("Transportation mode not saved.", ex);
+            throw new DaoQueryException("Transportation mode not saved.", ex);
         }
     }
     
     @Override
-    public List<TransportationMode> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws QueryExecutionException {
+    public List<TransportationMode> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
@@ -95,14 +95,14 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Transportation mode not loaded.", ex);
+             throw new DaoQueryException("Transportation mode not loaded.", ex);
         }
     }
 
     
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
@@ -122,12 +122,12 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new QueryExecutionException("Transportation mode not updated." ,ex);
+             throw new DaoQueryException("Transportation mode not updated." ,ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws QueryExecutionException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

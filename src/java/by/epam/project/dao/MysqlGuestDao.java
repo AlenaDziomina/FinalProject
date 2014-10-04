@@ -31,7 +31,7 @@ import by.epam.project.entity.TransportationMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoLogicException;
-import by.epam.project.exception.QueryExecutionException;
+import by.epam.project.exception.DaoQueryException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         try {
             List<Role> roles = new RoleQuery().load(criteria, loadDao, mysqlConn);
             return roles;
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }
@@ -58,7 +58,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         try {
             List<User> users = new UserQuery().load(criteria, loadDao, mysqlConn);
             return users;
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }
@@ -75,7 +75,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
             } else {
                 return res.get(0);
             }
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }
@@ -85,7 +85,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         try {
             List<Description> desc = new DescriptionQuery().load(criteria, loadDao, mysqlConn);
             return desc;
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }
@@ -95,7 +95,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         try {
             List<Country> countries = new CountryQuery().load(criteria, loadDao, mysqlConn);
             return countries;
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }
@@ -105,7 +105,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         try {
             List<City> cities = new CityQuery().load(criteria, loadDao, mysqlConn);
             return cities;
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }
@@ -115,7 +115,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         try {
             List<Hotel> hotels = new HotelQuery().load(criteria, loadDao, mysqlConn);
             return hotels;
-        } catch (QueryExecutionException ex) {
+        } catch (DaoQueryException ex) {
             throw new DaoException("Error in query.");
         }
     }

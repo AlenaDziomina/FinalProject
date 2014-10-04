@@ -20,15 +20,9 @@
             </c:forEach>
             DirectionStayHotels: </br>
             <c:forEach items="${row.stayCollection}" var="st">
-                ${st.stayHotel.name}${st.stayHotel.idHotel} </br>
-            </c:forEach>
-                
-                
-                
-                       
+                ${st.hotel.name}${st.hotel.idHotel} </br>
+            </c:forEach>                       
         </div>
-        
-        
     </c:forEach>
         
     <form method="POST" action="controller">
