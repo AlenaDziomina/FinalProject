@@ -13,15 +13,15 @@ import java.io.Serializable;
  * @author User
  */
 
-public class TransportationMode implements Serializable {
+public class TransMode implements Serializable {
    
     private Integer idMode;
     private String nameMode;
     
-    public TransportationMode() {
+    public TransMode() {
     }
 
-    public TransportationMode(Integer idMode) {
+    public TransMode(Integer idMode) {
         this.idMode = idMode;
     }
 

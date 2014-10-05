@@ -18,7 +18,7 @@ import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.TourType;
-import by.epam.project.entity.TransportationMode;
+import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
 import java.util.List;
 
@@ -45,7 +45,7 @@ public interface GuestDao extends AbstractDao {
     @Override
     public List<TourType> showTourTypes (Criteria criteria) throws DaoException;
     @Override
-    public List<TransportationMode> showTransModes (Criteria criteria) throws DaoException;
+    public List<TransMode> showTransModes (Criteria criteria) throws DaoException;
     @Override
     public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException;
     @Override

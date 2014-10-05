@@ -21,7 +21,7 @@ public final class Direction {
     private TourType tourType;
     private String picture;
     private Short status;
-    private TransportationMode transMode;
+    private TransMode transMode;
     private Description description;
     private Collection<Country> countryCollection;
     private Collection<City> cityCollection;
@@ -56,10 +56,10 @@ public final class Direction {
         this.tourType = tourType;
     }
     
-    public TransportationMode getTransMode() {
+    public TransMode getTransMode() {
         return transMode;
     }
-    public void setTransMode(TransportationMode transMode) {
+    public void setTransMode(TransMode transMode) {
         this.transMode = transMode;
     }
     

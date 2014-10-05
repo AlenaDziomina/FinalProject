@@ -19,7 +19,7 @@ import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.TourType;
-import by.epam.project.entity.TransportationMode;
+import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoAccessPermission;
 import by.epam.project.exception.DaoException;
@@ -73,7 +73,7 @@ public interface AbstractDao {
         throw new DaoAccessPermission("Method showTourTypes. Current role: " 
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default public List<TransportationMode> showTransModes (Criteria criteria) throws DaoException{
+    default public List<TransMode> showTransModes (Criteria criteria) throws DaoException{
         throw new DaoAccessPermission("Method showTransMode. Current role: " 
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }

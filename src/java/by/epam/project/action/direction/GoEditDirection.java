@@ -27,10 +27,10 @@ public class GoEditDirection implements ActionCommand {
         
         
         List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        if (countryList == null || countryList.isEmpty()){
-            new GoShowCountry().execute(request);
-            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        }
+//        if (countryList == null || countryList.isEmpty()){
+//            new GoShowCountry().execute(request);
+//            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
+//        }
         
         List<Country> countryTagList = new ArrayList<>();
         countryTagList.add(countryList.get(0));

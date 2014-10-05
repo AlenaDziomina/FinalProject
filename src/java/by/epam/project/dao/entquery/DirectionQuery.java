@@ -16,7 +16,7 @@ import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.TourType;
-import by.epam.project.entity.TransportationMode;
+import by.epam.project.entity.TransMode;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
@@ -125,7 +125,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
                 bean.setStatus(rs.getShort(DB_DIRECTION_STATUS));
                 bean.setPicture(rs.getString(DB_DIRECTION_PICTURE));
                 bean.setText(rs.getString(DB_DIRECTION_TEXT));
-                bean.setTransMode(new TransportationMode(rs.getInt(DB_DIRECTION_ID_TRANSMODE)));
+                bean.setTransMode(new TransMode(rs.getInt(DB_DIRECTION_ID_TRANSMODE)));
                 bean.setTourType(new TourType(rs.getInt(DB_DIRECTION_ID_TOURTYPE)));
                 bean.setDescription(new Description(rs.getInt(DB_DIRECTION_ID_DESCRIPTION)));
                 return bean;

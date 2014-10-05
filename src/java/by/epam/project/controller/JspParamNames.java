@@ -82,11 +82,13 @@ public abstract class JspParamNames {
     public static final String JSP_CURRENT_DIRECTION = "currDirection";
     
     //tour_type
+    public static final String JSP_ID_TOURTYPE = "idTourType";
     public static final String JSP_TOUR_TYPE_LIST = "tourTypeList";
     public static final String JSP_TOUR_TYPE_COUNT = "tourTypeCount";
     public static final String JSP_CURR_TOUR_TYPE = "currTourType";
     
     //trans_mode
+    public static final String JSP_ID_TRANSMODE = "idTransMode";
     public static final String JSP_TRANS_MODE_LIST = "transModeList";
     public static final String JSP_TRANS_MODE_COUNT = "transModeCount";
     public static final String JSP_CURR_TRANS_MODE = "currTransMode";

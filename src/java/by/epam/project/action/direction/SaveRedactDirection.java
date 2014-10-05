@@ -10,7 +10,6 @@ import by.epam.project.action.ActionCommand;
 import by.epam.project.action.ProcessSavedParameters;
 import static by.epam.project.action.ActionCommand.checkArrParam;
 import static by.epam.project.action.ActionCommand.checkParam;
-import static by.epam.project.action.ActionCommand.checkParam;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;

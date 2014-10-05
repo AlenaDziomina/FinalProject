@@ -16,7 +16,7 @@ import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.exception.DaoQueryException;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.entity.TransportationMode;
+import by.epam.project.entity.TransMode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author User
  */
-public class TransModeQuery implements TypedQuery<TransportationMode>{
+public class TransModeQuery implements TypedQuery<TransMode>{
     
     public static final String DB_TRANSMODE = "transportation_mode";
     public static final String DB_TRANSMODE_ID_MODE = "id_mode";
@@ -45,17 +45,17 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_TRANSMODE + " set ";
 
-    public static final TransportationMode createBean(Criteria criteria) {
-        TransportationMode bean = new TransportationMode();
+    public static final TransMode createBean(Criteria criteria) {
+        TransMode bean = new TransMode();
         bean.setIdMode((Integer)criteria.getParam(DAO_ID_TRANSMODE));
         bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));
         return bean;
     }
     
     @Override
-    public List<Integer> save(List<TransportationMode> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<TransMode> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (TransportationMode bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (TransMode bean) -> {
                 Object[] objects = new Object[1];
                 objects[0] = bean.getNameMode();
                 return objects;
@@ -66,7 +66,7 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
     }
     
     @Override
-    public List<TransportationMode> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<TransMode> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
@@ -89,7 +89,7 @@ public class TransModeQuery implements TypedQuery<TransportationMode>{
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
-                TransportationMode bean = new TransportationMode();
+                TransMode bean = new TransMode();
                 bean.setIdMode(rs.getInt(DB_TRANSMODE_ID_MODE));
                 bean.setNameMode(rs.getString(DB_TRANSMODE_NAME));
                 return bean;

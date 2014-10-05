@@ -27,7 +27,7 @@ import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.TourType;
-import by.epam.project.entity.TransportationMode;
+import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoLogicException;
@@ -126,7 +126,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
     
     @Override
-    public List<TransportationMode> showTransModes (Criteria criteria) throws DaoException {
+    public List<TransMode> showTransModes (Criteria criteria) throws DaoException {
         return new TransModeQuery().load(criteria, loadDao, mysqlConn);
     }
 

@@ -49,7 +49,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
             + ") values (?, ?, ?);";
     
     private static final String LOAD_QUERY = 
-            "Select * " + DB_DIRSTAY;
+            "Select * from " + DB_DIRSTAY;
     
     private static final String UPDATE_QUERY = 
             "Update " + DB_DIRSTAY + " set ";
