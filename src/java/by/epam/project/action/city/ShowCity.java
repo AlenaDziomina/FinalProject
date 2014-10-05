@@ -9,8 +9,11 @@ package by.epam.project.action.city;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.city.GoShowCity.formCityList;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.exception.DaoUserLogicException;
@@ -29,14 +32,13 @@ public class ShowCity implements ActionCommand {
         
         String page = ConfigurationManager.getProperty("path.page.cities");
         request.setSessionAttribute(JSP_PAGE, page);
+        
+        formCityList(request);
         List<City> list = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        if (list == null || list.isEmpty()){
-            new GoShowCity().execute(request);
-            list = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        }
-        Integer id = Integer.decode(request.getParameter(JSP_SELECT_ID));
+        Integer idCity = Integer.decode(request.getParameter(JSP_SELECT_ID));
+        request.setAttribute(JSP_CURR_ID_CITY, idCity);
         for (City c: list) {
-            if (Objects.equals(c.getIdCity(), id)) {
+            if (Objects.equals(c.getIdCity(), idCity)) {
                 request.setSessionAttribute(JSP_CURRENT_CITY, c);
                 return page;
             }

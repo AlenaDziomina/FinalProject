@@ -13,6 +13,7 @@ import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.SessionGarbageCollector.cleanSession;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -36,7 +37,12 @@ public class GoShowHotel implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.hotels");
         request.setSessionAttribute(JSP_PAGE, page);
-        
+        formHotelList(request);
+        cleanSession(request);
+        return page;
+    }
+    
+    public static void formHotelList(SessionRequestContent request) throws DaoUserLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
@@ -44,17 +50,10 @@ public class GoShowHotel implements ActionCommand {
         
         try {
             List<Hotel> hotels = HotelLogic.getHotels(criteria);
-            if (hotels != null || !hotels.isEmpty()) {
-                request.setSessionAttribute(JSP_HOTEL_LIST, hotels);
-                request.setSessionAttribute(JSP_HOTEL_COUNT, hotels.size());
-            } else {
-                request.setAttribute("errorGetListMessage", MessageManager.getProperty("message.listerror"));
-            }
-            request.setSessionAttribute(JSP_PAGE, page);
-            return page;
+            request.setSessionAttribute(JSP_HOTEL_LIST, hotels);
         } catch (DaoException ex) {
             throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
         }
     }
-    
+            
 }

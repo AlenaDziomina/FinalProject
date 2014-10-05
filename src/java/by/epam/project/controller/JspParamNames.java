@@ -69,6 +69,7 @@ public abstract class JspParamNames {
     public static final String JSP_HOTEL_TAG_LIST = "hotelTagList";
     public static final String JSP_CURR_HOTEL_TAGS = "currHotelTag";
     public static final String JSP_CURR_ID_HOTEL = "currIdHotel";
+    public static final String JSP_CURR_HOTEL_STARS = "currStars";
     
     //direction
     public static final String JSP_ID_DIRECTION = "idDirection";

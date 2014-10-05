@@ -7,16 +7,22 @@
 package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
-import by.epam.project.action.city.GoShowCity;
-import by.epam.project.action.country.GoShowCountry;
 import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_COUNT;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
+import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import by.epam.project.action.city.GoShowCity;
+import static by.epam.project.action.city.GoShowCity.formCityList;
+import by.epam.project.action.country.GoShowCountry;
+import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -36,35 +42,22 @@ public class GoEditHotel implements ActionCommand {
         String page = ConfigurationManager.getProperty("path.page.edithotel");
         request.setSessionAttribute(JSP_PAGE, page);
         
-        List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        if (countryList == null || countryList.isEmpty()){
-            new GoShowCountry().execute(request);
-            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        }
+        formCountryList(request);
+        formCityList(request);
+        Hotel currHotel = (Hotel) request.getSessionAttribute(JSP_CURRENT_HOTEL);
+        Integer idCity = currHotel.getCity().getIdCity();
+        request.setAttribute(JSP_CURR_ID_CITY, idCity);
         
         List<City> cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        if (cityList == null || cityList.isEmpty()){
-            new GoShowCity().execute(request);
-            cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        }
-        
-        Hotel hotel = (Hotel) request.getSessionAttribute(JSP_CURRENT_HOTEL);
-        Integer idCity = hotel.getCity().getIdCity();
-        for (City c: cityList) {
-            if (c.getIdCity().equals(idCity)) {
-                Integer idCountry = c.getCountry().getIdCountry();
-                for (Country cntr: countryList) {
-                    if (cntr.getIdCountry().equals(idCountry)){
-                         request.setAttribute(JSP_CURRENT_COUNTRY, cntr);
-                    }
-                }
+        for (City city: cityList) {
+            if (city.getIdCity().equals(idCity)) {
+                Integer idCountry = city.getCountry().getIdCountry();
+                request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
+                request.setAttribute(JSP_ID_COUNTRY, idCountry);
+                formCityList(request);
+                request.setSessionAttribute(JSP_CURR_CITY_LIST, request.getSessionAttribute(JSP_CITY_LIST));
             }
         }
-        
-        request.setAttribute(JSP_CURR_CITY_LIST, cityList);
-        
-        request.deleteSessionAttribute(JSP_HOTEL_LIST);
-        request.deleteSessionAttribute(JSP_HOTEL_COUNT);
         return page;
     }
     

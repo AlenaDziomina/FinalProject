@@ -16,7 +16,7 @@
                 </div>
                 <div class="inputColumn">
                     <div class="innerColumn">
-                        <select id="currCountry" class="selectContainer" size="1" onclick="if(this.value)(selectCountry(this.value))">      
+                        <select id="currCountry" class="selectContainer" size="1">      
                             <option class="selectItem" value=""> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                             <c:forEach items="${countryList}" var="row">
                                 <option class="selectItem" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>

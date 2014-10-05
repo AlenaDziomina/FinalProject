@@ -9,6 +9,7 @@ package by.epam.project.action.country;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
@@ -33,6 +34,7 @@ public class ShowCountry implements ActionCommand {
         formCountryList(request);
         List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
         Integer idCountry = Integer.decode(request.getParameter(JSP_SELECT_ID));
+        request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
         for (Country c: list) {
             if (Objects.equals(c.getIdCountry(), idCountry)) {
                 request.setSessionAttribute(JSP_CURRENT_COUNTRY, c);

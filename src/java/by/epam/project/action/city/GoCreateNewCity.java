@@ -13,6 +13,8 @@ import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.SessionGarbageCollector.cleanSession;
+import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -25,17 +27,10 @@ public class GoCreateNewCity implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
-        
-        request.deleteSessionAttribute(JSP_CITY_LIST);
-        request.deleteSessionAttribute(JSP_CITY_COUNT);
-        
-        request.deleteSessionAttribute(JSP_CURRENT_CITY);
-        if (request.getSessionAttribute(JSP_COUNTRY_LIST) == null){
-            new GoShowCountry().execute(request);
-        }
-        
         String page = ConfigurationManager.getProperty("path.page.editcity");
         request.setSessionAttribute(JSP_PAGE, page);
+        formCountryList(request);
+        cleanSession(request);        
         return page;
     }
     

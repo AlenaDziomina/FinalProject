@@ -6,6 +6,9 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
 import by.epam.project.controller.SessionRequestContent;
 
 /**
@@ -14,9 +17,11 @@ import by.epam.project.controller.SessionRequestContent;
  */
 public class SessionGarbageCollector {
     
-    public void cleanSession(SessionRequestContent request) {
+    public static void cleanSession(SessionRequestContent request) {
         
-        
+        request.deleteSessionAttribute(JSP_CURRENT_CITY);
+        request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
+        request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         
     }
     

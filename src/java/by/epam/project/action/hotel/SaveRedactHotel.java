@@ -7,8 +7,7 @@
 package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
-import by.epam.project.action.hotel.ShowHotel;
-import static by.epam.project.action.ActionCommand.*;
+import static by.epam.project.action.ActionCommand.checkParam;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_NAME;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_PICTURE;
@@ -21,8 +20,8 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import by.epam.project.action.ProcessSavedParameters;
 import by.epam.project.controller.SessionRequestContent;
-import static by.epam.project.dao.AbstractDao.*;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_DESCRIPTION_TEXT;
@@ -34,7 +33,11 @@ import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.exception.DaoAccessPermission;
+import by.epam.project.exception.DaoConnectException;
 import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoInitException;
+import by.epam.project.exception.DaoQueryException;
 import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.ConfigurationManager;
@@ -48,10 +51,10 @@ public class SaveRedactHotel implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
+        String page = ConfigurationManager.getProperty("path.page.edithotel");
+        new ProcessSavedParameters().execute(request);
         
-        String page = null;
         Criteria criteria = new Criteria();
-        
         checkParam(request, criteria, JSP_ID_COUNTRY, DAO_ID_COUNTRY);
         checkParam(request, criteria, JSP_ID_CITY, DAO_ID_CITY);
         checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
@@ -66,21 +69,24 @@ public class SaveRedactHotel implements ActionCommand {
         
         try {
             Integer resIdHotel = HotelLogic.redactHotel(criteria);
-            if (resIdHotel == null) {
-                page = ConfigurationManager.getProperty("path.page.edithotel");
-                request.setSessionAttribute(JSP_PAGE, page);
-                request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
-            } else {
-                new GoShowHotel().execute(request);
-                request.setParameter(JSP_SELECT_ID, resIdHotel.toString());
-                page = new ShowHotel().execute(request);
-                request.setSessionAttribute(JSP_PAGE, page);
-            }
-            return page;
-        } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+            request.setParameter(JSP_SELECT_ID, resIdHotel.toString());
+            return new ShowHotel().execute(request);
+        } catch (DaoAccessPermission ex) {
+            request.setAttribute("errorReason", MessageManager.getProperty("message.errordaoaccess"));
+            request.setAttribute("errorAdminMsg", ex.getMessage());
+        } catch (DaoConnectException ex) {
+            request.setAttribute("errorReason", MessageManager.getProperty("message.errordaoconnect"));
+            request.setAttribute("errorAdminMsg", ex.getMessage());
+        } catch (DaoQueryException ex) {
+            request.setAttribute("errorReason", MessageManager.getProperty("message.errordaoquery"));
+            request.setAttribute("errorAdminMsg", ex.getMessage());
+        } catch (DaoInitException ex) {
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror" + ex.getMessage()));
+        } catch (DaoException ex){
+            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror" + ex.getMessage()));
         }
-        
+        request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+        request.setSessionAttribute(JSP_PAGE, page);
+        return page;
     }
-    
 }

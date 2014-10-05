@@ -12,6 +12,7 @@ import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.SessionGarbageCollector.cleanSession;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -36,6 +37,7 @@ public class GoShowCity implements ActionCommand {
         String page = ConfigurationManager.getProperty("path.page.cities");
         request.setSessionAttribute(JSP_PAGE, page);
         formCityList(request);
+        cleanSession(request);
         return page;
     }
     

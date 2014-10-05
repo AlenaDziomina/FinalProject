@@ -64,7 +64,6 @@ public class SaveRedactCity implements ActionCommand {
         criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
         try {
             Integer resIdCity = CityLogic.redactCity(criteria);
-            formCityList(request);
             request.setParameter(JSP_SELECT_ID, resIdCity.toString());
             return new ShowCity().execute(request);     
         } catch (DaoAccessPermission ex) {

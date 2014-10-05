@@ -4,11 +4,55 @@
  * and open the template in the editor.
  */
 
+function postHot(path, comnd, method) {
+    
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveCurrHotelStars(form);
+    saveCurrIdCountry(form);
+    saveCurrIdCity(form);
+    saveTextVal(form, "nameHotel");
+    saveTextVal(form, "pictureHotel");
+    saveMultiTextVal(form, "textDescription");
+
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "command";
+    elem.value = comnd;
+    form.appendChild(elem);
+        
+    document.body.appendChild(form);
+    form.submit();
+    
+}
+
+function saveCurrHotelStars(form) {
+    var select = document.getElementById("currStars").value;
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "currStars";
+    elem.value=select;
+    form.appendChild(elem);
+}
+
+function saveAllHotel() {
+    var form = document.getElementById("updHotel");
+    saveCurrHotelStars(form);
+    saveCurrIdCountry(form);
+    saveCurrIdCity(form);
+    saveTextVal(form, "nameHotel");
+    saveTextVal(form, "pictureHotel");
+    saveMultiTextVal(form, "textDescription");
+}
+
 function saveAllCountry() {
     var form = document.getElementById("updCountry");
     saveTextVal(form, "nameCountry");
     saveTextVal(form, "pictureCountry");
-    saveMultiTExtVal(form, "textDescription");
+    saveMultiTextVal(form, "textDescription");
 }
 
 function saveAllCity() {
@@ -16,7 +60,7 @@ function saveAllCity() {
     saveCurrIdCountry(form);
     saveTextVal(form, "nameCity");
     saveTextVal(form, "pictureCity");
-    saveMultiTExtVal(form, "textDescription");
+    saveMultiTextVal(form, "textDescription");
 }
 
 function saveTextVal(form, name) {
@@ -49,8 +93,6 @@ function saveMultiTextVal(form, name) {
         }
     }
 }
-
-
 
 function restoreCheck(str, txt){
     
@@ -216,6 +258,14 @@ function saveTourType(form){
     elem.value=select;
     form.appendChild(elem);
     
+}
+function saveStars(form){
+    var select = document.getElementById("currStars").value;
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "currStars";
+    elem.value=select;
+    form.appendChild(elem);
 }
 
 

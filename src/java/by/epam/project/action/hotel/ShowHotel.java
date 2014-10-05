@@ -8,9 +8,12 @@ package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoUserLogicException;
@@ -26,18 +29,16 @@ public class ShowHotel implements ActionCommand {
     
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
-        
         String page = ConfigurationManager.getProperty("path.page.hotels");
         request.setSessionAttribute(JSP_PAGE, page);
+        
+        formHotelList(request);
         List<Hotel> list = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
-        if (list == null || list.isEmpty()){
-            new GoShowHotel().execute(request);
-            list = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
-        }
-        Integer id = Integer.decode(request.getParameter(JSP_SELECT_ID));
-        for (Hotel c: list) {
-            if (Objects.equals(c.getIdHotel(), id)) {
-                request.setSessionAttribute(JSP_CURRENT_HOTEL, c);
+        Integer idHotel = Integer.decode(request.getParameter(JSP_SELECT_ID));
+        request.setAttribute(JSP_CURR_ID_HOTEL, idHotel);
+        for (Hotel hotel: list) {
+            if (Objects.equals(hotel.getIdHotel(), idHotel)) {
+                request.setSessionAttribute(JSP_CURRENT_HOTEL, hotel);
                 return page;
             }
         }

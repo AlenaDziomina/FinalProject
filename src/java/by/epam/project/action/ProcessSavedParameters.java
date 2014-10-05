@@ -13,8 +13,10 @@ import static by.epam.project.action.JspParamNames.JSP_COUNTRY_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_STARS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
@@ -25,6 +27,8 @@ import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_NAME;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_NAME;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
@@ -69,6 +73,7 @@ public class ProcessSavedParameters implements ActionCommand{
             request.setAttribute(JSP_CURR_ID_HOTEL, currHotel);
         }
         
+        
         String[] currCoutryTags = request.getAllParameters(JSP_CURR_COUNTRY_TAGS);
         if (currCoutryTags != null) {
             request.setAttribute(JSP_CURR_COUNTRY_TAGS, currCoutryTags);
@@ -96,6 +101,8 @@ public class ProcessSavedParameters implements ActionCommand{
         createCurrCity(request);
         
         createCurrCountry(request);
+        
+        createCurrHotel(request);
         
         return null;
     }
@@ -164,4 +171,20 @@ public class ProcessSavedParameters implements ActionCommand{
         request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
     }
     
+    private void createCurrHotel(SessionRequestContent request) {
+        Hotel currHotel = (Hotel) request.getSessionAttribute(JSP_CURRENT_HOTEL);
+        if (currHotel == null) {
+            currHotel = new Hotel();
+            currHotel.setDescription(new Description());
+        }
+        currHotel.setName(request.getParameter(JSP_HOTEL_NAME));
+        currHotel.setPicture(request.getParameter(JSP_HOTEL_PICTURE));
+        currHotel.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));
+        String stars = request.getParameter(JSP_CURR_HOTEL_STARS);
+        if (stars != null) {
+            currHotel.setStars(Integer.decode(stars));
+        }
+        
+        request.setSessionAttribute(JSP_CURRENT_HOTEL, currHotel);
+    }
 }

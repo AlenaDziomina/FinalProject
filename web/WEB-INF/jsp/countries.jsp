@@ -10,7 +10,7 @@
     
     <div class="leftColumn">
         <div class="innerColumn">
-            <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCountry'}, 'POST'))">               
+            <select id="currCountry" class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCountry'}, 'POST'))">               
                 <c:forEach items="${countryList}" var="row">
                     <option class="menuHref" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                 </c:forEach>
@@ -22,6 +22,10 @@
             
        </div>
     </div>
+            
+            <script type="text/javascript">
+                select("currCountry", ${currIdCountry});
+            </script> 
     
     <div class="centerColumn">
         <div class="innerColumn">

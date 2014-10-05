@@ -13,6 +13,7 @@ import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.SessionGarbageCollector.cleanSession;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
@@ -36,6 +37,7 @@ public class GoShowCountry implements ActionCommand {
         String page = ConfigurationManager.getProperty("path.page.countries");
         request.setSessionAttribute(JSP_PAGE, page);
         formCountryList(request);
+        cleanSession(request);
         return page;
     }   
     
