@@ -49,14 +49,14 @@ public class IfCountrySelected implements ActionCommand {
             List<City> cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
             request.setSessionAttribute(JSP_CURR_CITY_LIST, cityList);
             
-//            List<Hotel> commonHotelList = new ArrayList();
-//            for (City c : cityList) {
-//                request.setAttribute(JSP_ID_CITY, c.getIdCity());
-//                formHotelList(request);
-//                List<Hotel> hotelList = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
-//                commonHotelList.addAll(hotelList);
-//            }
-//            request.setSessionAttribute(JSP_HOTEL_LIST, commonHotelList);
+            List<Hotel> commonHotelList = new ArrayList();
+            for (City c : cityList) {
+                request.setAttribute(JSP_ID_CITY, c.getIdCity());
+                formHotelList(request);
+                List<Hotel> hotelList = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
+                commonHotelList.addAll(hotelList);
+            }
+            request.setSessionAttribute(JSP_HOTEL_LIST, commonHotelList);
         }
         request.setSessionAttribute(JSP_PAGE, page);
         return page;

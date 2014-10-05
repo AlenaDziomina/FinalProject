@@ -150,7 +150,7 @@
                 </div>
                 <div class="tagColumnM">
                     <h1 class="labelHT"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
-                    <textarea name="textDirection" class="inputMultilineineContainerB">${currDirection.text}</textarea>
+                        <textarea name="textDirection" class="inputMultilineineContainerB">${currDirection.text}</textarea>
                 </div>    
             </div>
             

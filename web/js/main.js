@@ -183,10 +183,10 @@ function saveMultitextValDir(form) {
     var tableInputTags = document.getElementsByTagName("textarea");
     for (var i=0; i<tableInputTags.length; i++) 
     {
-        if(tableInputTags[i].name==="text_direction") {
+        if(tableInputTags[i].name==="textDirection") {
             var elem = document.createElement("input");
             elem.type = "hidden";
-            elem.name = "text_direction";
+            elem.name = "textDirection";
             elem.value= tableInputTags[i].value;
             form.appendChild(elem);   
         }
