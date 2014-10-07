@@ -35,7 +35,12 @@
                         <li>${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name}) </li>
                     </c:forEach>
                 </ul>
-            </div>      
+            </div>
+            <div class="textRow">
+                
+                    ${currDirection.description.text}
+                
+            </div>
         </div>
     
         

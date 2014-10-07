@@ -490,3 +490,12 @@ li {
     height: auto;
     float: left;
 }
+
+.textRow {
+    padding: 15px;
+    width: 96%;
+    height: auto;
+    float: left;
+    text-align:justify;
+
+}
