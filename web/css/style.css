@@ -119,6 +119,8 @@ li {
     text-decoration: none;
 }
 
+
+
 #menuText:hover {
     background-color: aqua;
     -webkit-transform: scale(1.2);
@@ -281,9 +283,28 @@ li {
     text-align: center;
 }
 
+.labelHTD {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 2px 2px 1px #ccc;
+    font-weight: bold;
+    font-size: 17px;
+    color: darkmagenta;
+    text-align: center;
+    text-decoration: none;
+    
+}
 
+.innerColumnD {
+    padding: 15px 15px 0px 15px;
+}
 
-
+.labelHD {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: darkmagenta;
+    text-align: left;
+}
 
 
 #prompt-form {
@@ -428,4 +449,44 @@ li {
     height: auto;
     float: left;
     margin: 20px;
+}
+
+.containerLabel {
+    position: relative;
+    left: 15px;
+    width: 20%;
+    height: auto;
+    float: left;
+}
+
+.containerLabelR {
+    position: relative;
+    left: 15px;
+    width: 28%;
+    height: auto;
+    float: left;
+}
+
+.lblH {
+    left: 16px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+.parameterRowD {
+    border: 2px outset navy;
+    border-radius: .5em;
+    width: 70%;
+    min-height: 60px;
+    height: auto;
+    float: left;
+    
+}
+.parameterRowDR {
+    padding-left: 15px;
+    width: 28%;
+    min-height: 60px;
+    height: auto;
+    float: left;
 }

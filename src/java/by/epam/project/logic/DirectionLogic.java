@@ -15,14 +15,19 @@ import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
+import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.entity.TourType;
+import by.epam.project.entity.TransMode;
 import by.epam.project.exception.DaoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +58,36 @@ public abstract class DirectionLogic {
         getCountryCollection(dao, directions);
         getCityCollection(dao, directions);
         getStayHotelCollection(dao, directions);  
+        getDescription(dao, directions);
+        getTransMode(dao, directions);
+        getTourType(dao, directions);
+    }
+    
+    private static void getTransMode(AbstractDao dao, List<Direction> directions) throws DaoException {
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_TRANSMODE, dir.getTransMode().getIdMode());
+            List<TransMode> mode = dao.showTransModes(crit);
+            dir.setTransMode(mode.get(0));
+        }
+    }
+    
+    private static void getTourType(AbstractDao dao, List<Direction> directions) throws DaoException {
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_TOURTYPE, dir.getTourType().getIdTourType());
+            List<TourType> type = dao.showTourTypes(crit);
+            dir.setTourType(type.get(0));
+        }
+    }
+    
+    private static void getDescription(AbstractDao dao, List<Direction> directions) throws DaoException {
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_DESCRIPTION, dir.getDescription().getIdDescription());
+            List<Description> desc = dao.showDescriptions(crit);
+            dir.setDescription(desc.get(0));
+        }
     }
     
     private static void getStayHotelCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
@@ -70,6 +105,9 @@ public abstract class DirectionLogic {
             crit.addParam(DAO_ID_HOTEL, st.getHotel().getIdHotel());
             List<Hotel> hotels = dao.showHotels(crit);
             st.setHotel(hotels.get(0));
+            crit.addParam(DAO_ID_CITY, st.getHotel().getCity().getIdCity());
+            List<City> cities = dao.showCities(crit);
+            st.getHotel().setCity(cities.get(0));
         }
         return stays;
     }
