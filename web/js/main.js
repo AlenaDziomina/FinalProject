@@ -136,8 +136,10 @@ function check(atrName, atr){
 }
 
 function select(selName, atr){
-    var select = document.getElementById(selName);
-    select.value=atr;
+    if (atr !== null) {
+        var select = document.getElementById(selName);
+        select.value=atr;
+    }
 }
 
 function saveAll(){

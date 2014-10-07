@@ -10,7 +10,7 @@
     
     <div class="leftColumn">
         <div class="innerColumn">
-            <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showHotel'}, 'POST'))">               
+            <select id="currHotel" class="container" size="15" onchange="if(this.value)(post('controller', {selectId: this.value, command: 'showHotel'}, 'POST'))">               
                 <c:forEach items="${hotelList}" var="row">
                     <option class="menuHref" value="${row.idHotel}">${row.name}</option>
                 </c:forEach>
@@ -22,11 +22,18 @@
             
        </div>
     </div>
+            
+            <script type="text/javascript">
+                select("currHotel", ${currIdHotel});
+            </script>
     
     <div class="centerColumn">
         <div class="innerColumn">
             <div id="erNote">${errorGetListMessage}</div>
-            <img class="currimg" id="images" src="<%=request.getContextPath()%>${currHotel.picture}">
+            <c:if test="${currHotel.picture != null}">
+                <img class="currimg" id="images" src="<%=request.getContextPath()%>${currHotel.picture}">
+            </c:if>
+            
             <div class="cueetext">
                  ${currHotel.description.text}
             </div>

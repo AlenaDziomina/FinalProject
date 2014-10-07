@@ -14,6 +14,7 @@ import static by.epam.project.action.JspParamNames.JSP_CITY_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
 import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_ID_DESCRIPTION;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;

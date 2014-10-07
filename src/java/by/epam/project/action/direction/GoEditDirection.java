@@ -7,12 +7,33 @@
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
-import by.epam.project.action.country.GoShowCountry;
+import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.city.GoShowCity.formCityList;
+import by.epam.project.action.country.GoShowCountry;
+import static by.epam.project.action.country.GoShowCountry.formCountryList;
+import static by.epam.project.action.direction.GoShowDirections.formTourTypeList;
+import static by.epam.project.action.direction.GoShowDirections.formTransModeList;
+import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.Direction;
+import by.epam.project.entity.DirectionStayHotel;
+import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.manager.ConfigurationManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,25 +45,58 @@ public class GoEditDirection implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
+        String page = ConfigurationManager.getProperty("path.page.editdirection");
+        request.setSessionAttribute(JSP_PAGE, page);
         
+        formCountryList(request);
+        formCityList(request);
+        formHotelList(request);
+        formTourTypeList(request);
+        formTransModeList(request);
         
-        List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-//        if (countryList == null || countryList.isEmpty()){
-//            new GoShowCountry().execute(request);
-//            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-//        }
+        request.setSessionAttribute(JSP_COUNTRY_TAG_LIST, request.getSessionAttribute(JSP_COUNTRY_LIST));
+        request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
         
-        List<Country> countryTagList = new ArrayList<>();
-        countryTagList.add(countryList.get(0));
-        countryTagList.add(countryList.get(2));
-        //request.setSessionAttribute(PARAM_NAME_COUNTRY_TAGS_LIST, countryTagList);
-        List<String> tags = new ArrayList<>();
-        for (Country c: countryTagList){
-            tags.add(c.getIdCountry().toString());
-        }
-        request.setAttribute(JSP_CURR_COUNTRY_TAGS, tags.toArray());
+        Direction dir = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
+        request.setAttribute(JSP_CURR_TOUR_TYPE, dir.getTourType().getIdTourType());
+        request.setAttribute(JSP_CURR_TRANS_MODE, dir.getTransMode().getIdMode());
+        request.setAttribute(JSP_CURR_ID_COUNTRY, 0);
+        request.setAttribute(JSP_CURR_ID_CITY, 0);
+        List<Integer> countryTags = new ArrayList<>();
+        dir.getCountryCollection().stream().forEach((c) -> {
+            countryTags.add(c.getIdCountry());
+        });
+        request.setAttribute(JSP_CURR_COUNTRY_TAGS, countryTags);
+        List<Integer> cityTags = new ArrayList<>();
+        dir.getCityCollection().stream().forEach((c) -> {
+            cityTags.add(c.getIdCity());
+        });
+        request.setAttribute(JSP_CURR_CITY_TAGS, cityTags);
+        List<Hotel> stays = new ArrayList<>();
+        dir.getStayCollection().stream().forEach((s) -> {
+            stays.add(s.getHotel());
+        });
+        request.setAttribute(JSP_HOTEL_TAG_LIST, stays);
         
-        return null;
+        return page;
     }
     
 }
+
+
+//        
+//        List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
+////        if (countryList == null || countryList.isEmpty()){
+////            new GoShowCountry().execute(request);
+////            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
+////        }
+//        
+//        List<Country> countryTagList = new ArrayList<>();
+//        countryTagList.add(countryList.get(0));
+//        countryTagList.add(countryList.get(2));
+//        //request.setSessionAttribute(JSP_COUNTRY_TAGS_LIST, countryTagList);
+//       
+//        for (Country c: countryTagList){
+//            tags.add(c.getIdCountry().toString());
+//        }
+//        request.setAttribute(JSP_CURR_COUNTRY_TAGS, tags.toArray());

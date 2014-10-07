@@ -8,6 +8,10 @@ package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.ActionCommand.checkParam;
+import static by.epam.project.action.ActionCommand.checkParam;
+import static by.epam.project.action.ActionCommand.checkParam;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_NAME;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_PICTURE;
@@ -55,8 +59,8 @@ public class SaveRedactHotel implements ActionCommand {
         new ProcessSavedParameters().execute(request);
         
         Criteria criteria = new Criteria();
-        checkParam(request, criteria, JSP_ID_COUNTRY, DAO_ID_COUNTRY);
-        checkParam(request, criteria, JSP_ID_CITY, DAO_ID_CITY);
+        checkParam(request, criteria, JSP_CURR_ID_COUNTRY, DAO_ID_COUNTRY);
+        checkParam(request, criteria, JSP_CURR_ID_CITY, DAO_ID_CITY);
         checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
         checkParam(request, criteria, JSP_HOTEL_STARS, DAO_HOTEL_STARS);
         checkParam(request, criteria, JSP_ID_HOTEL, DAO_ID_HOTEL);

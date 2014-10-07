@@ -18,7 +18,6 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
-import by.epam.project.exception.DaoAccessPermission;
 import by.epam.project.exception.DaoException;
 import java.util.List;
 
@@ -27,6 +26,7 @@ import java.util.List;
  * @author User
  */
 public class CityLogic {
+    
     
     public static List<City> getCities(Criteria criteria) throws DaoException {
         
@@ -79,7 +79,9 @@ public class CityLogic {
                 List<Country> countries = dao.showCountries(crit2);
                 city.setCountry(countries.get(0));
                 
-                List<Hotel> hotels = dao.showHotels(crit2);
+                Criteria crit3 = new Criteria();
+                crit3.addParam(DAO_ID_CITY, city.getIdCity());
+                List<Hotel> hotels = dao.showHotels(crit3);
                 city.setHotelCollection(hotels);
             }
         }
@@ -95,14 +97,10 @@ public class CityLogic {
     private static Integer updateCity(Criteria criteria, AbstractDao dao) throws DaoException {
         Criteria beans1 = new Criteria();
         Criteria beans2 = new Criteria();
-        Integer idDescription = (Integer) criteria.getParam(DAO_ID_DESCRIPTION);
         Integer idCity = (Integer) criteria.getParam(DAO_ID_CITY);
         beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
         beans2.addParam(DAO_ID_CITY, criteria.getParam(DAO_ID_CITY));
-        criteria.remuveParam(DAO_ID_COUNTRY);
-        criteria.remuveParam(DAO_ID_DESCRIPTION);
         dao.updateDescription(beans1, criteria);
-        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
         dao.updateCity(beans2, criteria);
         return idCity;
     }

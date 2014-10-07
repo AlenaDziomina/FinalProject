@@ -8,27 +8,27 @@
     
     
         <div class="parameterRowB">
-            <img class="smallimg" id="images" src="<%=request.getContextPath()%>${currDir.picture}">
+            <img class="smallimg" id="images" src="<%=request.getContextPath()%>${currDirection.picture}">
             DirectionID: </br>
-            ${currDir.idDirection}
+            ${currDirection.idDirection}
             Direction Name:
-            ${currDir.name} </br>
+            ${currDirection.name} </br>
             Direction text:
-            ${currDir.text}
+            ${currDirection.text}
             DirectionCountryTags: </br>
-            <c:forEach items="${currDir.countryCollection}" var="cntr">
+            <c:forEach items="${currDirection.countryCollection}" var="cntr">
                 ${cntr.name} ${cntr.idCountry} </br>
             </c:forEach>
             DirectionCityTags: </br>
-            <c:forEach items="${currDir.cityCollection}" var="ct">
+            <c:forEach items="${currDirection.cityCollection}" var="ct">
                 ${ct.name} ${ct.idCity} </br>
             </c:forEach>
             DirectionStayHotels: </br>
-            <c:forEach items="${currDir.stayCollection}" var="st">
+            <c:forEach items="${currDirection.stayCollection}" var="st">
                 ${st.hotel.name}${st.hotel.idHotel} </br>
             </c:forEach>
             Description:
-            ${currDir.description.text}
+            ${currDirection.description.text}
             
                 
                 

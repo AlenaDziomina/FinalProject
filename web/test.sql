@@ -189,6 +189,8 @@
 --        constraint fk_direction_cities_id_direction foreign key (id_direction) references direction(id_direction) on delete cascade
 -- )
 
+--alter table direction_cities DROP FOREIGN KEY fk_direction_cities_id_direction;
+--alter table direction_cities add constraint fk_direction_cities_id_direction foreign key (id_direction) references direction(id_direction);
 
 -- CREATE TABLE direction_countries (
 --        id_country           int NOT NULL,
@@ -196,6 +198,14 @@
 --        constraint fk_direction_countries_id_country foreign key (id_country) references country(id_country) on delete cascade,
 --        constraint fk_direction_countrues_id_direction foreign key (id_direction) references direction(id_direction) on delete cascade
 -- )
+
+--constraint fk_direction_countries_id_country foreign key (id_country) references country(id_country) on delete cascade,
+--alter table direction_countries DROP FOREIGN KEY fk_direction_countrues_id_direction;
+--alter table direction_countries add constraint fk_direction_countrues_id_direction foreign key (id_direction) references direction(id_direction) ON UPDATE CASCADE
+
+ alter table direction_countries DROP FOREIGN KEY fk_direction_countries_id_country;
+ alter table direction_countries add constraint fk_direction_countries_id_country foreign key (id_country) references country(id_country) ON UPDATE CASCADE
+
 
 -- CREATE TABLE direction_stay_hotels (
 --        id_stay              int NOT NULL,
@@ -286,4 +296,4 @@
     
     --alter table orders add column status TINYINT default 1;
 
-alter table tourist add column status TINYINT default 1;
+--alter table tourist add column status TINYINT default 1;

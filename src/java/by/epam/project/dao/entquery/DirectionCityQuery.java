@@ -35,8 +35,8 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
     public static final String DB_DIRCITY_ID_DIRECTION = "id_direction";
 
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_DIRCITY + "(" + DB_DIRCITY_ID_CITY + ", "
-            + DB_DIRCITY_ID_DIRECTION + ") values (?, ?);";
+            "Insert into " + DB_DIRCITY + "(" + DB_DIRCITY_ID_DIRECTION + ", "
+            + DB_DIRCITY_ID_CITY + ") values (?, ?);";
     
     private static final String LOAD_QUERY = 
             "Select * from " + DB_DIRCITY;
