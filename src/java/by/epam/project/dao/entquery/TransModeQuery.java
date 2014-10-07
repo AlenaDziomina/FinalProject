@@ -36,7 +36,7 @@ public class TransModeQuery implements TypedQuery<TransMode>{
     public static final String DAO_TRANSMODE_NAME = "nameMode";
     
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_TRANSMODE + "("
+            "Insert into " + DB_TRANSMODE + " ("
             + DB_TRANSMODE_NAME + ") values (?);";
     
     private static final String LOAD_QUERY = 

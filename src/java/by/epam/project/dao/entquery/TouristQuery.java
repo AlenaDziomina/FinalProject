@@ -50,7 +50,7 @@ public class TouristQuery implements TypedQuery<Tourist>{
     public static final String DAO_TOURIST_STATUS = "statusTourist";
     
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_TOURIST + "(" + DB_TOURIST_ID_ORDER + ", "
+            "Insert into " + DB_TOURIST + " (" + DB_TOURIST_ID_ORDER + ", "
             + DB_TOURIST_FNAME + ", " + DB_TOURIST_MNAME + ", " 
             + DB_TOURIST_LNAME + ", " + DB_TOURIST_BIRTH + ", "
             + DB_TOURIST_PASSPORT + ") values (?, ?, ?, ?, ?, ?);";

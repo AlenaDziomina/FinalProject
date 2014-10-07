@@ -30,7 +30,7 @@ public class DescriptionQuery implements TypedQuery<Description>{
     public static final String DAO_DESCRIPTION_TEXT = "textDescription";
 
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_DESCRIPTION + "(" + DB_DESCRIPTION_TEXT
+            "Insert into " + DB_DESCRIPTION + " (" + DB_DESCRIPTION_TEXT
             + ") values (?);";
     
     private static final String LOAD_QUERY = 

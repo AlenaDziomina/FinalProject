@@ -40,7 +40,7 @@ public class RoleQuery implements TypedQuery<Role>{
     public static final String DAO_ROLE_NAME = "nameRole";
     
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_ROLE + "(" 
+            "Insert into " + DB_ROLE + " (" 
             + DB_ROLE_NAME_ROLE + ") values (?);";
     
     private static final String LOAD_QUERY = 

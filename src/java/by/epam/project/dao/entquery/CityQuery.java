@@ -45,7 +45,7 @@ public class CityQuery implements TypedQuery<City>{
     public static final String DAO_CITY_LIST = "cityList";
 
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_CITY + "(" + DB_CITY_ID_COUNTRY + ", "
+            "Insert into " + DB_CITY + " (" + DB_CITY_ID_COUNTRY + ", "
             + DB_CITY_NAME + ", " + DB_CITY_PICTURE + ", " 
             + DB_CITY_ID_DESCRIPTION + ") values (?, ?, ?, ?);";
     

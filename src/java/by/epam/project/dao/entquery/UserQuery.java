@@ -53,7 +53,7 @@ public class UserQuery implements TypedQuery<User>{
     public static final String DAO_USER_BALANCE = "balance";
    
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_USER + "(" + DB_USER_LOGIN + ", " 
+            "Insert into " + DB_USER + " (" + DB_USER_LOGIN + ", " 
             + DB_USER_PASSWORD + ", " + DB_USER_EMAIL + ", " 
             + DB_USER_PHONE + ", " + DB_USER_ID_ROLE + ", "
             + DB_USER_LANGUAGE + ", " + DB_USER_DISCOUNT + ", "

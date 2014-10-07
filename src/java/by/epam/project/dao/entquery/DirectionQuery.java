@@ -47,7 +47,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
     public static final String DAO_DIRECTION_STATUS = "statusDirection";
    
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_DIRECTION + "(" + DB_DIRECTION_NAME + ", "
+            "Insert into " + DB_DIRECTION + " (" + DB_DIRECTION_NAME + ", "
             + DB_DIRECTION_ID_TOURTYPE + ", " + DB_DIRECTION_ID_TRANSMODE + ", "
             + DB_DIRECTION_ID_DESCRIPTION + ", " + DB_DIRECTION_PICTURE + ", "
             + DB_DIRECTION_TEXT + ") values (?, ?, ?, ?, ?, ?);";

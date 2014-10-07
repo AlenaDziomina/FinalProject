@@ -43,7 +43,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
     public static final String DAO_HOTEL_LIST = "hotelList";
 
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_HOTEL + "(" + DB_HOTEL_ID_CITY + ", "
+            "Insert into " + DB_HOTEL + " (" + DB_HOTEL_ID_CITY + ", "
             + DB_HOTEL_NAME + ", " + DB_HOTEL_STARS + ", " 
             + DB_HOTEL_PICTURE + ", " + DB_HOTEL_ID_DESCRIPTION
             + ") values (?, ?, ?, ?, ?);";
@@ -132,7 +132,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 

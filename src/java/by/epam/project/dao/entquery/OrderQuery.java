@@ -54,7 +54,7 @@ public class OrderQuery implements TypedQuery<Order> {
     public static final String DAO_ORDER_STATUS = "statusOrder";
     
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_ORDER + "(" + DB_ORDER_ID_USER + ", "
+            "Insert into " + DB_ORDER + " (" + DB_ORDER_ID_USER + ", "
             + DB_ORDER_ID_TOUR + ", " + DB_ORDER_SEATS + ", " 
             + DB_ORDER_CURR_PRICE + ", " + DB_ORDER_CURR_DISCOUNT + ", "
             + DB_ORDER_USER_DISCOUNT + ", " + DB_ORDER_FINAL_PRICE + ", "

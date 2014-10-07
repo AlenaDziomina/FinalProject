@@ -82,21 +82,3 @@ public class GoEditDirection implements ActionCommand {
     }
     
 }
-
-
-//        
-//        List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-////        if (countryList == null || countryList.isEmpty()){
-////            new GoShowCountry().execute(request);
-////            countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-////        }
-//        
-//        List<Country> countryTagList = new ArrayList<>();
-//        countryTagList.add(countryList.get(0));
-//        countryTagList.add(countryList.get(2));
-//        //request.setSessionAttribute(JSP_COUNTRY_TAGS_LIST, countryTagList);
-//       
-//        for (Country c: countryTagList){
-//            tags.add(c.getIdCountry().toString());
-//        }
-//        request.setAttribute(JSP_CURR_COUNTRY_TAGS, tags.toArray());

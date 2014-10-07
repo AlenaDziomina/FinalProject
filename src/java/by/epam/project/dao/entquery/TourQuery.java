@@ -53,7 +53,7 @@ public class TourQuery implements TypedQuery<Tour>{
     public static final String DAO_TOUR_STATUS = "statusTour";
     
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_TOUR + "(" + DB_TOUR_ID_DIRECTION + ", "
+            "Insert into " + DB_TOUR + " (" + DB_TOUR_ID_DIRECTION + ", "
             + DB_TOUR_DATE + ", " + DB_TOUR_DAYS_COUNT + ", "
             + DB_TOUR_PRICE + ", " + DB_TOUR_DISCOUNT + ", "
             + DB_TOUR_TOTAL_SEATS + ", " + DB_TOUR_FREE_SEATS 

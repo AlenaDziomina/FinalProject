@@ -36,7 +36,7 @@ public class TourTypeQuery implements TypedQuery<TourType>{
     public static final String DAO_TOURTYPE_NAME = "nameTourType";
 
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_TOURTYPE + "(" + DB_TOURTYPE_NAME
+            "Insert into " + DB_TOURTYPE + " (" + DB_TOURTYPE_NAME
             + ") values (?);";
     
     private static final String LOAD_QUERY = 

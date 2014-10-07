@@ -336,8 +336,9 @@ function funcAdd(){
     
     var select = document.getElementById("currHotel");
     var i = select.value;
+    var n = select.selectedIndex;
     if (i !== "0") {
-        var txt = select.options[i].text;
+        var txt = select.options[n].text;
     
         var checkbox = document.createElement('input');
         checkbox.type = "checkbox";
