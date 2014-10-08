@@ -26,6 +26,7 @@ import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.entity.Tour;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransMode;
 import by.epam.project.exception.DaoException;
@@ -61,6 +62,16 @@ public abstract class DirectionLogic {
         getDescription(dao, directions);
         getTransMode(dao, directions);
         getTourType(dao, directions);
+        getTourCollection(dao, directions);
+    }
+    
+    private static void getTourCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
+            List<Tour> list = dao.showTours(crit);
+            dir.setTourCollection(list);
+        }
     }
     
     private static void getTransMode(AbstractDao dao, List<Direction> directions) throws DaoException {

@@ -20,7 +20,9 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_STARS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
@@ -73,6 +75,15 @@ public class ProcessSavedParameters implements ActionCommand{
             request.setAttribute(JSP_CURR_ID_HOTEL, currHotel);
         }
         
+        String currDirection = request.getParameter(JSP_CURR_ID_DIRECTION);
+        if (currDirection != null) {
+            request.setAttribute(JSP_CURR_ID_DIRECTION, currDirection);
+        }
+        
+        String currTour = request.getParameter(JSP_CURR_ID_TOUR);
+        if (currTour != null) {
+            request.setAttribute(JSP_CURR_ID_TOUR, currTour);
+        }
         
         String[] currCoutryTags = request.getAllParameters(JSP_CURR_COUNTRY_TAGS);
         if (currCoutryTags != null) {

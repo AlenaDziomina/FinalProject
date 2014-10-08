@@ -7,6 +7,7 @@
 package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
+import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_DATE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericDeleteQuery;
@@ -24,6 +25,7 @@ import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,6 +68,21 @@ public class OrderQuery implements TypedQuery<Order> {
     private static final String UPDATE_QUERY = 
             "Update " + DB_ORDER + " set ";
 
+    public static final Order createBean(Criteria criteria) {
+        Order bean = new Order();
+        bean.setIdOrder((Integer)criteria.getParam(DAO_ID_ORDER));
+        bean.setOrderDate((Date)criteria.getParam(DAO_ORDER_DATE));
+        bean.setSeats((Integer)criteria.getParam(DAO_ORDER_SEATS));
+        bean.setCurrentPrice((Float)criteria.getParam(DAO_ORDER_CURR_PRICE));
+        bean.setCurrentDiscount((Integer)criteria.getParam(DAO_ORDER_CURR_DISCOUNT));
+        bean.setCurrentUserDiscount((Integer)criteria.getParam(DAO_ORDER_USER_DISCOUNT));
+        bean.setFinalPrice((Float)criteria.getParam(DAO_ORDER_FINAL_PRICE));
+        bean.setTour(TourQuery.createBean(criteria));
+        bean.setUser(UserQuery.createBean(criteria));
+        bean.setStatus((Short)criteria.getParam(DAO_ORDER_STATUS));
+        return bean;
+    }
+    
      @Override
     public List<Integer> save(List<Order> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {

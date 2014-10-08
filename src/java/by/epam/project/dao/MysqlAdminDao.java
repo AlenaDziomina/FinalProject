@@ -15,11 +15,15 @@ import by.epam.project.dao.entquery.DirectionCountryQuery;
 import by.epam.project.dao.entquery.DirectionQuery;
 import by.epam.project.dao.entquery.DirectionStayHotelQuery;
 import by.epam.project.dao.entquery.HotelQuery;
+import by.epam.project.dao.entquery.OrderQuery;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import by.epam.project.dao.entquery.TourQuery;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.LinkDirectionFactory;
+import by.epam.project.exception.DaoAccessPermission;
 import by.epam.project.exception.DaoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +137,28 @@ public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
         return qu.save(linkList, saveDao, mysqlConn);
     }
 
+    @Override
+    public List<Integer> createNewTour(Criteria criteria) throws DaoException {
+        List list = new ArrayList<>();
+        list.add(TourQuery.createBean(criteria));
+        return new TourQuery().save(list, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> createNewOrder(Criteria criteria) throws DaoException {
+        List list = new ArrayList<>();
+        list.add(OrderQuery.createBean(criteria));
+        return new OrderQuery().save(list, saveDao, mysqlConn);
+    }
+
+    @Override
+    public List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException {
+        return new TourQuery().update(beans, criteria, updateDao, mysqlConn);
+    }
     
+    @Override
+    public List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException {
+        return new OrderQuery().update(beans, criteria, updateDao, mysqlConn);
+    }
 
 }

@@ -24,6 +24,7 @@ import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.entity.Order;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.TourType;
@@ -153,6 +154,11 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     @Override
     public List<Tour> showTours(Criteria criteria) throws DaoException {
         return new TourQuery().load(criteria, loadDao, mysqlConn);
+    }
+    
+    @Override
+    public List<Order> showOrders(Criteria criteria) throws DaoException {
+        return new OrderQuery().load(criteria, loadDao, mysqlConn);
     }
    
 }

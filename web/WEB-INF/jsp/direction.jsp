@@ -60,6 +60,11 @@
             <input type="hidden" name="command" value="goCreateNewDirection" />
             <input type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
         </form>
+        <form method="POST" action="controller">
+            <input type="hidden" name="currIdDirection" value="${currDirection.idDirection}"/>
+            <input type="hidden" name="command" value="goCreateNewTour" />
+            <input type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />"/>
+        </form>
     </div>
 </div>
 </div>

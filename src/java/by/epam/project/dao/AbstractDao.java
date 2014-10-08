@@ -16,6 +16,7 @@ import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
+import by.epam.project.entity.Order;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.TourType;
@@ -93,6 +94,10 @@ public interface AbstractDao {
         throw new DaoAccessPermission("Method showTours. Current role: " 
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
+    default public List<Order> showOrders(Criteria criteria) throws DaoException{
+        throw new DaoAccessPermission("Method showOrders. Current role: " 
+                + criteria.getParam(DAO_ROLE_NAME).toString());
+    }
     
     //user
     default public User changeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
@@ -164,5 +169,21 @@ public interface AbstractDao {
     default public List<Integer> updateDirectionStayHotels(Criteria beans, Criteria criteria) throws DaoException{
         throw new DaoAccessPermission("Method updateDirectionStayHotels. Current role: " 
                 + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    default public List<Integer> createNewTour(Criteria criteria) throws DaoException{
+        throw new DaoAccessPermission("Method createNewTour. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    default public List<Integer> createNewOrder(Criteria criteria) throws DaoException{
+        throw new DaoAccessPermission("Method createNewOrder. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    default public List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoAccessPermission("Method updateTour. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    default public List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoAccessPermission("Method updateOrder. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
     };
 }

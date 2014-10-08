@@ -47,5 +47,12 @@ public interface AdminDao extends AbstractDao {
     public List<Integer> updateDirectionCityLinks(Criteria beans, Criteria criteria) throws DaoException;
     @Override
     public List<Integer> updateDirectionStayHotels(Criteria beans, Criteria criteria) throws DaoException;
-    
+    @Override
+    public List<Integer> createNewTour(Criteria criteria) throws DaoException;
+    @Override
+    public List<Integer> createNewOrder(Criteria criteria) throws DaoException;
+    @Override
+    public List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException;
+    @Override
+    public List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException;
 }

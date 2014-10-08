@@ -13,6 +13,7 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR;
 import by.epam.project.controller.SessionRequestContent;
 
 /**
@@ -30,6 +31,7 @@ public class SessionGarbageCollector {
         request.deleteSessionAttribute(JSP_CURR_COUNTRY_TAGS);
         request.deleteSessionAttribute(JSP_CURR_CITY_TAGS);
         request.deleteSessionAttribute(JSP_CURR_HOTEL_TAGS);
+        request.deleteSessionAttribute(JSP_CURR_TOUR);
         
     }
     

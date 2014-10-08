@@ -80,6 +80,7 @@ public abstract class JspParamNames {
     public static final String JSP_DIRECTION_LIST = "directionList";
     public static final String JSP_DIRECTION_COUNT = "directionCount";
     public static final String JSP_CURRENT_DIRECTION = "currDirection";
+    public static final String JSP_CURR_ID_DIRECTION = "currIdDirection";
     
     //tour_type
     public static final String JSP_ID_TOURTYPE = "idTourType";
@@ -94,7 +95,16 @@ public abstract class JspParamNames {
     public static final String JSP_CURR_TRANS_MODE = "currTransMode";
     
     //tour
-    
+    public static final String JSP_TOUR_LIST = "tourList";
+    public static final String JSP_CURR_TOUR = "currTour";
+    public static final String JSP_ID_TOUR = "idTour";
+    public static final String JSP_CURR_ID_TOUR = "currIdTour";
+    public static final String JSP_TOUR_DATE = "departDate";
+    public static final String JSP_TOUR_DAYS = "daysCount";
+    public static final String JSP_TOUR_PRICE = "price";
+    public static final String JSP_TOUR_DISCOUNT = "discount";
+    public static final String JSP_TOTAL_SEATS = "totalSeats";
+    public static final String JSP_FREE_SEATS = "freeSeats";
     
     //order
     
