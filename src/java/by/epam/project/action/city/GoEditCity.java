@@ -31,7 +31,9 @@ public class GoEditCity implements ActionCommand {
         
         formCountryList(request);
         City currCity = (City) request.getSessionAttribute(JSP_CURRENT_CITY);
-        request.setAttribute(JSP_CURR_ID_COUNTRY, currCity.getCountry().getIdCountry());
+        if (currCity != null) {
+            request.setAttribute(JSP_CURR_ID_COUNTRY, currCity.getCountry().getIdCountry());
+        }
 
         String page = ConfigurationManager.getProperty("path.page.editcity");
         request.setSessionAttribute(JSP_PAGE, page);

@@ -41,7 +41,7 @@ public class TourQuery implements TypedQuery<Tour>{
     public static final String DB_TOUR_DISCOUNT = "discount";
     public static final String DB_TOUR_TOTAL_SEATS = "total_seats";
     public static final String DB_TOUR_FREE_SEATS = "free_seats";
-    public static final String DB_TOUR_STATUS = "statusTour";
+    public static final String DB_TOUR_STATUS = "status";
     
     public static final String DAO_ID_TOUR = "idTour";
     public static final String DAO_TOUR_DATE = "dateTour";

@@ -7,21 +7,17 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.ActionCommand.*;
-import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CITY_NAME;
 import static by.epam.project.action.JspParamNames.JSP_CITY_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
 import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_ID_DESCRIPTION;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.action.ProcessSavedParameters;
-import static by.epam.project.action.city.GoShowCity.formCityList;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_NAME;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_PICTURE;
@@ -41,6 +37,8 @@ import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.CityLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
+import static by.epam.project.manager.ParamManager.checkIntParam;
+
 
 /**
  *
@@ -54,9 +52,9 @@ public class SaveRedactCity implements ActionCommand {
         new ProcessSavedParameters().execute(request);
         
         Criteria criteria = new Criteria();
-        checkParam(request, criteria, JSP_CURR_ID_COUNTRY, DAO_ID_COUNTRY);
-        checkParam(request, criteria, JSP_ID_CITY, DAO_ID_CITY);
-        checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
+        checkIntParam(request, criteria, JSP_CURR_ID_COUNTRY, DAO_ID_COUNTRY);
+        checkIntParam(request, criteria, JSP_ID_CITY, DAO_ID_CITY);
+        checkIntParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
         
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));

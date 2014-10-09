@@ -46,7 +46,7 @@
         
     <div class="parameterRowDR">
         
-            <select class="container" size="15" onclick="">               
+            <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showTour'}, 'POST'))">          
                 <c:forEach items="${currDirection.tourCollection}" var="row">
                     <option class="menuHref" value="${row.idTour}">${row.departDate}"</option>
                 </c:forEach>
@@ -54,16 +54,16 @@
         
         <form method="POST" action="controller">
             <input type="hidden" name="command" value="goEditDirection" />
-            <input type="submit" value="<fmt:message key="editDirection" bundle="${ rb }" />"/>
+            <input class="large orange awesome" type="submit" value="<fmt:message key="editDirection" bundle="${ rb }" />"/>
         </form>
         <form method="POST" action="controller">
             <input type="hidden" name="command" value="goCreateNewDirection" />
-            <input type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
+            <input class="large green awesome" type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
         </form>
         <form method="POST" action="controller">
             <input type="hidden" name="currIdDirection" value="${currDirection.idDirection}"/>
             <input type="hidden" name="command" value="goCreateNewTour" />
-            <input type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />"/>
+            <input class="large green awesome" type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />"/>
         </form>
     </div>
 </div>

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+
+
 function postHot(path, comnd, method) {
     
     method = method || "post";

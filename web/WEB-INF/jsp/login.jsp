@@ -19,7 +19,7 @@
         <div id="erNote">${errorLoginPassMessage}</div>   
         <div id="erNote">${wrongAction}</div>
         <div id="erNote">${nullPage}</div>
-        <input type="submit" value="<fmt:message key="log_in" bundle="${ rb }" />"/>
+        <input class="large blue awesome" type="submit" value="<fmt:message key="log_in" bundle="${ rb }" />"/>
     </form>
         
 </body>

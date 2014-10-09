@@ -166,16 +166,12 @@
                 </div>
             </div>        
                    
-            <div class="parameterRow">
-                <div class="centrale">    
-                    <input type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAll()"/>
-                    <div id="erNote">${errorSaveData}</div>
-                    <div id="erNote">${errorReason}</div>
-                    <div id="erAdminNote">${errorAdminMsg}</div>
-                </div>
+            <div class="parameterRow centrale">
+                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAll()"/>
+                <div id="erNote">${errorSaveData}</div>
+                <div id="erNote">${errorReason}</div>
+                <div id="erAdminNote">${errorAdminMsg}</div>
             </div>   
-        
-            
                 
         </div>  
     </form>

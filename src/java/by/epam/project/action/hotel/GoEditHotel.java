@@ -45,19 +45,22 @@ public class GoEditHotel implements ActionCommand {
         formCountryList(request);
         formCityList(request);
         Hotel currHotel = (Hotel) request.getSessionAttribute(JSP_CURRENT_HOTEL);
-        Integer idCity = currHotel.getCity().getIdCity();
-        request.setAttribute(JSP_CURR_ID_CITY, idCity);
-        
         List<City> cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        for (City city: cityList) {
-            if (city.getIdCity().equals(idCity)) {
-                Integer idCountry = city.getCountry().getIdCountry();
-                request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
-                request.setAttribute(JSP_ID_COUNTRY, idCountry);
-                formCityList(request);
-                request.setSessionAttribute(JSP_CURR_CITY_LIST, request.getSessionAttribute(JSP_CITY_LIST));
+        
+        if (currHotel != null) {
+            Integer idCity = currHotel.getCity().getIdCity();
+            request.setAttribute(JSP_CURR_ID_CITY, idCity);
+            for (City city: cityList) {
+                if (city.getIdCity().equals(idCity)) {
+                    Integer idCountry = city.getCountry().getIdCountry();
+                    request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
+                    request.setAttribute(JSP_ID_COUNTRY, idCountry);
+                    formCityList(request);
+                    request.setSessionAttribute(JSP_CURR_CITY_LIST, request.getSessionAttribute(JSP_CITY_LIST));
+                }
             }
         }
+        
         return page;
     }
     

@@ -96,15 +96,15 @@ public abstract class JspParamNames {
     
     //tour
     public static final String JSP_TOUR_LIST = "tourList";
-    public static final String JSP_CURR_TOUR = "currTour";
     public static final String JSP_ID_TOUR = "idTour";
     public static final String JSP_CURR_ID_TOUR = "currIdTour";
-    public static final String JSP_TOUR_DATE = "departDate";
-    public static final String JSP_TOUR_DAYS = "daysCount";
+    public static final String JSP_CURR_DEPART_DATE = "departDate";
+    public static final String JSP_CURR_ARRIVAL_DATE = "arrivalDate";
     public static final String JSP_TOUR_PRICE = "price";
     public static final String JSP_TOUR_DISCOUNT = "discount";
     public static final String JSP_TOTAL_SEATS = "totalSeats";
     public static final String JSP_FREE_SEATS = "freeSeats";
+    public static final String JSP_CURRENT_TOUR = "currTour";
     
     //order
     

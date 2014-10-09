@@ -14,8 +14,11 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_STARS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
@@ -29,10 +32,14 @@ import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_NAME;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_FREE_SEATS;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_NAME;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_TOTAL_SEATS;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_DISCOUNT;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_PRICE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
@@ -44,10 +51,13 @@ import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
+import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.MessageManager;
+import static by.epam.project.manager.ParamManager.getFltParam;
+import static by.epam.project.manager.ParamManager.getIntParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +95,16 @@ public class ProcessSavedParameters implements ActionCommand{
             request.setAttribute(JSP_CURR_ID_TOUR, currTour);
         }
         
+        String currDepartDate = request.getParameter("departDate");
+        if (currDepartDate != null) {
+            request.setAttribute(JSP_CURR_DEPART_DATE, currDepartDate);
+        }
+        
+        String currArrivalDate = request.getParameter("arrivalDate");
+        if (currDepartDate != null) {
+            request.setAttribute(JSP_CURR_ARRIVAL_DATE, currArrivalDate);
+        }
+        
         String[] currCoutryTags = request.getAllParameters(JSP_CURR_COUNTRY_TAGS);
         if (currCoutryTags != null) {
             request.setAttribute(JSP_CURR_COUNTRY_TAGS, currCoutryTags);
@@ -109,6 +129,8 @@ public class ProcessSavedParameters implements ActionCommand{
         
         createCurrDirect(request);
         
+        createCurrTour(request);
+        
         createCurrCity(request);
         
         createCurrCountry(request);
@@ -116,6 +138,20 @@ public class ProcessSavedParameters implements ActionCommand{
         createCurrHotel(request);
         
         return null;
+    }
+    
+    private void createCurrTour(SessionRequestContent request) {
+        Tour currTour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
+        if(currTour == null) {
+            currTour = new Tour();
+        }
+        
+        currTour.setPrice(getFltParam(request, JSP_TOUR_PRICE));
+        currTour.setDiscount(getIntParam(request, JSP_TOUR_DISCOUNT));
+        currTour.setTotalSeats(getIntParam(request, JSP_TOTAL_SEATS));
+        currTour.setFreeSeats(getIntParam(request, JSP_FREE_SEATS));
+        
+        request.setSessionAttribute(JSP_CURRENT_TOUR, currTour);
     }
 
     private void createCurrHotelTag(SessionRequestContent request) throws DaoUserLogicException {

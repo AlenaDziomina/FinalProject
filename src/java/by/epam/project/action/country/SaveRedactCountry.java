@@ -7,7 +7,6 @@
 package by.epam.project.action.country;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.ActionCommand.checkParam;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_NAME;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
@@ -18,7 +17,6 @@ import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.action.ProcessSavedParameters;
-import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_NAME;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_PICTURE;
@@ -37,6 +35,7 @@ import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.CountryLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
+import static by.epam.project.manager.ParamManager.checkIntParam;
 
 /**
  *
@@ -51,8 +50,8 @@ public class SaveRedactCountry implements ActionCommand {
         new ProcessSavedParameters().execute(request);
         
         Criteria criteria = new Criteria();
-        checkParam(request, criteria, JSP_ID_COUNTRY, DAO_ID_COUNTRY);
-        checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
+        checkIntParam(request, criteria, JSP_ID_COUNTRY, DAO_ID_COUNTRY);
+        checkIntParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
         
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));

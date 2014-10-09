@@ -38,12 +38,8 @@
     </c:forEach>
         
     <form method="POST" action="controller">
-        <input type="hidden" name="command" value="goEditDirection" />
-        <input type="submit" value="<fmt:message key="editDirection" bundle="${ rb }" />"/>
-    </form>
-    <form method="POST" action="controller">
         <input type="hidden" name="command" value="goCreateNewDirection" />
-        <input type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
+        <input class="centrale large green awesome" type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
     </form>
 
 </div>

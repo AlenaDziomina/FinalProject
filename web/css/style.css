@@ -122,12 +122,9 @@ li {
 
 
 #menuText:hover {
-    background-color: aqua;
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    -ms-transform: scale(1.2);
+    background-color: #2daebf;
     transform: scale(1.2);
+    
 }
 
 .container {
@@ -159,7 +156,7 @@ li {
 }
 
 .centerColumn {
-    width: 58%;
+    width: 52%;
     min-width: 200px;
     float: left; 
     height: 100%;
@@ -194,7 +191,7 @@ li {
 
 .inputColumn {
     float: left;
-    width: 68%;
+    width: 66%;
     
 }
 
@@ -499,3 +496,83 @@ li {
     text-align:justify;
 
 }
+
+
+
+.awesome,.awesome:visited {
+    background:#222 url(alert-overlay.png) repeat-x;
+    display:inline-block;
+    padding:5px 10px 6px;
+    color:#fff;
+    text-decoration:none;
+    border-radius:5px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.5);
+    text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+    border: 2px outset navy;
+    border-bottom-color: navy;
+    position:relative;
+    cursor:pointer;
+    font-family: 'League Gotic', Arial, sans-serif;
+    margin: 15px;
+}
+.awesome:hover{
+    background-color:#111;
+    color:#fff;
+}
+.awesome:active{
+    top:1px;
+}
+.small.awesome,.small.awesome:visited{
+    font-size:11px;
+    padding:8px 14px 9px;
+    width: 100px;
+}
+.awesome,.awesome:visited,.medium.awesome,.medium.awesome:visited{
+    font-size:13px;
+    font-weight:bold;
+    line-height:1;
+    text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+    width: 200px;
+}
+.large.awesome,.large.awesome:visited{
+    font-size:16px;
+    padding:8px 14px 9px;
+    width: 250px;
+}
+.green.awesome,.green.awesome:visited{
+    background-color:rgba(149, 192, 20, 0.8);
+}
+.green.awesome:hover{
+    background-color:#749a02;
+}
+.blue.awesome,.blue.awesome:visited{
+    background-color: rgba(45, 165, 191, 1);
+}
+.blue.awesome:hover{
+    background-color:#007d9a;
+}
+.red.awesome,.red.awesome:visited{
+    background-color:#e33100;
+}
+.red.awesome:hover{
+    background-color:#872300;
+}
+.magenta.awesome,.magenta.awesome:visited{
+    background-color:#a9014b;
+}
+.magenta.awesome:hover{
+    background-color:#630030;
+}
+.orange.awesome,.orange.awesome:visited{
+    background-color:rgba(255, 118, 2, 0.77);
+}
+.orange.awesome:hover{
+    background-color:#d45500;
+}
+.yellow.awesome,.yellow.awesome:visited{
+    background-color:#ffb515;
+}
+.yellow.awesome:hover{
+    background-color:#fc9200;
+}
+

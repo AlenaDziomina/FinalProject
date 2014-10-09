@@ -7,9 +7,6 @@
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.ActionCommand.checkArrParam;
-import static by.epam.project.action.ActionCommand.checkParam;
-import static by.epam.project.action.ActionCommand.checkParam;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
@@ -52,6 +49,8 @@ import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.logic.DirectionLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
+import static by.epam.project.manager.ParamManager.checkArrParam;
+import static by.epam.project.manager.ParamManager.checkIntParam;
 
 /**
  *
@@ -66,10 +65,10 @@ public class SaveRedactDirection implements ActionCommand {
         new ProcessSavedParameters().execute(request);
         
         Criteria criteria = new Criteria();
-        checkParam(request, criteria, JSP_ID_DIRECTION, DAO_ID_DIRECTION);
-        checkParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
-        checkParam(request, criteria, JSP_CURR_TOUR_TYPE, DAO_ID_TOURTYPE);
-        checkParam(request, criteria, JSP_CURR_TRANS_MODE, DAO_ID_TRANSMODE);
+        checkIntParam(request, criteria, JSP_ID_DIRECTION, DAO_ID_DIRECTION);
+        checkIntParam(request, criteria, JSP_ID_DESCRIPTION, DAO_ID_DESCRIPTION);
+        checkIntParam(request, criteria, JSP_CURR_TOUR_TYPE, DAO_ID_TOURTYPE);
+        checkIntParam(request, criteria, JSP_CURR_TRANS_MODE, DAO_ID_TRANSMODE);
         
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));

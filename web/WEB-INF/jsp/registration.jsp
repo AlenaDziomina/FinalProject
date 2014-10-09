@@ -25,7 +25,7 @@
         <div id="erNote">${errorLoginPassMessage}</div>    
         <div id="erNote">${wrongAction}</div>
         <div id="erNote">${nullPage}</div>
-        <input type="submit" value="Registrate"/>
+        <input class="large blue awesome" type="submit" value="Registrate"/>
     </form>
         
 </body>
