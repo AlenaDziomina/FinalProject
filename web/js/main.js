@@ -4,7 +4,22 @@
  * and open the template in the editor.
  */
 
-
+function showHidden(bool){
+    var elem = document.getElementById("search");
+    var show = document.getElementById("show");
+    var hide = document.getElementById("hide");
+    if (bool === true) {
+        elem.hidden = true;
+        hide.hidden = true;
+        show.hidden = false;
+    }
+    if (bool === false) {
+        elem.hidden = false;
+        hide.hidden = false;
+        show.hidden = true;
+    }
+    
+}
 
 function postHot(path, comnd, method) {
     

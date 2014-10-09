@@ -33,6 +33,8 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
     public static final String DB_DIRCITY = "direction_cities";
     public static final String DB_DIRCITY_ID_CITY = "id_city";
     public static final String DB_DIRCITY_ID_DIRECTION = "id_direction";
+    
+    public static final String DAO_DIRCITY_ID_CITY = "idCity";
 
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRCITY + " (" + DB_DIRCITY_ID_DIRECTION + ", "

@@ -203,8 +203,8 @@
 --alter table direction_countries DROP FOREIGN KEY fk_direction_countrues_id_direction;
 --alter table direction_countries add constraint fk_direction_countrues_id_direction foreign key (id_direction) references direction(id_direction) ON UPDATE CASCADE
 
- alter table direction_countries DROP FOREIGN KEY fk_direction_countries_id_country;
- alter table direction_countries add constraint fk_direction_countries_id_country foreign key (id_country) references country(id_country) ON UPDATE CASCADE
+ --alter table direction_countries DROP FOREIGN KEY fk_direction_countries_id_country;
+ --alter table direction_countries add constraint fk_direction_countries_id_country foreign key (id_country) references country(id_country) ON UPDATE CASCADE
 
 
 -- CREATE TABLE direction_stay_hotels (
@@ -297,3 +297,14 @@
     --alter table orders add column status TINYINT default 1;
 
 --alter table tourist add column status TINYINT default 1;
+
+select id_tour from tour t
+    left join direction d on t.id_direction = d.id_direction
+    left join direction_countries dc on d.id_direction = dc.id_direction
+    left join direction_cities ds on d.id_direction = ds.id_direction
+    left join direction_stay_hotels dh on d.id_direction = dh.id_direction
+    left join hotel h on h.id_hotel = dh.id_hotel
+ 
+    
+    
+    

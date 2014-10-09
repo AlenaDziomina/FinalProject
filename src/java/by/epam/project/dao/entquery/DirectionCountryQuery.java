@@ -33,6 +33,8 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
     public static final String DB_DIRCOUNTRY = "direction_countries";
     public static final String DB_DIRCOUNTRY_ID_COUNTRY = "id_country";
     public static final String DB_DIRCOUNTRY_ID_DIRECTION = "id_direction";
+    
+    public static final String DAO_DIRCOUNTRY_ID_COUNTRY = "idCountry";
 
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRCOUNTRY + " (" + DB_DIRCOUNTRY_ID_DIRECTION + ", "

@@ -42,6 +42,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
     public static final String DAO_ID_DIRSTAY = "idDirStay";
     public static final String DAO_DIRSTAY_NO = "noDirStay";
     public static final String DAO_DIRSTAY_STATUS = "statusDirStay";
+    public static final String DAO_DIRSTAY_ID_HOTEL = "idHotel";
            
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRSTAY + " (" + DB_DIRSTAY_STAY_NO + ", "
