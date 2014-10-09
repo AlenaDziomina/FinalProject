@@ -5,13 +5,10 @@
 --%>
 
 <div id="main">
-    
     <form id="updDirection" method="POST" action="controller">
         <div class="innerColumn">
             <input type="hidden" name="command" value="saveRedactDirection" />
-            
             <div class="parameterRow">
-                
                 <div class="tagColumn">
                     <h1 class="labelHT"><fmt:message key="selectTourType" bundle="${ rb }" />:</h1>
                     <div class="centraleContainer">
@@ -51,19 +48,12 @@
                     </div>  
                 </div>  
             </div>
-                    
-                    
-                    
-                    
                 
             <div class="parameterRowB">
                 <div class="tagColumnS">
                     <h1 class="labelHT"><fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
-                    <div id="currHotelTag" class="checkBoxGroup2">
-                        
-                    </div>
+                    <div id="currHotelTag" class="checkBoxGroup2"></div>
                 </div>
-                
                 <div class="tagColumnM">
                     <div class="tagColumnL">
                         <h1 class="labelHT">1. <fmt:message key="selectCountry" bundle="${ rb }" />:</h1>
@@ -76,7 +66,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="tagColumnL">
                         <h1 class="labelHT">2. <fmt:message key="selectCity" bundle="${ rb }" />:</h1>
                         <div class="centraleContainerS">
@@ -88,7 +77,6 @@
                             </select> 
                         </div>
                     </div>
-
                     <div class="tagColumnL">
                         <h1 class="labelHT">3. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
                         <div class="centraleContainerS">
@@ -100,7 +88,6 @@
                             </select> 
                         </div> 
                     </div>
-
                     <div class="tagColumnL">
                         <h1 class="labelHT">4. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
                         <div class="centraleContainerB">
@@ -109,9 +96,6 @@
                     </div>
                 </div>
             </div>
-                            
-            
-              
                     
             <c:forEach items="${currCountryTag}" var="tag">
                 <script type="text/javascript">
@@ -131,14 +115,12 @@
                 select("currCountry", ${currIdCountry});
                 select("currCity", ${currIdCity});
             </script>
-            
                 
             <c:forEach items="${hotelTagList}" var="row">
                 <script type='text/javascript'>
                     restoreCheck("${row.idHotel}", "${row.name}");
                 </script>
             </c:forEach>
-                
         
             <input type="hidden" name="idDirection" value="${currDirection.idDirection}"/>
             <div class="parameterRow">
@@ -150,7 +132,7 @@
                 </div>
                 <div class="tagColumnM">
                     <h1 class="labelHT"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
-                        <textarea name="textDirection" class="inputMultilineineContainerB">${currDirection.text}</textarea>
+                    <textarea name="textDirection" class="inputMultilineineContainerB">${currDirection.text}</textarea>
                 </div>    
             </div>
             
@@ -159,10 +141,8 @@
                 <div class="labelColumnS">
                     <h1 class="labelH"><fmt:message key="directDescription" bundle="${ rb }" />:</h1> 
                 </div>
-                <div class="inputColumnL">
-                    <div class="innerColumn">
+                <div class="inputColumnL innerColumn">
                     <textarea name="textDescription" class="inputMultilineineContainerD">${currDirection.description.text}</textarea>
-                    </div>
                 </div>
             </div>        
                    
@@ -172,10 +152,7 @@
                 <div id="erNote">${errorReason}</div>
                 <div id="erAdminNote">${errorAdminMsg}</div>
             </div>   
-                
         </div>  
     </form>
-    
-
 </div>
 
