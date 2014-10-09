@@ -7,12 +7,21 @@
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
+import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import static by.epam.project.action.SessionGarbageCollector.cleanSession;
+import static by.epam.project.action.city.GoShowCity.formCityList;
+import static by.epam.project.action.country.GoShowCountry.formCountryList;
+import static by.epam.project.action.direction.GoShowDirections.formTourTypeList;
+import static by.epam.project.action.direction.GoShowDirections.formTransModeList;
+import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -37,7 +46,15 @@ public class GoShowTour implements ActionCommand {
         String page = ConfigurationManager.getProperty("path.page.tours");
         request.setSessionAttribute(JSP_PAGE, page);
         formTourList(request);
-        cleanSession(request);
+        formCountryList(request);
+        formCityList(request);
+        formHotelList(request);
+        formTourTypeList(request);
+        formTransModeList(request);
+        
+        request.setSessionAttribute(JSP_COUNTRY_TAG_LIST, request.getSessionAttribute(JSP_COUNTRY_LIST));
+        request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
+        
         return page;
     }
     

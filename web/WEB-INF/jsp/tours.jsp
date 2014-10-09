@@ -17,7 +17,7 @@
 
         <div id="search" class="parameterRow">
             <div class="tagColumn">
-                <h1 class="labelHT"><fmt:message key="selectTourType" bundle="${ rb }" />:</h1>
+                <h2 class="labelHT"><fmt:message key="selectTourType" bundle="${ rb }" />:</h2>
                 <div class="centraleContainer">
                     <select id="tourType" class="selectContainer" size="1">      
                         <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
@@ -26,7 +26,7 @@
                         </c:forEach>
                     </select>
                 </div>
-                <h1 class="labelHT"><fmt:message key="selectTransMode" bundle="${ rb }" />:</h1>    
+                <h2 class="labelHT"><fmt:message key="selectTransMode" bundle="${ rb }" />:</h2>    
                 <div class="centraleContainer">
                     <select id="transMode" class="selectContainer" size="1">      
                         <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
@@ -38,8 +38,9 @@
             </div>
 
             <div class="tagColumn">         
-                <h1 class="labelHT"><fmt:message key="selectCountries" bundle="${ rb }" />: </h1>     
-                <div class="checkBoxGroup">
+                <h1 class="labelHT"><fmt:message key="selectCountries" bundle="${ rb }" />: </h1>  
+                <input type="checkbox" id="allcountries" name="countryTag" value="0" onchange="disable('countries', 'allcountries')"><fmt:message key="all" bundle="${ rb }" /><br>
+                <div id="countries" class="checkBoxGroup">
                     <c:forEach items="${countryTagList}" var="row">
                         <input type="checkbox" name="countryTag" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /><br>
                     </c:forEach>
@@ -48,7 +49,8 @@
 
             <div class="tagColumn">         
                 <h1 class="labelHT"><fmt:message key="selectCities" bundle="${ rb }" />: </h1>     
-                <div class="checkBoxGroup">
+                <input type="checkbox" id="allcities" name="countryTag" value="0" onchange="disable('cities', 'allcities')"><fmt:message key="all" bundle="${ rb }" /><br>
+                <div id="cities" class="checkBoxGroup">
                     <c:forEach items="${cityTagList}" var="row">
                         <input type="checkbox" name="cityTag" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /><br>
                     </c:forEach>
@@ -58,6 +60,10 @@
                 
         <script>
             showHidden(true);
+            checkBox('allcountries');
+            disable('countries', 'allcountries');
+            checkBox('allcities');
+            disable('cities', 'allcities');
         </script>
         
     </div>

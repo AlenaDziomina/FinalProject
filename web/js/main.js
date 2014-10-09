@@ -4,6 +4,27 @@
  * and open the template in the editor.
  */
 
+function checkBox(boxId) {
+    var box = document.getElementById(boxId);
+    box.checked = true;
+}
+
+function disable(elemId, boxId) {
+    
+    var elem = document.getElementById(elemId);
+    var box = document.getElementById(boxId);
+    
+    if (box.checked === true) {
+        elem.hidden = true;
+    }
+    if (box.checked === false) {
+        elem.hidden = false;
+    }
+    
+    
+}
+
+
 function showHidden(bool){
     var elem = document.getElementById("search");
     var show = document.getElementById("show");
