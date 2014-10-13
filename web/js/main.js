@@ -27,6 +27,7 @@ function saveAllSearch() {
     saveBox(form, "allCountries");
     saveBox(form, "allCities");
     saveBox(form, "allHotels");
+    saveIsHidden(form, "searching");
 }
 
 function postTour(path, comnd, method) {
@@ -57,7 +58,7 @@ function postTour(path, comnd, method) {
     saveBox(form, "allCountries");
     saveBox(form, "allCities");
     saveBox(form, "allHotels");
-    
+    saveIsHidden(form, "searching");
     
 
     var elem = document.createElement("input");
@@ -69,6 +70,15 @@ function postTour(path, comnd, method) {
     document.body.appendChild(form);
     form.submit();
     
+}
+
+function saveIsHidden(form, idElem){
+    var srch = document.getElementById("searching");
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "isHidden";
+    elem.value=srch.hidden;
+    form.appendChild(elem);
 }
 
 function saveBox(form, idElem){
@@ -115,7 +125,7 @@ function disable(elemId, boxId) {
     
 }
 
-function showHidden(bool){
+function hideSearching(bool){
     var elem = document.getElementById("searching");
     var show = document.getElementById("show");
     var hide = document.getElementById("hide");

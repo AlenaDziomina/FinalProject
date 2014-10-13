@@ -49,6 +49,7 @@ import static by.epam.project.action.JspParamNames.JSP_FREE_SEATS;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_NAME;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_TOTAL_SEATS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_DISCOUNT;
@@ -205,6 +206,11 @@ public abstract class ProcessSavedParameters {
         String allHotels = request.getParameter(JSP_BOX_ALL_HOTELS);
         if (allHotels != null) {
             request.setAttribute(JSP_BOX_ALL_HOTELS, allHotels);
+        }
+        
+        String isHidden = request.getParameter(JSP_IS_HIDDEN);
+        if(isHidden != null) {
+            request.setAttribute(JSP_IS_HIDDEN, isHidden);
         }
 
         createCurrHotelTag(request);

@@ -18,6 +18,7 @@ import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
@@ -66,6 +67,7 @@ public class GoShowTour implements ActionCommand {
         request.setAttribute(JSP_BOX_ALL_COUNTRIES, true);
         request.setAttribute(JSP_BOX_ALL_CITIES, true);
         request.setAttribute(JSP_BOX_ALL_HOTELS, true);
+        request.setAttribute(JSP_IS_HIDDEN, true);
         
         return page;
     }

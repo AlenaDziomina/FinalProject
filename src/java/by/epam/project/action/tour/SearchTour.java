@@ -19,6 +19,7 @@ import static by.epam.project.action.JspParamNames.JSP_DIRECTION_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
 import static by.epam.project.action.JspParamNames.JSP_ID_DESCRIPTION;
 import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
@@ -84,6 +85,7 @@ public class SearchTour implements ActionCommand {
         try {
             List<Tour> tours = SearchLogic.getTours(criteria);
             request.setSessionAttribute(JSP_TOUR_LIST, tours);
+            request.setAttribute(JSP_IS_HIDDEN, true);
             return page;
         } catch (DaoAccessPermission ex) {
             request.setAttribute("errorReason", MessageManager.getProperty("message.errordaoaccess"));
@@ -101,6 +103,7 @@ public class SearchTour implements ActionCommand {
         }
         request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
         request.setSessionAttribute(JSP_PAGE, page);
+        request.setAttribute(JSP_IS_HIDDEN, false);
         return page;
     }
     

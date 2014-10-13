@@ -14,7 +14,7 @@
                     <h1 class="labelHT">TourSearching...</h1>
                 </div>
                 <div class="inputColumn">
-                    <input class="yellow awesome" type="submit" value="<fmt:message key="showParams" bundle="${ rb }" />" onclick="showHidden(false)"/>
+                    <input class="yellow awesome" type="submit" value="<fmt:message key="showParams" bundle="${ rb }" />" onclick="hideSearching(false)"/>
                 </div>
             </div>
             
@@ -23,7 +23,7 @@
                     <h1 class="labelHT">TourSearching:</h1>
                 </div>
                 <div class="inputColumn">
-                    <input class="yellow awesome" type="submit" value="<fmt:message key="hideParams" bundle="${ rb }" />" onclick="showHidden(true)"/>
+                    <input class="yellow awesome" type="submit" value="<fmt:message key="hideParams" bundle="${ rb }" />" onclick="hideSearching(true)"/>
                 </div>
             </div>
 
@@ -302,7 +302,7 @@
                 </div>
                 <form id="srcTour" name="searchTour" method="POST" action="controller">
                     <div class="parameterRow centrale">
-                        <input class="large green awesome" type="submit" value="<fmt:message key="search" bundle="${ rb }" />" onclick="" />
+                        <input class="large green awesome" type="submit" value="<fmt:message key="search" bundle="${ rb }" />" onclick="saveAllSearch()" />
                         <input type="hidden" name="command" value="searchTour" />
                         <div id="erNote">${errorSaveData}</div>
                         <div id="erNote">${errorReason}</div>
@@ -314,7 +314,7 @@
             </div>
 
             <script>
-                showHidden(false);
+                hideSearching(${isHidden});
                 checkBox('allDepartDate', ${allDepartDate}, 'departDate');
                 checkBox('allDaysCount', ${allDaysCount}, 'daysCount');
                 checkBox('allPrice', ${allPrice}, 'prices');
