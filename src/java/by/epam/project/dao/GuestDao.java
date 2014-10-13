@@ -56,6 +56,8 @@ public interface GuestDao extends AbstractDao {
     @Override
     public List<Tour> showTours(Criteria criteria) throws DaoException;
     @Override
+    public List<Tour> searchTours(Criteria criteria) throws DaoException;
+    @Override
     public List<Order> showOrders(Criteria criteria) throws DaoException;
     
 }

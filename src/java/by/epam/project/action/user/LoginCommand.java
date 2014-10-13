@@ -58,7 +58,6 @@ public class LoginCommand implements ActionCommand{
                 }
                 request.setSessionAttribute(JSP_USER_DISCOUNT, person.getDiscount());
                 request.setSessionAttribute(JSP_USER_BALANCE, person.getBalance());
-                // определение пути к main.jsp
                 page = ConfigurationManager.getProperty("path.page.main");
             } else {
                 request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));

@@ -7,6 +7,12 @@
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_CITIES;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_COUNTRIES;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DAYS_COUNT;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DEPART_DATE;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_HOTELS;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_PRICE;
 import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
@@ -54,6 +60,12 @@ public class GoShowTour implements ActionCommand {
         
         request.setSessionAttribute(JSP_COUNTRY_TAG_LIST, request.getSessionAttribute(JSP_COUNTRY_LIST));
         request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
+        request.setAttribute(JSP_BOX_ALL_DEPART_DATE, true);
+        request.setAttribute(JSP_BOX_ALL_DAYS_COUNT, true);
+        request.setAttribute(JSP_BOX_ALL_PRICE, true);
+        request.setAttribute(JSP_BOX_ALL_COUNTRIES, true);
+        request.setAttribute(JSP_BOX_ALL_CITIES, true);
+        request.setAttribute(JSP_BOX_ALL_HOTELS, true);
         
         return page;
     }

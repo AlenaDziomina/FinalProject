@@ -4,42 +4,131 @@
  * and open the template in the editor.
  */
 
-function checkBox(boxId) {
+function saveAllSearch() {
+    var form = document.getElementById("srcTour");
+    saveCountryTags(form);
+    saveCityTags(form);
+    saveHotelTags(form);
+    saveCurrHotelStars(form);
+    saveMode(form, "transMode", "currTransMode");
+    saveTourType(form, "tourType", "currTourType");
+    saveCurrElem(form, "currCountry", "currIdCountry");
+    saveCurrElem(form, "currCity", "currIdCity");
+    saveCurrElem(form, "dateFrom", "currDepartDateFrom");
+    saveCurrElem(form, "dateTo", "currDepartDateTo");
+    saveCurrElem(form, "currDaysCountFrom", "currDaysCountFrom");
+    saveCurrElem(form, "currDaysCountTo", "currDaysCountTo");
+    saveCurrElem(form, "currPriceFrom", "currPriceFrom");
+    saveCurrElem(form, "currPriceTo", "currPriceTo");
+    saveCurrElem(form, "currDiscountFrom", "currDiscountFrom");
+    saveBox(form, "allDepartDate");
+    saveBox(form, "allDaysCount");
+    saveBox(form, "allPrice");
+    saveBox(form, "allCountries");
+    saveBox(form, "allCities");
+    saveBox(form, "allHotels");
+}
+
+function postTour(path, comnd, method) {
+    
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveCountryTags(form);
+    saveCityTags(form);
+    saveHotelTags(form);
+    saveCurrHotelStars(form);
+    saveMode(form, "transMode", "currTransMode");
+    saveTourType(form, "tourType", "currTourType");
+    saveCurrElem(form, "currCountry", "currIdCountry");
+    saveCurrElem(form, "currCity", "currIdCity");
+    saveCurrElem(form, "dateFrom", "currDepartDateFrom");
+    saveCurrElem(form, "dateTo", "currDepartDateTo");
+    saveCurrElem(form, "currDaysCountFrom", "currDaysCountFrom");
+    saveCurrElem(form, "currDaysCountTo", "currDaysCountTo");
+    saveCurrElem(form, "currPriceFrom", "currPriceFrom");
+    saveCurrElem(form, "currPriceTo", "currPriceTo");
+    saveCurrElem(form, "currDiscountFrom", "currDiscountFrom");
+    saveBox(form, "allDepartDate");
+    saveBox(form, "allDaysCount");
+    saveBox(form, "allPrice");
+    saveBox(form, "allCountries");
+    saveBox(form, "allCities");
+    saveBox(form, "allHotels");
+    
+    
+
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "command";
+    elem.value = comnd;
+    form.appendChild(elem);
+        
+    document.body.appendChild(form);
+    form.submit();
+    
+}
+
+function saveBox(form, idElem){
+    var elem = document.getElementById(idElem);
+    if (elem.checked) {
+        var box = document.createElement("input");
+        box.type = "hidden";
+        box.name = idElem;
+        box.value=true;
+        form.appendChild(box);
+    }
+}
+
+function saveCurrElem(form, idElem, nameParam){
+    var select = document.getElementById(idElem).value;
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = nameParam;
+    elem.value=select;
+    form.appendChild(elem);
+}
+
+function checkBox(boxId, val, elemId) {
     var box = document.getElementById(boxId);
-    box.checked = true;
+    var elem = document.getElementById(elemId);
+    box.checked = val;
+    if (val) {
+        elem.hidden = true;
+    } else {
+        elem.hidden = false;
+    }
+   
 }
 
 function disable(elemId, boxId) {
-    
-    var elem = document.getElementById(elemId);
     var box = document.getElementById(boxId);
-    
-    if (box.checked === true) {
+    var elem = document.getElementById(elemId);
+    var val = box.checked;
+    if (val) {
         elem.hidden = true;
-    }
-    if (box.checked === false) {
+    } else {
         elem.hidden = false;
     }
     
-    
 }
 
-
 function showHidden(bool){
-    var elem = document.getElementById("search");
+    var elem = document.getElementById("searching");
     var show = document.getElementById("show");
     var hide = document.getElementById("hide");
     if (bool === true) {
         elem.hidden = true;
         hide.hidden = true;
         show.hidden = false;
-    }
-    if (bool === false) {
+    } else {
         elem.hidden = false;
         hide.hidden = false;
         show.hidden = true;
     }
-    
+ 
 }
 
 function postHot(path, comnd, method) {

@@ -20,6 +20,7 @@ import static by.epam.project.action.JspParamNames.JSP_TOUR_DISCOUNT;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_PRICE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.action.ProcessSavedParameters;
+import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -57,7 +58,7 @@ public class SaveRedactTour implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = ConfigurationManager.getProperty("path.page.edittour");
-        new ProcessSavedParameters().execute(request);
+        resaveParams(request);
         
         Criteria criteria = new Criteria();
         checkIntParam(request, criteria, JSP_CURR_ID_DIRECTION, DAO_ID_DIRECTION);

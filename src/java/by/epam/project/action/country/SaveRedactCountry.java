@@ -17,6 +17,7 @@ import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import by.epam.project.action.ProcessSavedParameters;
+import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_NAME;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_PICTURE;
@@ -47,7 +48,7 @@ public class SaveRedactCountry implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         
         String page = ConfigurationManager.getProperty("path.page.editcountry");
-        new ProcessSavedParameters().execute(request);
+        resaveParams(request);
         
         Criteria criteria = new Criteria();
         checkIntParam(request, criteria, JSP_ID_COUNTRY, DAO_ID_COUNTRY);

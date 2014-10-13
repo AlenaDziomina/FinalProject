@@ -94,6 +94,10 @@ public interface AbstractDao {
         throw new DaoAccessPermission("Method showTours. Current role: " 
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
+    default public List<Tour> searchTours(Criteria criteria) throws DaoException{
+        throw new DaoAccessPermission("Method searchTours. Current role: " 
+                + criteria.getParam(DAO_ROLE_NAME).toString());
+    }
     default public List<Order> showOrders(Criteria criteria) throws DaoException{
         throw new DaoAccessPermission("Method showOrders. Current role: " 
                 + criteria.getParam(DAO_ROLE_NAME).toString());
@@ -102,7 +106,7 @@ public interface AbstractDao {
     //user
     default public User changeOwnUser(Criteria bean, Criteria criteria) throws DaoException {
         throw new DaoAccessPermission("Method changeOwnUser. Current role: " 
-                + criteria.getParam(DAO_ROLE_NAME).toString());
+                + bean.getParam(DAO_ROLE_NAME).toString());
     }
     
     //admin

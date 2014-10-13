@@ -33,6 +33,7 @@ import by.epam.project.action.tour.GoCreateNewTour;
 import by.epam.project.action.tour.GoEditTour;
 import by.epam.project.action.tour.GoShowTour;
 import by.epam.project.action.tour.SaveRedactTour;
+import by.epam.project.action.tour.SearchTour;
 import by.epam.project.action.tour.ShowTour;
 import by.epam.project.action.user.GoLoginCommand;
 import by.epam.project.action.user.GoRegistrationCommand;
@@ -47,7 +48,7 @@ import by.epam.project.action.user.RegistrationCommand;
  */
 public enum CommandEnum {
     LOCALIZATION {
-        {
+        { 
             setCurrentCommand(new LocalCommand());
         }  
     },
@@ -219,6 +220,11 @@ public enum CommandEnum {
     GOEDITTOUR {
         {
             setCurrentCommand(new GoEditTour());
+        }
+    },
+    SEARCHTOUR {
+        {
+            setCurrentCommand(new SearchTour());
         }
     };
             

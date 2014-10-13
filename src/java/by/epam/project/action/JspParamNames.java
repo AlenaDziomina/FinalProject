@@ -106,6 +106,21 @@ public abstract class JspParamNames {
     public static final String JSP_FREE_SEATS = "freeSeats";
     public static final String JSP_CURRENT_TOUR = "currTour";
     
+    //search
+    public static final String JSP_CURR_PRICE_FROM = "currPriceFrom";
+    public static final String JSP_CURR_PRICE_TO = "currPriceTo";
+    public static final String JSP_CURR_DEPART_DATE_FROM = "currDepartDateFrom";
+    public static final String JSP_CURR_DEPART_DATE_TO = "currDepartDateTo";
+    public static final String JSP_CURR_DAYS_COUNT_FROM = "currDaysCountFrom";
+    public static final String JSP_CURR_DAYS_COUNT_TO = "currDaysCountTo";
+    public static final String JSP_CURR_DISCOUNT_FROM = "currDiscountFrom";
+    public static final String JSP_BOX_ALL_DEPART_DATE = "allDepartDate";
+    public static final String JSP_BOX_ALL_DAYS_COUNT = "allDaysCount";
+    public static final String JSP_BOX_ALL_PRICE = "allPrice";
+    public static final String JSP_BOX_ALL_COUNTRIES = "allCountries";
+    public static final String JSP_BOX_ALL_CITIES = "allCities";
+    public static final String JSP_BOX_ALL_HOTELS = "allHotels";
+    
     //order
     
     

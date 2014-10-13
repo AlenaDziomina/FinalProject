@@ -6,6 +6,12 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_CITIES;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_COUNTRIES;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DAYS_COUNT;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DEPART_DATE;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_HOTELS;
+import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_PRICE;
 import static by.epam.project.action.JspParamNames.JSP_CITY_NAME;
 import static by.epam.project.action.JspParamNames.JSP_CITY_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_NAME;
@@ -18,7 +24,12 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_CURR_DAYS_COUNT_FROM;
+import static by.epam.project.action.JspParamNames.JSP_CURR_DAYS_COUNT_TO;
 import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
+import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE_FROM;
+import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE_TO;
+import static by.epam.project.action.JspParamNames.JSP_CURR_DISCOUNT_FROM;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_STARS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
@@ -26,6 +37,8 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_TOUR;
+import static by.epam.project.action.JspParamNames.JSP_CURR_PRICE_FROM;
+import static by.epam.project.action.JspParamNames.JSP_CURR_PRICE_TO;
 import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
@@ -65,10 +78,9 @@ import java.util.List;
  *
  * @author User
  */
-public class ProcessSavedParameters implements ActionCommand{
+public abstract class ProcessSavedParameters {
 
-    @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public static String resaveParams(SessionRequestContent request) throws DaoUserLogicException {
         
         String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);
         if (currCountry != null) {
@@ -124,6 +136,76 @@ public class ProcessSavedParameters implements ActionCommand{
         if (currTransMode != null) {
             request.setAttribute(JSP_CURR_TRANS_MODE, currTransMode);
         }
+        
+        String currPriceFrom = request.getParameter(JSP_CURR_PRICE_FROM);
+        if (currPriceFrom != null) {
+            request.setAttribute(JSP_CURR_PRICE_FROM, currPriceFrom);
+        }
+        
+        String currPriceTo = request.getParameter(JSP_CURR_PRICE_TO);
+        if (currPriceTo != null) {
+            request.setAttribute(JSP_CURR_PRICE_TO, currPriceTo);
+        }
+        
+        String currDepartDateFrom = request.getParameter(JSP_CURR_DEPART_DATE_FROM);
+        if (currDepartDateFrom != null) {
+            request.setAttribute(JSP_CURR_DEPART_DATE_FROM, currDepartDateFrom);
+        }
+        
+        String currDepartDateTo = request.getParameter(JSP_CURR_DEPART_DATE_TO);
+        if (currDepartDateTo != null) {
+            request.setAttribute(JSP_CURR_DEPART_DATE_TO, currDepartDateTo);
+        }
+        
+        String currDaysCountFrom = request.getParameter(JSP_CURR_DAYS_COUNT_FROM);
+        if (currDaysCountFrom != null) {
+            request.setAttribute(JSP_CURR_DAYS_COUNT_FROM, currDaysCountFrom);
+        }
+        
+        String currDaysCountTo = request.getParameter(JSP_CURR_DAYS_COUNT_TO);
+        if (currDaysCountTo != null) {
+            request.setAttribute(JSP_CURR_DAYS_COUNT_TO, currDaysCountTo);
+        }
+        
+        String currDiscountFrom = request.getParameter(JSP_CURR_DISCOUNT_FROM);
+        if (currDiscountFrom != null) {
+            request.setAttribute(JSP_CURR_DISCOUNT_FROM, currDiscountFrom);
+        }
+        
+        String currStars = request.getParameter(JSP_CURR_HOTEL_STARS);
+        if (currStars != null) {
+           request.setAttribute(JSP_CURR_HOTEL_STARS, currStars);
+        }
+        
+        String allDepartDate = request.getParameter(JSP_BOX_ALL_DEPART_DATE);
+        if (allDepartDate != null) {
+            request.setAttribute(JSP_BOX_ALL_DEPART_DATE, allDepartDate);
+        }
+        
+        String allDaysCount = request.getParameter(JSP_BOX_ALL_DAYS_COUNT);
+        if (allDaysCount != null) {
+            request.setAttribute(JSP_BOX_ALL_DAYS_COUNT, allDaysCount);
+        }
+        
+        String allPrice = request.getParameter(JSP_BOX_ALL_PRICE);
+        if (allPrice != null) {
+            request.setAttribute(JSP_BOX_ALL_PRICE, allPrice);
+        }
+        
+        String allCountries = request.getParameter(JSP_BOX_ALL_COUNTRIES);
+        if (allCountries != null) {
+            request.setAttribute(JSP_BOX_ALL_COUNTRIES, allCountries);
+        }
+        
+        String allCities = request.getParameter(JSP_BOX_ALL_CITIES);
+        if (allCities != null) {
+            request.setAttribute(JSP_BOX_ALL_CITIES, allCities);
+        }
+        
+        String allHotels = request.getParameter(JSP_BOX_ALL_HOTELS);
+        if (allHotels != null) {
+            request.setAttribute(JSP_BOX_ALL_HOTELS, allHotels);
+        }
 
         createCurrHotelTag(request);
         
@@ -137,10 +219,14 @@ public class ProcessSavedParameters implements ActionCommand{
         
         createCurrHotel(request);
         
+       
+        
         return null;
     }
     
-    private void createCurrTour(SessionRequestContent request) {
+    
+    
+    private static void createCurrTour(SessionRequestContent request) {
         Tour currTour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
         if(currTour == null) {
             currTour = new Tour();
@@ -154,7 +240,7 @@ public class ProcessSavedParameters implements ActionCommand{
         request.setSessionAttribute(JSP_CURRENT_TOUR, currTour);
     }
 
-    private void createCurrHotelTag(SessionRequestContent request) throws DaoUserLogicException {
+    private static void createCurrHotelTag(SessionRequestContent request) throws DaoUserLogicException {
         String[] currHotelTags = request.getAllParameters(JSP_CURR_HOTEL_TAGS);
         if (currHotelTags != null) {
             List<Hotel> hotelTagList = new ArrayList();
@@ -177,7 +263,7 @@ public class ProcessSavedParameters implements ActionCommand{
         }
     }
 
-    private void createCurrDirect(SessionRequestContent request) {
+    private static void createCurrDirect(SessionRequestContent request) {
         Direction currDir = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
         if (currDir == null) {
             currDir = new Direction();
@@ -192,7 +278,7 @@ public class ProcessSavedParameters implements ActionCommand{
         request.setSessionAttribute(JSP_CURRENT_DIRECTION, currDir);
     }
     
-    private void createCurrCity(SessionRequestContent request) {
+    private static void createCurrCity(SessionRequestContent request) {
         City currCity = (City) request.getSessionAttribute(JSP_CURRENT_CITY);
         if (currCity == null) {
             currCity = new City();
@@ -205,7 +291,7 @@ public class ProcessSavedParameters implements ActionCommand{
         request.setSessionAttribute(JSP_CURRENT_CITY, currCity);
     }
     
-    private void createCurrCountry(SessionRequestContent request) {
+    private static void createCurrCountry(SessionRequestContent request) {
         Country currCountry = (Country) request.getSessionAttribute(JSP_CURRENT_COUNTRY);
         if (currCountry == null) {
             currCountry = new Country();
@@ -218,7 +304,7 @@ public class ProcessSavedParameters implements ActionCommand{
         request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
     }
     
-    private void createCurrHotel(SessionRequestContent request) {
+    private static void createCurrHotel(SessionRequestContent request) {
         Hotel currHotel = (Hotel) request.getSessionAttribute(JSP_CURRENT_HOTEL);
         if (currHotel == null) {
             currHotel = new Hotel();

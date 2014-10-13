@@ -23,14 +23,14 @@ import java.util.List;
  *
  * @author User
  */
-public class TourLogic {
+public class SearchLogic {
     
     public static List<Tour> getTours(Criteria criteria) throws DaoException {
         ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
         AbstractDao dao = DaoFactory.getInstance(role); 
         dao.open();
         try {
-            List<Tour> tours = dao.showTours(criteria);
+            List<Tour> tours = dao.searchTours(criteria);
             fillTours(tours, dao);
             return tours;   
         } catch (DaoException ex) {
@@ -40,7 +40,7 @@ public class TourLogic {
             dao.close();
         }
     }
-
+    
     private static void fillTours(List<Tour> tours, AbstractDao dao) throws DaoException {
         if (tours != null) {
             for (Tour tour : tours) {
@@ -49,45 +49,7 @@ public class TourLogic {
                 List<Direction> dir = dao.showDirections(crit1);
                 tour.setDirection(dir.get(0));
                 
-                Criteria crit2 = new Criteria();
-                crit2.addParam(DAO_ID_TOUR, tour.getIdTour());
-                List<Order> orders = dao.showOrders(crit2);
-                tour.setOrderCollection(orders);
-                
             }
         }
-    }
-    
-    public static Integer redactTour(Criteria criteria) throws DaoException {
-        
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        Integer idTour = (Integer) criteria.getParam(DAO_ID_TOUR);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        try {   
-            if (idTour == null) {      
-                return createTour(criteria, dao);
-            } else {
-                return updateTour(criteria, dao);
-            } 
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
-    }
-
-    private static Integer createTour(Criteria criteria, AbstractDao dao) throws DaoException {
-        List<Integer> res =  dao.createNewTour(criteria);   
-        return res.get(0);
-    }
-    
-    private static Integer updateTour(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans = new Criteria();
-        Integer idTour = (Integer) criteria.getParam(DAO_ID_TOUR);
-        beans.addParam(DAO_ID_TOUR, idTour);
-        dao.updateTour(beans, criteria);
-        return idTour;
     }
 }

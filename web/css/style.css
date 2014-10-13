@@ -179,7 +179,7 @@ li {
 .parameterRow {
     
     width: 98%;
-    min-height: 60px;
+    min-height: 45px;
     height: auto;
     float: left;
 }
@@ -203,6 +203,41 @@ li {
     color: darkmagenta;
     padding: 8px 10px 8px 15px;
     text-align:right;
+}
+
+.labelHL {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 2px 2px 1px #ccc;
+    font-weight: bold;
+    font-size: 17px;
+    color: darkmagenta;
+    padding: 8px 10px 8px 15px;
+    text-align:right;
+    padding: 10px;
+    float: right;
+}
+.labelHLm {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 2px 2px 1px #ccc;
+    font-weight: bold;
+    font-size: 14px;
+    color: darkmagenta;
+    padding: 8px 10px 8px 15px;
+    text-align:right;
+    padding: 10px;
+    float: right;
+}
+
+.labelHRm {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 2px 2px 1px #ccc;
+    font-weight: bold;
+    font-size: 14px;
+    color: darkmagenta;
+    padding: 8px 10px 8px 15px;
+    text-align:right;
+    padding: 10px;
+    
 }
 
 .inputLineContainer {
@@ -261,6 +296,20 @@ li {
     border: 2px outset navy;
     border-radius: .5em;
     margin: 0px 30px 0px 80px;
+    padding-left: 10px;
+}
+.boxMar{
+    margin: 15px 0px 5px 25px;
+}
+
+.checkBoxGr {
+    width: 250px;
+    height: 150px;
+    float: left;
+    overflow-y: scroll; 
+    border: 2px outset navy;
+    border-radius: .5em;
+    margin: 0px 30px 0px 10px;
     padding-left: 10px;
 }
 
@@ -368,8 +417,7 @@ li {
 }
 .tagColumnM {
     float: left;
-    width: 60%;
-    
+    width: 58%;
     padding: 0px 15px 15px 15px;
 }
 
@@ -526,6 +574,7 @@ li {
     font-size:11px;
     padding:8px 14px 9px;
     width: 100px;
+    margin: 0px;
 }
 .awesome,.awesome:visited,.medium.awesome,.medium.awesome:visited{
     font-size:13px;

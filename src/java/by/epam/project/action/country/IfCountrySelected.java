@@ -16,6 +16,7 @@ import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.action.ProcessSavedParameters;
+import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.action.city.GoShowCity;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import by.epam.project.action.hotel.GoShowHotel;
@@ -36,7 +37,7 @@ public class IfCountrySelected implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
-        new ProcessSavedParameters().execute(request);
+        resaveParams(request);
         request.setAttribute(JSP_CURR_ID_CITY, "0");
 
         String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);

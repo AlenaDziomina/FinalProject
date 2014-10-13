@@ -11,6 +11,7 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.action.ProcessSavedParameters;
+import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.action.hotel.GoShowHotel;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.controller.SessionRequestContent;
@@ -26,7 +27,7 @@ public class IfCitySelected implements ActionCommand {
     public String execute(SessionRequestContent request) throws DaoUserLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         
-        new ProcessSavedParameters().execute(request);
+        resaveParams(request);
         
         String currCity = request.getParameter(JSP_CURR_ID_CITY);
         if (currCity != null && !currCity.isEmpty()){

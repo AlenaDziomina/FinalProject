@@ -74,9 +74,9 @@
                                 "<fmt:message key="December" bundle="${ rb }" />" ] );
                         });
                     </script>
-
+                    <label class="labelHRm"><fmt:message key="from" bundle="${ rb }" /></label>
                     <input type="text" id="from" name="departDate" class="inputLineContainer" >
-                    <label for="to">to</label>
+                    <label class="labelHRm"><fmt:message key="to" bundle="${ rb }" />:</label>
                     <input type="text" id="to" name="arrivalDate" class="inputLineContainer" >
                 </div>
             </div>
