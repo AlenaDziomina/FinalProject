@@ -6,14 +6,25 @@
 
 package by.epam.project.action;
 
+import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
+import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_LIST;
+import static by.epam.project.action.JspParamNames.JSP_DISCOUNT_STEP;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_PRICE_STEP;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_TYPE_LIST;
+import static by.epam.project.action.JspParamNames.JSP_TRANS_MODE_LIST;
 import by.epam.project.controller.SessionRequestContent;
 
 /**
@@ -28,11 +39,21 @@ public class SessionGarbageCollector {
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        request.deleteSessionAttribute(JSP_CURR_COUNTRY_TAGS);
-        request.deleteSessionAttribute(JSP_CURR_CITY_TAGS);
-        request.deleteSessionAttribute(JSP_CURR_HOTEL_TAGS);
         request.deleteSessionAttribute(JSP_CURRENT_TOUR);
         
+        request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
+        request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
+        
+        request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
+        request.deleteSessionAttribute(JSP_CITY_TAG_LIST);
+        request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
+        
+        request.deleteSessionAttribute(JSP_TOUR_LIST);
+        request.deleteSessionAttribute(JSP_PRICE_STEP);
+        request.deleteSessionAttribute(JSP_DISCOUNT_STEP);
+        
+        request.setSessionAttribute(JSP_CURR_CITY_LIST, null);
+
     }
     
 }

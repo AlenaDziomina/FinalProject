@@ -136,14 +136,14 @@
                             <select id="currPriceFrom" name="priceFromSelection" class="selectContainer" size="1" >      
                                 <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                                 <c:forEach var="i" begin="1" end="20">
-                                    <option class="selectItem" value="${i}">${i*200}</option>
+                                    <option class="selectItem" value="${i}">${i*priceStep}</option>
                                 </c:forEach>
                             </select>
                             <label class="labelHRm"><fmt:message key="to" bundle="${ rb }" />:</label>
                             <select id="currPriceTo" name="priceToSelection" class="selectContainer" size="1" >      
                                 <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                                 <c:forEach var="i" begin="1" end="20">
-                                    <option class="selectItem" value="${i}">${i*200}</option>
+                                    <option class="selectItem" value="${i}">${i*priceStep}</option>
                                 </c:forEach>
                             </select>
                             <label class="labelHRm"><fmt:message key="$" bundle="${ rb }" /></label>
@@ -160,7 +160,7 @@
                         <select id="currDiscountFrom" name="discountFromSelection" class="selectContainer" size="1" >      
                             <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                             <c:forEach var="i" begin="1" end="10">
-                                <option class="selectItem" value="${i}">${i*10}</option>
+                                <option class="selectItem" value="${i}">${i*discountStep}</option>
                             </c:forEach>
                         </select>
                         <label class="labelHRm">%</label>
@@ -357,14 +357,19 @@
         </div>
     
                 
-        
+    <div id="erNote" class="centrale">${emptysearch}</div>
+    
     <c:forEach items="${tourList}" var="row">
+        
         <div class="parameterRowB">
             <img class="smallimg" id="images" src="<%=request.getContextPath()%>${row.direction.picture}">
             <div class="innerColumnD">
                 <a class="labelHTD" href="controller?command=showDirection&selectId=${row.direction.idDirection}">${row.direction.name} ${row.departDate}</a>
             </div>
             <h2 class="labelHD">${row.direction.text}</h2>
+            <div class="lblH">
+                tourType: ${row.direction.tourType.nameTourType}    transMode: ${row.direction.transMode.nameMode} 
+            </div>
             <h2 class="labelHD">${row.price}</h2>
             <div>
                 <ul class="containerLabel">

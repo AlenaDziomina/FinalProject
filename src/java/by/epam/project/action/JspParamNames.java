@@ -121,6 +121,8 @@ public abstract class JspParamNames {
     public static final String JSP_BOX_ALL_CITIES = "allCities";
     public static final String JSP_BOX_ALL_HOTELS = "allHotels";
     public static final String JSP_IS_HIDDEN = "isHidden";
+    public static final String JSP_PRICE_STEP = "priceStep";
+    public static final String JSP_DISCOUNT_STEP = "discountStep";
     
     //order
     

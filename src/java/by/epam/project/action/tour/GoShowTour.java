@@ -17,9 +17,11 @@ import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_DISCOUNT_STEP;
 import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_PRICE_STEP;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
@@ -37,6 +39,7 @@ import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.logic.SearchLogic;
 import by.epam.project.logic.TourLogic;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
@@ -61,6 +64,8 @@ public class GoShowTour implements ActionCommand {
         
         request.setSessionAttribute(JSP_COUNTRY_TAG_LIST, request.getSessionAttribute(JSP_COUNTRY_LIST));
         request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
+        request.setSessionAttribute(JSP_PRICE_STEP, ConfigurationManager.getProperty("price.step"));
+        request.setSessionAttribute(JSP_DISCOUNT_STEP, ConfigurationManager.getProperty("discount.step"));
         request.setAttribute(JSP_BOX_ALL_DEPART_DATE, true);
         request.setAttribute(JSP_BOX_ALL_DAYS_COUNT, true);
         request.setAttribute(JSP_BOX_ALL_PRICE, true);
@@ -79,7 +84,7 @@ public class GoShowTour implements ActionCommand {
         criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
         
         try {
-            List<Tour> tours = TourLogic.getTours(criteria);
+            List<Tour> tours = SearchLogic.getTours(criteria);
             request.setSessionAttribute(JSP_TOUR_LIST, tours);
         } catch (DaoException ex) {
             throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));

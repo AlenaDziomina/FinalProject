@@ -55,7 +55,7 @@ public abstract class DirectionLogic {
         }
     }
     
-    private static void fillDirections(List<Direction> directions, AbstractDao dao) throws DaoException {
+    public static void fillDirections(List<Direction> directions, AbstractDao dao) throws DaoException {
         getCountryCollection(dao, directions);
         getCityCollection(dao, directions);
         getStayHotelCollection(dao, directions);  

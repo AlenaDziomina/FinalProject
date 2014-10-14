@@ -44,6 +44,15 @@ public class ParamManager {
         return null;
     }
     
+    public static Boolean getBoolParam(SessionRequestContent request, String name) {
+        String param = (String) request.getParameter(name);
+        if (param != null && !param.isEmpty()) {
+            Boolean currParam = Boolean.parseBoolean(param);
+            return currParam;
+        }
+        return null;
+    }
+    
     public static Float getFltParam(SessionRequestContent request, String name){
         String param = (String) request.getParameter(name);
         if (param != null && !param.isEmpty()) {
