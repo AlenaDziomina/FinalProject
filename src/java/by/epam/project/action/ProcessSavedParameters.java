@@ -210,7 +210,7 @@ public abstract class ProcessSavedParameters {
         
         String isHidden = request.getParameter(JSP_IS_HIDDEN);
         if(isHidden != null) {
-            request.setAttribute(JSP_IS_HIDDEN, isHidden);
+            request.setAttribute(JSP_IS_HIDDEN, false);
         }
 
         createCurrHotelTag(request);

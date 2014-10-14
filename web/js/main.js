@@ -89,6 +89,12 @@ function saveBox(form, idElem){
         box.name = idElem;
         box.value=true;
         form.appendChild(box);
+    }else {
+        var box = document.createElement("input");
+        box.type = "hidden";
+        box.name = idElem;
+        box.value= false;
+        form.appendChild(box);
     }
 }
 

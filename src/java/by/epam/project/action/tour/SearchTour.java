@@ -85,7 +85,7 @@ public class SearchTour implements ActionCommand {
         try {
             List<Tour> tours = SearchLogic.getTours(criteria);
             request.setSessionAttribute(JSP_TOUR_LIST, tours);
-            request.setAttribute(JSP_IS_HIDDEN, true);
+            request.setAttribute(JSP_IS_HIDDEN, false);
             return page;
         } catch (DaoAccessPermission ex) {
             request.setAttribute("errorReason", MessageManager.getProperty("message.errordaoaccess"));
