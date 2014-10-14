@@ -9,10 +9,10 @@
     <c:forEach items="${directionList}" var="row">
         <div class="parameterRowB">
             <img class="smallimg" id="images" src="<%=request.getContextPath()%>${row.picture}">
-            <div class="innerColumnD">
-                <a class="labelHTD" href="controller?command=showDirection&selectId=${row.idDirection}">${row.name}</a>
+            <div class="padB">
+                <a class="nodec cntr labelH" href="controller?command=showDirection&selectId=${row.idDirection}">${row.name}</a>
             </div>
-            <h2 class="labelHD">${row.text}</h2>
+            <h2 class="small lft labelH">${row.text}</h2>
             
             <div>
                 <ul class="containerLabel">

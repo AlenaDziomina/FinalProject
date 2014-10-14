@@ -6,14 +6,14 @@
 
 <div id="main">
     <form id="updHotel" method="POST" action="controller">
-        <div class="innerColumn">
+        <div class="inner">
             <input type="hidden" name="command" value="saveRedactHotel" />
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="selectCountry" bundle="${ rb }" />: </h1>
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <select id="currCountry" class="selectContainer" size="1" onchange="postHot('controller', 'ifCountrySelected', 'POST')">      
                         <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                         <c:forEach items="${countryList}" var="row">
@@ -28,10 +28,10 @@
             </script>
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="selectCity" bundle="${ rb }" />: </h1>
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <select id="currCity" name="citySelection" class="selectContainer" size="1">      
                         <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                         <c:forEach items="${currCityList}" var="row">
@@ -47,19 +47,19 @@
             
             <input type="hidden" name="idHotel" value="${currHotel.idHotel}"/>
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="hotelName" bundle="${ rb }" />: </h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="nameHotel" class="inputLineContainer"  value="${currHotel.name}"/>
                 </div>
             </div>
                     
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="selectHotelStars" bundle="${ rb }" />: </h1>
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <select id="currStars" name="starsSelection" class="selectContainer" size="1" >      
                         <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                         <c:forEach var="i" begin="1" end="5">
@@ -74,20 +74,20 @@
             </script>
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="hotelPicture" bundle="${ rb }" />:</h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="pictureHotel" class="inputLineContainer" value="${currHotel.picture}"/>
                 </div>      
             </div>
             
             <input type="hidden" name="idDescription" value="${currHotel.description.idDescription}"/>
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="hotelDescription" bundle="${ rb }" />:</h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <textarea name="textDescription" class="inputMultilineineContainer">${currHotel.description.text}</textarea>
                 </div>
             </div>

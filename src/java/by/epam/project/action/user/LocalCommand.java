@@ -13,6 +13,7 @@ import static by.epam.project.action.JspParamNames.JSP_LOCALE;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;

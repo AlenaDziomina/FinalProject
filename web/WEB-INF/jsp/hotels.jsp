@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="main">
-    <div class="leftColumn innerColumn">
+    <div class="left inner column">
         <select id="currHotel" class="container" size="15" onchange="if(this.value)(post('controller', {selectId: this.value, command: 'showHotel'}, 'POST'))">               
             <c:forEach items="${hotelList}" var="row">
                 <option class="menuHref" value="${row.idHotel}">${row.name}</option>
@@ -23,7 +23,7 @@
         select("currHotel", ${currIdHotel});
     </script>      
     
-    <div class="centerColumn innerColumn">
+    <div class="center inner column">
         <div id="erNote">${errorGetListMessage}</div>
         <c:if test="${currHotel.picture != null}">
             <img class="currimg" id="images" src="<%=request.getContextPath()%>${currHotel.picture}">

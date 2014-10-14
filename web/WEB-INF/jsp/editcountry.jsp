@@ -7,35 +7,35 @@
 <div id="main">
     
     <form id="updCountry" name="updateCountry" method="POST" action="controller">
-        <div class="innerColumn">
+        <div class="inner">
             <input type="hidden" name="command" value="saveRedactCountry" />
             
             <input type="hidden" name="idCountry" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="countryName" bundle="${ rb }" />: </h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="nameCountry" class="inputLineContainer" value="${currCountry.name}"/>
                 </div>
             </div>
             
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="countryPicture" bundle="${ rb }" />:</h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="pictureCountry" class="inputLineContainer" value="${currCountry.picture}"/>
                 </div>      
             </div>
             
             <input type="hidden" name="idDescription" value="${currCountry.description.idDescription}"/>
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH"><fmt:message key="countryDescription" bundle="${ rb }" />:</h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <textarea name="textDescription" class="inputMultilineineContainer">${currCountry.description.text}</textarea>
                 </div>
             </div>

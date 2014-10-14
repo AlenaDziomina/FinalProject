@@ -6,11 +6,11 @@
 
 <div id="main">
     <form id="updDirection" method="POST" action="controller">
-        <div class="innerColumn">
+        <div class="inner">
             <input type="hidden" name="command" value="saveRedactDirection" />
             <div class="parameterRow">
-                <div class="tagColumn">
-                    <h1 class="labelHT"><fmt:message key="selectTourType" bundle="${ rb }" />:</h1>
+                <div class="small padinput">
+                    <h1 class="cntr labelH"><fmt:message key="selectTourType" bundle="${ rb }" />:</h1>
                     <div class="centraleContainer">
                         <select id="tourType" class="selectContainer" size="1">      
                             <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
@@ -19,7 +19,7 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <h1 class="labelHT"><fmt:message key="selectTransMode" bundle="${ rb }" />:</h1>    
+                    <h1 class="cntr labelH"><fmt:message key="selectTransMode" bundle="${ rb }" />:</h1>    
                     <div class="centraleContainer">
                         <select id="transMode" class="selectContainer" size="1">      
                             <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
@@ -30,8 +30,8 @@
                     </div>
                 </div>
                 
-                <div class="tagColumn">         
-                    <h1 class="labelHT"><fmt:message key="selectCountries" bundle="${ rb }" />: </h1>     
+                <div class="small padinput">         
+                    <h1 class="cntr labelH"><fmt:message key="selectCountries" bundle="${ rb }" />: </h1>     
                     <div class="checkBoxGroup">
                         <c:forEach items="${countryTagList}" var="row">
                             <input type="checkbox" name="countryTag" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /><br>
@@ -39,8 +39,8 @@
                     </div>  
                 </div>    
                     
-                <div class="tagColumn">         
-                    <h1 class="labelHT"><fmt:message key="selectCities" bundle="${ rb }" />: </h1>     
+                <div class="small padinput">         
+                    <h1 class="cntr labelH"><fmt:message key="selectCities" bundle="${ rb }" />: </h1>     
                     <div class="checkBoxGroup">
                         <c:forEach items="${cityTagList}" var="row">
                             <input type="checkbox" name="cityTag" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /><br>
@@ -50,14 +50,14 @@
             </div>
                 
             <div class="parameterRowB">
-                <div class="tagColumnS">
-                    <h1 class="labelHT"><fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
-                    <div id="currHotelTag" class="checkBoxGroup2"></div>
+                <div class="padinput">
+                    <h1 class="cntr labelH"><fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
+                    <div id="currHotelTag" class="bger checkBoxGroup"></div>
                 </div>
-                <div class="tagColumnM">
-                    <div class="tagColumnL">
-                        <h1 class="labelHT">1. <fmt:message key="selectCountry" bundle="${ rb }" />:</h1>
-                        <div class="centraleContainerS">
+                <div class="large padinput">
+                    <div class="mid padinput">
+                        <h1 class="cntr labelH">1. <fmt:message key="selectCountry" bundle="${ rb }" />:</h1>
+                        <div class="lftS centraleContainer">
                             <select id="currCountry" class="selectContainer" size="1" onchange="postDir('controller', 'ifCountrySelected', 'POST')">      
                                 <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                                 <c:forEach items="${countryList}" var="row">
@@ -66,9 +66,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="tagColumnL">
-                        <h1 class="labelHT">2. <fmt:message key="selectCity" bundle="${ rb }" />:</h1>
-                        <div class="centraleContainerS">
+                    <div class="mid padinput">
+                        <h1 class="cntr labelH">2. <fmt:message key="selectCity" bundle="${ rb }" />:</h1>
+                        <div class="lftS centraleContainer">
                             <select id="currCity" class="selectContainer" size="1" onchange="postDir('controller', 'ifCitySelected', 'POST')">      
                                 <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                                 <c:forEach items="${cityList}" var="row">
@@ -77,9 +77,9 @@
                             </select> 
                         </div>
                     </div>
-                    <div class="tagColumnL">
-                        <h1 class="labelHT">3. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
-                        <div class="centraleContainerS">
+                    <div class="mid padinput">
+                        <h1 class="cntr labelH">3. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
+                        <div class="lftS centraleContainer">
                             <select id="currHotel" class="selectContainer" size="1">      
                                 <option class="selectItem" value="0"> - <fmt:message key="select" bundle="${ rb }" /> - </option>
                                 <c:forEach items="${hotelList}" var="row">
@@ -88,9 +88,9 @@
                             </select> 
                         </div> 
                     </div>
-                    <div class="tagColumnL">
-                        <h1 class="labelHT">4. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
-                        <div class="centraleContainerB">
+                    <div class="mid padinput">
+                        <h1 class="cntr labelH">4. <fmt:message key="selectHotel" bundle="${ rb }" />:</h1>
+                        <div class="lftL centraleContainer">
                             <label id="menuText" onclick="funcAdd()">ADD HOTEL</label>
                         </div>
                     </div>
@@ -124,25 +124,25 @@
         
             <input type="hidden" name="idDirection" value="${currDirection.idDirection}"/>
             <div class="parameterRow">
-                <div class="tagColumnS">
-                    <h1 class="labelHT"><fmt:message key="directName" bundle="${ rb }" />: </h1> 
-                    <input type="text" class="inputLineContainerM" name="nameDirection" value="${currDirection.name}"/> 
-                    <h1 class="labelHT"><fmt:message key="directPicture" bundle="${ rb }" />:</h1> 
-                    <input type="text" class="inputLineContainerM" name="pictureDirection"   value="${currDirection.picture}"/>
+                <div class="padinput">
+                    <h1 class="cntr labelH"><fmt:message key="directName" bundle="${ rb }" />: </h1> 
+                    <input type="text" class="large inputLineContainer" name="nameDirection" value="${currDirection.name}"/> 
+                    <h1 class="cntr labelH"><fmt:message key="directPicture" bundle="${ rb }" />:</h1> 
+                    <input type="text" class="large inputLineContainer" name="pictureDirection"   value="${currDirection.picture}"/>
                 </div>
-                <div class="tagColumnM">
-                    <h1 class="labelHT"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
-                    <textarea name="textDirection" class="inputMultilineineContainerB">${currDirection.text}</textarea>
+                <div class="large padinput">
+                    <h1 class="cntr labelH"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
+                    <textarea name="textDirection" class="small inputMultilineineContainer">${currDirection.text}</textarea>
                 </div>    
             </div>
             
             <input type="hidden" name="idDescription" value="${currDirection.description.idDescription}"/>
             <div class="parameterRow">
-                <div class="labelColumnS">
+                <div class="small input">
                     <h1 class="labelH"><fmt:message key="directDescription" bundle="${ rb }" />:</h1> 
                 </div>
-                <div class="inputColumnL innerColumn">
-                    <textarea name="textDescription" class="inputMultilineineContainerD">${currDirection.description.text}</textarea>
+                <div class="large input inner">
+                    <textarea name="textDescription" class="large inputMultilineineContainer">${currDirection.description.text}</textarea>
                 </div>
             </div>        
                    

@@ -4,6 +4,30 @@
  * and open the template in the editor.
  */
 
+function buyTour(path, comnd, method){
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "command";
+    elem.value = comnd;
+    form.appendChild(elem);
+        
+    var idTour = document.getElementById("currIdTour").value;
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "currIdTour";
+    elem.value = idTour;
+    form.appendChild(elem);
+        
+    document.body.appendChild(form);
+    form.submit();
+}
+
+
 function saveAllSearch() {
     var form = document.getElementById("srcTour");
     saveCountryTags(form);
@@ -517,25 +541,25 @@ function selectTourType(n){
 }
 
 
-function selectCountry(n){
-    var form = document.getElementById("updCity");
-    var id = form.idCountry;
-    id.setAttribute("value", n);
-  
-}
-
-function selectCity(n){
-    var form = document.getElementById("updHotel");
-    var id = form.idCity;
-    id.setAttribute("value", n);
-    
-}
-
-function selectStars(n){
-    var form = document.getElementById("updHotel");
-    var id = form.stars_hotel;
-    id.setAttribute("value", n);
-}
+//function selectCountry(n){
+//    var form = document.getElementById("updCity");
+//    var id = form.idCountry;
+//    id.setAttribute("value", n);
+//  
+//}
+//
+//function selectCity(n){
+//    var form = document.getElementById("updHotel");
+//    var id = form.idCity;
+//    id.setAttribute("value", n);
+//    
+//}
+//
+//function selectStars(n){
+//    var form = document.getElementById("updHotel");
+//    var id = form.stars_hotel;
+//    id.setAttribute("value", n);
+//}
 
 
 

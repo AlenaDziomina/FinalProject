@@ -8,7 +8,7 @@
 
 <div id="main">
     
-    <div class="leftColumn innerColumn">
+    <div class="left inner column">
         <select id="currCity" class="container" size="15" onchange="if(this.value)(post('controller', {selectId: this.value, command: 'showCity'}, 'POST'))">               
             <c:forEach items="${cityList}" var="row">
                 <option class="menuHref" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
@@ -20,7 +20,7 @@
         </form>
     </div>
     
-    <div class="centerColumn innerColumn">
+    <div class="center inner column">
         <div id="erNote">${errorGetListMessage}</div>
         <c:if test="${currCity.picture != null}">
             <img class="currimg" id="images" src="<%=request.getContextPath()%>${currCity.picture}">
@@ -30,11 +30,11 @@
         </div>
         <form method="POST" action="controller">
             <input type="hidden" name="command" value="goEditCity" />
-            <input class="innerColumn centrale large orange awesome" type="submit" value="<fmt:message key="editCity" bundle="${ rb }" />"/>
+            <input class="centrale large orange awesome" type="submit" value="<fmt:message key="editCity" bundle="${ rb }" />"/>
         </form>
     </div>
         
-    <div class="rigthColumn innerColumn">
+    <div class="rigth inner column">
         <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showHotel'}, 'POST'))">               
             <c:forEach items="${currCity.hotelCollection}" var="row">
                 <option class="menuHref" value="${row.idHotel}">${row.name}"</option>

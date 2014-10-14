@@ -5,13 +5,13 @@
 --%>
 
 <div id="main">
-    <div class="innerColumn">
+    <div class="inner">
         <div class="parameterRowD">
             <img class="smallimg" id="images" src="<%=request.getContextPath()%>${currDirection.picture}">
-            <div class="innerColumnD">
-                <a class="labelHTD" href="controller?command=showDirection&selectId=${currDirection.idDirection}">${currDirection.name}</a>
+            <div class="padB">
+                <a class="nodec cntr labelH" href="controller?command=showDirection&selectId=${currDirection.idDirection}">${currDirection.name}</a>
             </div>
-            <h2 class="labelHD">${currDirection.text}</h2>
+            <h2 class="small lft labelH">${currDirection.text}</h2>
             <div class="lblH">
                 tourType: ${currDirection.tourType.nameTourType}    transMode: ${currDirection.transMode.nameMode} 
             </div>

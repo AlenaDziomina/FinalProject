@@ -7,16 +7,16 @@
 
 <div id="main">
     <form id="updTour" name="updateTour" method="POST" action="controller">
-        <div class="innerColumn">
+        <div class="inner">
             <input type="hidden" name="command" value="saveRedactTour" />
             <input type="hidden" name="currIdDirection" value="${currIdDirection}"/>
             <input type="hidden" name="currIdTour" value="${currTour.idTour}"/>
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH">DepartDate: </h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/redmond/jquery-ui.css">
                     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
                     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
@@ -74,45 +74,45 @@
                                 "<fmt:message key="December" bundle="${ rb }" />" ] );
                         });
                     </script>
-                    <label class="labelHRm"><fmt:message key="from" bundle="${ rb }" /></label>
+                    <label class="small padR labelH"><fmt:message key="from" bundle="${ rb }" /></label>
                     <input type="text" id="from" name="departDate" class="inputLineContainer" >
-                    <label class="labelHRm"><fmt:message key="to" bundle="${ rb }" />:</label>
+                    <label class="small padR labelH"><fmt:message key="to" bundle="${ rb }" />:</label>
                     <input type="text" id="to" name="arrivalDate" class="inputLineContainer" >
                 </div>
             </div>
                     
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH">Price:</h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="price" class="inputLineContainer" value="${currTour.price}"/>
                 </div>      
             </div>      
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH">Discount: </h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="discount" class="inputLineContainer" value="${currTour.discount}"/>
                 </div>      
             </div>      
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH">totalSeats: </h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="totalSeats" class="inputLineContainer" value="${currTour.totalSeats}"/>
                 </div>      
             </div>             
             
             <div class="parameterRow">
-                <div class="labelColumn">
+                <div class="mid input">
                     <h1 class="labelH">freeSeats: </h1> 
                 </div>
-                <div class="inputColumn innerColumn">
+                <div class="input inner">
                     <input type="text" name="freeSeats" class="inputLineContainer" value="${currTour.freeSeats}"/>
                 </div>      
             </div>   

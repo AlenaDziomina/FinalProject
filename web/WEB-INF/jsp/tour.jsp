@@ -6,7 +6,7 @@
 
 <div id="main">
     
-    <div class="leftColumn innerColumn">
+    <div class="left inner column">
         <select id="currTour" class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showTour'}, 'POST'))">               
             <c:forEach items="${tourList}" var="row">
                 <option class="menuHref" value="${row.idTour}">${row.departDate}</option>
@@ -23,7 +23,7 @@
         select("currTour", ${currIdTour});
     </script> 
     
-    <div class="centerColumn innerColumn">
+    <div class="center inner column">
         <div class="parameterRow">
             <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/redmond/jquery-ui.css">
             <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -57,11 +57,11 @@
                     "<fmt:message key="December" bundle="${ rb }" />" ] );
             });
             </script>
-            <div class="labelColumn">
+            <div class="mid input">
                 <h1 class="labelH">Date:</h1> 
             </div>
-            <div class="inputColumn innerColumn">
-                <div class="innerColumn">
+            <div class="input inner">
+                <div class="inner">
                     <label class="inputLineContainer">from ${departDate} to ${arrivalDate}</label>
                 </div>
                 <div id="datepicker"></div>
@@ -69,44 +69,44 @@
         </div>
         
         <div class="parameterRow">
-            <div class="labelColumn">
+            <div class="mid input">
                 <h1 class="labelH">Price:</h1> 
             </div>
-            <div class="inputColumn innerColumn">
+            <div class="input inner">
                 <label class="inputLineContainer" name="price">${currTour.price}</label>
             </div>      
         </div>      
             
         <div class="parameterRow">
-            <div class="labelColumn">
+            <div class="mid input">
                 <h1 class="labelH">Discount: </h1> 
             </div>
-            <div class="inputColumn innerColumn">
+            <div class="input inner">
                 <label name="discount" class="inputLineContainer">${currTour.discount}</label>
             </div>      
         </div>      
             
         <div class="parameterRow">
-            <div class="labelColumn">
+            <div class="mid input">
                 <h1 class="labelH">totalSeats: </h1> 
             </div>
-            <div class="inputColumn innerColumn">
+            <div class="input inner">
                 <label name="totalSeats" class="inputLineContainer">${currTour.totalSeats}</label>
             </div>      
         </div>             
             
         <div class="parameterRow">
-            <div class="labelColumn">
+            <div class="mid input">
                 <h1 class="labelH">freeSeats: </h1> 
             </div>
-            <div class="inputColumn innerColumn">
+            <div class="input inner">
                 <label name="freeSeats" class="inputLineContainer">${currTour.freeSeats}</label>
             </div>      
         </div>   
 
         <form method="POST" action="controller">
             <input type="hidden" name="command" value="goEditTour" />
-            <input class="innerColumn centrale large orange awesome" type="submit" value="<fmt:message key="editTour" bundle="${ rb }" />"/>
+            <input class="centrale large orange awesome" type="submit" value="<fmt:message key="editTour" bundle="${ rb }" />"/>
         </form>
     </div>
 </div>

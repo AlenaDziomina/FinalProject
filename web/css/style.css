@@ -31,8 +31,6 @@ li {
     list-style-position: inside;
 }
 
-
-
 #header {
     text-align: center;
     height: 70px;
@@ -119,8 +117,6 @@ li {
     text-decoration: none;
 }
 
-
-
 #menuText:hover {
     background-color: #2daebf;
     transform: scale(1.2);
@@ -128,42 +124,66 @@ li {
 }
 
 .container {
-    
     width: 100%; 
     height: 100%; 
     overflow-y: scroll; 
     background-color: paleturquoise;
 }
 
-.leftColumn {
-    float: left;
-    border:2px solid #ccc; 
-    
+.column {
     min-height: 400px;
     min-width: 100px;
     width: 20%;
     height: 100%;
-}
-
-.rigthColumn {
-    float: right;
     border:2px solid #ccc; 
-    
-    min-height: 400px;
-    min-width: 100px;
-    width: 20%;
-    height: 100%;
 }
-
-.centerColumn {
-    width: 52%;
-    min-width: 200px;
-    float: left; 
-    height: 100%;
-}
-.innerColumn {
+.inner.column, .inner {
     padding: 15px;
 }
+.left.inner.column {
+    float: left;
+}
+.rigth.inner.column {
+    float: right;
+}
+.center.inner.column {
+    min-width: 200px;
+    width: 52%;
+    float: left; 
+    border: none;
+}
+.input.inner, .input {
+    float: left;
+    width: 66%;
+}
+.large.input.inner {
+    width: 78%;
+}
+.mid.input {
+    width: 30%;
+}
+.small.input {
+    width: 20%;
+}
+.padinput {
+    float: left;
+    padding: 0px 15px 15px 15px;
+    width: 35%;    
+}
+.small.padinput{
+    width: 30%;
+}
+.mid.padinput {
+    width: 45%;
+}
+.large.padinput {
+    width: 58%;
+}
+.padB {
+    padding: 15px 15px 0px 15px;
+}
+
+
 .currimg {
     width: 600px;
     height: auto;
@@ -177,23 +197,24 @@ li {
 }
 
 .parameterRow {
-    
     width: 98%;
     min-height: 45px;
     height: auto;
     float: left;
 }
 
-.labelColumn {
+.parameterRowB {
+    border: 2px outset navy;
+    border-radius: .5em;
+    width: 99.7%;
+    min-height: 60px;
+    height: auto;
     float: left;
-    width: 30%;
 }
 
-.inputColumn {
-    float: left;
-    width: 66%;
-    
-}
+
+
+
 
 .labelH {
     font-family: 'League Gotic', Arial, sans-serif;
@@ -204,41 +225,35 @@ li {
     padding: 8px 10px 8px 15px;
     text-align:right;
 }
-
-.labelHL {
-    font-family: 'League Gotic', Arial, sans-serif;
-    text-shadow: 2px 2px 1px #ccc;
-    font-weight: bold;
-    font-size: 17px;
-    color: darkmagenta;
-    padding: 8px 10px 8px 15px;
-    text-align:right;
+.padL.labelH {
     padding: 10px;
     float: right;
 }
-.labelHLm {
-    font-family: 'League Gotic', Arial, sans-serif;
-    text-shadow: 2px 2px 1px #ccc;
-    font-weight: bold;
-    font-size: 14px;
-    color: darkmagenta;
-    padding: 8px 10px 8px 15px;
-    text-align:right;
+.padR.labelH {
     padding: 10px;
-    float: right;
+}
+.lft.labelH {
+    text-shadow:none;
+    padding: 0;
+    text-align: left;
+}
+.cntr.labelH {
+    padding: 0;
+    text-align: center;
+}
+.nodec.cntr.labelH {
+    text-decoration: none;
+}
+.small.padL.labelH, .small.padR.labelH, .small.lft.labelH {
+    font-size: 14px;
+}
+.grnt.small.lft.labelH {
+    color: #749a02;
+}
+.blu.small.lft.labelH {
+    color: #007d9a;
 }
 
-.labelHRm {
-    font-family: 'League Gotic', Arial, sans-serif;
-    text-shadow: 2px 2px 1px #ccc;
-    font-weight: bold;
-    font-size: 14px;
-    color: darkmagenta;
-    padding: 8px 10px 8px 15px;
-    text-align:right;
-    padding: 10px;
-    
-}
 
 .inputLineContainer {
     font-family: 'League Gotic', Arial, sans-serif;
@@ -247,6 +262,10 @@ li {
     text-align:left;
     width: 250px;
 }
+.large.inputLineContainer {
+    width: 100%;
+}
+
 
 .inputMultilineineContainer {
     font-family: 'League Gotic', Arial, sans-serif;
@@ -257,6 +276,14 @@ li {
     height: auto;
     min-height: 250px;
 }
+.small.inputMultilineineContainer {
+    min-height: 100px;
+}
+.large.inputMultilineineContainer {
+    min-height: 400px;
+    width: 120%;
+}
+
 
 .selectContainer {
     font-size: 17px;
@@ -282,10 +309,14 @@ li {
 
 .centraleContainer {
     position: relative;
-    left: 25%;
     width: 75%;
-    
-    
+    left: 25%;
+}
+.lftS.centraleContainer {
+    left: 10%;
+}
+.lftL.centraleContainer {
+    left: 30%;
 }
 
 .checkBoxGroup {
@@ -298,6 +329,13 @@ li {
     margin: 0px 30px 0px 80px;
     padding-left: 10px;
 }
+.bger.checkBoxGroup{
+    width: 75%;
+    height: 150px;  
+    margin-left: 15%;
+    float: inside;
+}
+
 .boxMar{
     margin: 15px 0px 5px 25px;
 }
@@ -312,46 +350,6 @@ li {
     margin: 0px 30px 0px 10px;
     padding-left: 10px;
 }
-
-.tagColumn {
-    float: left;
-    width: 30%;
-    
-    padding: 0px 15px 15px 15px;
-}
-
-.labelHT {
-    font-family: 'League Gotic', Arial, sans-serif;
-    text-shadow: 2px 2px 1px #ccc;
-    font-weight: bold;
-    font-size: 17px;
-    color: darkmagenta;
-    text-align: center;
-}
-
-.labelHTD {
-    font-family: 'League Gotic', Arial, sans-serif;
-    text-shadow: 2px 2px 1px #ccc;
-    font-weight: bold;
-    font-size: 17px;
-    color: darkmagenta;
-    text-align: center;
-    text-decoration: none;
-    
-}
-
-.innerColumnD {
-    padding: 15px 15px 0px 15px;
-}
-
-.labelHD {
-    font-family: 'League Gotic', Arial, sans-serif;
-    font-weight: bold;
-    font-size: 14px;
-    color: darkmagenta;
-    text-align: left;
-}
-
 
 #prompt-form {
   display: inline-block;
@@ -396,97 +394,6 @@ li {
   display: block;
   margin: 5px;
   width: 180px;
-}
-
-.checkBoxGroup2{
-    width: 75%;
-    height: 150px;  
-    overflow-y: scroll; 
-    border: 2px outset navy;
-    border-radius: .5em;
-    margin-left: 15%;
-    padding-left: 10px;
-    float: inside;
-}
-
-.tagColumnS {
-    float: left;
-    width: 35%;
-    
-    padding: 0px 15px 15px 15px;
-}
-.tagColumnM {
-    float: left;
-    width: 58%;
-    padding: 0px 15px 15px 15px;
-}
-
-.tagColumnL {
-    float: left;
-    width: 45%;
-    
-    padding: 0px 15px 15px 15px;
-}
-
-.centraleContainerS {
-    position: relative;
-    left: 10%;
-    width: 75%;
-    
-    
-}
-.centraleContainerB {
-    position: relative;
-    left: 30%;
-    width: 75%;
-    
-    
-}
-
-.parameterRowB {
-    border: 2px outset navy;
-    border-radius: .5em;
-    width: 99.7%;
-    min-height: 60px;
-    height: auto;
-    float: left;
-}
-
-.inputLineContainerM {
-    font-family: "League Gotic",Arial,sans-serif;
-    font-size: 17px;
-    padding: 5px;
-    text-align: left;
-    width: 100%;
-}
-
-.inputMultilineineContainerB {
-    font-family: 'League Gotic', Arial, sans-serif;
-    font-size: 17px;
-    padding: 5px 5px 5px 5px;
-    text-align:justify;
-    width: 97%;
-    height: auto;
-    min-height: 100px;
-}
-
-.inputMultilineineContainerD {
-    font-family: 'League Gotic', Arial, sans-serif;
-    font-size: 17px;
-    padding: 5px 5px 5px 5px;
-    text-align:justify;
-    width: 97%;
-    height: auto;
-    min-height: 100px;
-}
-
-.labelColumnS {
-    float: left;
-    width: 20%;
-}
-.inputColumnL {
-    float: left;
-    width: 78%;
 }
 
 .smallimg {
@@ -544,8 +451,6 @@ li {
     text-align:justify;
 
 }
-
-
 
 .awesome,.awesome:visited {
     background:#222 url(alert-overlay.png) repeat-x;
