@@ -99,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="parameterRow">
                     <div class="mid input">
                         <label class="padL labelH"><fmt:message key="tourDaysCount" bundle="${ rb }" />:</label>

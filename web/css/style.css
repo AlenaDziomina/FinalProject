@@ -18,6 +18,7 @@ html {
 
 body {
     width: 80%;
+    min-width: 1000px;
     height: 90%;
     padding: 20px;
     margin: 0 auto;
@@ -138,7 +139,7 @@ li {
     border:2px solid #ccc; 
 }
 .inner.column, .inner {
-    padding: 15px;
+    padding: 1.2%;
 }
 .left.inner.column {
     float: left;
@@ -152,6 +153,9 @@ li {
     float: left; 
     border: none;
 }
+.full.center.inner.column {
+    width: 74%;
+}
 .input.inner, .input {
     float: left;
     width: 66%;
@@ -159,6 +163,7 @@ li {
 .large.input.inner {
     width: 78%;
 }
+
 .mid.input {
     width: 30%;
 }
@@ -185,7 +190,7 @@ li {
 
 
 .currimg {
-    width: 600px;
+    width: 500px;
     height: auto;
     float: left;
     margin: 20px;
@@ -437,7 +442,7 @@ li {
 }
 .parameterRowDR {
     padding-left: 15px;
-    width: 28%;
+    width: 27%;
     min-height: 60px;
     height: auto;
     float: left;
@@ -467,6 +472,7 @@ li {
     cursor:pointer;
     font-family: 'League Gotic', Arial, sans-serif;
     margin: 15px;
+    max-width: 80%;
 }
 .awesome:hover{
     background-color:#111;
@@ -492,6 +498,7 @@ li {
     font-size:16px;
     padding:8px 14px 9px;
     width: 250px;
+    
 }
 .green.awesome,.green.awesome:visited{
     background-color:rgba(149, 192, 20, 0.8);

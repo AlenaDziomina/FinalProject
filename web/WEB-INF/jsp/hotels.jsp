@@ -23,7 +23,7 @@
         select("currHotel", ${currIdHotel});
     </script>      
     
-    <div class="center inner column">
+    <div class="full center inner column">
         <div id="erNote">${errorGetListMessage}</div>
         <c:if test="${currHotel.picture != null}">
             <img class="currimg" id="images" src="<%=request.getContextPath()%>${currHotel.picture}">

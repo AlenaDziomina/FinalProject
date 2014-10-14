@@ -23,7 +23,7 @@
         select("currTour", ${currIdTour});
     </script> 
     
-    <div class="center inner column">
+    <div class="full center inner column">
         <div class="parameterRow">
             <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/redmond/jquery-ui.css">
             <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -64,8 +64,10 @@
                 <div class="inner">
                     <label class="inputLineContainer">from ${departDate} to ${arrivalDate}</label>
                 </div>
-                <div id="datepicker"></div>
             </div>
+        </div>
+        <div class="parameterRow">
+            <div id="datepicker"></div>
         </div>
         
         <div class="parameterRow">
