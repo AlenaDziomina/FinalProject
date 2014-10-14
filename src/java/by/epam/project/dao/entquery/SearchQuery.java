@@ -303,7 +303,7 @@ public class SearchQuery implements TypedQuery<Tour> {
                 bean.setDiscount(rs.getInt(DB_TOUR_DISCOUNT));
                 bean.setTotalSeats(rs.getInt(DB_TOUR_TOTAL_SEATS));
                 bean.setFreeSeats(rs.getInt(DB_TOUR_FREE_SEATS));
-                bean.setDirection(DirectionQuery.createBean(criteria));
+                bean.setDirection(new Direction(rs.getInt(DB_TOUR_ID_DIRECTION)));
                 bean.setStatus(rs.getShort(DB_TOUR_STATUS));
                 return bean;
             });

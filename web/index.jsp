@@ -17,9 +17,5 @@
         <input class="large blue awesome" type="submit" value="<fmt:message key="getSession" bundle="${ rb }" />">
     </form>
     
-    
-    <a class="large awesome">Super Awesome Button »</a>
-    <a class="large blue awesome" >Awesome Blue Button »</a>
-    <input class="large blue awesome" type="submit" value="RRRRRRRRRRRRRRR" />">
 </div>
     
