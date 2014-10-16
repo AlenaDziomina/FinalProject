@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.mysqldao;
 
-import static by.epam.project.dao.MysqlDao.saveDao;
+import by.epam.project.dao.GuestDao;
+import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.entquery.*;
 import by.epam.project.dao.entquery.CountryQuery;
 import by.epam.project.dao.entquery.DirectionQuery;

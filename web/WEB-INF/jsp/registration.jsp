@@ -21,7 +21,9 @@
         <input type="text" name="phone" value=""/><br/>
         Password:
         <input type="password" name="password" value=""/><br/><br/>    
-        
+        <div id="erNote">${errorSaveData}</div>
+        <div id="erNote">${errorReason}</div>
+        <div id="erAdminNote">${errorAdminMsg}</div>
         <div id="erNote">${errorLoginPassMessage}</div>    
         <div id="erNote">${wrongAction}</div>
         <div id="erNote">${nullPage}</div>

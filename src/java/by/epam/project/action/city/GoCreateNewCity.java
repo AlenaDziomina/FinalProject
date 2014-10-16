@@ -7,15 +7,10 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import by.epam.project.action.country.GoShowCountry;
-import static by.epam.project.action.JspParamNames.JSP_CITY_COUNT;
-import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.SessionGarbageCollector.cleanSession;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.manager.ConfigurationManager;
 

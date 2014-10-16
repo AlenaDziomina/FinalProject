@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.mysqldao;
 
+import by.epam.project.dao.AbstractDao;
 import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
 import by.epam.project.dao.query.GenericSaveQuery;
 import by.epam.project.dao.query.GenericUpdateQuery;
-import by.epam.project.dao.query.MysqlGenericDeleteQuery;
-import by.epam.project.dao.query.MysqlGenericLoadQuery;
-import by.epam.project.dao.query.MysqlGenericSaveQuery;
-import by.epam.project.dao.query.MysqlGenericUpdateQuery;
+import by.epam.project.dao.query.mysqlquery.MysqlGenericDeleteQuery;
+import by.epam.project.dao.query.mysqlquery.MysqlGenericLoadQuery;
+import by.epam.project.dao.query.mysqlquery.MysqlGenericSaveQuery;
+import by.epam.project.dao.query.mysqlquery.MysqlGenericUpdateQuery;
 import by.epam.project.exception.DaoConnectException;
 import by.epam.project.exception.DaoException;
 import java.sql.Connection;
@@ -33,12 +34,20 @@ public class MysqlDao implements AbstractDao {
     
     @Override
     public void open() throws DaoException {
-        mysqlConn = MysqlDao.getConnection();
+        try {
+            mysqlConn = ConnectionPool.getConnection();
+        } catch (SQLException ex) {
+            throw new DaoConnectException("Cant take connection to database.");
+        }
     }
     
     @Override
     public void close() throws DaoException {
-        MysqlDao.returnConnection(mysqlConn);
+        try {
+            ConnectionPool.returnConnection(mysqlConn);
+        } catch (SQLException ex) {
+            throw new DaoConnectException("Cant return connection in pool.");
+        }
     }
     
     @Override
@@ -50,25 +59,12 @@ public class MysqlDao implements AbstractDao {
         }
     }
     
-    private static Connection getConnection() throws DaoException{
+    @Override
+    public void commit() throws DaoException {
         try {
-            return ConnectionPool.getConnection();
-        } catch (SQLException ex) {
-            throw new DaoConnectException("Cant take connection to database.");
-        }
-    }
-    
-    private static void returnConnection(Connection con) throws DaoException {
-        
-        try {
-            con.commit();
+            mysqlConn.commit();
         } catch (SQLException ex) {
             throw new DaoConnectException("Error in commit connection in pool.");
-        }
-        try {
-            ConnectionPool.returnConnection(con);
-        } catch (SQLException ex) {
-            throw new DaoConnectException("Cant return connection in pool.");
         }
     }
     

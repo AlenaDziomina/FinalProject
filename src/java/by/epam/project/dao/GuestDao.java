@@ -30,34 +30,34 @@ import java.util.List;
 public interface GuestDao extends AbstractDao {
     
     @Override
-    public List<Role> showRoles(Criteria criteria) throws DaoException;
+    List<Role> showRoles(Criteria criteria) throws DaoException;
     @Override
-    public List<User> showUsers(Criteria criteria) throws DaoException;
+    List<User> showUsers(Criteria criteria) throws DaoException;
     @Override
-    public Integer createNewUser(Criteria criteria) throws DaoException;   
+    Integer createNewUser(Criteria criteria) throws DaoException;   
     @Override
-    public List<Direction> showDirections(Criteria criteria) throws DaoException;
+    List<Direction> showDirections(Criteria criteria) throws DaoException;
     @Override
-    public List<Country> showCountries(Criteria criteria) throws DaoException;
+    List<Country> showCountries(Criteria criteria) throws DaoException;
     @Override
-    public List<City> showCities(Criteria criteria) throws DaoException;
+    List<City> showCities(Criteria criteria) throws DaoException;
     @Override
-    public List<Hotel> showHotels(Criteria criteria) throws DaoException;
+    List<Hotel> showHotels(Criteria criteria) throws DaoException;
     @Override
-    public List<TourType> showTourTypes (Criteria criteria) throws DaoException;
+    List<TourType> showTourTypes (Criteria criteria) throws DaoException;
     @Override
-    public List<TransMode> showTransModes (Criteria criteria) throws DaoException;
+    List<TransMode> showTransModes (Criteria criteria) throws DaoException;
     @Override
-    public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException;
+    List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException;
     @Override
-    public List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException;
+    List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException;
     @Override
-    public List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException;
+    List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException;
     @Override
-    public List<Tour> showTours(Criteria criteria) throws DaoException;
+    List<Tour> showTours(Criteria criteria) throws DaoException;
     @Override
-    public List<Tour> searchTours(Criteria criteria) throws DaoException;
+    List<Tour> searchTours(Criteria criteria) throws DaoException;
     @Override
-    public List<Order> showOrders(Criteria criteria) throws DaoException;
+    List<Order> showOrders(Criteria criteria) throws DaoException;
     
 }

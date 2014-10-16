@@ -7,24 +7,22 @@
 package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_COUNT;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
 import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import static by.epam.project.action.SessionGarbageCollector.cleanSession;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Hotel;
-import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import java.util.List;
 
 /**
@@ -49,10 +47,10 @@ public class GoShowHotel implements ActionCommand {
         criteria.addParam(DAO_ID_CITY, request.getAttribute(JSP_ID_CITY));
         
         try {
-            List<Hotel> hotels = HotelLogic.getHotels(criteria);
+            List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_HOTEL_LIST, hotels);
-        } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+        } catch (TechnicalException ex) {
+            throw new DaoUserLogicException(ex.getMessage(), ex);
         }
     }
             

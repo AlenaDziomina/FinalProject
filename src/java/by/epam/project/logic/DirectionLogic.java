@@ -7,14 +7,11 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import by.epam.project.dao.ClientType;
-import by.epam.project.dao.DaoFactory;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
 import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import by.epam.project.dao.query.Criteria;
@@ -37,22 +34,58 @@ import java.util.List;
  *
  * @author User
  */
-public abstract class DirectionLogic {
+public class DirectionLogic extends AbstractLogic {
     
-    public static List<Direction> getDirections(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        try {
-            List<Direction> directions = dao.showDirections(criteria);
-            fillDirections(directions, dao);
-            return directions;   
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
+    @Override
+    List<Direction> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        List<Direction> directions = dao.showDirections(criteria);
+        fillDirections(directions, dao);
+        return directions;   
+    }
+    
+    @Override
+    Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        Integer idDirection = (Integer) criteria.getParam(DAO_ID_DIRECTION);
+        if (idDirection == null) {      
+            return createDirection(criteria, dao);
+        } else {
+            return updateDirection(criteria, dao);
+        } 
+    }
+
+    private static Integer createDirection(Criteria criteria, AbstractDao dao) throws DaoException {
+        Integer idDescription = dao.createNewDescription(criteria).get(0);
+        criteria.remuveParam(DAO_ID_DESCRIPTION);
+        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+        List<Integer> res =  dao.createNewDirection(criteria);   
+        if (res == null || res.isEmpty()) {
+            throw new DaoException("Error in hotel query.");
+        } else {
+            Integer idDirection = res.get(0);
+            criteria.addParam(DAO_ID_DIRECTION, idDirection);
+            List<Integer> res1 = dao.createNewDirectionCountryLinks(criteria);
+            List<Integer> res2 = dao.createNewDirectionCityLinks(criteria);
+            List<Integer> res3 = dao.createNewDirectionStayHotels(criteria);
+            return idDirection;
         }
+    }
+    
+    private static Integer updateDirection(Criteria criteria, AbstractDao dao) throws DaoException {
+        Criteria beans1 = new Criteria();
+        Criteria beans2 = new Criteria();
+        Integer idDirection = (Integer) criteria.getParam(DAO_ID_DIRECTION);
+        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
+        beans2.addParam(DAO_ID_DIRECTION, idDirection);
+        dao.updateDescription(beans1, criteria);
+        dao.updateDirection(beans2, criteria);
+        
+        Criteria crit = new Criteria();
+        crit.addParam(DAO_ID_DIRECTION, idDirection);
+        dao.updateDirectionCountryLinks(crit, criteria);
+        dao.updateDirectionCityLinks(crit, criteria);
+        dao.updateDirectionStayHotels(crit, criteria);
+        return idDirection;
+       
     }
     
     public static void fillDirections(List<Direction> directions, AbstractDao dao) throws DaoException {
@@ -167,59 +200,6 @@ public abstract class DirectionLogic {
         return list;
     }
 
-    public static Integer redactDirection(Criteria criteria) throws DaoException {
-        
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        Integer idDirection = (Integer) criteria.getParam(DAO_ID_DIRECTION);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        try {   
-            if (idDirection == null) {      
-                return createDirection(criteria, dao);
-            } else {
-                return updateDirection(criteria, dao);
-            } 
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
-    }
-
-    private static Integer createDirection(Criteria criteria, AbstractDao dao) throws DaoException {
-        Integer idDescription = dao.createNewDescription(criteria).get(0);
-        criteria.remuveParam(DAO_ID_DESCRIPTION);
-        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        List<Integer> res =  dao.createNewDirection(criteria);   
-        if (res == null || res.isEmpty()) {
-            throw new DaoException("Error in hotel query.");
-        } else {
-            Integer idDirection = res.get(0);
-            criteria.addParam(DAO_ID_DIRECTION, idDirection);
-            List<Integer> res1 = dao.createNewDirectionCountryLinks(criteria);
-            List<Integer> res2 = dao.createNewDirectionCityLinks(criteria);
-            List<Integer> res3 = dao.createNewDirectionStayHotels(criteria);
-            return idDirection;
-        }
-    }
     
-    private static Integer updateDirection(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans1 = new Criteria();
-        Criteria beans2 = new Criteria();
-        Integer idDirection = (Integer) criteria.getParam(DAO_ID_DIRECTION);
-        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
-        beans2.addParam(DAO_ID_DIRECTION, idDirection);
-        dao.updateDescription(beans1, criteria);
-        dao.updateDirection(beans2, criteria);
-        
-        Criteria crit = new Criteria();
-        crit.addParam(DAO_ID_DIRECTION, idDirection);
-        dao.updateDirectionCountryLinks(crit, criteria);
-        dao.updateDirectionCityLinks(crit, criteria);
-        dao.updateDirectionStayHotels(crit, criteria);
-        return idDirection;
-       
-    }
     
 }

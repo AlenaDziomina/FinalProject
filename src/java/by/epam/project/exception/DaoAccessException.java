@@ -10,23 +10,23 @@ package by.epam.project.exception;
  *
  * @author User
  */
-public class DaoSqlException extends DaoException {
+public class DaoAccessException extends DaoException {
     
-    private static final String str = "Error in MySQL query: ";
+    private static final String str = "Attempt to access the database without the required permissions. ";
     
-    public DaoSqlException(){
+    public DaoAccessException(){
     }
     
-    public DaoSqlException(String message, Throwable exception) {
+    public DaoAccessException(String message, Throwable exception) {
         super(str + message, exception);
     }
 
-    public DaoSqlException(Throwable exception) {
+    public DaoAccessException(Throwable exception) {
         super(exception);
     }
     
-    public DaoSqlException(String message) {
+    public DaoAccessException(String message) {
         super(str + message);
     }
-    
+       
 }

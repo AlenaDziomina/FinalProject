@@ -14,9 +14,18 @@ public class DaoConnectException extends DaoException {
 
     private static final String str = "Connection to database failed. ";
     
-    public DaoConnectException(String msg) {
-        super(str + msg);
+    public DaoConnectException(){
     }
     
+    public DaoConnectException(String message, Throwable exception) {
+        super(str + message, exception);
+    }
+
+    public DaoConnectException(Throwable exception) {
+        super(exception);
+    }
     
+    public DaoConnectException(String message) {
+        super(str + message);
+    }
 }

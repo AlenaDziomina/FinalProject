@@ -21,7 +21,7 @@ public class Params {
     private static final String DATA_OR_MAPPER_IS_NULL_ERROR = "Parameters " +
         "list or mapper should not be null";
 
-    private List<Object[]> paramsList = new LinkedList<>();
+    private final List<Object[]> paramsList = new LinkedList<>();
     
     private Params() {
         super();
@@ -36,26 +36,26 @@ public class Params {
         if (beans == null || mapper == null)
             throw new IllegalArgumentException(DATA_OR_MAPPER_IS_NULL_ERROR);
         Params params = new Params();
-        for (T bean : beans) {
+        beans.stream().forEach((bean) -> {
             params.paramsList.add(mapper.map(bean));
-        }
+        });
         return params;
     }
 
     
     public static interface Mapper<T> {
-        public Object[] map(T bean);
+        Object[] map(T bean);
     }
     
     public static interface RowMapper<T> { 
-        public T mapRow(ResultSet rs, int rowNum) throws SQLException;
+        T mapRow(ResultSet rs, int rowNum) throws SQLException;
     }
     
     public static interface QueryMapper { 
         
-        public String mapQuery();
+        String mapQuery();
         
-        public static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
+        static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
             
             Object obj = criteria.getParam(daoName);
             if (obj != null){
@@ -68,7 +68,7 @@ public class Params {
             }
         }
         
-        public static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator, String operator){
+        static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator, String operator){
             
             Object obj = criteria.getParam(daoName);
             if (obj != null){
@@ -82,7 +82,7 @@ public class Params {
             }
         }
         
-        public static void appendArr(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
+        static void appendArr(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
             
             Collection objArr = (Collection) criteria.getParam(daoName);
             if (objArr != null){

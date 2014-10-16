@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.controller;
+package by.epam.project.action;
 
-import by.epam.project.action.ActionCommand;
-import by.epam.project.action.CommandEnum;
-import by.epam.project.action.EmptyCommand;
 import by.epam.project.manager.MessageManager;
 
 /**

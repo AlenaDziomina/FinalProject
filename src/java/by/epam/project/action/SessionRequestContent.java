@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.controller;
+package by.epam.project.action;
 
 import java.util.ArrayList;
 import java.util.Arrays;

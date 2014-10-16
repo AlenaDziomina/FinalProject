@@ -25,7 +25,7 @@ import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import static by.epam.project.action.direction.GoShowDirections.formTourTypeList;
 import static by.epam.project.action.direction.GoShowDirections.formTransModeList;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoUserLogicException;

@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface TypedQuery <T> {
  
-    public List<T> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException; 
-    public List<Integer> save(List<T> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException; 
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException; 
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException;
+    List<T> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException; 
+    List<Integer> save(List<T> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException; 
+    List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException; 
+    List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException;
 }

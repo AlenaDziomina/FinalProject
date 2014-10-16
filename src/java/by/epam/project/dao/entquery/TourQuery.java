@@ -21,7 +21,6 @@ import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -128,21 +127,18 @@ public class TourQuery implements TypedQuery<Tour>{
         }
         
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new Params.RowMapper<Tour>() {
-                @Override
-                public Tour mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    Tour bean = new Tour();
-                    bean.setIdTour(rs.getInt(DB_TOUR_ID_TOUR));
-                    bean.setDepartDate(rs.getDate(DB_TOUR_DATE));
-                    bean.setDaysCount(rs.getInt(DB_TOUR_DAYS_COUNT));
-                    bean.setPrice(rs.getFloat(DB_TOUR_PRICE));
-                    bean.setDiscount(rs.getInt(DB_TOUR_DISCOUNT));
-                    bean.setTotalSeats(rs.getInt(DB_TOUR_TOTAL_SEATS));
-                    bean.setFreeSeats(rs.getInt(DB_TOUR_FREE_SEATS));
-                    bean.setDirection(new Direction(rs.getInt(DB_TOUR_ID_DIRECTION)));
-                    bean.setStatus(rs.getShort(DB_TOUR_STATUS));
-                    return bean;
-                }
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+                Tour bean = new Tour();
+                bean.setIdTour(rs.getInt(DB_TOUR_ID_TOUR));
+                bean.setDepartDate(rs.getDate(DB_TOUR_DATE));
+                bean.setDaysCount(rs.getInt(DB_TOUR_DAYS_COUNT));
+                bean.setPrice(rs.getFloat(DB_TOUR_PRICE));
+                bean.setDiscount(rs.getInt(DB_TOUR_DISCOUNT));
+                bean.setTotalSeats(rs.getInt(DB_TOUR_TOTAL_SEATS));
+                bean.setFreeSeats(rs.getInt(DB_TOUR_FREE_SEATS));
+                bean.setDirection(new Direction(rs.getInt(DB_TOUR_ID_DIRECTION)));
+                bean.setStatus(rs.getShort(DB_TOUR_STATUS));
+                return bean;
             });
         } catch (DaoException ex) {
              throw new DaoQueryException("Tour not loaded.", ex);

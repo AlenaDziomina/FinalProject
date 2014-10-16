@@ -8,7 +8,7 @@ package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.manager.ConfigurationManager;
 
 /**

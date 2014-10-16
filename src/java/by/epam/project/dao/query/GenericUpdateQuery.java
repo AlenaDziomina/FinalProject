@@ -15,7 +15,6 @@ import java.util.List;
  * @author User
  */
 public interface GenericUpdateQuery {
-    
-    public List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;
+    List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;
     
 }

@@ -16,43 +16,43 @@ import java.util.List;
 public interface AdminDao extends AbstractDao {
     
     @Override
-    public List<Integer> createNewDescription(Criteria criteria) throws DaoException;
+    List<Integer> createNewDescription(Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> updateDescription(Criteria beans, Criteria crit) throws DaoException;
+    List<Integer> updateDescription(Criteria beans, Criteria crit) throws DaoException;
     @Override
-    public List<Integer> createNewCountry(Criteria criteria)throws DaoException;
+    List<Integer> createNewCountry(Criteria criteria)throws DaoException;
     @Override
-    public List<Integer> updateCountry(Criteria bean, Criteria criteria) throws DaoException;
+    List<Integer> updateCountry(Criteria bean, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewCity(Criteria criteria)throws DaoException;
+    List<Integer> createNewCity(Criteria criteria)throws DaoException;
     @Override
-    public List<Integer> updateCity(Criteria bean, Criteria criteria) throws DaoException;
+    List<Integer> updateCity(Criteria bean, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewHotel(Criteria criteria)throws DaoException;
+    List<Integer> createNewHotel(Criteria criteria)throws DaoException;
     @Override
-    public List<Integer> updateHotel(Criteria bean, Criteria criteria) throws DaoException;
+    List<Integer> updateHotel(Criteria bean, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewDirection(Criteria criteria) throws DaoException;
+    List<Integer> createNewDirection(Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewDirectionCountryLinks(Criteria criteria) throws DaoException;
+    List<Integer> createNewDirectionCountryLinks(Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewDirectionCityLinks(Criteria criteria) throws DaoException;
+    List<Integer> createNewDirectionCityLinks(Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewDirectionStayHotels(Criteria criteria) throws DaoException;
+    List<Integer> createNewDirectionStayHotels(Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> updateDirection(Criteria beans, Criteria criteria) throws DaoException;
+    List<Integer> updateDirection(Criteria beans, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> updateDirectionCountryLinks(Criteria beans, Criteria criteria) throws DaoException;
+    List<Integer> updateDirectionCountryLinks(Criteria beans, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> updateDirectionCityLinks(Criteria beans, Criteria criteria) throws DaoException;
+    List<Integer> updateDirectionCityLinks(Criteria beans, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> updateDirectionStayHotels(Criteria beans, Criteria criteria) throws DaoException;
+    List<Integer> updateDirectionStayHotels(Criteria beans, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewTour(Criteria criteria) throws DaoException;
+    List<Integer> createNewTour(Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> createNewOrder(Criteria criteria) throws DaoException;
+    List<Integer> createNewOrder(Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException;
+    List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException;
     @Override
-    public List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException;
+    List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException;
 }

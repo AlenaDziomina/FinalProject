@@ -7,35 +7,25 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import by.epam.project.dao.ClientType;
 import by.epam.project.exception.DaoException;
-import by.epam.project.dao.DaoFactory;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.TourType;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
  *
  * @author User
  */
-public abstract class TourTypeLogic {
+public class TourTypeLogic extends AbstractLogic {
     
-    public static List<TourType> getTourTypes(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        
-        try {
-            List<TourType> types = dao.showTourTypes(criteria);
-            return types;   
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
+    @Override
+    List<TourType> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
+        List<TourType> types = dao.showTourTypes(criteria);
+        return types;   
+    }
+
+    @Override
+    Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        return null;
     }
 }

@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.mysqldao;
 
-import static by.epam.project.dao.MysqlDao.saveDao;
+import by.epam.project.dao.AdminDao;
 import by.epam.project.dao.entquery.CityQuery;
 import by.epam.project.dao.entquery.CountryQuery;
 import by.epam.project.dao.entquery.DescriptionQuery;
@@ -16,14 +16,13 @@ import by.epam.project.dao.entquery.DirectionQuery;
 import by.epam.project.dao.entquery.DirectionStayHotelQuery;
 import by.epam.project.dao.entquery.HotelQuery;
 import by.epam.project.dao.entquery.OrderQuery;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.entquery.TourQuery;
+import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.LinkDirectionFactory;
-import by.epam.project.exception.DaoAccessPermission;
 import by.epam.project.exception.DaoException;
 import java.util.ArrayList;
 import java.util.List;

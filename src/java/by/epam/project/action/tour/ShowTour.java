@@ -16,7 +16,7 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
 import static by.epam.project.action.tour.GoShowTour.formTourList;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.manager.ConfigurationManager;

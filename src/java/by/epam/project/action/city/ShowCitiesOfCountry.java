@@ -8,14 +8,13 @@ package by.epam.project.action.city;
 
 
 import by.epam.project.action.ActionCommand;
-import by.epam.project.action.country.GoShowCountry;
 import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.exception.DaoUserLogicException;

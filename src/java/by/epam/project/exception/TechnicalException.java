@@ -10,20 +10,20 @@ package by.epam.project.exception;
  *
  * @author User
  */
-public class DaoLogicException extends DaoException {
-
-    public DaoLogicException(){
+public class TechnicalException extends Exception {
+    
+    public TechnicalException(){
     }
-
-    public DaoLogicException(String message, Throwable exception) {
+    
+    public TechnicalException(String message, Throwable exception) {
         super(message, exception);
     }
 
-    public DaoLogicException(Throwable exception) {
+    public TechnicalException(Throwable exception) {
         super(exception);
     }
     
-    public DaoLogicException(String message) {
+    public TechnicalException(String message) {
         super(message);
     }
     

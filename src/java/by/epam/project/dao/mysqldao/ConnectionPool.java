@@ -1,7 +1,6 @@
 
-package by.epam.project.dao;
+package by.epam.project.dao.mysqldao;
 
-import static by.epam.project.controller.ProjectServlet.LOCALLOG;
 import by.epam.project.manager.ConfigurationManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,12 +8,16 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author User
  */
-public class ConnectionPool {
+class ConnectionPool {
+    
+    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
+    
     private static final String DATASOURCE_NAME;
     static {
         DATASOURCE_NAME = ConfigurationManager.getProperty("db.name");
@@ -27,18 +30,18 @@ public class ConnectionPool {
             Context envCtx = (Context) (new InitialContext().lookup("java:comp/env"));
             dataSource = (DataSource) envCtx.lookup(DATASOURCE_NAME);
         } catch (NamingException e) {
-            LOCALLOG.error("Cannot set connection.");
+            LOGGER.error("Cannot set connection.");
         }
     }
     
     private ConnectionPool() { }
-    public static Connection getConnection() throws SQLException {
+    static Connection getConnection() throws SQLException {
         Connection connection = dataSource.getConnection();
         connection.setAutoCommit(false);
         return connection;
     }
     
-    public static void returnConnection(Connection connection) throws SQLException {
+    static void returnConnection(Connection connection) throws SQLException {
         connection.close();
     }
 }

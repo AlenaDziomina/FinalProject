@@ -6,13 +6,18 @@
 
 package by.epam.project.dao.entquery;
 
-import static by.epam.project.dao.AbstractDao.*;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
 import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
+import by.epam.project.dao.query.GenericLoadQuery;
+import by.epam.project.dao.query.GenericSaveQuery;
+import by.epam.project.dao.query.GenericUpdateQuery;
+import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
+import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.TourType;

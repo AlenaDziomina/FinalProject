@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  * @author User
  */
 public class ConfigurationManager {
-    private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("by.epam.project.resource.config");
+    private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("resource.config");
     // класс извлекает информацию из файла config.properties
     private ConfigurationManager() { }
     public static String getProperty(String key) {

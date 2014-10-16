@@ -8,13 +8,12 @@ package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.manager.ConfigurationManager;

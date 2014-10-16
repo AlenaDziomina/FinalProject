@@ -25,24 +25,21 @@ import static by.epam.project.action.JspParamNames.JSP_PRICE_STEP;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
-import static by.epam.project.action.SessionGarbageCollector.cleanSession;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import static by.epam.project.action.direction.GoShowDirections.formTourTypeList;
 import static by.epam.project.action.direction.GoShowDirections.formTransModeList;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Tour;
-import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.SearchLogic;
-import by.epam.project.logic.TourLogic;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import java.util.List;
 
 /**
@@ -84,10 +81,10 @@ public class GoShowTour implements ActionCommand {
         criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
         
         try {
-            List<Tour> tours = SearchLogic.getTours(criteria);
+            List<Tour> tours = new SearchLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_TOUR_LIST, tours);
-        } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+        } catch (TechnicalException ex) {
+            throw new DaoUserLogicException(ex.getMessage(), ex);
         }
     }
             

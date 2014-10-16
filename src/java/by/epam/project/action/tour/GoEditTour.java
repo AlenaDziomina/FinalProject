@@ -13,12 +13,11 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoUserLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 

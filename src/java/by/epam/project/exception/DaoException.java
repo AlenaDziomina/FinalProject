@@ -12,15 +12,18 @@ package by.epam.project.exception;
  */
 public class DaoException extends Exception {
 
-    public DaoException(String msg) {
-        super(msg);
+    public DaoException(){
     }
 
-    public DaoException(String msg, Exception ex) {
-        super(msg, ex);
+    public DaoException(String message, Throwable exception) {
+        super(message, exception);
     }
 
+    public DaoException(Throwable exception) {
+        super(exception);
+    }
     
-    
-    
+    public DaoException(String message) {
+        super(message);
+    }
 }

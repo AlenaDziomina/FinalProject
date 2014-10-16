@@ -14,14 +14,19 @@ public class DaoQueryException extends DaoException {
     
     private static final String str = "Exception in database query.";
 
-    public DaoQueryException(String msg) {
-        super(str + msg);
+    public DaoQueryException(){
     }
-
-    public DaoQueryException(String msg, DaoException ex) {
-        super(str + msg, ex);
-    }
-
     
+    public DaoQueryException(String message, Throwable exception) {
+        super(str + message, exception);
+    }
+
+    public DaoQueryException(Throwable exception) {
+        super(exception);
+    }
+    
+    public DaoQueryException(String message) {
+        super(str + message);
+    }
     
 }

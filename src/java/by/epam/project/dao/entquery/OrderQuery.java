@@ -7,7 +7,6 @@
 package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
-import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_DATE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericDeleteQuery;

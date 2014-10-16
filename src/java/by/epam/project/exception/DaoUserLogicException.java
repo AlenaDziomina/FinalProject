@@ -14,12 +14,19 @@ import javax.servlet.ServletException;
  */
 public class DaoUserLogicException extends ServletException {
 
-    public DaoUserLogicException(String msg) {
-        super(msg);
+    public DaoUserLogicException(){
+    }
+    
+    public DaoUserLogicException(String message, Throwable exception) {
+        super(message, exception);
     }
 
-    public DaoUserLogicException(String property, DaoException ex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DaoUserLogicException(Throwable exception) {
+        super(exception);
+    }
+    
+    public DaoUserLogicException(String message) {
+        super(message);
     }
     
 }

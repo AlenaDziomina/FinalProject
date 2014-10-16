@@ -7,12 +7,9 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import by.epam.project.dao.ClientType;
-import by.epam.project.dao.DaoFactory;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -25,45 +22,23 @@ import java.util.List;
  *
  * @author User
  */
-public class CityLogic {
+public class CityLogic extends AbstractLogic {
     
-    
-    public static List<City> getCities(Criteria criteria) throws DaoException {
-        
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = DaoFactory.getInstance(role);
-        dao.open();
-        
-        try {
+    @Override
+    List<City> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
             List<City> cities = dao.showCities(criteria);
             fillCities(cities, dao);
-            return cities;   
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
+            return cities;
     }
     
-    public static Integer redactCity(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
+    @Override
+    Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idCity = (Integer) criteria.getParam(DAO_ID_CITY);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        
-        try {
-            if (idCity == null) {      
-                return createCity(criteria, dao);
-            } else {
-                return updateCity(criteria, dao);
-            }  
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
+        if (idCity == null) {      
+            return createCity(criteria, dao);
+        } else {
+            return updateCity(criteria, dao);
+        }  
     }
     
     private static void fillCities(List<City> cities, AbstractDao dao) throws DaoException {
@@ -104,6 +79,5 @@ public class CityLogic {
         dao.updateCity(beans2, criteria);
         return idCity;
     }
-    
     
 }

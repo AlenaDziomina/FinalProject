@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.entity;
 
 /**
  *

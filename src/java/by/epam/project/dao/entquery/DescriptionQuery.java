@@ -6,8 +6,14 @@
 
 package by.epam.project.dao.entquery;
 
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
+import by.epam.project.dao.query.GenericLoadQuery;
+import by.epam.project.dao.query.GenericSaveQuery;
+import by.epam.project.dao.query.GenericUpdateQuery;
+import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
+import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Description;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoQueryException;

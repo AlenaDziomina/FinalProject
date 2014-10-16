@@ -7,12 +7,8 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import by.epam.project.dao.ClientType;
-import by.epam.project.dao.DaoFactory;
-import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -24,41 +20,23 @@ import java.util.List;
  *
  * @author User
  */
-public abstract class CountryLogic {
+public class CountryLogic extends AbstractLogic {
 
-    public static List<Country> getCountries(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = DaoFactory.getInstance(role);
-        dao.open();
-        try {
-            List<Country> countries = dao.showCountries(criteria);
-            fillCountries(countries, dao);
-            return countries;   
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
+    @Override
+    List<Country> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
+        List<Country> countries = dao.showCountries(criteria);
+        fillCountries(countries, dao);
+        return countries;   
     }
 
-    public static Integer redactCountry(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
+    @Override
+    Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idCountry = (Integer) criteria.getParam(DAO_ID_COUNTRY);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        try {
-            if (idCountry == null) {      
-                return createCountry(criteria, dao);
-            } else {
-                return updateCountry(criteria, dao);
-            }  
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
+        if (idCountry == null) {      
+            return createCountry(criteria, dao);
+        } else {
+            return updateCountry(criteria, dao);
+        }  
     }
     
     private static void fillCountries(List<Country> countries, AbstractDao dao) throws DaoException {

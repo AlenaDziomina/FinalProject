@@ -13,17 +13,16 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import static by.epam.project.action.SessionGarbageCollector.cleanSession;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
-import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CityLogic;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import java.util.List;
 
 /**
@@ -48,10 +47,10 @@ public class GoShowCity implements ActionCommand {
         criteria.addParam(DAO_ID_COUNTRY, request.getAttribute(JSP_ID_COUNTRY));
         
         try {
-            List<City> cities = CityLogic.getCities(criteria);
+            List<City> cities = new CityLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_CITY_LIST, cities);
-        } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+        } catch (TechnicalException ex) {
+            throw new DaoUserLogicException(ex.getMessage(), ex);
         }
     }
     

@@ -6,7 +6,7 @@
 
 package by.epam.project.manager;
 
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.dao.query.Criteria;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

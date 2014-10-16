@@ -7,7 +7,7 @@
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.exception.DaoUserLogicException;
 
 /**

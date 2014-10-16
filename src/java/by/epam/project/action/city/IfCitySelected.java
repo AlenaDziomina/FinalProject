@@ -10,11 +10,9 @@ import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import by.epam.project.action.ProcessSavedParameters;
 import static by.epam.project.action.ProcessSavedParameters.resaveParams;
-import by.epam.project.action.hotel.GoShowHotel;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import by.epam.project.exception.DaoUserLogicException;
 
 /**

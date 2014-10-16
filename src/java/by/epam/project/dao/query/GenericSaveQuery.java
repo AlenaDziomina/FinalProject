@@ -15,5 +15,5 @@ import java.util.List;
  * @author User
  */
 public interface GenericSaveQuery {
-    public abstract <T> List<Integer> query(String query, Connection conn, Params params) throws DaoException;
+    <T> List<Integer> query(String query, Connection conn, Params params) throws DaoException;
 }

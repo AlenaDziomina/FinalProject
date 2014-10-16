@@ -7,10 +7,7 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import by.epam.project.dao.ClientType;
-import by.epam.project.dao.DaoFactory;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Direction;
@@ -23,24 +20,26 @@ import java.util.List;
  *
  * @author User
  */
-public class TourLogic {
+public class TourLogic extends AbstractLogic {
     
-    public static List<Tour> getTours(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        try {
-            List<Tour> tours = dao.showTours(criteria);
-            fillTours(tours, dao);
-            return tours;   
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
+    @Override
+    List<Tour> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        List<Tour> tours = dao.showTours(criteria);
+        fillTours(tours, dao);
+        return tours;   
     }
 
+    @Override
+    Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        Integer idTour = (Integer) criteria.getParam(DAO_ID_TOUR);
+        if (idTour == null) {      
+            return createTour(criteria, dao);
+        } else {
+            return updateTour(criteria, dao);
+        } 
+        
+    }
+    
     private static void fillTours(List<Tour> tours, AbstractDao dao) throws DaoException {
         if (tours != null) {
             for (Tour tour : tours) {
@@ -58,25 +57,7 @@ public class TourLogic {
         }
     }
     
-    public static Integer redactTour(Criteria criteria) throws DaoException {
-        
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        Integer idTour = (Integer) criteria.getParam(DAO_ID_TOUR);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        try {   
-            if (idTour == null) {      
-                return createTour(criteria, dao);
-            } else {
-                return updateTour(criteria, dao);
-            } 
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
-    }
+    
 
     private static Integer createTour(Criteria criteria, AbstractDao dao) throws DaoException {
         List<Integer> res =  dao.createNewTour(criteria);   

@@ -6,7 +6,6 @@
 
 package by.epam.project.action;
 
-import by.epam.project.controller.SessionRequestContent;
 import by.epam.project.manager.ConfigurationManager;
 
 /**

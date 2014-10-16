@@ -7,14 +7,9 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import by.epam.project.dao.ClientType;
-import by.epam.project.dao.DaoFactory;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Direction;
-import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoException;
 import java.util.List;
@@ -23,22 +18,13 @@ import java.util.List;
  *
  * @author User
  */
-public class SearchLogic {
+public class SearchLogic extends AbstractLogic {
     
-    public static List<Tour> getTours(Criteria criteria) throws DaoException {
-        ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-        AbstractDao dao = DaoFactory.getInstance(role); 
-        dao.open();
-        try {
-            List<Tour> tours = dao.searchTours(criteria);
-            fillTours(tours, dao);
-            return tours;   
-        } catch (DaoException ex) {
-            dao.rollback();
-            throw ex;
-        } finally {
-            dao.close();
-        }
+    @Override
+    List<Tour> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        List<Tour> tours = dao.searchTours(criteria);
+        fillTours(tours, dao);
+        return tours;   
     }
     
     private static void fillTours(List<Tour> tours, AbstractDao dao) throws DaoException {
@@ -52,5 +38,10 @@ public class SearchLogic {
                 
             }
         }
+    }
+
+    @Override
+    Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        return null;
     }
 }

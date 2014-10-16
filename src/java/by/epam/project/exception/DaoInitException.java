@@ -14,8 +14,19 @@ public class DaoInitException extends DaoException {
     
     private static final String str = "Undeclared initialization parameters of database resource: ";
 
-    public DaoInitException(String msg) {
-        super(str + msg);
+    public DaoInitException(){
+    }
+    
+    public DaoInitException(String message, Throwable exception) {
+        super(str + message, exception);
+    }
+
+    public DaoInitException(Throwable exception) {
+        super(exception);
+    }
+    
+    public DaoInitException(String message) {
+        super(str + message);
     }
     
 }

@@ -15,5 +15,5 @@ import java.util.List;
  * @author User
  */
 public interface GenericDeleteQuery {
-    public abstract <T> List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;
+    <T> List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;
 }

@@ -7,7 +7,6 @@
 package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ID_ORDER;
-
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;

@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao;
+package by.epam.project.dao.mysqldao;
 
+import by.epam.project.dao.AbstractDao;
+import by.epam.project.entity.ClientType;
+import by.epam.project.dao.DaoFactory;
 import by.epam.project.exception.DaoInitException;
 
 /**

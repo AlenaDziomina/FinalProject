@@ -2,10 +2,10 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>ProjectServlet</servlet-name>
-        <servlet-class>by.epam.project.controller.ProjectServlet</servlet-class>
+        <servlet-class>by.epam.project.controller.Controller</servlet-class>
         <init-param>
             <param-name>log4j-properties-location</param-name>
-            <param-value>/WEB-INF/Log4J.properties</param-value>
+            <param-value>/WEB-INF/classes/Log4J.properties</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
@@ -34,9 +34,6 @@
         <filter-name>PageRedirectSecurityFilter</filter-name>
         <url-pattern>/jsp/*</url-pattern>
     </filter-mapping>
-    <listener>
-        <listener-class>by.epam.project.controller.SessionListenerImpl</listener-class>
-    </listener>
     <filter>
         <filter-name>ServletSecurityFilter</filter-name>
         <filter-class>by.epam.project.filter.ServletSecurityFilter</filter-class>

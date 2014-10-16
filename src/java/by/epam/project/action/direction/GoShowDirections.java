@@ -7,7 +7,6 @@
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_COUNT;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_LIST;
 import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_ID_TOURTYPE;
@@ -18,7 +17,7 @@ import static by.epam.project.action.JspParamNames.JSP_TOUR_TYPE_LIST;
 import static by.epam.project.action.JspParamNames.JSP_TRANS_MODE_LIST;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import static by.epam.project.action.SessionGarbageCollector.cleanSession;
-import by.epam.project.controller.SessionRequestContent;
+import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
@@ -28,13 +27,12 @@ import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransMode;
-import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.DirectionLogic;
 import by.epam.project.logic.TourTypeLogic;
 import by.epam.project.logic.TransModeLogic;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import java.util.List;
 
 /**
@@ -59,10 +57,10 @@ public class GoShowDirections implements ActionCommand {
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
         try {
-            List<Direction> directions = DirectionLogic.getDirections(criteria);
+            List<Direction> directions = new DirectionLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_DIRECTION_LIST, directions);
-        } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+        } catch (TechnicalException ex) {
+            throw new DaoUserLogicException(ex.getMessage(), ex);
         }
     }
     
@@ -72,10 +70,10 @@ public class GoShowDirections implements ActionCommand {
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         criteria.addParam(DAO_ID_TOURTYPE, request.getAttribute(JSP_ID_TOURTYPE));
         try {
-            List<TourType> types = TourTypeLogic.getTourTypes(criteria);
+            List<TourType> types = new TourTypeLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_TOUR_TYPE_LIST, types);
-        } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+        } catch (TechnicalException ex) {
+            throw new DaoUserLogicException(ex.getMessage(), ex);
         }
     }
     
@@ -85,10 +83,10 @@ public class GoShowDirections implements ActionCommand {
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         criteria.addParam(DAO_ID_TRANSMODE, request.getAttribute(JSP_ID_TRANSMODE));
         try {
-            List<TransMode> modes = TransModeLogic.getTransModes(criteria);
+            List<TransMode> modes = new TransModeLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_TRANS_MODE_LIST, modes);
-        } catch (DaoException ex) {
-            throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+        } catch (TechnicalException ex) {
+            throw new DaoUserLogicException(ex.getMessage(), ex);
         }
     }
     

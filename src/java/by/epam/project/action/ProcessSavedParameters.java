@@ -55,7 +55,6 @@ import static by.epam.project.action.JspParamNames.JSP_TOTAL_SEATS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_DISCOUNT;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_PRICE;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
-import by.epam.project.controller.SessionRequestContent;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
@@ -66,10 +65,9 @@ import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.Tour;
-import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.HotelLogic;
-import by.epam.project.manager.MessageManager;
 import static by.epam.project.manager.ParamManager.getFltParam;
 import static by.epam.project.manager.ParamManager.getIntParam;
 import java.util.ArrayList;
@@ -258,10 +256,10 @@ public abstract class ProcessSavedParameters {
                     criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
                     criteria.addParam(DAO_ID_HOTEL, idHotel);
                     try {
-                        List<Hotel> hotels = HotelLogic.getHotels(criteria);
+                        List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);
                         hotelTagList.addAll(hotels);
-                    } catch (DaoException ex) {
-                        throw new DaoUserLogicException(MessageManager.getProperty("message.daoerror"));
+                    } catch (TechnicalException ex) {
+                        throw new DaoUserLogicException(ex.getMessage(), ex);
                     }
                 }
             }

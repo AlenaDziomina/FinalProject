@@ -8,8 +8,14 @@ package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.GenericDeleteQuery;
+import by.epam.project.dao.query.GenericLoadQuery;
+import by.epam.project.dao.query.GenericSaveQuery;
+import by.epam.project.dao.query.GenericUpdateQuery;
+import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
+import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
