@@ -34,20 +34,12 @@ public class MysqlDao implements AbstractDao {
     
     @Override
     public void open() throws DaoException {
-        try {
-            mysqlConn = ConnectionPool.getConnection();
-        } catch (SQLException ex) {
-            throw new DaoConnectException("Cant take connection to database.");
-        }
+        mysqlConn = MysqlConnectionPool.getConnection();
     }
     
     @Override
     public void close() throws DaoException {
-        try {
-            ConnectionPool.returnConnection(mysqlConn);
-        } catch (SQLException ex) {
-            throw new DaoConnectException("Cant return connection in pool.");
-        }
+        MysqlConnectionPool.returnConnection(mysqlConn);
     }
     
     @Override
