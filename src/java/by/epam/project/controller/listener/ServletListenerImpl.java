@@ -6,6 +6,7 @@
 
 package by.epam.project.controller.listener;
 
+import by.epam.project.dao.DaoFactory;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -26,5 +27,6 @@ public class ServletListenerImpl implements ServletContextListener {
     }
     @Override
     public void contextDestroyed(ServletContextEvent ev) {
+        DaoFactory.closeConnections();
     }
 }

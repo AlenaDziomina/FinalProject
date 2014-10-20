@@ -26,4 +26,8 @@ public class MysqlDaoFactory extends DaoFactory {
         }
     }
     
+    public static void closeConnections() {
+        MysqlConnectionPool.destroy();
+    }
+    
 }

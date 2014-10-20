@@ -19,6 +19,8 @@ import by.epam.project.exception.DaoConnectException;
 import by.epam.project.exception.DaoException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,6 +41,11 @@ public class MysqlDao implements AbstractDao {
     
     @Override
     public void close() throws DaoException {
+        try {
+            mysqlConn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MysqlDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         MysqlConnectionPool.returnConnection(mysqlConn);
     }
     
