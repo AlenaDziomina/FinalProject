@@ -97,10 +97,12 @@
             <display-name>main</display-name>
             <url-pattern>/index.jsp</url-pattern>
             <url-pattern>/WEB-INF/jsp/*</url-pattern>
+            <el-ignored>false</el-ignored>
             <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
     </jsp-config>
+    
     <resource-ref>
         <description>MySQL DB Connection Pool</description>
         <res-ref-name>jdbc/newdb</res-ref-name>
