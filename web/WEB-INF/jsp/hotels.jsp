@@ -18,19 +18,13 @@
             <input class="large green awesome" type="submit" value="<fmt:message key="newHotel" bundle="${ rb }" />"/>
         </form>
     </div>
-        
     <script type="text/javascript">
         select("currHotel", ${currIdHotel});
     </script>      
-    
     <div class="full center inner column">
         <div id="erNote">${errorGetListMessage}</div>
-        <c:if test="${currHotel.picture != null}">
-            <img class="currimg" id="images" src="<%=request.getContextPath()%>${currHotel.picture}">
-        </c:if>
-        <div class="cueetext">
-             ${currHotel.description.text}
-        </div>
+        <ctg:ImgTag classImg="currimg" idImg="images" nameImg="${currHotel.picture}"/>
+        <div class="cueetext">${currHotel.description.text}</div>
         <form method="POST" action="controller">
             <input type="hidden" name="command" value="goEditHotel" />
             <input class="centrale large orange awesome" type="submit" value="<fmt:message key="editHotel" bundle="${ rb }" />"/>

@@ -33,6 +33,7 @@ import by.epam.project.logic.DirectionLogic;
 import by.epam.project.logic.TourTypeLogic;
 import by.epam.project.logic.TransModeLogic;
 import by.epam.project.manager.ConfigurationManager;
+import by.epam.project.tag.ObjList;
 import java.util.List;
 
 /**
@@ -59,6 +60,8 @@ public class GoShowDirections implements ActionCommand {
         try {
             List<Direction> directions = new DirectionLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_DIRECTION_LIST, directions);
+            ObjList<Direction> list = new ObjList<>(directions);
+            request.setSessionAttribute("rw", list);
         } catch (TechnicalException ex) {
             throw new DaoUserLogicException(ex.getMessage(), ex);
         }

@@ -22,9 +22,7 @@
     
     <div class="center inner column">
         <div id="erNote">${errorGetListMessage}</div>
-        <c:if test="${currCity.picture != null}">
-            <img class="currimg" id="images" src="<%=request.getContextPath()%>${currCity.picture}">
-        </c:if>
+        <ctg:ImgTag classImg="currimg" idImg="images" nameImg="${currCity.picture}"/>
         <div class="cueetext">
              ${currCity.description.text}
         </div>
@@ -45,5 +43,7 @@
     <script type="text/javascript">
         select("currCity", ${currIdCity});
     </script>
+    
+    
     
 </div>

@@ -22,9 +22,7 @@
     
     <div class="center inner column">
         <div id="erNote">${errorGetListMessage}</div>
-        <c:if test="${currCountry.picture != null}">
-            <img class="currimg" id="images" src="<%=request.getContextPath()%>${currCountry.picture}">
-        </c:if>
+        <ctg:ImgTag classImg="currimg" idImg="images" nameImg="${currCountry.picture}"/>
         <div class="cueetext">
             ${currCountry.description.text}
         </div>
