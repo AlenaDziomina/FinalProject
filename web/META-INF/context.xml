@@ -1,15 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/FinalProject">
-    <Resource
-        name="jdbc/newdb"
-        author="Container"
-        type="javax.sql.DataSource"
-        maxActive="10"
-        maxIdle="4"
-        maxWait="10000"
-        username="root"
-        password="1111"
-        driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/newdb"
-    />
 </Context>
