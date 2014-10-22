@@ -8,7 +8,7 @@ package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 
 /**
  *
@@ -17,7 +17,7 @@ import by.epam.project.exception.DaoUserLogicException;
 public class SaveRedactOrder implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

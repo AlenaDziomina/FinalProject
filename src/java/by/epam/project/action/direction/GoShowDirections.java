@@ -27,7 +27,7 @@ import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransMode;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.DirectionLogic;
 import by.epam.project.logic.TourTypeLogic;
@@ -43,7 +43,7 @@ import java.util.List;
 public class GoShowDirections implements ActionCommand {
     
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.directions");
         request.setSessionAttribute(JSP_PAGE, page);
         formDirectionList(request);
@@ -51,7 +51,7 @@ public class GoShowDirections implements ActionCommand {
         return page;
     }
         
-    public static void formDirectionList(SessionRequestContent request) throws DaoUserLogicException {
+    public static void formDirectionList(SessionRequestContent request) throws ServletLogicException {
 
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
@@ -63,11 +63,11 @@ public class GoShowDirections implements ActionCommand {
             ObjList<Direction> list = new ObjList<>(directions);
             request.setSessionAttribute("rw", list);
         } catch (TechnicalException ex) {
-            throw new DaoUserLogicException(ex.getMessage(), ex);
+            throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
     
-    public static void formTourTypeList(SessionRequestContent request) throws DaoUserLogicException {
+    public static void formTourTypeList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
@@ -76,11 +76,11 @@ public class GoShowDirections implements ActionCommand {
             List<TourType> types = new TourTypeLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_TOUR_TYPE_LIST, types);
         } catch (TechnicalException ex) {
-            throw new DaoUserLogicException(ex.getMessage(), ex);
+            throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
     
-    public static void formTransModeList(SessionRequestContent request) throws DaoUserLogicException {
+    public static void formTransModeList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
@@ -89,7 +89,7 @@ public class GoShowDirections implements ActionCommand {
             List<TransMode> modes = new TransModeLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_TRANS_MODE_LIST, modes);
         } catch (TechnicalException ex) {
-            throw new DaoUserLogicException(ex.getMessage(), ex);
+            throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
     

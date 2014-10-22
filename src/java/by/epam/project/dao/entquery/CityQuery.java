@@ -61,7 +61,7 @@ public class CityQuery implements TypedQuery<City>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_CITY + " set ";
     
-    public static final City createBean(Criteria criteria){
+    public static City createBean(Criteria criteria){
         City bean = new City();
         bean.setIdCity((Integer) criteria.getParam(DAO_ID_CITY));
         bean.setName((String) criteria.getParam(DAO_CITY_NAME));

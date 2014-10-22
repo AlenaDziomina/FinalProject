@@ -22,10 +22,10 @@ public abstract class LocaleManager {
     }
 
     public static Locale getLocale(String language, String country) {
-        if (null == country || country.isEmpty() || null == language || language.isEmpty()) {
-            return null;
-        } else {
+        if (null != country && !country.isEmpty() && null != language && !language.isEmpty()) {
             return new Locale(language, country);
+        } else {
+            return null;
         }
     }
     

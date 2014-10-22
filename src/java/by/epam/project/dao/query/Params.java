@@ -21,7 +21,7 @@ public class Params {
     private static final String DATA_OR_MAPPER_IS_NULL_ERROR = "Parameters " +
         "list or mapper should not be null";
 
-    private final List<Object[]> paramsList = new LinkedList<>();
+    private List<Object[]> paramsList = new LinkedList<>();
     
     private Params() {
         super();

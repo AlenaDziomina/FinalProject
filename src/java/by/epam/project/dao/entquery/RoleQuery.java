@@ -49,7 +49,7 @@ public class RoleQuery implements TypedQuery<Role>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_ROLE + " set ";
 
-    public static final Role createBean(Criteria criteria) {
+    public static Role createBean(Criteria criteria) {
         
         Role bean = new Role();
         bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));

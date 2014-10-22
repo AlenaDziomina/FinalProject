@@ -13,7 +13,7 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 
 /**
  *
@@ -22,7 +22,7 @@ import by.epam.project.exception.DaoUserLogicException;
 public class IfCitySelected implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         
         resaveParams(request);

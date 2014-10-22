@@ -12,13 +12,13 @@ package by.epam.project.exception;
  */
 public class DaoAccessException extends DaoException {
     
-    private static final String str = "Attempt to access the database without the required permissions. ";
+    private static final String ERROR_STR = "Attempt to access the database without the required permissions. ";
     
     public DaoAccessException(){
     }
     
     public DaoAccessException(String message, Throwable exception) {
-        super(str + message, exception);
+        super(ERROR_STR + message, exception);
     }
 
     public DaoAccessException(Throwable exception) {
@@ -26,7 +26,7 @@ public class DaoAccessException extends DaoException {
     }
     
     public DaoAccessException(String message) {
-        super(str + message);
+        super(ERROR_STR + message);
     }
        
 }

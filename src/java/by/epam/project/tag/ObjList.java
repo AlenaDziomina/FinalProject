@@ -21,16 +21,16 @@ public class ObjList<T> {
     private T same;
     private Iterator it; 
     private Integer pages;
-    private static final Integer pageStep;
+    private static final Integer PAGE_STEP;
     static {
-        pageStep = Integer.decode(ConfigurationManager.getProperty("page.step"));
+        PAGE_STEP = Integer.decode(ConfigurationManager.getProperty("page.step"));
     }
     private Integer currPageNo;
     List<T> currPageList;
     
     public ObjList(List list) {
         this.list = list;
-        pages = (list.size() + (pageStep - 1)) / pageStep;
+        pages = (list.size() + (PAGE_STEP - 1)) / PAGE_STEP;
         currPageNo = 1;
         setCurrPageList();
     }
@@ -46,8 +46,8 @@ public class ObjList<T> {
     
     private void setCurrPageList() {
         currPageList = new ArrayList<>();
-        int first = (currPageNo - 1) * pageStep;
-        int last = first + pageStep;
+        int first = (currPageNo - 1) * PAGE_STEP;
+        int last = first + PAGE_STEP;
         if (last > list.size()) {
             last = list.size();
         }

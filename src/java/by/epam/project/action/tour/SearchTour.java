@@ -49,7 +49,7 @@ import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Tour;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.SearchLogic;
 import by.epam.project.manager.ConfigurationManager;
@@ -68,7 +68,7 @@ import java.util.List;
 public class SearchTour implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.tours");
         resaveParams(request);
         
@@ -129,7 +129,7 @@ public class SearchTour implements ActionCommand {
             }
             return page;
         } catch (TechnicalException ex) {
-            throw new DaoUserLogicException(ex.getMessage(), ex);
+            throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
     

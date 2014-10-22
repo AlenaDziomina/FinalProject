@@ -10,7 +10,7 @@ package by.epam.project.entity;
  *
  * @author User
  */
-public final class Role {
+public class Role {
     
     private Integer idRole;
     private String roleName;

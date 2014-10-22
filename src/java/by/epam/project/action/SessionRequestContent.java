@@ -20,12 +20,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author User
  */
-public final class SessionRequestContent {
+public class SessionRequestContent {
     
-    private final HashMap<String, Object> requestAttributes = new HashMap();
-    private final HashMap<String, String[]> requestParameters = new HashMap();
-    private final HashMap<String, Object> sessionAttributes = new HashMap();
-    private final List<String> deletedSessionAttributes = new ArrayList();
+    private HashMap<String, Object> requestAttributes = new HashMap();
+    private HashMap<String, String[]> requestParameters = new HashMap();
+    private HashMap<String, Object> sessionAttributes = new HashMap();
+    private List<String> deletedSessionAttributes = new ArrayList();
     private Locale locale;
     
     public SessionRequestContent(){
@@ -54,10 +54,10 @@ public final class SessionRequestContent {
     public String getParameter(String name){
         
         String[] params = this.requestParameters.get(name);
-        if (null == params || params.length < 1) {
-            return null;
-        } else {
+        if (null != params && params.length >= 1) {
             return params[0];
+        } else {
+            return null;
         }
         
     }
@@ -65,23 +65,23 @@ public final class SessionRequestContent {
     public String[] getAllParameters(String name){
         
         String[] params = this.requestParameters.get(name);
-        if (null == params || params.length < 1) {
-            return null;
-        } else {
+        if (null != params && params.length >= 1) {
             return params;
+        } else {
+            return null;
         }
         
     }
     
     public void setParameter(String paramName, String param){
         String[] prms = requestParameters.get(paramName);
-        if (prms == null) {
-            prms = new String[]{param};
-            requestParameters.put(paramName, prms);
-        } else {
+        if (prms != null) {
             List<String> list = new ArrayList<>(Arrays.asList(prms));
             list.add(param);
             requestParameters.replace(paramName, (String[]) list.toArray());
+        } else {
+            prms = new String[]{param};
+            requestParameters.put(paramName, prms);
         }
     }
     

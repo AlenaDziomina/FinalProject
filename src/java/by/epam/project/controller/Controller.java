@@ -10,6 +10,7 @@ import by.epam.project.action.ActionCommand;
 import by.epam.project.action.CommandFactory;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.dao.query.mysqlquery.MysqlGenericDeleteQuery;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import java.io.File;
@@ -37,29 +38,22 @@ public class Controller extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         
-        String msg1 = "Log4JInitServlet is initializing log4j";
-        String msg2 = "*** No log4j-properties-location init param, so initializing log4j with BasicConfigurator";
-        String msg3 = "*** {0} file not found, so initializing log4j with BasicConfigurator";
-        java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MysqlGenericDeleteQuery.class.getName());
-        logger.log(Level.SEVERE, msg1);
-        String log4jLocation = config.getInitParameter("log4j-properties-location");
-
         ServletContext sc = config.getServletContext();
-        String realPath = sc.getRealPath("/");
+        String log4jLocation = config.getInitParameter("log4j-properties-location");
         if (log4jLocation == null) {
-                logger.log(Level.SEVERE, msg2);
-                BasicConfigurator.configure();
+            sc.log("No log4j-properties-location init param");
+            throw new ServletLogicException("No log4j-properties-location init param");
+        }
+        String realPath = sc.getRealPath("/");
+        String log4jProp = realPath + log4jLocation;
+        File propFile = new File(log4jProp);
+        if (propFile.exists()) {
+            PropertyConfigurator.configure(log4jProp);
+            LOGGER.info("Initializing log4j with: " + log4jProp);
         } else {
-                String log4jProp = realPath + log4jLocation;
-                File propFile = new File(log4jProp);
-                if (propFile.exists()) {
-                        PropertyConfigurator.configure(log4jProp);
-                        LOGGER.info("Initializing log4j with: " + log4jProp);
-                } else {
-                        logger.log(Level.SEVERE, msg3, new Object[]{log4jProp});
-                        BasicConfigurator.configure();
-                }
-        }     
+            sc.log("Init log4j-properties-file not found");
+            throw new ServletLogicException("Init log4j-properties-file not found");
+        }
         super.init(config);
     }
     

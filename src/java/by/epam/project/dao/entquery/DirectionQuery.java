@@ -63,7 +63,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_DIRECTION + " set ";
 
-    public static final Direction createBean(Criteria criteria) {
+    public static Direction createBean(Criteria criteria) {
         Direction bean = new Direction();
         bean.setIdDirection((Integer) criteria.getParam(DAO_ID_DIRECTION));
         bean.setName((String) criteria.getParam(DAO_DIRECTION_NAME));

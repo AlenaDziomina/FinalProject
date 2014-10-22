@@ -46,7 +46,7 @@ public class DescriptionQuery implements TypedQuery<Description>{
             "Update " + DB_DESCRIPTION + " set ";
     
     
-    public static final Description createBean(Criteria criteria){
+    public static Description createBean(Criteria criteria){
         Description bean = new Description();
         bean.setIdDescription((Integer) criteria.getParam(DAO_ID_DESCRIPTION));
         bean.setText((String) criteria.getParam(DAO_DESCRIPTION_TEXT));

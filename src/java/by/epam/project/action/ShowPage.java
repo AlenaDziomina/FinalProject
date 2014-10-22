@@ -8,7 +8,7 @@ package by.epam.project.action;
 
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.entity.Direction;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.tag.ObjList;
 
 /**
@@ -18,7 +18,7 @@ import by.epam.project.tag.ObjList;
 public class ShowPage implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         ObjList<Direction> list = (ObjList<Direction>) request.getSessionAttribute("rw");
         Integer currPageNo = Integer.decode(request.getParameter("currPageNo"));

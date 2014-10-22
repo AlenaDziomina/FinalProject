@@ -12,20 +12,20 @@ import javax.servlet.ServletException;
  *
  * @author User
  */
-public class DaoUserLogicException extends ServletException {
+public class ServletLogicException extends ServletException {
 
-    public DaoUserLogicException(){
+    public ServletLogicException(){
     }
     
-    public DaoUserLogicException(String message, Throwable exception) {
+    public ServletLogicException(String message, Throwable exception) {
         super(message, exception);
     }
 
-    public DaoUserLogicException(Throwable exception) {
+    public ServletLogicException(Throwable exception) {
         super(exception);
     }
     
-    public DaoUserLogicException(String message) {
+    public ServletLogicException(String message) {
         super(message);
     }
     

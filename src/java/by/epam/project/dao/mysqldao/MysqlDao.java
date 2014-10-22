@@ -29,10 +29,10 @@ import java.util.logging.Logger;
 public class MysqlDao implements AbstractDao {
     
     protected Connection mysqlConn;
-    protected static final GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
-    protected static final GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
-    protected static final GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
-    protected static final GenericDeleteQuery deleteDao = new MysqlGenericDeleteQuery();
+    protected static GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
+    protected static GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
+    protected static GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
+    protected static GenericDeleteQuery deleteDao = new MysqlGenericDeleteQuery();
     
     @Override
     public void open() throws DaoException {
@@ -41,11 +41,6 @@ public class MysqlDao implements AbstractDao {
     
     @Override
     public void close() throws DaoException {
-        try {
-            mysqlConn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(MysqlDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
         MysqlConnectionPool.returnConnection(mysqlConn);
     }
     

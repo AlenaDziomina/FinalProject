@@ -44,6 +44,7 @@ class MysqlConnectionPool {
     private static final  String DB_URL;
     private static final  String DB_DRIVER;
     private static final  Integer DB_MAX_CONNECTIONS;
+    private static final Integer DB_ISVALID_TIMEOUT;
     
     static {
         DB_USER_NAME = ConfigurationManager.getProperty("db.username");
@@ -51,28 +52,16 @@ class MysqlConnectionPool {
         DB_URL = ConfigurationManager.getProperty("db.url");
         DB_DRIVER = ConfigurationManager.getProperty("db.driver");
         DB_MAX_CONNECTIONS = Integer.decode(ConfigurationManager.getProperty("db.maxconnect"));
+        DB_ISVALID_TIMEOUT = Integer.decode(ConfigurationManager.getProperty("db.timeout.isvalid"));
     }
     
     private static MysqlConnectionPool pool;
     private static BlockingQueue<ProxyConnection> queue;
     private static final Lock LOCK = new ReentrantLock();
 
-    static void destroy() {
-        while (! queue.isEmpty()) {
-            try {
-                ProxyConnection conn = queue.take();
-                if (conn != null && conn.isValid(1111)) {
-                    conn.reallyClose();
-                }
-            } catch (InterruptedException | SQLException ex) {
-                LOGGER.error(ex);
-            }
-        }
-    }
-    
     private MysqlConnectionPool() throws DaoConnectException{
         if (DB_MAX_CONNECTIONS == null || DB_MAX_CONNECTIONS <= 0) {
-            throw new DaoConnectException();
+            throw new DaoConnectException("Error configuration db.maxconnect.");
         }
         
         queue = new ArrayBlockingQueue<>(DB_MAX_CONNECTIONS);
@@ -80,8 +69,7 @@ class MysqlConnectionPool {
             queue.offer(createNewConnection());
         }
     }
-
-       
+    
     private ProxyConnection createNewConnection() throws DaoConnectException{
         ProxyConnection conn = null;
         try {
@@ -90,7 +78,7 @@ class MysqlConnectionPool {
             connection.setAutoCommit(false);
             conn = new ProxyConnection(connection);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DaoConnectException(ex);
+            throw new DaoConnectException("Connection not created.", ex);
         }
         return conn;
     }
@@ -115,28 +103,47 @@ class MysqlConnectionPool {
         try {
             conn = queue.take();
         } catch (InterruptedException ex) {
-            throw new DaoConnectException(ex);
+            throw new DaoConnectException("Can't take connection.", ex);
         }
-       
+        try {
+            if (conn == null || !conn.isValid(DB_ISVALID_TIMEOUT)) {
+                throw new DaoConnectException("Taken from pool connection null or unvalid.");
+            }
+        } catch (SQLException ex) {
+            throw new DaoConnectException("Error in check valid connection.", ex);
+        }
         return conn;
     }
     
     static void returnConnection(Connection conn) throws DaoConnectException {
         try {
-            if (conn == null || !conn.isValid(10000)) {
-                throw new DaoConnectException();
+            if (conn == null || !conn.isValid(DB_ISVALID_TIMEOUT)) {
+                throw new DaoConnectException("Can't return: null or unvalid connection.");
             }
         } catch (SQLException ex) {
-            throw new DaoConnectException(ex);
+            throw new DaoConnectException("Error in check valid connection.", ex);
         }
         
         try {
             queue.offer((ProxyConnection) conn);
         } catch (Exception ex) {
-            throw new DaoConnectException(ex);
+            throw new DaoConnectException("Can't return unknown connection.", ex);
         }
     }
-
+    
+    static void destroy() {
+        while (! queue.isEmpty()) {
+            try {
+                ProxyConnection conn = queue.take();
+                if (conn != null && conn.isValid(DB_ISVALID_TIMEOUT)) {
+                    conn.reallyClose();
+                }
+            } catch (InterruptedException | SQLException ex) {
+                LOGGER.error("Error in closing and destroying pool connections.", ex);
+            }
+        }
+    }
+    
     private static class ProxyConnection implements Connection {
     
     private final Connection connection;

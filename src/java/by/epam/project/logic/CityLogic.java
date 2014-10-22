@@ -34,10 +34,10 @@ public class CityLogic extends AbstractLogic {
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idCity = (Integer) criteria.getParam(DAO_ID_CITY);
-        if (idCity == null) {      
-            return createCity(criteria, dao);
-        } else {
+        if (idCity != null) {
             return updateCity(criteria, dao);
+        } else {      
+            return createCity(criteria, dao);
         }  
     }
     

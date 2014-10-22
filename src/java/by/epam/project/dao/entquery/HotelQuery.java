@@ -61,7 +61,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
             "Update " + DB_HOTEL + " set ";
     
     
-    public static final Hotel createBean(Criteria criteria){
+    public static Hotel createBean(Criteria criteria){
         Hotel bean = new Hotel();
         bean.setIdHotel((Integer) criteria.getParam(DAO_ID_HOTEL));
         bean.setName((String) criteria.getParam(DAO_HOTEL_NAME));

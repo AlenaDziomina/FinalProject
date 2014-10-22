@@ -15,7 +15,7 @@ import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import by.epam.project.entity.City;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +27,7 @@ import java.util.Objects;
 public class ShowCity implements ActionCommand {
     
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         
         String page = ConfigurationManager.getProperty("path.page.cities");
         request.setSessionAttribute(JSP_PAGE, page);

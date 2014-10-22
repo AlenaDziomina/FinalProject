@@ -64,10 +64,8 @@ public class UserQuery implements TypedQuery<User>{
 
     private static final String UPDATE_QUERY = 
             "Update " + DB_USER + " set ";
-    
-    public UserQuery(){}
-    
-    public static final User createBean(Criteria criteria) {
+        
+    public static User createBean(Criteria criteria) {
         User bean = new User();
         bean.setIdUser((Integer) criteria.getParam(DAO_ID_USER));
         bean.setLogin((String) criteria.getParam(DAO_USER_LOGIN));

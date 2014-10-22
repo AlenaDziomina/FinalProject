@@ -32,10 +32,10 @@ public class CountryLogic extends AbstractLogic {
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idCountry = (Integer) criteria.getParam(DAO_ID_COUNTRY);
-        if (idCountry == null) {      
-            return createCountry(criteria, dao);
-        } else {
+        if (idCountry != null) {
             return updateCountry(criteria, dao);
+        } else {      
+            return createCountry(criteria, dao);
         }  
     }
     

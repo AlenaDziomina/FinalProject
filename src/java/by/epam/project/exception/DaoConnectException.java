@@ -12,13 +12,13 @@ package by.epam.project.exception;
  */
 public class DaoConnectException extends DaoException {
 
-    private static final String str = "Connection to database failed. ";
+    private static final String ERROR_STR = "Connection to database failed. ";
     
     public DaoConnectException(){
     }
     
     public DaoConnectException(String message, Throwable exception) {
-        super(str + message, exception);
+        super(ERROR_STR + message, exception);
     }
 
     public DaoConnectException(Throwable exception) {
@@ -26,6 +26,6 @@ public class DaoConnectException extends DaoException {
     }
     
     public DaoConnectException(String message) {
-        super(str + message);
+        super(ERROR_STR + message);
     }
 }

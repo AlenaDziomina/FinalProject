@@ -32,10 +32,10 @@ public class UserLogic extends AbstractLogic {
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idUser = (Integer) criteria.getParam(DAO_ID_USER);
-        if (idUser == null) {
-            return createUser(criteria, dao);
-        } else {
+        if (idUser != null) {
             return updateUser(criteria, dao);
+        } else {
+            return createUser(criteria, dao);
         }  
     }
     

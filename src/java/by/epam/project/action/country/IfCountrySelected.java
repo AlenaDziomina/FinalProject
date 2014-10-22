@@ -21,7 +21,7 @@ import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Hotel;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +32,7 @@ import java.util.List;
 public class IfCountrySelected implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         resaveParams(request);
         request.setAttribute(JSP_CURR_ID_CITY, "0");
@@ -61,7 +61,7 @@ public class IfCountrySelected implements ActionCommand {
     }
     
 //    @Override
-//    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+//    public String execute(SessionRequestContent request) throws ServletLogicException {
 //        String page = (String) request.getSessionAttribute(JSP_PAGE);
 //        new ProcessSavedParameters().execute(request);
 //        request.setAttribute(JSP_CURR_ID_CITY, "0");

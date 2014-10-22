@@ -32,10 +32,10 @@ public class TourLogic extends AbstractLogic {
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idTour = (Integer) criteria.getParam(DAO_ID_TOUR);
-        if (idTour == null) {      
-            return createTour(criteria, dao);
-        } else {
+        if (idTour != null) {
             return updateTour(criteria, dao);
+        } else {      
+            return createTour(criteria, dao);
         } 
         
     }

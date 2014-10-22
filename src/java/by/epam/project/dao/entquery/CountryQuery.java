@@ -57,7 +57,7 @@ public class CountryQuery implements TypedQuery<Country>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_COUNTRY + " set ";
 
-    public static final Country createBean(Criteria criteria){
+    public static Country createBean(Criteria criteria){
         Country bean = new Country();
         bean.setIdCountry((Integer) criteria.getParam(DAO_ID_COUNTRY));
         bean.setName((String) criteria.getParam(DAO_COUNTRY_NAME));

@@ -13,7 +13,7 @@ import java.util.Collection;
  * @author User
  */
 
-public final class Direction {
+public class Direction {
     
     private Integer idDirection;
     private String name;

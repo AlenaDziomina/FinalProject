@@ -298,13 +298,14 @@
 
 --alter table tourist add column status TINYINT default 1;
 
-select id_tour from tour t
-    left join direction d on t.id_direction = d.id_direction
-    left join direction_countries dc on d.id_direction = dc.id_direction
-    left join direction_cities ds on d.id_direction = ds.id_direction
-    left join direction_stay_hotels dh on d.id_direction = dh.id_direction
-    left join hotel h on h.id_hotel = dh.id_hotel
+-- select id_tour from tour t
+--     left join direction d on t.id_direction = d.id_direction
+--     left join direction_countries dc on d.id_direction = dc.id_direction
+--     left join direction_cities ds on d.id_direction = ds.id_direction
+--     left join direction_stay_hotels dh on d.id_direction = dh.id_direction
+--     left join hotel h on h.id_hotel = dh.id_hotel
  
+-- SHOW VARIABLES LIKE 'wait_timeout';
     
     
     

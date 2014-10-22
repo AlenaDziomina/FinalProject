@@ -11,7 +11,7 @@ package by.epam.project.entity;
  * @author User
  */
 
-public final class Hotel {
+public class Hotel {
     
     private Integer idHotel;
     private String name;

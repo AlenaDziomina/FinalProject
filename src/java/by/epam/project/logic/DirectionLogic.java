@@ -46,10 +46,10 @@ public class DirectionLogic extends AbstractLogic {
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idDirection = (Integer) criteria.getParam(DAO_ID_DIRECTION);
-        if (idDirection == null) {      
-            return createDirection(criteria, dao);
-        } else {
+        if (idDirection != null) {
             return updateDirection(criteria, dao);
+        } else {      
+            return createDirection(criteria, dao);
         } 
     }
 
@@ -58,15 +58,15 @@ public class DirectionLogic extends AbstractLogic {
         criteria.remuveParam(DAO_ID_DESCRIPTION);
         criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
         List<Integer> res =  dao.createNewDirection(criteria);   
-        if (res == null || res.isEmpty()) {
-            throw new DaoException("Error in hotel query.");
-        } else {
+        if (res != null && !res.isEmpty()) {
             Integer idDirection = res.get(0);
             criteria.addParam(DAO_ID_DIRECTION, idDirection);
             List<Integer> res1 = dao.createNewDirectionCountryLinks(criteria);
             List<Integer> res2 = dao.createNewDirectionCityLinks(criteria);
             List<Integer> res3 = dao.createNewDirectionStayHotels(criteria);
             return idDirection;
+        } else {
+            throw new DaoException("Error in hotel query.");
         }
     }
     

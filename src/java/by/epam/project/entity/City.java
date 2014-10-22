@@ -13,7 +13,7 @@ import java.util.Collection;
  * @author User
  */
 
-public final class City {
+public class City {
     
     private Integer idCity;
     private String name;

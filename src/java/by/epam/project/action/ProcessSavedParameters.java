@@ -65,7 +65,7 @@ import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.Tour;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.HotelLogic;
 import static by.epam.project.manager.ParamManager.getFltParam;
@@ -79,7 +79,7 @@ import java.util.List;
  */
 public abstract class ProcessSavedParameters {
 
-    public static String resaveParams(SessionRequestContent request) throws DaoUserLogicException {
+    public static String resaveParams(SessionRequestContent request) throws ServletLogicException {
         
         String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);
         if (currCountry != null) {
@@ -244,7 +244,7 @@ public abstract class ProcessSavedParameters {
         request.setSessionAttribute(JSP_CURRENT_TOUR, currTour);
     }
 
-    private static void createCurrHotelTag(SessionRequestContent request) throws DaoUserLogicException {
+    private static void createCurrHotelTag(SessionRequestContent request) throws ServletLogicException {
         String[] currHotelTags = request.getAllParameters(JSP_CURR_HOTEL_TAGS);
         if (currHotelTags != null) {
             List<Hotel> hotelTagList = new ArrayList();
@@ -259,7 +259,7 @@ public abstract class ProcessSavedParameters {
                         List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);
                         hotelTagList.addAll(hotels);
                     } catch (TechnicalException ex) {
-                        throw new DaoUserLogicException(ex.getMessage(), ex);
+                        throw new ServletLogicException(ex.getMessage(), ex);
                     }
                 }
             }

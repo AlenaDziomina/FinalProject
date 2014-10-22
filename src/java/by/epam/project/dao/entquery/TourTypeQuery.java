@@ -46,7 +46,7 @@ public class TourTypeQuery implements TypedQuery<TourType>{
             "Update " + DB_TOURTYPE + " set ";
 
     
-    public static final TourType createBean(Criteria criteria) {
+    public static TourType createBean(Criteria criteria) {
         TourType bean = new TourType();
         bean.setIdTourType((Integer)criteria.getParam(DAO_ID_TOURTYPE));
         bean.setNameTourType((String)criteria.getParam(DAO_TOURTYPE_NAME));

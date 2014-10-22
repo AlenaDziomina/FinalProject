@@ -13,7 +13,7 @@ import java.util.Collection;
  * @author User
  */
 
-public final class Country {
+public class Country {
     
     private Integer idCountry;
     private String name;

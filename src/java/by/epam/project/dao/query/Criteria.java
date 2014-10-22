@@ -13,24 +13,25 @@ import java.util.Map;
 /**
  *
  * @author User
+ * @param <T>
  */
-public class Criteria {
+public class Criteria<T> {
     
-    private final Map params = new HashMap<>();
+    private Map<String, T> params = new HashMap<>();
     
     public Criteria() {
     }
     
-    public void addParam(String name,Object value) {
+    public void addParam(String name, T value) {
         params.put(name, value);
     }
     
-    public Object getParam(String name){
+    public T getParam(String name){
         String p = name;
         return params.get(name);
     }
 
-    public Collection<Object> getAll(){        
+    public Collection<T> getAll(){        
         return params.values();
     }
     

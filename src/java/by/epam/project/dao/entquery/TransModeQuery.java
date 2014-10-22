@@ -45,7 +45,7 @@ public class TransModeQuery implements TypedQuery<TransMode>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_TRANSMODE + " set ";
 
-    public static final TransMode createBean(Criteria criteria) {
+    public static TransMode createBean(Criteria criteria) {
         TransMode bean = new TransMode();
         bean.setIdMode((Integer)criteria.getParam(DAO_ID_TRANSMODE));
         bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));

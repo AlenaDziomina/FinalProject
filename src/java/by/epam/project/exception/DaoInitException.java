@@ -12,13 +12,13 @@ package by.epam.project.exception;
  */
 public class DaoInitException extends DaoException {
     
-    private static final String str = "Undeclared initialization parameters of database resource: ";
+    private static final String ERROR_STR = "Undeclared initialization parameters of database resource: ";
 
     public DaoInitException(){
     }
     
     public DaoInitException(String message, Throwable exception) {
-        super(str + message, exception);
+        super(ERROR_STR + message, exception);
     }
 
     public DaoInitException(Throwable exception) {
@@ -26,7 +26,7 @@ public class DaoInitException extends DaoException {
     }
     
     public DaoInitException(String message) {
-        super(str + message);
+        super(ERROR_STR + message);
     }
     
 }

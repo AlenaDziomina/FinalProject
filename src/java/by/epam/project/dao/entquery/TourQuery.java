@@ -64,7 +64,7 @@ public class TourQuery implements TypedQuery<Tour>{
     private static final String UPDATE_QUERY = 
             "Update " + DB_TOUR + " set ";
 
-    public static final Tour createBean(Criteria criteria) {
+    public static Tour createBean(Criteria criteria) {
         Tour bean = new Tour();
         bean.setIdTour((Integer)criteria.getParam(DAO_ID_TOUR));
         bean.setDepartDate((Date)criteria.getParam(DAO_TOUR_DATE));

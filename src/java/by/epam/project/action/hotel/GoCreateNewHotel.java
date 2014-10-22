@@ -14,7 +14,7 @@ import static by.epam.project.action.SessionGarbageCollector.cleanSession;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
@@ -24,7 +24,7 @@ import by.epam.project.manager.ConfigurationManager;
 public class GoCreateNewHotel implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edithotel");
         request.setSessionAttribute(JSP_PAGE, page);
         formCountryList(request);

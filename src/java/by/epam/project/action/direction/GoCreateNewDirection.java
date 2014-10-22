@@ -19,7 +19,7 @@ import static by.epam.project.action.direction.GoShowDirections.formTourTypeList
 import static by.epam.project.action.direction.GoShowDirections.formTransModeList;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
@@ -29,7 +29,7 @@ import by.epam.project.manager.ConfigurationManager;
 public class GoCreateNewDirection implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.editdirection");
         request.setSessionAttribute(JSP_PAGE, page);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);

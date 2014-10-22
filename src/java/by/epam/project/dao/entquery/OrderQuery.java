@@ -67,7 +67,7 @@ public class OrderQuery implements TypedQuery<Order> {
     private static final String UPDATE_QUERY = 
             "Update " + DB_ORDER + " set ";
 
-    public static final Order createBean(Criteria criteria) {
+    public static Order createBean(Criteria criteria) {
         Order bean = new Order();
         bean.setIdOrder((Integer)criteria.getParam(DAO_ID_ORDER));
         bean.setOrderDate((Date)criteria.getParam(DAO_ORDER_DATE));

@@ -15,7 +15,7 @@ import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Country;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +27,7 @@ import java.util.Objects;
 public class ShowCountry implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");
         request.setSessionAttribute(JSP_PAGE, page);
         

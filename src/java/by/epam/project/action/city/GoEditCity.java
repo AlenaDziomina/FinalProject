@@ -13,7 +13,7 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.City;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
@@ -23,7 +23,7 @@ import by.epam.project.manager.ConfigurationManager;
 public class GoEditCity implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         
         formCountryList(request);
         City currCity = (City) request.getSessionAttribute(JSP_CURRENT_CITY);

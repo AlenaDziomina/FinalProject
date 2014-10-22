@@ -6,7 +6,7 @@
 
 package by.epam.project.action;
 
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 
 /**
  *
@@ -14,5 +14,5 @@ import by.epam.project.exception.DaoUserLogicException;
  */
 @FunctionalInterface
 public interface ActionCommand {
-    String execute(SessionRequestContent request) throws DaoUserLogicException;
+    String execute(SessionRequestContent request) throws ServletLogicException;
 }

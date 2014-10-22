@@ -33,10 +33,10 @@ public class HotelLogic extends AbstractLogic {
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         Integer idHotel = (Integer) criteria.getParam(DAO_ID_HOTEL);
-        if (idHotel == null) {      
-            return createHotel(criteria, dao);
-        } else {
+        if (idHotel != null) {
             return updateHotel(criteria, dao);
+        } else {      
+            return createHotel(criteria, dao);
         }
     }
     

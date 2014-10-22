@@ -18,7 +18,7 @@ import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
 import static by.epam.project.action.tour.GoShowTour.formTourList;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Tour;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +33,7 @@ import java.util.Objects;
 public class ShowTour implements ActionCommand {
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException {
+    public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.tour");
         request.setSessionAttribute(JSP_PAGE, page);
         

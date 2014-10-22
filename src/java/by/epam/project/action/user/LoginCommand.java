@@ -21,7 +21,7 @@ import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PASSWORD;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.User;
-import by.epam.project.exception.DaoUserLogicException;
+import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.ClientTypeManager;
@@ -38,7 +38,7 @@ import java.util.Locale;
 public class LoginCommand implements ActionCommand{
 
     @Override
-    public String execute(SessionRequestContent request) throws DaoUserLogicException{
+    public String execute(SessionRequestContent request) throws ServletLogicException{
         String page;
         
         Criteria criteria = new Criteria();
@@ -68,7 +68,7 @@ public class LoginCommand implements ActionCommand{
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         } catch (TechnicalException ex) {
-            throw new DaoUserLogicException(ex.getMessage(), ex);
+            throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
     

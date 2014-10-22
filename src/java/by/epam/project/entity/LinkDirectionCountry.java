@@ -10,7 +10,7 @@ package by.epam.project.entity;
  *
  * @author User
  */
-public final class LinkDirectionCountry {
+public class LinkDirectionCountry {
     
     private Integer idDirection;
     private Integer idCountry;
