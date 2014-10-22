@@ -536,4 +536,12 @@ li {
 .yellow.awesome:hover{
     background-color:#fc9200;
 }
+.whiteblue.awesome,.whiteblue.awesome:visited{
+    background-color: #EDF8F7;
+    color:#111
+}
+.whiteblue.awesome:hover{
+    background-color: #ccffff;
+    color:#111
+}
 

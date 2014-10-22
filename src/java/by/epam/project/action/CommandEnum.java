@@ -232,6 +232,11 @@ public enum CommandEnum {
         {
             setCurrentCommand(new GoCreateNewOrder());
         }
+    },
+    SHOWPAGE {
+        {
+            setCurrentCommand(new ShowPage());
+        }
     };
             
             

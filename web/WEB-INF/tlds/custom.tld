@@ -9,42 +9,6 @@
     <body-content>empty</body-content>
   </tag>
   <tag>
-    <name>HelloTag</name>
-    <tag-class>by.epam.project.tag.HelloTag</tag-class>
-    <body-content>empty</body-content>
-    <attribute>
-      <name>role</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-    </attribute>
-  </tag>
-  <tag>
-    <name>RevenueTableTag</name>
-    <tag-class>by.epam.project.tag.RevenueTableTag</tag-class>
-    <body-content>scriptless</body-content>
-    <attribute>
-      <name>rows</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>head</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
-  <tag>
-    <name>SmallImgTag</name>
-    <tag-class>by.epam.project.tag.SmallImgTag</tag-class>
-    <body-content>scriptless</body-content>
-    <attribute>
-      <name>imgname</name>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-    </attribute>
-  </tag>
-  <tag>
     <name>ImgTag</name>
     <tag-class>by.epam.project.tag.ImgTag</tag-class>
     <body-content>scriptless</body-content>
@@ -64,6 +28,31 @@
       <name>nameImg</name>
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <name>PageTableTag</name>
+    <tag-class>by.epam.project.tag.PageTableTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>head</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>rows</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+    <attribute>
+      <name>pageNo</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+    <attribute>
+      <name>pages</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
     </attribute>
   </tag>
 </taglib>

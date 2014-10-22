@@ -11,12 +11,6 @@
     Balance: ${balance}</br>
     Language: ${language}</br>
     <ctg:InfoTimeTag/>
-    <ctg:HelloTag role="${role}"/>
-    <ctg:RevenueTableTag >
-        5 rub BulbaComp
-    </ctg:RevenueTableTag>
-    
-    <input type="button" onclick="popup()" value="Click Me!"></br></br>
 
     <form action="controller" method="GET" name="indexForm">    
         <input type="hidden" name="command" value="getsession" />

@@ -37,9 +37,7 @@
                 </div>
             </div>
 
-            <a href="index.jsp">
-                <img src="#" id="logoText" alt="Travel Agency">
-            </a>
+            <a href="index.jsp"><img src="#" id="logoText" alt="Travel Agency"></a>
     
         </div>
         

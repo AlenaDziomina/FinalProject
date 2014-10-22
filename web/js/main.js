@@ -4,6 +4,19 @@
  * and open the template in the editor.
  */
 
+function nextPage(){
+    var elem = document.getElementsByTagName("PageTableTag");
+    for (var i=0; i<elem.length; i++) 
+    {
+        var curr = elem[i];
+        var t = curr.type;  
+        var pageNo = curr.pageNo;
+    }
+        
+    var n = elem.pageNo;
+    elem.pageNo = n + 1;
+}
+
 function buyTour(path, comnd, method){
     method = method || "post";
     var form = document.createElement("form");
