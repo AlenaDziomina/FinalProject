@@ -27,6 +27,8 @@ public abstract class JspParamNames {
     public static final String JSP_USER_PHONE = "phone";
     public static final String JSP_USER_DISCOUNT = "discount";
     public static final String JSP_USER_BALANCE = "balance";
+    public static final String JSP_USER_VALID_STATUS = "validUserStatus";
+    public static final String JSP_USER_INVALID_STATUS = "invalidUserStatus";
     
     //role
     public static final String JSP_ROLE_TYPE = "role";
@@ -45,6 +47,9 @@ public abstract class JspParamNames {
     public static final String JSP_COUNTRY_TAG_LIST = "countryTagList";
     public static final String JSP_CURR_COUNTRY_TAGS = "currCountryTag";
     public static final String JSP_CURR_ID_COUNTRY = "currIdCountry";
+    public static final String JSP_COUNTRY_VALID_STATUS = "validCountryStatus";
+    public static final String JSP_COUNTRY_INVALID_STATUS = "invalidCountryStatus";
+    
     
     //city
     public static final String JSP_ID_CITY = "idCity";
@@ -57,6 +62,8 @@ public abstract class JspParamNames {
     public static final String JSP_CITY_TAG_LIST = "cityTagList";
     public static final String JSP_CURR_CITY_TAGS = "currCityTag";
     public static final String JSP_CURR_ID_CITY = "currIdCity";
+    public static final String JSP_CITY_VALID_STATUS = "validCityStatus";
+    public static final String JSP_CITY_INVALID_STATUS = "invalidCityStatus";
     
     //hotel
     public static final String JSP_ID_HOTEL = "idHotel";
@@ -70,6 +77,8 @@ public abstract class JspParamNames {
     public static final String JSP_CURR_HOTEL_TAGS = "currHotelTag";
     public static final String JSP_CURR_ID_HOTEL = "currIdHotel";
     public static final String JSP_CURR_HOTEL_STARS = "currStars";
+    public static final String JSP_HOTEL_VALID_STATUS = "validHotelStatus";
+    public static final String JSP_HOTEL_INVALID_STATUS = "invalidHotelStatus";
     
     //direction
     public static final String JSP_ID_DIRECTION = "idDirection";
@@ -81,6 +90,8 @@ public abstract class JspParamNames {
     public static final String JSP_DIRECTION_COUNT = "directionCount";
     public static final String JSP_CURRENT_DIRECTION = "currDirection";
     public static final String JSP_CURR_ID_DIRECTION = "currIdDirection";
+    public static final String JSP_DIRECTION_VALID_STATUS = "validDirectionStatus";
+    public static final String JSP_DIRECTION_INVALID_STATUS = "invalidDirectionStatus";
     
     //tour_type
     public static final String JSP_ID_TOURTYPE = "idTourType";
@@ -105,6 +116,8 @@ public abstract class JspParamNames {
     public static final String JSP_TOTAL_SEATS = "totalSeats";
     public static final String JSP_FREE_SEATS = "freeSeats";
     public static final String JSP_CURRENT_TOUR = "currTour";
+    public static final String JSP_TOUR_VALID_STATUS = "validTourStatus";
+    public static final String JSP_TOUR_INVALID_STATUS = "invalidTourStatus";
     
     //search
     public static final String JSP_CURR_PRICE_FROM = "currPriceFrom";

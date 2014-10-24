@@ -7,6 +7,7 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
+import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import by.epam.project.dao.query.Criteria;
@@ -25,7 +26,7 @@ public class CountryLogic extends AbstractLogic {
     @Override
     List<Country> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
         List<Country> countries = dao.showCountries(criteria);
-        fillCountries(countries, dao);
+        fillCountries(countries, dao, criteria);
         return countries;   
     }
 
@@ -39,17 +40,19 @@ public class CountryLogic extends AbstractLogic {
         }  
     }
     
-    private static void fillCountries(List<Country> countries, AbstractDao dao) throws DaoException {
+    private static void fillCountries(List<Country> countries, AbstractDao dao, Criteria criteria) throws DaoException {
         if (countries != null) {
+            Integer cityStatus = (Integer) criteria.getParam(DAO_CITY_STATUS);
             for (Country country : countries) {
-                Criteria crit1 = new Criteria();
-                crit1.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
-                List<Description> desc = dao.showDescriptions(crit1);
+                Criteria descCrit = new Criteria();
+                descCrit.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
+                List<Description> desc = dao.showDescriptions(descCrit);
                 country.setDescription(desc.get(0));
                 
-                Criteria crit2 = new Criteria();
-                crit2.addParam(DAO_ID_COUNTRY, country.getIdCountry());
-                List<City> cities = dao.showCities(crit2);
+                Criteria cityCrit = new Criteria();
+                cityCrit.addParam(DAO_ID_COUNTRY, country.getIdCountry());
+                cityCrit.addParam(DAO_CITY_STATUS, cityStatus);
+                List<City> cities = dao.showCities(cityCrit);
                 country.setCityCollection(cities);
             }
         }

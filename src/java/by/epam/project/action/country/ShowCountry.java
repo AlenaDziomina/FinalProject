@@ -12,11 +12,12 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.country.GoShowCountry.formCountryList;
+import static by.epam.project.action.ProcessSavedParameters.resaveParamsShowCountry;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Country;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,18 +31,28 @@ public class ShowCountry implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");
         request.setSessionAttribute(JSP_PAGE, page);
-        
-        formCountryList(request);
-        List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-        Integer idCountry = Integer.decode(request.getParameter(JSP_SELECT_ID));
-        request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
-        for (Country c: list) {
-            if (Objects.equals(c.getIdCountry(), idCountry)) {
-                request.setSessionAttribute(JSP_CURRENT_COUNTRY, c);
-                return page;
-            }
-        }
+        resaveParamsShowCountry(request);
+        showSelectedCountry(request);
         return page;
     }
     
+    public static void showSelectedCountry(SessionRequestContent request) {
+        String selected = request.getParameter(JSP_SELECT_ID);
+        Country currCountry = null;
+        if (selected != null) {
+            Integer idCountry = Integer.decode(selected); 
+            if (idCountry != null) {
+                List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
+                Iterator<Country> it = list.iterator();
+                while (it.hasNext() && currCountry == null) {
+                    Country c = it.next();
+                    if (Objects.equals(c.getIdCountry(), idCountry)) {
+                        currCountry = c;
+                        request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
+                    }
+                }
+            }
+        }
+        request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
+    }
 }

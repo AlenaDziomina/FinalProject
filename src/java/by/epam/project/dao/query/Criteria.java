@@ -27,7 +27,6 @@ public class Criteria<T> {
     }
     
     public T getParam(String name){
-        String p = name;
         return params.get(name);
     }
 

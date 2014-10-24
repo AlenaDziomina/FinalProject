@@ -51,10 +51,10 @@ public class SaveRedactCountry implements ActionCommand {
         
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        
         criteria.addParam(DAO_COUNTRY_NAME, request.getParameter(JSP_COUNTRY_NAME));
         criteria.addParam(DAO_COUNTRY_PICTURE, request.getParameter(JSP_COUNTRY_PICTURE));
         criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
+        
         
         try {
             Integer resIdCountry = new CountryLogic().doRedactEntity(criteria);

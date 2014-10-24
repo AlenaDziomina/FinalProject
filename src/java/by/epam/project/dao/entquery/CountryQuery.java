@@ -48,7 +48,7 @@ public class CountryQuery implements TypedQuery<Country>{
    
     private static final String SAVE_QUERY = 
             "Insert into " + DB_COUNTRY + " (" + DB_COUNTRY_NAME + ", "
-            + DB_COUNTRY_PICTURE + ", " + DB_COUNTRY_ID_DESCRIPTION
+            + DB_COUNTRY_PICTURE + ", " + DB_COUNTRY_ID_DESCRIPTION 
             + ") values (?, ?, ?);";
     
     private static final String LOAD_QUERY = 

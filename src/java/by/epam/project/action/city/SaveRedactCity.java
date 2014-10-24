@@ -45,7 +45,7 @@ public class SaveRedactCity implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.editcity");
-       resaveParams(request);
+        resaveParams(request);
         
         Criteria criteria = new Criteria();
         checkIntParam(request, criteria, JSP_CURR_ID_COUNTRY, DAO_ID_COUNTRY);

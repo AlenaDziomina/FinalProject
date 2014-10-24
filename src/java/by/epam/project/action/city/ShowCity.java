@@ -12,6 +12,7 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import by.epam.project.entity.City;
@@ -31,7 +32,7 @@ public class ShowCity implements ActionCommand {
         
         String page = ConfigurationManager.getProperty("path.page.cities");
         request.setSessionAttribute(JSP_PAGE, page);
-        
+        resaveParams(request);
         formCityList(request);
         List<City> list = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
         Integer idCity = Integer.decode(request.getParameter(JSP_SELECT_ID));

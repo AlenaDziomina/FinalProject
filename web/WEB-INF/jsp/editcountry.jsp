@@ -20,7 +20,6 @@
                 </div>
             </div>
             
-            
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="countryPicture" bundle="${ rb }" />:</h1> 

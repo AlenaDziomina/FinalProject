@@ -12,10 +12,14 @@ import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DAYS_COUNT;
 import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DEPART_DATE;
 import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_HOTELS;
 import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_PRICE;
+import static by.epam.project.action.JspParamNames.JSP_CITY_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_CITY_NAME;
 import static by.epam.project.action.JspParamNames.JSP_CITY_PICTURE;
+import static by.epam.project.action.JspParamNames.JSP_CITY_VALID_STATUS;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_NAME;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_PICTURE;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_VALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
@@ -42,19 +46,27 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_PRICE_TO;
 import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
 import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_NAME;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
+import static by.epam.project.action.JspParamNames.JSP_DIRECTION_VALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_FREE_SEATS;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_NAME;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_PICTURE;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_VALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_TOTAL_SEATS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_DISCOUNT;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_PRICE;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
+import static by.epam.project.action.JspParamNames.JSP_USER_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.JspParamNames.JSP_USER_VALID_STATUS;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
@@ -78,6 +90,28 @@ import java.util.List;
  * @author User
  */
 public abstract class ProcessSavedParameters {
+    
+    public static void resaveParamsShowCountry(SessionRequestContent request) {
+        String validCountryStatus = request.getParameter(JSP_COUNTRY_VALID_STATUS);
+        if(validCountryStatus != null) {
+            request.setAttribute(JSP_COUNTRY_VALID_STATUS, validCountryStatus);
+        }
+        
+        String invalidCountryStatus = request.getParameter(JSP_COUNTRY_INVALID_STATUS);
+        if(invalidCountryStatus != null) {
+            request.setAttribute(JSP_COUNTRY_INVALID_STATUS, invalidCountryStatus);
+        }
+        
+        String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
+        if(validCityStatus != null) {
+            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
+        }
+        
+        String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
+        if(invalidCityStatus != null) {
+            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
+        }
+    }
 
     public static String resaveParams(SessionRequestContent request) throws ServletLogicException {
         
@@ -210,6 +244,66 @@ public abstract class ProcessSavedParameters {
         if(isHidden != null) {
             request.setAttribute(JSP_IS_HIDDEN, false);
         }
+        
+//        String validCountryStatus = request.getParameter(JSP_COUNTRY_VALID_STATUS);
+//        if(validCountryStatus != null) {
+//            request.setAttribute(JSP_COUNTRY_VALID_STATUS, validCountryStatus);
+//        }
+//        
+//        String invalidCountryStatus = request.getParameter(JSP_COUNTRY_INVALID_STATUS);
+//        if(invalidCountryStatus != null) {
+//            request.setAttribute(JSP_COUNTRY_INVALID_STATUS, invalidCountryStatus);
+//        }
+//        
+//        String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
+//        if(validCityStatus != null) {
+//            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
+//        }
+//        
+//        String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
+//        if(invalidCityStatus != null) {
+//            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
+//        }
+        
+        String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
+        if(validHotelStatus != null) {
+            request.setAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
+        }
+        
+        String invalidHotelStatus = request.getParameter(JSP_HOTEL_INVALID_STATUS);
+        if(invalidHotelStatus != null) {
+            request.setAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
+        }
+        
+        String validDirectionStatus = request.getParameter(JSP_DIRECTION_VALID_STATUS);
+        if(validDirectionStatus != null) {
+            request.setAttribute(JSP_DIRECTION_VALID_STATUS, validDirectionStatus);
+        }
+        
+        String invalidDirectionStatus = request.getParameter(JSP_DIRECTION_INVALID_STATUS);
+        if(invalidDirectionStatus != null) {
+            request.setAttribute(JSP_DIRECTION_INVALID_STATUS, invalidDirectionStatus);
+        }
+        
+        String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
+        if(validTourStatus != null) {
+            request.setAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
+        }
+        
+        String invalidTourStatus = request.getParameter(JSP_TOUR_INVALID_STATUS);
+        if(invalidTourStatus != null) {
+            request.setAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
+        }
+        
+        String validUserStatus = request.getParameter(JSP_USER_VALID_STATUS);
+        if(validUserStatus != null) {
+            request.setAttribute(JSP_USER_VALID_STATUS, validUserStatus);
+        }
+        
+        String invalidUserStatus = request.getParameter(JSP_USER_INVALID_STATUS);
+        if(invalidUserStatus != null) {
+            request.setAttribute(JSP_USER_INVALID_STATUS, invalidUserStatus);
+        }
 
         createCurrHotelTag(request);
         
@@ -301,6 +395,7 @@ public abstract class ProcessSavedParameters {
             currCountry = new Country();
             currCountry.setDescription(new Description());
         }
+        
         currCountry.setName(request.getParameter(JSP_COUNTRY_NAME));
         currCountry.setPicture(request.getParameter(JSP_COUNTRY_PICTURE));
         currCountry.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));

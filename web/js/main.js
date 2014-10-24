@@ -4,6 +4,136 @@
  * and open the template in the editor.
  */
 
+//call servlet to action on click on select container
+//in cities.jsp, countries.jsp, hotels.jsp
+function post(path, params, method) {
+    method = method || "post";
+    
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    for (var key in params) {
+        if (params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+        }
+    }
+    
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//save city properties on editCity.jsp when click save-button
+function saveAllCity() {
+    var form = document.getElementById("updCity");
+    saveCurrIdCountry(form);
+    saveTextVal(form, "nameCity");
+    saveTextVal(form, "pictureCity");
+    saveMultiTextVal(form, "textDescription");
+}
+
+//save country properties on editCountry.jsp when click save-button
+function saveAllCountry() {
+    var form = document.getElementById("updCountry");
+    saveTextVal(form, "nameCountry");
+    saveTextVal(form, "pictureCountry");
+    saveMultiTextVal(form, "textDescription");
+}
+
+//save parameters of cities.jsp for reload page 
+//according checked boxes of city's and hotel's status
+function postCity(path, comnd, method) {
+    
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveBox(form, "validCityStatus");
+    saveBox(form, "invalidCityStatus");
+    saveBox(form, "validHotelStatus");
+    saveBox(form, "invalidHotelStatus");
+    saveSelected(form, "currCity", "selectId");
+    saveCommand(form, comnd);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//save parameters of countries.jsp for reload page 
+//according checked boxes of country's and city's status
+function postCountry(path, comnd, method) {
+    
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveBox(form, "validCountryStatus");
+    saveBox(form, "invalidCountryStatus");
+    saveBox(form, "validCityStatus");
+    saveBox(form, "invalidCityStatus");
+    saveSelected(form, "currCountry", "selectId");
+    saveCommand(form, comnd);
+    
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//save checked parameter of checkBox
+function saveBox(form, idElem){
+    var elem = document.getElementById(idElem);
+    var box = document.createElement("input");
+    box.type = "hidden";
+    box.name = idElem;
+    box.value=elem.checked;
+    form.appendChild(box);
+}
+
+//save parameter from select multiline container
+function saveSelected(form, elemId, elemName){
+    var sel = document.getElementById(elemId);
+    var val = sel.value;
+    if (val !== '') {
+        var elem = document.createElement("input");
+        elem.type = "hidden";
+        elem.name = elemName;
+        elem.value = val;
+        form.appendChild(elem);
+    }
+}
+
+//save command name, colled on click
+function saveCommand(form, comnd) {
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = "command";
+    elem.value = comnd;
+    form.appendChild(elem);
+}
+
+//rechecking boxes when load or reload any page
+function boxChecking(boxId, val) {
+    var box = document.getElementById(boxId);
+    box.checked = val;
+}
+
+//reselecting in conteiner when load or reload any page
+function select(selName, atr){
+    if (atr !== null) {
+        var select = document.getElementById(selName);
+        select.value=atr;
+    }
+}
+
+
+
+
+
 function nextPage(){
     var elem = document.getElementsByTagName("PageTableTag");
     for (var i=0; i<elem.length; i++) 
@@ -118,22 +248,7 @@ function saveIsHidden(form, idElem){
     form.appendChild(elem);
 }
 
-function saveBox(form, idElem){
-    var elem = document.getElementById(idElem);
-    if (elem.checked) {
-        var box = document.createElement("input");
-        box.type = "hidden";
-        box.name = idElem;
-        box.value=true;
-        form.appendChild(box);
-    }else {
-        var box = document.createElement("input");
-        box.type = "hidden";
-        box.name = idElem;
-        box.value= false;
-        form.appendChild(box);
-    }
-}
+
 
 function saveCurrElem(form, idElem, nameParam){
     var select = document.getElementById(idElem).value;
@@ -228,20 +343,9 @@ function saveAllHotel() {
     saveMultiTextVal(form, "textDescription");
 }
 
-function saveAllCountry() {
-    var form = document.getElementById("updCountry");
-    saveTextVal(form, "nameCountry");
-    saveTextVal(form, "pictureCountry");
-    saveMultiTextVal(form, "textDescription");
-}
 
-function saveAllCity() {
-    var form = document.getElementById("updCity");
-    saveCurrIdCountry(form);
-    saveTextVal(form, "nameCity");
-    saveTextVal(form, "pictureCity");
-    saveMultiTextVal(form, "textDescription");
-}
+
+
 
 function saveTextVal(form, name) {
     var tableInputTags = document.getElementsByTagName("input");
@@ -315,12 +419,7 @@ function check(atrName, atr){
     }
 }
 
-function select(selName, atr){
-    if (atr !== null) {
-        var select = document.getElementById(selName);
-        select.value=atr;
-    }
-}
+
 
 function saveAll(){
     var form = document.getElementById("updDirection");
@@ -547,11 +646,11 @@ function selectTourType(n){
     id.setAttribute("value", n);
 }
 
-function selectTourType(n){
-    var form = document.getElementById("updDirection");
-    var id = form.idTransMode;
-    id.setAttribute("value", n);
-}
+//function selectTourType(n){
+//    var form = document.getElementById("updDirection");
+//    var id = form.idTransMode;
+//    id.setAttribute("value", n);
+//}
 
 
 //function selectCountry(n){
@@ -576,28 +675,7 @@ function selectTourType(n){
 
 
 
-function post(path, params, method) {
-    method = method || "post";
-    
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-    
-    for (var key in params) {
-        if (params.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-            
-            form.appendChild(hiddenField);
-        }
-    }
-    
-    document.body.appendChild(form);
-    form.submit();
-    
-}
+
 
 
 
