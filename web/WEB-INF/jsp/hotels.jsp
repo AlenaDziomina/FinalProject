@@ -26,7 +26,6 @@
         <ctg:ImgTag classImg="currimg" idImg="images" nameImg="${currHotel.picture}"/>
         <div class="cueetext">${currHotel.description.text}</div>
         
-        
         <c:choose>
             <c:when test="${currHotel.status == 1}">
                 <input class="large orange awesome" type="submit" value="<fmt:message key="editHotel" bundle="${ rb }" />" onclick="postHotel('controller', 'goEditHotel', 'POST')"/>
