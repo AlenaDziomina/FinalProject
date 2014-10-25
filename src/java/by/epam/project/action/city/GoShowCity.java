@@ -7,18 +7,12 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CITY_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CITY_VALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
-import static by.epam.project.action.ProcessSavedParameters.resaveParams;
-import static by.epam.project.action.SessionGarbageCollector.cleanSession;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
+import static by.epam.project.action.city.ShowCity.showSelectedCity;
+import static by.epam.project.action.hotel.GoShowHotel.getHotelStatus;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
@@ -39,10 +33,14 @@ public class GoShowCity implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.cities");
-        request.setSessionAttribute(JSP_PAGE, page);
-        resaveParams(request);
+        String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
+        resaveParamsShowCity(request);
         formCityList(request);
-        cleanSession(request);
+        showSelectedCity(request);
+        if (page == null ? prevPage != null : ! page.equals(prevPage)) {
+            request.setSessionAttribute(JSP_PAGE, page);
+            cleanSessionShowCity(request);
+        }
         return page;
     }
     
@@ -50,11 +48,15 @@ public class GoShowCity implements ActionCommand {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        criteria.addParam(DAO_ID_COUNTRY, request.getAttribute(JSP_ID_COUNTRY));
         
-        Integer status = getCityStatus(request);
-        if (status != null) {
-            criteria.addParam(DAO_CITY_STATUS, status);
+        Integer cityStatus = getCityStatus(request);
+        if (cityStatus != null) {
+            criteria.addParam(DAO_CITY_STATUS, cityStatus);
+        }
+        
+        Integer hotelStatus = getHotelStatus(request);
+        if (hotelStatus != null) {
+            criteria.addParam(DAO_HOTEL_STATUS, hotelStatus);
         }
         
         try {
@@ -89,6 +91,48 @@ public class GoShowCity implements ActionCommand {
             status = 0;
         }
         return status;
+    }
+    
+    public static void resaveParamsShowCity(SessionRequestContent request) {
+        String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
+        if(validCityStatus != null) {
+            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
+        }
+        
+        String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
+        if(invalidCityStatus != null) {
+            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
+        }
+        
+        String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
+        if(validHotelStatus != null) {
+            request.setAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
+        }
+        
+        String invalidHotelStatus = request.getParameter(JSP_HOTEL_INVALID_STATUS);
+        if(invalidHotelStatus != null) {
+            request.setAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
+        }
+    }
+    
+    public static void cleanSessionShowCity(SessionRequestContent request) {
+        request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
+        request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
+        request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
+        request.deleteSessionAttribute(JSP_CURRENT_TOUR);
+        
+        request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
+        request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
+        
+        request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
+        request.deleteSessionAttribute(JSP_CITY_TAG_LIST);
+        request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
+        
+        request.deleteSessionAttribute(JSP_TOUR_LIST);
+        request.deleteSessionAttribute(JSP_PRICE_STEP);
+        request.deleteSessionAttribute(JSP_DISCOUNT_STEP);
+        
+        request.setSessionAttribute(JSP_CURR_CITY_LIST, null);
     }
     
 }

@@ -8,14 +8,7 @@ package by.epam.project.action.country;
 
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_VALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
-import static by.epam.project.action.ProcessSavedParameters.resaveParamsShowCountry;
-import static by.epam.project.action.SessionGarbageCollector.cleanSession;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.city.GoShowCity.getCityStatus;
 import static by.epam.project.action.country.ShowCountry.showSelectedCountry;
@@ -49,7 +42,7 @@ public class GoShowCountry implements ActionCommand {
             showSelectedCountry(request);
         } else {
             request.setSessionAttribute(JSP_PAGE, page);
-            cleanSession(request);
+            cleanSessionShowCountry(request);
         }
         return page;
     }   
@@ -101,5 +94,49 @@ public class GoShowCountry implements ActionCommand {
             status = 0;
         }
         return status;
+    }
+    
+    public static void cleanSessionShowCountry(SessionRequestContent request) {
+        
+        request.deleteSessionAttribute(JSP_CURRENT_CITY);
+        request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
+        request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
+        request.deleteSessionAttribute(JSP_CURRENT_TOUR);
+        
+        request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
+        request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
+        
+        request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
+        request.deleteSessionAttribute(JSP_CITY_TAG_LIST);
+        request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
+        
+        request.deleteSessionAttribute(JSP_TOUR_LIST);
+        request.deleteSessionAttribute(JSP_PRICE_STEP);
+        request.deleteSessionAttribute(JSP_DISCOUNT_STEP);
+        
+        request.setSessionAttribute(JSP_CURR_CITY_LIST, null);
+
+    }
+    
+    public static void resaveParamsShowCountry(SessionRequestContent request) {
+        String validCountryStatus = request.getParameter(JSP_COUNTRY_VALID_STATUS);
+        if(validCountryStatus != null) {
+            request.setAttribute(JSP_COUNTRY_VALID_STATUS, validCountryStatus);
+        }
+        
+        String invalidCountryStatus = request.getParameter(JSP_COUNTRY_INVALID_STATUS);
+        if(invalidCountryStatus != null) {
+            request.setAttribute(JSP_COUNTRY_INVALID_STATUS, invalidCountryStatus);
+        }
+        
+        String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
+        if(validCityStatus != null) {
+            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
+        }
+        
+        String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
+        if(invalidCityStatus != null) {
+            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
+        }
     }
 }

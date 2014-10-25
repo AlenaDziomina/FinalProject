@@ -30,9 +30,10 @@
             ${currCountry.description.text}
         </div>
  
-        <input class="large orange awesome" type="submit" value="<fmt:message key="editCountry" bundle="${ rb }" />" onclick="postCountry('controller', 'goEditCountry', 'POST')"/>
+        
         <c:choose>
             <c:when test="${currCountry.status == 1}">
+                <input class="large orange awesome" type="submit" value="<fmt:message key="editCountry" bundle="${ rb }" />" onclick="postCountry('controller', 'goEditCountry', 'POST')"/>
                 <input class="large red awesome" type="submit" value="<fmt:message key="deleteCountry" bundle="${ rb }" />" onclick="postCountry('controller', 'DeleteCountry', 'POST')"/>
             </c:when>
             <c:when test="${currCountry.status == 0}">
@@ -46,7 +47,7 @@
             <fmt:message key="showValid" bundle="${ rb }" /><br>
         <input type="checkbox" id="invalidCityStatus" name="status" value="0" class="boxMar" onchange="postCountry('controller', 'goShowCountry', 'POST')" />
             <fmt:message key="showInvalid" bundle="${ rb }" /><br>
-        <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showCity'}, 'POST'))">               
+        <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'goShowCity', validCityStatus: ${validCityStatus}, invalidCityStatus: ${invalidCityStatus}}, 'POST'))">               
             <c:forEach items="${currCountry.cityCollection}" var="row">
                 <option class="menuHref" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
             </c:forEach>

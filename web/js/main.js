@@ -27,10 +27,21 @@ function post(path, params, method) {
     form.submit();
 }
 
+//save hotel properties on editHotel.jsp when click save-button
+function saveAllHotel() {
+    var form = document.getElementById("updHotel");
+    saveCurrElem(form, "currStars", "currStars");
+    saveCurrElem(form, "currCountry", "currIdCountry");
+    saveCurrElem(form, "currCity", "currIdCity");
+    saveTextVal(form, "nameHotel");
+    saveTextVal(form, "pictureHotel");
+    saveMultiTextVal(form, "textDescription");
+}
+
 //save city properties on editCity.jsp when click save-button
 function saveAllCity() {
     var form = document.getElementById("updCity");
-    saveCurrIdCountry(form);
+    saveCurrElem(form, "currCountry", "currIdCountry");
     saveTextVal(form, "nameCity");
     saveTextVal(form, "pictureCity");
     saveMultiTextVal(form, "textDescription");
@@ -42,6 +53,24 @@ function saveAllCountry() {
     saveTextVal(form, "nameCountry");
     saveTextVal(form, "pictureCountry");
     saveMultiTextVal(form, "textDescription");
+}
+
+//save parameters of hotels.jsp for reload page 
+//according checked boxes of hotel's status
+function postHotel(path, comnd, method) {
+    
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveBox(form, "validHotelStatus");
+    saveBox(form, "invalidHotelStatus");
+    saveSelected(form, "currHotel", "selectId");
+    saveCommand(form, comnd);
+
+    document.body.appendChild(form);
+    form.submit();
 }
 
 //save parameters of cities.jsp for reload page 
@@ -82,6 +111,16 @@ function postCountry(path, comnd, method) {
     
     document.body.appendChild(form);
     form.submit();
+}
+
+//save current params from jsp page
+function saveCurrElem(form, idElem, nameParam){
+    var select = document.getElementById(idElem).value;
+    var elem = document.createElement("input");
+    elem.type = "hidden";
+    elem.name = nameParam;
+    elem.value=select;
+    form.appendChild(elem);
 }
 
 //save checked parameter of checkBox
@@ -250,15 +289,6 @@ function saveIsHidden(form, idElem){
 
 
 
-function saveCurrElem(form, idElem, nameParam){
-    var select = document.getElementById(idElem).value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = nameParam;
-    elem.value=select;
-    form.appendChild(elem);
-}
-
 function checkBox(boxId, val, elemId) {
     var box = document.getElementById(boxId);
     var elem = document.getElementById(elemId);
@@ -324,24 +354,9 @@ function postHot(path, comnd, method) {
     
 }
 
-function saveCurrHotelStars(form) {
-    var select = document.getElementById("currStars").value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "currStars";
-    elem.value=select;
-    form.appendChild(elem);
-}
 
-function saveAllHotel() {
-    var form = document.getElementById("updHotel");
-    saveCurrHotelStars(form);
-    saveCurrIdCountry(form);
-    saveCurrIdCity(form);
-    saveTextVal(form, "nameHotel");
-    saveTextVal(form, "pictureHotel");
-    saveMultiTextVal(form, "textDescription");
-}
+
+
 
 
 
@@ -505,23 +520,8 @@ function saveTextValDir(form) {
     }
 }
 
-function saveCurrIdCity(form){
-    var select = document.getElementById("currCity").value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "currIdCity";
-    elem.value=select;
-    form.appendChild(elem);
-}
 
-function saveCurrIdCountry(form){
-    var select = document.getElementById("currCountry").value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "currIdCountry";
-    elem.value=select;
-    form.appendChild(elem);
-}
+
 
 function saveMode(form){
     var select = document.getElementById("transMode").value;

@@ -12,12 +12,12 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.city.GoShowCity.formCityList;
+import static by.epam.project.action.city.GoShowCity.resaveParamsShowCity;
 import by.epam.project.entity.City;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,22 +29,32 @@ public class ShowCity implements ActionCommand {
     
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
-        
         String page = ConfigurationManager.getProperty("path.page.cities");
         request.setSessionAttribute(JSP_PAGE, page);
-        resaveParams(request);
-        formCityList(request);
-        List<City> list = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
-        Integer idCity = Integer.decode(request.getParameter(JSP_SELECT_ID));
-        request.setAttribute(JSP_CURR_ID_CITY, idCity);
-        for (City c: list) {
-            if (Objects.equals(c.getIdCity(), idCity)) {
-                request.setSessionAttribute(JSP_CURRENT_CITY, c);
-                return page;
-            }
-        }
+        resaveParamsShowCity(request);
+        showSelectedCity(request);
         return page;
     
+    }
+    
+    public static void showSelectedCity(SessionRequestContent request) {
+        String selected = request.getParameter(JSP_SELECT_ID);
+        City currCity = null;
+        if (selected != null) {
+            Integer idCity = Integer.decode(selected); 
+            if (idCity != null) {
+                List<City> list = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
+                Iterator<City> it = list.iterator();
+                while (it.hasNext() && currCity == null) {
+                    City city = it.next();
+                    if (Objects.equals(city.getIdCity(), idCity)) {
+                        currCity = city;
+                        request.setAttribute(JSP_CURR_ID_CITY, idCity);
+                    }
+                }
+            }
+        }
+        request.setSessionAttribute(JSP_CURRENT_CITY, currCity);
     }
     
 }

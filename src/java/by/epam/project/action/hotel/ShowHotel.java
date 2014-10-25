@@ -12,11 +12,12 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.action.SessionRequestContent;
+import static by.epam.project.action.hotel.GoShowHotel.resaveParamsShowHotel;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,19 +31,29 @@ public class ShowHotel implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.hotels");
         request.setSessionAttribute(JSP_PAGE, page);
-        
-        formHotelList(request);
-        List<Hotel> list = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
-        Integer idHotel = Integer.decode(request.getParameter(JSP_SELECT_ID));
-        request.setAttribute(JSP_CURR_ID_HOTEL, idHotel);
-        for (Hotel hotel: list) {
-            if (Objects.equals(hotel.getIdHotel(), idHotel)) {
-                request.setSessionAttribute(JSP_CURRENT_HOTEL, hotel);
-                return page;
+        resaveParamsShowHotel(request);
+        showSelectedHotel(request);
+        return page;
+    }
+    
+    public static void showSelectedHotel(SessionRequestContent request) {
+        String selected = request.getParameter(JSP_SELECT_ID);
+        Hotel currHotel = null;
+        if (selected != null) {
+            Integer idHotel = Integer.decode(selected); 
+            if (idHotel != null) {
+                List<Hotel> list = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
+                Iterator<Hotel> it = list.iterator();
+                while (it.hasNext() && currHotel == null) {
+                    Hotel hotel = it.next();
+                    if (Objects.equals(hotel.getIdHotel(), idHotel)) {
+                        currHotel = hotel;
+                        request.setAttribute(JSP_CURR_ID_HOTEL, idHotel);
+                    }
+                }
             }
         }
-        return page;
-    
+        request.setSessionAttribute(JSP_CURRENT_HOTEL, currHotel);
     }
     
 }

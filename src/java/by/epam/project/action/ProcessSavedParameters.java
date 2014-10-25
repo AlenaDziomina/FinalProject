@@ -91,27 +91,12 @@ import java.util.List;
  */
 public abstract class ProcessSavedParameters {
     
-    public static void resaveParamsShowCountry(SessionRequestContent request) {
-        String validCountryStatus = request.getParameter(JSP_COUNTRY_VALID_STATUS);
-        if(validCountryStatus != null) {
-            request.setAttribute(JSP_COUNTRY_VALID_STATUS, validCountryStatus);
-        }
-        
-        String invalidCountryStatus = request.getParameter(JSP_COUNTRY_INVALID_STATUS);
-        if(invalidCountryStatus != null) {
-            request.setAttribute(JSP_COUNTRY_INVALID_STATUS, invalidCountryStatus);
-        }
-        
-        String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
-        if(validCityStatus != null) {
-            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
-        }
-        
-        String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
-        if(invalidCityStatus != null) {
-            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
-        }
-    }
+    
+    
+    
+    
+    
+    
 
     public static String resaveParams(SessionRequestContent request) throws ServletLogicException {
         
@@ -265,15 +250,15 @@ public abstract class ProcessSavedParameters {
 //            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
 //        }
         
-        String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
-        if(validHotelStatus != null) {
-            request.setAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
-        }
-        
-        String invalidHotelStatus = request.getParameter(JSP_HOTEL_INVALID_STATUS);
-        if(invalidHotelStatus != null) {
-            request.setAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
-        }
+//        String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
+//        if(validHotelStatus != null) {
+//            request.setAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
+//        }
+//        
+//        String invalidHotelStatus = request.getParameter(JSP_HOTEL_INVALID_STATUS);
+//        if(invalidHotelStatus != null) {
+//            request.setAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
+//        }
         
         String validDirectionStatus = request.getParameter(JSP_DIRECTION_VALID_STATUS);
         if(validDirectionStatus != null) {

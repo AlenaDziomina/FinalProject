@@ -27,6 +27,7 @@ import static by.epam.project.action.JspParamNames.JSP_TRANS_MODE_LIST;
  */
 public class SessionGarbageCollector {
     
+    
     public static void cleanSession(SessionRequestContent request) {
         
         request.deleteSessionAttribute(JSP_CURRENT_CITY);

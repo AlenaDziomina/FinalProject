@@ -12,8 +12,8 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.ProcessSavedParameters.resaveParamsShowCountry;
 import by.epam.project.action.SessionRequestContent;
+import static by.epam.project.action.country.GoShowCountry.resaveParamsShowCountry;
 import by.epam.project.entity.Country;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -45,9 +45,9 @@ public class ShowCountry implements ActionCommand {
                 List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
                 Iterator<Country> it = list.iterator();
                 while (it.hasNext() && currCountry == null) {
-                    Country c = it.next();
-                    if (Objects.equals(c.getIdCountry(), idCountry)) {
-                        currCountry = c;
+                    Country country = it.next();
+                    if (Objects.equals(country.getIdCountry(), idCountry)) {
+                        currCountry = country;
                         request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
                     }
                 }
