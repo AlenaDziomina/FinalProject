@@ -5,7 +5,6 @@
 --%>
 
 <div id="main">
-    
     <form id="updCity" name="updateCity" method="POST" action="controller">
         <div class="inner">
             <input type="hidden" name="command" value="saveRedactCity" />
@@ -57,8 +56,6 @@
                 </div>
             </div>
             
-            <br/>
-        
             <div class="parameterRow centrale">
                 <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllCity()"/>
                 <div id="erNote">${errorSaveData}</div>

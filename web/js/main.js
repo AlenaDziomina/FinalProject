@@ -4,6 +4,113 @@
  * and open the template in the editor.
  */
 
+function validateForm()
+{
+	var valid = isValidLogin() && isValidEmail() && isValidPhone() 
+                && isValidPassword() && isValidRepeatPass();
+        
+        return valid;
+}
+
+function isValidLogin() {
+    var form = document.getElementById("registration");
+    var login = form.login.value;
+    var elem = document.getElementById("loginErrMsg");
+    if (login === null || login === "") {
+        elem.hidden = false;
+        return false;
+    }
+    
+    var re = new RegExp ('[\\S]{4,}');
+    var pars = re.exec(login);
+    if (pars !== null && pars.length === 1) {
+        form.login.value = pars[0];
+        elem.hidden = true;
+        return true;
+    } else {
+        elem.hidden = false;
+        return false;
+    }
+}
+
+function isValidEmail() {
+    var form = document.getElementById("registration");
+    var email = form.email.value;
+    var elem = document.getElementById("emailErrMsg");
+    if (email === null || email === "") {
+        elem.hidden = false;
+        return false;
+    }
+    
+    var re = new RegExp ('\\w+@\\w+\\.[a-z]{2,}');
+    var pars = re.exec(email);
+    if (pars !== null) {
+        form.email.value = pars[0];
+        elem.hidden = true;
+        return true;
+    } else {
+        elem.hidden = false;
+        return false;
+    }
+}
+
+function isValidPhone() {
+    var form = document.getElementById("registration");
+    var phone = form.phone.value;
+    var elem = document.getElementById("phoneErrMsg");
+    if (phone === null || phone === "") {
+        elem.hidden = false;
+        return false;
+    }
+    
+    var re = new RegExp ('\\+375\\-\\d{2}\\-\\d{3}\\-\\d{2}-\\d{2}');
+    var pars = re.exec(phone);
+    if (pars !== null) {
+        form.phone.value = pars[0];
+        elem.hidden = true;
+        return true;
+    } else {
+        elem.hidden = false;
+        return false;
+    }
+}
+
+function isValidPassword() {
+    var form = document.getElementById("registration");
+    var password = form.password.value;
+    var elem = document.getElementById("passwordErrMsg");
+    if (password === null || password === "") {
+        elem.hidden = false;
+        return false;
+    }
+    
+    var re = new RegExp ('[\\w]{4,}');
+    var pars = re.exec(password);
+    if (pars !== null) {
+        form.password.value = pars[0];
+        elem.hidden = true;
+        return true;
+    } else {
+        elem.hidden = false;
+        return false;
+    }
+    
+}
+
+function isValidRepeatPass() {
+    var form = document.getElementById("registration");
+    var password = form.password.value;
+    var repeatPass = form.repeatPassword.value;
+    var elem = document.getElementById("repeatPassErrMsg");
+    if (repeatPass !== null && repeatPass === password) {
+        elem.hidden = true;
+        return true;
+    } else {
+        elem.hidden = false;
+        return false;
+    }
+}
+
 //call servlet to action on click on select container
 //in cities.jsp, countries.jsp, hotels.jsp
 function post(path, params, method) {

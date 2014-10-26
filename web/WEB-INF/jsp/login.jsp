@@ -4,22 +4,35 @@
     Author     : User
 --%>
 
-<body>
-    REFERER: ${referer}</br>
-        Role: ${role}<br/>
-        Balance: ${balance}</br>
-        Language: ${language}</br>
-    
+<div id="main">
     <form name="loginForm" method="POST" action="controller">
-        <input type="hidden" name="command" value="login" />
-        <fmt:message key="login" bundle="${ rb }" />:<br/>
-        <input type="text" name="login" value=""/><br/>
-        <fmt:message key="password" bundle="${ rb }" />:<br/>
-        <input type="password" name="password" value=""/><br/>      
-        <div id="erNote">${errorLoginPassMessage}</div>   
-        <div id="erNote">${wrongAction}</div>
-        <div id="erNote">${nullPage}</div>
-        <input class="large blue awesome" type="submit" value="<fmt:message key="log_in" bundle="${ rb }" />"/>
+        <div class="inner">
+            <input type="hidden" name="command" value="login" />
+            
+            <div class="parameterRow">
+                <div class="mid input">
+                    <h1 class="labelH"><fmt:message key="login" bundle="${ rb }" />: </h1> 
+                </div>
+                <div class="input inner">
+                    <input type="text" name="login" class="inputLineContainer" value="${currUser.login}"/>
+                </div>
+            </div>
+                
+            <div class="parameterRow">
+                <div class="mid input">
+                    <h1 class="labelH"><fmt:message key="password" bundle="${ rb }" />: </h1> 
+                </div>
+                <div class="input inner">
+                    <input type="text" name="password" class="inputLineContainer" value=""/>
+                </div>
+            </div>
+    
+            <div class="parameterRow centrale">
+                <input class="large blue awesome" type="submit" value="<fmt:message key="log_in" bundle="${ rb }" />" onclick="saveLogin()"/>
+                <div id="erNote">${errorLoginPassMessage}</div>   
+                <div id="erNote">${wrongAction}</div>
+                <div id="erNote">${nullPage}</div>
+            </div>
+        </div>
     </form>
-        
-</body>
+</div>
