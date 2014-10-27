@@ -22,6 +22,7 @@ public class StatusTag extends TagSupport {
     private Short status;
     private String ifValid;
     private String ifInvalid;
+    private String href;
 
     /**
      * Called by the container to invoke this tag. The implementation of this
@@ -35,14 +36,24 @@ public class StatusTag extends TagSupport {
         try {
             JspWriter out = pageContext.getOut();
             if (status != null && status == 1 && ifValid != null && !ifValid.isEmpty()) {
-                out.write("<a class='" + ifValid + "'>");
+                out.write("<a class='" + ifValid + "' ");
+                writeHref(out);
             } else if(status != null && status == 0 && ifInvalid != null && !ifInvalid.isEmpty()) {
-                out.write("<a class='" + ifInvalid + "'>");
+                out.write("<a class='" + ifInvalid + "' ");
+                writeHref(out);
             }
+            
         } catch (IOException e) {
             throw new JspTagException(e.getMessage());
         }
         return EVAL_BODY_INCLUDE;
+    }
+    
+    private void writeHref(JspWriter out) throws IOException {
+        if (href != null && !href.isEmpty()) {
+            out.write("href='" + href + "' ");
+        }
+        out.write(">");
     }
     
     @Override
@@ -71,5 +82,11 @@ public class StatusTag extends TagSupport {
     public void setIfInvalid(String ifInvalid) {
         this.ifInvalid = ifInvalid;
     }
+    
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    
     
 }

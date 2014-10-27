@@ -33,9 +33,10 @@ public class SearchLogic extends AbstractLogic {
                 Criteria crit1 = new Criteria();
                 crit1.addParam(DAO_ID_DIRECTION, tour.getDirection().getIdDirection());
                 List<Direction> dir = dao.showDirections(crit1);
-                DirectionLogic.fillDirections(dir, dao);
-                tour.setDirection(dir.get(0));
-                
+                if (!dir.isEmpty()) {
+                    DirectionLogic.fillDirections(dir, dao);
+                    tour.setDirection(dir.get(0));
+                }
             }
         }
     }

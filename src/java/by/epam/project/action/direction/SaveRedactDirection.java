@@ -7,22 +7,7 @@
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
-import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_NAME;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_PICTURE;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
-import static by.epam.project.action.JspParamNames.JSP_ID_DESCRIPTION;
-import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
+import static by.epam.project.action.JspParamNames.*;
 import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;

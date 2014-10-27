@@ -18,7 +18,9 @@
         <select id="currHotel" class="container" size="15" 
                 onchange="if(this.value)(postHotel('controller', 'showHotel', 'POST'))">               
             <c:forEach items="${hotelList}" var="row">
-                <option class="menuHref" value="${row.idHotel}">${row.name}</option>
+                <ctg:OptionTag status="${row.status}" valClass="menuHref" invalClass="grey menuHref" value="${row.idHotel}">
+                    ${row.name}
+                </ctg:OptionTag>
             </c:forEach>
         </select>
         <ctg:RoleTag>

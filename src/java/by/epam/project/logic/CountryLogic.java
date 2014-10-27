@@ -47,7 +47,9 @@ public class CountryLogic extends AbstractLogic {
                 Criteria descCrit = new Criteria();
                 descCrit.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
                 List<Description> desc = dao.showDescriptions(descCrit);
-                country.setDescription(desc.get(0));
+                if (!desc.isEmpty()) {
+                    country.setDescription(desc.get(0));
+                }
                 
                 Criteria cityCrit = new Criteria();
                 cityCrit.addParam(DAO_ID_COUNTRY, country.getIdCountry());

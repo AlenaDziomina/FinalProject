@@ -47,12 +47,16 @@ public class CityLogic extends AbstractLogic {
                 Criteria crit1 = new Criteria();
                 crit1.addParam(DAO_ID_DESCRIPTION, city.getDescription().getIdDescription());
                 List<Description> desc = dao.showDescriptions(crit1);
-                city.setDescription(desc.get(0));
+                if (!desc.isEmpty()) {
+                    city.setDescription(desc.get(0));
+                }
                 
                 Criteria crit2 = new Criteria();
                 crit2.addParam(DAO_ID_COUNTRY, city.getCountry().getIdCountry());
                 List<Country> countries = dao.showCountries(crit2);
-                city.setCountry(countries.get(0));
+                if (!countries.isEmpty()) {
+                    city.setCountry(countries.get(0));
+                }
                 
                 Criteria crit3 = new Criteria();
                 crit3.addParam(DAO_ID_CITY, city.getIdCity());

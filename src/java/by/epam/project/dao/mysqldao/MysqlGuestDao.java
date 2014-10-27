@@ -47,79 +47,54 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
 
     @Override
     public List<Role> showRoles(Criteria criteria) throws DaoException {
-        try {
-            List<Role> roles = new RoleQuery().load(criteria, loadDao, mysqlConn);
-            return roles;
-        } catch (DaoQueryException ex) {
-            throw new DaoException("Error in query.");
-        }
+        return new RoleQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override
     public List<User> showUsers(Criteria criteria) throws DaoException {
-        try {
-            List<User> users = new UserQuery().load(criteria, loadDao, mysqlConn);
-            return users;
-        } catch (DaoQueryException ex) {
-            throw new DaoException("Error in query.");
-        }
+        return new UserQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override
     public Integer createNewUser(Criteria criteria) throws DaoException {
-        try {
-            User user = UserQuery.createBean(criteria);
-            List list = new ArrayList<>();
-            list.add(user);
-            List<Integer> res = new UserQuery().save(list, saveDao, mysqlConn);
-            if (res != null && !res.isEmpty()) {
-                return res.get(0);
-            } else {
-                throw new DaoLogicException("New user not created.");
-            }
-        } catch (DaoQueryException ex) {
-            throw new DaoException("Error in query.");
+        User user = UserQuery.createBean(criteria);
+        List list = new ArrayList<>();
+        list.add(user);
+        List<Integer> res = new UserQuery().save(list, saveDao, mysqlConn);
+        if (res != null && !res.isEmpty()) {
+            return res.get(0);
+        } else {
+            throw new DaoLogicException("New user not created.");
         }
     }
 
     @Override
     public List<Description> showDescriptions(Criteria criteria) throws DaoException {
-        try {
-            List<Description> desc = new DescriptionQuery().load(criteria, loadDao, mysqlConn);
-            return desc;
-        } catch (DaoQueryException ex) {
-            throw new DaoException("Error in query.");
-        }
+        return new DescriptionQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override
     public List<Country> showCountries(Criteria criteria) throws DaoException {
-        try {
-            List<Country> countries = new CountryQuery().load(criteria, loadDao, mysqlConn);
-            return countries;
-        } catch (DaoQueryException ex) {
-            throw new DaoException("Error in query.");
+        if (criteria.getParam(CountryQuery.DAO_COUNTRY_STATUS) == null) {
+            criteria.addParam(CountryQuery.DAO_COUNTRY_STATUS, 1);
         }
+        return new CountryQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
     public List<City> showCities(Criteria criteria) throws DaoException {
-        try {
-            List<City> cities = new CityQuery().load(criteria, loadDao, mysqlConn);
-            return cities;
-        } catch (DaoQueryException ex) {
-            throw new DaoException("Error in query.");
+        if (criteria.getParam(CityQuery.DAO_CITY_STATUS) == null) {
+            criteria.addParam(CityQuery.DAO_CITY_STATUS, 1);
         }
+        return new CityQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
     public List<Hotel> showHotels(Criteria criteria) throws DaoException {
-        try {
-            List<Hotel> hotels = new HotelQuery().load(criteria, loadDao, mysqlConn);
-            return hotels;
-        } catch (DaoQueryException ex) {
-            throw new DaoException("Error in query.");
+        if (criteria.getParam(HotelQuery.DAO_HOTEL_STATUS) == null) {
+            criteria.addParam(HotelQuery.DAO_HOTEL_STATUS, 1);
         }
+        return new HotelQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override
@@ -134,6 +109,9 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
 
     @Override
     public List<Direction> showDirections(Criteria criteria) throws DaoException {
+        if (criteria.getParam(DirectionQuery.DAO_DIRECTION_STATUS) == null) {
+            criteria.addParam(DirectionQuery.DAO_DIRECTION_STATUS, 1);
+        }
         return new DirectionQuery().load(criteria, loadDao, mysqlConn);
     }
 

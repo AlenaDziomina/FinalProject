@@ -19,11 +19,16 @@ import by.epam.project.dao.entquery.OrderQuery;
 import by.epam.project.dao.entquery.TourQuery;
 import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.City;
+import by.epam.project.entity.Country;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.DirectionStayHotel;
+import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.LinkDirectionFactory;
 import by.epam.project.exception.DaoException;
+import by.epam.project.exception.DaoQueryException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +39,26 @@ import java.util.List;
 public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     
     protected MysqlAdminDao(){}
+    
+    @Override
+    public List<Country> showCountries(Criteria criteria) throws DaoException {
+        return new CountryQuery().load(criteria, loadDao, mysqlConn);
+    }
+    
+    @Override
+    public List<City> showCities(Criteria criteria) throws DaoException {
+        return new CityQuery().load(criteria, loadDao, mysqlConn);
+    }
+
+    @Override
+    public List<Hotel> showHotels(Criteria criteria) throws DaoException {
+        return new HotelQuery().load(criteria, loadDao, mysqlConn);
+    }
+    
+    @Override
+    public List<Direction> showDirections(Criteria criteria) throws DaoException {
+        return new DirectionQuery().load(criteria, loadDao, mysqlConn);
+    }
     
     @Override
     public List<Integer> createNewDescription(Criteria criteria) throws DaoException {

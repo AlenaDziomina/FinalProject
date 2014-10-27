@@ -6,38 +6,52 @@
 
 <div id="main">
     
-    <ctg:PageTableTag rows="${ rw.size }" pageNo="${rw.currPageNo}" pages="${rw.pages}">
-        <ctg:ImgTag classImg="smallimg" idImg="images" nameImg="${rw.next.picture}"/>
+    <ctg:RoleTag>
+        <input type="checkbox" id="validDirectionStatus" name="status" value="1" class="boxMar" onchange="postDirections('controller', 'goShowDirections', 'POST')" />
+            <fmt:message key="showValid" bundle="${ rb }" />
+        <input type="checkbox" id="invalidDirectionStatus" name="status" value="0" class="boxMar" onchange="postDirections('controller', 'goShowDirections', 'POST')" />
+            <fmt:message key="showInvalid" bundle="${ rb }" />
+    </ctg:RoleTag>
+    
+    <ctg:PageTableTag rows="${ pageList.size }" pageNo="${pageList.currPageNo}" pages="${pageList.pages}">
+        <ctg:ImgTag classImg="smallimg" idImg="images" nameImg="${pageList.next.picture}"/>
         <div class="padB">
-            <a class="nodec cntr labelH" href="controller?command=showDirection&selectId=${rw.same.idDirection}">${rw.same.name}</a>
+            <ctg:StatusTag status="${pageList.same.status}" href="controller?command=showDirection&selectId=${pageList.same.idDirection}" ifValid="nodec cntr labelH" ifInvalid="nodec cntr grey labelH">
+                ${pageList.same.name}
+            </ctg:StatusTag>
         </div>
-        <h2 class="small lft labelH">${rw.same.text}</h2>
+        <h2 class="small lft labelH">${pageList.same.text}</h2>
 
         <div>
             <ul class="containerLabel">
                 <div class="lblH">DirectionCountryTags:</div>
-                <c:forEach items="${rw.same.countryCollection}" var="cntr">
-                    <li>${cntr.name}</li>
+                <c:forEach items="${pageList.same.countryCollection}" var="cntr">
+                    <li><ctg:StatusTag status="${cntr.status}" ifInvalid="greyA">${cntr.name}</ctg:StatusTag></li>
                 </c:forEach>
             </ul>
             <ul class="containerLabel">
                 <div class="lblH">DirectionCityTags:</div>
-                <c:forEach items="${rw.same.cityCollection}" var="ct">
-                    <li>${ct.name}</li>
+                <c:forEach items="${pageList.same.cityCollection}" var="ct">
+                    <li><ctg:StatusTag status="${ct.status}" ifInvalid="greyA">${ct.name}</ctg:StatusTag></li>
                 </c:forEach>
             </ul>
             <ul class="containerLabelR">
                 <div class="lblH">DirectionStayHotels:</div>
-                <c:forEach items="${rw.same.stayCollection}" var="st">
-                    <li>${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name}) </li>
+                <c:forEach items="${pageList.same.stayCollection}" var="st">
+                    <li><ctg:StatusTag status="${st.status}" ifInvalid="greyA">${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name})</ctg:StatusTag></li>
                 </c:forEach>
             </ul>
         </div>      
     </ctg:PageTableTag>
         
-    <form method="POST" action="controller">
-        <input type="hidden" name="command" value="goCreateNewDirection" />
-        <input class="centrale large green awesome" type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
-    </form>
-
+    <script>
+        boxChecking('validDirectionStatus', ${validDirectionStatus});
+        boxChecking('invalidDirectionStatus', ${invalidDirectionStatus});
+    </script>
+    <ctg:RoleTag>
+        <form method="POST" action="controller">
+            <input type="hidden" name="command" value="goCreateNewDirection" />
+            <input class="centrale large green awesome" type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
+        </form>
+    </ctg:RoleTag>    
 </div>

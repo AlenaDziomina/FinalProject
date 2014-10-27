@@ -260,15 +260,15 @@ public abstract class ProcessSavedParameters {
 //            request.setAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
 //        }
         
-        String validDirectionStatus = request.getParameter(JSP_DIRECTION_VALID_STATUS);
-        if(validDirectionStatus != null) {
-            request.setAttribute(JSP_DIRECTION_VALID_STATUS, validDirectionStatus);
-        }
-        
-        String invalidDirectionStatus = request.getParameter(JSP_DIRECTION_INVALID_STATUS);
-        if(invalidDirectionStatus != null) {
-            request.setAttribute(JSP_DIRECTION_INVALID_STATUS, invalidDirectionStatus);
-        }
+//        String validDirectionStatus = request.getParameter(JSP_DIRECTION_VALID_STATUS);
+//        if(validDirectionStatus != null) {
+//            request.setAttribute(JSP_DIRECTION_VALID_STATUS, validDirectionStatus);
+//        }
+//        
+//        String invalidDirectionStatus = request.getParameter(JSP_DIRECTION_INVALID_STATUS);
+//        if(invalidDirectionStatus != null) {
+//            request.setAttribute(JSP_DIRECTION_INVALID_STATUS, invalidDirectionStatus);
+//        }
         
         String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
         if(validTourStatus != null) {

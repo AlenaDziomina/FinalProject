@@ -125,6 +125,11 @@ li {
     color: #666;
     font-weight:  normal;
 }
+.greyA {
+    font-family: serif;
+    font-size: 16px;
+    color: #666;
+}
 
 #menuText:hover {
     background-color: #2daebf;
@@ -237,6 +242,9 @@ li {
     color: darkmagenta;
     padding: 8px 10px 8px 15px;
     text-align:right;
+}
+.grey.labelH {
+    color: #666;
 }
 .padL.labelH {
     padding: 10px;

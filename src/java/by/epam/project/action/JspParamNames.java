@@ -17,7 +17,8 @@ public abstract class JspParamNames {
     public static final String JSP_LENG = "leng";
     public static final String JSP_LOCALE = "locale";
     public static final String JSP_SELECT_ID = "selectId";
-    
+    public static final String JSP_CURR_PAGE_NO = "currPageNo";
+    public static final String JSP_PAGE_LIST = "pageList";
     
     //user
     public static final String JSP_USER = "user";

@@ -46,13 +46,16 @@ public class HotelLogic extends AbstractLogic {
                 Criteria crit1 = new Criteria();
                 crit1.addParam(DAO_ID_DESCRIPTION, hotel.getDescription().getIdDescription());
                 List<Description> desc = dao.showDescriptions(crit1);
-                hotel.setDescription(desc.get(0));
+                if (!desc.isEmpty()) {
+                    hotel.setDescription(desc.get(0));
+                }
                 
                 Criteria crit2 = new Criteria();
                 crit2.addParam(DAO_ID_CITY, hotel.getCity().getIdCity());
                 List<City> cities = dao.showCities(crit2);
-                hotel.setCity(cities.get(0));
-                
+                if (! cities.isEmpty()) {
+                    hotel.setCity(cities.get(0));
+                }
             }
         }
     }

@@ -7,9 +7,11 @@
 <div id="main">
     <div class="inner">
         <div class="parameterRowD">
-            <img class="smallimg" id="images" src="<%=request.getContextPath()%>${currDirection.picture}">
+            <ctg:ImgTag classImg="smallimg" idImg="images" nameImg="${currDirection.picture}"/>
             <div class="padB">
-                <a class="nodec cntr labelH" href="controller?command=showDirection&selectId=${currDirection.idDirection}">${currDirection.name}</a>
+                <ctg:StatusTag status="${currDirection.status}" href="controller?command=showDirection&selectId=${currDirection.idDirection}" ifValid="nodec cntr labelH" ifInvalid="nodec cntr grey labelH">
+                    ${currDirection.name}
+                </ctg:StatusTag>
             </div>
             <h2 class="small lft labelH">${currDirection.text}</h2>
             <div class="lblH">
@@ -19,19 +21,19 @@
                 <ul class="containerLabel">
                     <div class="lblH">DirectionCountryTags:</div>
                     <c:forEach items="${currDirection.countryCollection}" var="cntr">
-                        <li>${cntr.name}</li>
+                        <li><ctg:StatusTag status="${cntr.status}" ifInvalid="greyA">${cntr.name}</ctg:StatusTag></li>
                     </c:forEach>
                 </ul>
                 <ul class="containerLabel">
                     <div class="lblH">DirectionCityTags:</div>
                     <c:forEach items="${currDirection.cityCollection}" var="ct">
-                        <li>${ct.name}</li>
+                        <li><ctg:StatusTag status="${ct.status}" ifInvalid="greyA">${ct.name}</ctg:StatusTag></li>
                     </c:forEach>
                 </ul>
                 <ul class="containerLabelR">
                     <div class="lblH">DirectionStayHotels:</div>
                     <c:forEach items="${currDirection.stayCollection}" var="st">
-                        <li>${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name}) </li>
+                        <li><ctg:StatusTag status="${st.status}" ifInvalid="greyA">${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name})</ctg:StatusTag></li>
                     </c:forEach>
                 </ul>
             </div>

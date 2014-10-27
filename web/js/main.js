@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+
+
 //registration form validation
 function validateForm() {
 	var valid = isValidLogin() && isValidEmail() && isValidPhone() 
@@ -172,6 +174,23 @@ function saveAllCountry() {
     saveTextVal(form, "nameCountry");
     saveTextVal(form, "pictureCountry");
     saveMultiTextVal(form, "textDescription");
+}
+
+//save parameters of directions.jsp for reload page 
+//according checked boxes of direction's status
+function postDirections(path, comnd, method) {
+    
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveBox(form, "validDirectionStatus");
+    saveBox(form, "invalidDirectionStatus");
+    saveCommand(form, comnd);
+    
+    document.body.appendChild(form);
+    form.submit();
 }
 
 //save parameters of hotels.jsp for reload page 
@@ -513,15 +532,6 @@ function postHot(path, comnd, method) {
     form.submit();
     
 }
-
-
-
-
-
-
-
-
-
 
 
 function restoreCheck(str, txt){
