@@ -16,6 +16,7 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.direction.GoShowDirections.formDirectionList;
+import static by.epam.project.action.direction.GoShowDirections.resaveParamsShowDirections;
 import by.epam.project.entity.Direction;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -31,7 +32,13 @@ public class ShowDirection implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.direction");
         request.setSessionAttribute(JSP_PAGE, page);
+        resaveParamsShowDirections(request);
+        showSelectedDirection(request);
         
+        return page;
+    }
+
+    private static void showSelectedDirection(SessionRequestContent request) throws ServletLogicException {
         Integer idDirection = Integer.decode(request.getParameter(JSP_SELECT_ID));
         request.setAttribute(JSP_ID_DIRECTION, idDirection);
         formDirectionList(request);
@@ -39,7 +46,6 @@ public class ShowDirection implements ActionCommand {
         if (!list.isEmpty()){
             request.setSessionAttribute(JSP_CURRENT_DIRECTION, list.get(0));
         }
-        return page;
     }
     
 }

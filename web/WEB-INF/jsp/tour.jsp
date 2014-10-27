@@ -12,11 +12,11 @@
                 <option class="menuHref" value="${row.idTour}">${row.departDate}</option>
             </c:forEach>
         </select>
-        <form method="POST" action="controller">
-            <input type="hidden" name="command" value="goCreateNewTour" />
-            <input type="hidden" name="currIdDirection" value="${currIdDirection}"/>
-            <input class="large green awesome" type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />"/>
-        </form>
+        <c:if test="${currDirection.status == 1}">
+            <ctg:RoleTag>
+                <input class="large green awesome" type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goCreateNewTour', currIdDirection: '${currDirection.idDirection}' }, 'POST')" />
+            </ctg:RoleTag>
+        </c:if>
     </div>
             
     <script type="text/javascript">
@@ -27,11 +27,11 @@
         <div class="parameterRow">
             <jsp:include page="/WEB-INF/other/statcalend.jsp" />
             <div class="mid input">
-                <h1 class="labelH">Date:</h1> 
+                <h1 class="labelH"><fmt:message key="date" bundle="${ rb }" />:</h1> 
             </div>
             <div class="input inner">
                 <div class="inner">
-                    <label class="inputLineContainer">from ${departDate} to ${arrivalDate}</label>
+                    <label class="inputLineContainer"><fmt:message key="from" bundle="${ rb }" /> ${departDate} <fmt:message key="to" bundle="${ rb }" /> ${arrivalDate}</label>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
         
         <div class="parameterRow">
             <div class="mid input">
-                <h1 class="labelH">Price:</h1> 
+                <h1 class="labelH"><fmt:message key="price" bundle="${ rb }" />:</h1> 
             </div>
             <div class="input inner">
                 <label class="inputLineContainer" name="price">${currTour.price}</label>
@@ -50,7 +50,7 @@
             
         <div class="parameterRow">
             <div class="mid input">
-                <h1 class="labelH">Discount: </h1> 
+                <h1 class="labelH"><fmt:message key="discount" bundle="${ rb }" />: </h1> 
             </div>
             <div class="input inner">
                 <label name="discount" class="inputLineContainer">${currTour.discount}</label>
@@ -59,7 +59,7 @@
             
         <div class="parameterRow">
             <div class="mid input">
-                <h1 class="labelH">totalSeats: </h1> 
+                <h1 class="labelH"><fmt:message key="totalSeats" bundle="${ rb }" />: </h1> 
             </div>
             <div class="input inner">
                 <label name="totalSeats" class="inputLineContainer">${currTour.totalSeats}</label>
@@ -68,16 +68,18 @@
             
         <div class="parameterRow">
             <div class="mid input">
-                <h1 class="labelH">freeSeats: </h1> 
+                <h1 class="labelH"><fmt:message key="freeSeats" bundle="${ rb }" />: </h1> 
             </div>
             <div class="input inner">
                 <label name="freeSeats" class="inputLineContainer">${currTour.freeSeats}</label>
             </div>      
         </div>   
 
-        <form method="POST" action="controller">
-            <input type="hidden" name="command" value="goEditTour" />
-            <input class="centrale large orange awesome" type="submit" value="<fmt:message key="editTour" bundle="${ rb }" />"/>
-        </form>
+        <c:if test="${currDirection.status == 1}">
+            <ctg:RoleTag>
+                <input class="large orange awesome" type="submit" value="<fmt:message key="editTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goEditTour'}, 'POST')" />
+                <input class="large red awesome" type="submit" value="<fmt:message key="deleteTour" bundle="${ rb }" />" onclick="post('controller', {command: 'DeleteTour'}, 'POST')"/>
+            </ctg:RoleTag>
+        </c:if>
     </div>
 </div>

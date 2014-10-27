@@ -43,24 +43,30 @@
         </div>
         
         <div class="parameterRowDR">
+            <ctg:RoleTag>
+                <input class="large green awesome" type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'goCreateNewDirection'}, 'POST')"/>
+                <c:choose>
+                    <c:when test="${currDirection.status == 1}">
+                        <input class="large orange awesome" type="submit" value="<fmt:message key="editDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'goEditDirection'}, 'POST')"/>
+                        <input class="large red awesome" type="submit" value="<fmt:message key="deleteDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'DeleteDirection'}, 'POST')"/>
+                    </c:when>
+                    <c:when test="${currDirection.status == 0}">
+                        <input class="large green awesome" type="submit" value="<fmt:message key="restoreDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'RestoreDirection'}, 'POST')"/>
+                    </c:when>
+                </c:choose>    
+            </ctg:RoleTag>
+            
             <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showTour'}, 'POST'))">          
                 <c:forEach items="${currDirection.tourCollection}" var="row">
                     <option class="menuHref" value="${row.idTour}">${row.departDate}</option>
                 </c:forEach>
             </select>
-            <form method="POST" action="controller">
-                <input type="hidden" name="command" value="goEditDirection" />
-                <input class="large orange awesome" type="submit" value="<fmt:message key="editDirection" bundle="${ rb }" />"/>
-            </form>
-            <form method="POST" action="controller">
-                <input type="hidden" name="command" value="goCreateNewDirection" />
-                <input class="large green awesome" type="submit" value="<fmt:message key="newDirection" bundle="${ rb }" />"/>
-            </form>
-            <form method="POST" action="controller">
-                <input type="hidden" name="currIdDirection" value="${currDirection.idDirection}"/>
-                <input type="hidden" name="command" value="goCreateNewTour" />
-                <input class="large green awesome" type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />"/>
-            </form>
+                        
+            <c:if test="${currDirection.status == 1}">
+                <ctg:RoleTag>
+                    <input class="large green awesome" type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goCreateNewTour', currIdDirection: '${currDirection.idDirection}' }, 'POST')" />
+                </ctg:RoleTag>
+            </c:if>
         </div>
     </div>
 </div>
