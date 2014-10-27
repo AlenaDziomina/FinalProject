@@ -11,7 +11,7 @@
         Language: ${language}</br>
     
     <h3>Welcome</h3>
-    <hr/>${login}, hello!<hr/>
+    <hr/>${user.login}, hello!<hr/>
     <a href="controller?command=logout">Logout</a>
     
     <form action="controller" method="GET">

@@ -73,9 +73,7 @@ public class User {
     public String getPhone(){
         return this.phone;
     }
-    
-
-    
+ 
     public void setLanguage(String language){
         this.language = language;
     }

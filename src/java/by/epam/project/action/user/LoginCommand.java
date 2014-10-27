@@ -7,13 +7,7 @@
 package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_LOCALE;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_USER_BALANCE;
-import static by.epam.project.action.JspParamNames.JSP_USER_DISCOUNT;
-import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
-import static by.epam.project.action.JspParamNames.JSP_USER_PASSWORD;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.ClientType;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -50,16 +44,14 @@ public class LoginCommand implements ActionCommand{
             List<User> users = new UserLogic().doGetEntity(criteria);
             if (users != null && ! users.isEmpty()) {
                 User user = users.get(0);
-                request.setSessionAttribute(JSP_USER_LOGIN, user.getLogin());
                 String role = user.getRole().getRoleName();
+                request.setSessionAttribute(JSP_USER, user);
                 ClientType type = ClientTypeManager.clientTypeOf(role);
                 request.setSessionAttribute(JSP_ROLE_TYPE, type);
                 Locale locale = getLocale(user.getLanguage());
                 if (locale != null) {
                     request.setSessionAttribute(JSP_LOCALE, locale);
                 }
-                request.setSessionAttribute(JSP_USER_DISCOUNT, user.getDiscount());
-                request.setSessionAttribute(JSP_USER_BALANCE, user.getBalance());
                 page = ConfigurationManager.getProperty("path.page.main");
             } else {
                 request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));

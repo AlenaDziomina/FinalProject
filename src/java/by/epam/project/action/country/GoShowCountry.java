@@ -17,10 +17,13 @@ import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Country;
+import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CountryLogic;
+import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import java.util.List;
@@ -49,8 +52,14 @@ public class GoShowCountry implements ActionCommand {
     
     public static void formCountryList(SessionRequestContent request)throws ServletLogicException {
         Criteria criteria = new Criteria();
-        criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
-        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        User user = (User) request.getSessionAttribute(JSP_USER);
+        if (user != null) {
+            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+            criteria.addParam(DAO_ROLE_NAME, type);
+        } else {
+            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        }
         
         Integer countryStatus = getCountryStatus(request);
         if (countryStatus != null) {

@@ -118,8 +118,12 @@ li {
     text-decoration: none;
 }
 
+.green.menuHref {
+    color:  forestgreen;
+}
 .grey.menuHref {
-    color: #666
+    color: #666;
+    font-weight:  normal;
 }
 
 #menuText:hover {

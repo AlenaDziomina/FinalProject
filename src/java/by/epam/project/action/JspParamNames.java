@@ -20,6 +20,7 @@ public abstract class JspParamNames {
     
     
     //user
+    public static final String JSP_USER = "user";
     public static final String JSP_ID_USER = "idUser";
     public static final String JSP_USER_LOGIN = "login";
     public static final String JSP_USER_PASSWORD = "password";

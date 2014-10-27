@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 
-function validateForm()
-{
+//registration form validation
+function validateForm() {
 	var valid = isValidLogin() && isValidEmail() && isValidPhone() 
                 && isValidPassword() && isValidRepeatPass();
         
         return valid;
 }
 
+//login validation
 function isValidLogin() {
     var form = document.getElementById("registration");
     var login = form.login.value;
@@ -33,6 +34,7 @@ function isValidLogin() {
     }
 }
 
+//email validation
 function isValidEmail() {
     var form = document.getElementById("registration");
     var email = form.email.value;
@@ -54,6 +56,7 @@ function isValidEmail() {
     }
 }
 
+//phone number validation
 function isValidPhone() {
     var form = document.getElementById("registration");
     var phone = form.phone.value;
@@ -75,6 +78,7 @@ function isValidPhone() {
     }
 }
 
+//password validation
 function isValidPassword() {
     var form = document.getElementById("registration");
     var password = form.password.value;
@@ -97,6 +101,7 @@ function isValidPassword() {
     
 }
 
+//repeat password validation
 function isValidRepeatPass() {
     var form = document.getElementById("registration");
     var password = form.password.value;
@@ -119,6 +124,13 @@ function post(path, params, method) {
     var form = document.createElement("form");
     form.setAttribute("method", method);
     form.setAttribute("action", path);
+    
+    saveBox(form, "validCountryStatus");
+    saveBox(form, "invalidCountryStatus");
+    saveBox(form, "validCityStatus");
+    saveBox(form, "invalidCityStatus");
+    saveBox(form, "validHotelStatus");
+    saveBox(form, "invalidHotelStatus");
     
     for (var key in params) {
         if (params.hasOwnProperty(key)) {
@@ -230,26 +242,63 @@ function saveCurrElem(form, idElem, nameParam){
     form.appendChild(elem);
 }
 
+//save text input
+function saveTextVal(form, name) {
+    var tableInputTags = document.getElementsByTagName("input");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].type==="text")  
+        {
+            if (tableInputTags[i].name===name){
+                var elem = document.createElement("input");
+                elem.type = "hidden";
+                elem.name = name;
+                elem.value= tableInputTags[i].value;
+                form.appendChild(elem);   
+            }
+        }
+    }
+}
+
+//save multitext input
+function saveMultiTextVal(form, name) {
+    var tableInputTags = document.getElementsByTagName("textarea");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].name=== name) {
+            var elem = document.createElement("input");
+            elem.type = "hidden";
+            elem.name = name;
+            elem.value= tableInputTags[i].value;
+            form.appendChild(elem);   
+        }
+    }
+}
+
 //save checked parameter of checkBox
 function saveBox(form, idElem){
     var elem = document.getElementById(idElem);
-    var box = document.createElement("input");
-    box.type = "hidden";
-    box.name = idElem;
-    box.value=elem.checked;
-    form.appendChild(box);
+    if (elem !== null) {
+        var box = document.createElement("input");
+        box.type = "hidden";
+        box.name = idElem;
+        box.value=elem.checked;
+        form.appendChild(box);
+    }
 }
 
 //save parameter from select multiline container
 function saveSelected(form, elemId, elemName){
     var sel = document.getElementById(elemId);
-    var val = sel.value;
-    if (val !== '') {
-        var elem = document.createElement("input");
-        elem.type = "hidden";
-        elem.name = elemName;
-        elem.value = val;
-        form.appendChild(elem);
+    if (sel !== null) {
+        var val = sel.value;
+        if (val !== '') {
+            var elem = document.createElement("input");
+            elem.type = "hidden";
+            elem.name = elemName;
+            elem.value = val;
+            form.appendChild(elem);
+        }
     }
 }
 
@@ -265,14 +314,18 @@ function saveCommand(form, comnd) {
 //rechecking boxes when load or reload any page
 function boxChecking(boxId, val) {
     var box = document.getElementById(boxId);
-    box.checked = val;
+    if (box !== null) {
+        box.checked = val;
+    }
 }
 
 //reselecting in conteiner when load or reload any page
 function select(selName, atr){
     if (atr !== null) {
         var select = document.getElementById(selName);
-        select.value=atr;
+        if (select !== null) {
+            select.value=atr;
+        }
     }
 }
 
@@ -469,36 +522,7 @@ function postHot(path, comnd, method) {
 
 
 
-function saveTextVal(form, name) {
-    var tableInputTags = document.getElementsByTagName("input");
-    for (var i=0; i<tableInputTags.length; i++) 
-    {
-        if(tableInputTags[i].type==="text")  
-        {
-            if (tableInputTags[i].name===name){
-                var elem = document.createElement("input");
-                elem.type = "hidden";
-                elem.name = name;
-                elem.value= tableInputTags[i].value;
-                form.appendChild(elem);   
-            }
-        }
-    }
-}
 
-function saveMultiTextVal(form, name) {
-    var tableInputTags = document.getElementsByTagName("textarea");
-    for (var i=0; i<tableInputTags.length; i++) 
-    {
-        if(tableInputTags[i].name=== name) {
-            var elem = document.createElement("input");
-            elem.type = "hidden";
-            elem.name = name;
-            elem.value= tableInputTags[i].value;
-            form.appendChild(elem);   
-        }
-    }
-}
 
 function restoreCheck(str, txt){
     
