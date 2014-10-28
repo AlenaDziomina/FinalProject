@@ -8,12 +8,15 @@ package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
+import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.ProcessSavedParameters.resaveParams;
-import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.action.SessionRequestContent;
+import static by.epam.project.action.direction.SaveRedactDirection.resaveParamsSaveDirection;
+import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.exception.ServletLogicException;
+import by.epam.project.manager.ConfigurationManager;
 
 /**
  *
@@ -24,8 +27,8 @@ public class IfCitySelected implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
-        
-        resaveParams(request);
+        resaveParamsCitySelected(request);
+        request.setAttribute(JSP_CURR_ID_HOTEL, "0");
         
         String currCity = request.getParameter(JSP_CURR_ID_CITY);
         if (currCity != null && !currCity.isEmpty()){
@@ -35,8 +38,14 @@ public class IfCitySelected implements ActionCommand {
             }
             formHotelList(request);
         }
-        request.setSessionAttribute(JSP_PAGE, page);
         return page;
     }
-    
+
+    private void resaveParamsCitySelected(SessionRequestContent request) throws ServletLogicException {
+        String page = (String) request.getSessionAttribute(JSP_PAGE);
+        String editDirectionPage = ConfigurationManager.getProperty("path.page.editdirection");
+        if (page == null ? editDirectionPage == null : page.equals(editDirectionPage)) {
+            resaveParamsSaveDirection(request);
+        }
+    }    
 }

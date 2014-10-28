@@ -54,8 +54,6 @@ public class GoEditDirection implements ActionCommand {
         request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
         
         Direction dir = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
-        request.setAttribute(JSP_CURR_TOUR_TYPE, dir.getTourType().getIdTourType());
-        request.setAttribute(JSP_CURR_TRANS_MODE, dir.getTransMode().getIdMode());
         request.setAttribute(JSP_CURR_ID_COUNTRY, 0);
         request.setAttribute(JSP_CURR_ID_CITY, 0);
         List<Integer> countryTags = new ArrayList<>();

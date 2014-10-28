@@ -67,6 +67,9 @@ public class SaveRedactCity implements ActionCommand {
             if (idDescription != null) {
                 criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
             }
+            criteria.addParam(DAO_CITY_NAME, city.getName());
+            criteria.addParam(DAO_CITY_PICTURE, city.getPicture());
+            criteria.addParam(DAO_DESCRIPTION_TEXT, city.getDescription().getText());
         }
 
         User user = (User) request.getSessionAttribute(JSP_USER);
@@ -77,9 +80,7 @@ public class SaveRedactCity implements ActionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        criteria.addParam(DAO_CITY_NAME, request.getParameter(JSP_CITY_NAME));
-        criteria.addParam(DAO_CITY_PICTURE, request.getParameter(JSP_CITY_PICTURE));
-        criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
+        
         try {
             Integer resIdCity = new CityLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdCity.toString());

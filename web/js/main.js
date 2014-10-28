@@ -4,22 +4,12 @@
  * and open the template in the editor.
  */
 
-function postHot(path, comnd, method) {
-    method = method || "post";
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-    
-    saveSelected(form, "currStars", "currStars");
-    saveSelected(form, "currCountry", "currIdCountry");
-    saveSelected(form, "currCity", "currIdCity");
-    saveTextVal(form, "nameHotel");
-    saveTextVal(form, "pictureHotel");
-    saveMultiTextVal(form, "textDescription");
-    saveCommand(form, comnd);
-        
-    document.body.appendChild(form);
-    form.submit();
+//validate editdirection.jsp
+function validateDirectionForm(){
+    var valid =isStringValid(80, "nameDirection", "nameErrMsg") && isStringValid(60, "pictureDirection", "pictureErrMsg") 
+            && isSelectedElem("tourType", "selectTourTypeErrMsg") && isSelectedElem("transMode", "selectTransModeErrMsg")
+            && isStringValid(63355, "textDirection", "textErrMsg");
+    return valid;
 }
 
 //validate edithotel.jsp
@@ -209,6 +199,41 @@ function post(path, params, method) {
     form.submit();
 }
 
+//save direction properties in editDirection.jsp when click save-button
+function saveAllDirection(command){
+    if (validateDirectionForm()) {
+        var form = document.getElementById("updDirection");
+        saveCommand(form, command);
+        saveCurrElem(form, "currCountry", "currIdCountry");
+        saveCurrElem(form, "currCity", "currIdCity");
+        saveCurrElem(form, "transMode", "currTransMode");
+        saveCurrElem(form, "tourType", "currTourType");
+        saveCurrTags(form, "countryTag", "currCountryTag");
+        saveCurrTags(form, "cityTag", "currCityTag");
+        saveCurrTags(form, "hotelTag", "currHotelTag");
+    }
+}
+
+//save selected check-boxes in container 
+function saveCurrTags(form, tagName, elemName){
+    var tableInputTags = document.getElementsByTagName("input");
+    for (var i=0; i<tableInputTags.length; i++) 
+    {
+        if(tableInputTags[i].type === "checkbox" && tableInputTags[i].name === tagName) 
+        {
+            var tag = tableInputTags[i];
+            var val = tag.value;
+            if (tag.checked) {
+                var elem = document.createElement("input");
+                elem.type = "hidden";
+                elem.name = elemName;
+                elem.value=val;
+                form.appendChild(elem);
+            }
+        }
+    }
+}
+
 //save hotel properties on editHotel.jsp when click save-button
 function saveAllHotel(command) {
     if (validateHotelForm()) {
@@ -246,6 +271,60 @@ function saveAllCountry(command) {
     }
 }
 
+//save parameters of editdirection.jsp when country or city selected
+//and relatively city or hotel list is changed 
+function postDir(path, comnd, method) {
+    
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveCommand(form, comnd);
+    saveCurrElem(form, "currCountry", "currIdCountry");
+    saveCurrElem(form, "currCity", "currIdCity");
+    saveCurrElem(form, "transMode", "currTransMode");
+    saveCurrElem(form, "tourType", "currTourType");
+    saveCurrTags(form, "countryTag", "currCountryTag");
+    saveCurrTags(form, "cityTag", "currCityTag");
+    saveCurrTags(form, "hotelTag", "currHotelTag");
+    saveTextVal(form, "nameDirection");
+    saveTextVal(form, "pictureDirection");
+    saveMultiTextVal(form, "textDirection");
+    saveMultiTextVal(form, "textDescription");
+       
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//add selected hotel as checkbox in container of hotel-tags
+//on editdirection.jsp
+function funcAdd(){
+    var elem = document.getElementById("currHotelTag");
+    var select = document.getElementById("currHotel");
+    var i = select.value;
+    var n = select.selectedIndex;
+    if (i !== "0") {
+        var txt = select.options[n].text;
+    
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "hotelTag";
+        checkbox.value = i;
+        checkbox.id = "id"+i;
+        checkbox.checked = "true";
+
+
+        var label = document.createElement('label');
+        label.htmlFor = "id"+i;
+
+        label.appendChild(document.createTextNode(txt));      
+        elem.appendChild(checkbox);
+        elem.appendChild(label);
+        elem.appendChild(document.createElement("br"));
+    }
+}
+
 //save parameters of directions.jsp for reload page 
 //according checked boxes of direction's status
 function postDirections(path, comnd, method) {
@@ -259,6 +338,25 @@ function postDirections(path, comnd, method) {
     saveBox(form, "invalidDirectionStatus");
     saveCommand(form, comnd);
     
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//change city-list if selected country on edithotel.jsp
+function postHot(path, comnd, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveSelected(form, "currStars", "currStars");
+    saveSelected(form, "currCountry", "currIdCountry");
+    saveSelected(form, "currCity", "currIdCity");
+    saveTextVal(form, "nameHotel");
+    saveTextVal(form, "pictureHotel");
+    saveMultiTextVal(form, "textDescription");
+    saveCommand(form, comnd);
+        
     document.body.appendChild(form);
     form.submit();
 }
@@ -626,207 +724,8 @@ function check(atrName, atr){
 
 
 
-function saveAll(){
-    var form = document.getElementById("updDirection");
-    saveCountryTags(form);
-    saveCityTags(form);
-    saveMode(form);
-    saveTourType(form);
-    saveCurrIdCountry(form);
-    saveCurrIdCity(form);
-    saveHotelTags(form);
-}
-
-function postDir(path, comnd, method) {
-    
-    method = method || "post";
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-    
-    saveCountryTags(form);
-    saveCityTags(form);
-    saveMode(form);
-    saveTourType(form);
-    saveCurrIdCountry(form);
-    saveCurrIdCity(form);
-    saveHotelTags(form);
-    saveTextValDir(form);
-    saveMultitextValDir(form);
-
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "command";
-    elem.value = comnd;
-    form.appendChild(elem);
-        
-    document.body.appendChild(form);
-    form.submit();
-    
-}
-
-function saveMultitextValDir(form) {
-    var tableInputTags = document.getElementsByTagName("textarea");
-    for (var i=0; i<tableInputTags.length; i++) 
-    {
-        if(tableInputTags[i].name==="textDirection") {
-            var elem = document.createElement("input");
-            elem.type = "hidden";
-            elem.name = "textDirection";
-            elem.value= tableInputTags[i].value;
-            form.appendChild(elem);   
-        }
-        if(tableInputTags[i].name==="textDescription") {
-            var elem = document.createElement("input");
-            elem.type = "hidden";
-            elem.name = "textDescription";
-            elem.value= tableInputTags[i].value;
-            form.appendChild(elem);   
-        }
-    }
-}
-
-function saveTextValDir(form) {
-    var tableInputTags = document.getElementsByTagName("input");
-    for (var i=0; i<tableInputTags.length; i++) 
-    {
-        if(tableInputTags[i].type==="text")  
-        {
-            if (tableInputTags[i].name==="nameDirection"){
-                var elem = document.createElement("input");
-                elem.type = "hidden";
-                elem.name = "nameDirection";
-                elem.value= tableInputTags[i].value;
-                form.appendChild(elem);   
-            }
-            if (tableInputTags[i].name==="pictureDirection"){
-                var elem = document.createElement("input");
-                elem.type = "hidden";
-                elem.name = "pictureDirection";
-                elem.value= tableInputTags[i].value;
-                form.appendChild(elem);   
-            }
-        }
-    }
-}
 
 
-
-
-function saveMode(form){
-    var select = document.getElementById("transMode").value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "currTransMode";
-    elem.value=select;
-    form.appendChild(elem);
-}
-function saveTourType(form){
-    var select = document.getElementById("tourType").value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "currTourType";
-    elem.value=select;
-    form.appendChild(elem);
-    
-}
-function saveStars(form){
-    var select = document.getElementById("currStars").value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "currStars";
-    elem.value=select;
-    form.appendChild(elem);
-}
-
-
-function saveCountryTags(form) {
-    var tableInputTags = document.getElementsByTagName("input");
-    for (var i=0; i<tableInputTags.length; i++) 
-    {
-        if(tableInputTags[i].type==="checkbox" && tableInputTags[i].name==="countryTag") 
-        {
-            var tag = tableInputTags[i];
-            var val = tag.value;
-            if (tag.checked) {
-                var elem = document.createElement("input");
-                elem.type = "hidden";
-                elem.name = "currCountryTag";
-                elem.value=val;
-                form.appendChild(elem);
-            }
-        }
-    }
-}
-
-function saveCityTags(form) {
-    
-    var tableInputTags = document.getElementsByTagName("input");
-    for (var i=0; i<tableInputTags.length; i++) 
-    {
-        if(tableInputTags[i].type==="checkbox" && tableInputTags[i].name==="cityTag") 
-        {
-            var tag = tableInputTags[i];
-            var val = tag.value;
-            if (tag.checked) {
-                var elem = document.createElement("input");
-                elem.type = "hidden";
-                elem.name = "currCityTag";
-                elem.value=val;
-                form.appendChild(elem);
-            }
-        }
-    }
-}
-
-function saveHotelTags(form) {
-    
-    var tableInputTags = document.getElementsByTagName("input");
-    for (var i=0; i<tableInputTags.length; i++) 
-    {
-        if(tableInputTags[i].type==="checkbox" && tableInputTags[i].name==="hotelTag") 
-        {
-            var tag = tableInputTags[i];
-            var val = tag.value;
-            if (tag.checked) {
-                var elem = document.createElement("input");
-                elem.type = "hidden";
-                elem.name = "currHotelTag";
-                elem.value=val;
-                form.appendChild(elem);
-            }
-        }
-    }
-}
-
-function funcAdd(){
-    var form = document.getElementById("updDirection");
-    var elem = document.getElementById("currHotelTag");
-    
-    var select = document.getElementById("currHotel");
-    var i = select.value;
-    var n = select.selectedIndex;
-    if (i !== "0") {
-        var txt = select.options[n].text;
-    
-        var checkbox = document.createElement('input');
-        checkbox.type = "checkbox";
-        checkbox.name = "hotelTag";
-        checkbox.value = i;
-        checkbox.id = "id"+i;
-        checkbox.checked = "true";
-
-
-        var label = document.createElement('label');
-        label.htmlFor = "id"+i;
-
-        label.appendChild(document.createTextNode(txt));      
-        elem.appendChild(checkbox);
-        elem.appendChild(label);
-        elem.appendChild(document.createElement("br"));
-    }
-    
-}
 
 
 

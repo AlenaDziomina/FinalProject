@@ -51,6 +51,9 @@ public class SaveRedactCountry implements ActionCommand {
             if (idDescription != null) {
                 criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
             }
+            criteria.addParam(DAO_COUNTRY_NAME, country.getName());
+            criteria.addParam(DAO_COUNTRY_PICTURE, country.getPicture());
+            criteria.addParam(DAO_DESCRIPTION_TEXT, country.getDescription().getText());
         }
         
         User user = (User) request.getSessionAttribute(JSP_USER);
@@ -61,10 +64,6 @@ public class SaveRedactCountry implements ActionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
-        criteria.addParam(DAO_COUNTRY_NAME, request.getParameter(JSP_COUNTRY_NAME));
-        criteria.addParam(DAO_COUNTRY_PICTURE, request.getParameter(JSP_COUNTRY_PICTURE));
-        criteria.addParam(DAO_DESCRIPTION_TEXT, request.getParameter(JSP_DESCRIPTION_TEXT));
                 
         try {
             Integer resIdCountry = new CountryLogic().doRedactEntity(criteria);

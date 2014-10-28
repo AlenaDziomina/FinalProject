@@ -5,9 +5,8 @@
 --%>
 
 <div id="main">
-    <form id="updDirection" method="POST" action="controller">
+    <form id="updDirection" method="POST" action="controller" onsubmit="return validateDirectionForm();">
         <div class="inner">
-            <input type="hidden" name="command" value="saveRedactDirection" />
             <div class="parameterRow">
                 <div class="small padinput">
                     <h1 class="cntr labelH"><fmt:message key="selectTourType" bundle="${ rb }" />:</h1>
@@ -18,7 +17,10 @@
                                 <option class="selectItem" value="${row.idTourType}"><fmt:message key="${row.nameTourType}" bundle="${ rb }" /></option>   
                             </c:forEach>
                         </select>
+                        <div id="erNote"><a id="selectTourTypeErrMsg" hidden="true"><fmt:message key="errorSelectTourType" bundle="${ rb }" /></a></div>
                     </div>
+                    <script>select("tourType", ${currDirection.tourType.idTourType});</script>
+                            
                     <h1 class="cntr labelH"><fmt:message key="selectTransMode" bundle="${ rb }" />:</h1>    
                     <div class="centraleContainer">
                         <select id="transMode" class="selectContainer" size="1">      
@@ -27,7 +29,9 @@
                                 <option class="selectItem" value="${row.idMode}"><fmt:message key="${row.nameMode}" bundle="${ rb }" /></option>
                             </c:forEach>
                         </select>
+                        <div id="erNote"><a id="selectTransModeErrMsg" hidden="true"><fmt:message key="errorSelectTransMode" bundle="${ rb }" /></a></div>
                     </div>
+                    <script>select("transMode", ${currDirection.transMode.idMode});</script>
                 </div>
                 
                 <div class="small padinput">         
@@ -96,47 +100,41 @@
                     </div>
                 </div>
             </div>
-                    
+                        
+            <script>
+                select("currCountry", ${currIdCountry});
+                select("currCity", ${currIdCity});
+            </script>        
+                        
             <c:forEach items="${currCountryTag}" var="tag">
-                <script type="text/javascript">
-                    check("countryTag", ${tag});
-                </script>
+                <script>check("countryTag", ${tag});</script>
             </c:forEach>
                 
             <c:forEach items="${currCityTag}" var="tag">
-                <script type="text/javascript">
-                    check("cityTag", ${tag});
-                </script>
+                <script>check("cityTag", ${tag});</script>
             </c:forEach>
-                
-            <script type="text/javascript">
-                select("tourType", ${currTourType});
-                select("transMode", ${currTransMode});
-                select("currCountry", ${currIdCountry});
-                select("currCity", ${currIdCity});
-            </script>
                 
             <c:forEach items="${hotelTagList}" var="row">
-                <script type='text/javascript'>
-                    restoreCheck("${row.idHotel}", "${row.name}");
-                </script>
+                <script>restoreCheck("${row.idHotel}", "${row.name}");</script>
             </c:forEach>
         
-            <input type="hidden" name="idDirection" value="${currDirection.idDirection}"/>
             <div class="parameterRow">
                 <div class="padinput">
                     <h1 class="cntr labelH"><fmt:message key="directName" bundle="${ rb }" />: </h1> 
-                    <input type="text" class="large inputLineContainer" name="nameDirection" value="${currDirection.name}"/> 
+                    <input type="text" class="large inputLineContainer" id="nameDirection" name="nameDirection" value="${currDirection.name}"/> 
+                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="errorName" bundle="${ rb }" /></a></div>
+                    
                     <h1 class="cntr labelH"><fmt:message key="directPicture" bundle="${ rb }" />:</h1> 
-                    <input type="text" class="large inputLineContainer" name="pictureDirection"   value="${currDirection.picture}"/>
+                    <input type="text" class="large inputLineContainer" id="pictureDirection" name="pictureDirection"   value="${currDirection.picture}"/>
+                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="errorPicture" bundle="${ rb }" /></a></div>
                 </div>
                 <div class="large padinput">
                     <h1 class="cntr labelH"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
-                    <textarea name="textDirection" class="small inputMultilineineContainer">${currDirection.text}</textarea>
+                    <textarea id="textDirection" name="textDirection" class="small inputMultilineineContainer">${currDirection.text}</textarea>
+                    <div id="erNote"><a id="textErrMsg" hidden="true"><fmt:message key="errorTextDir" bundle="${ rb }" /></a></div>
                 </div>    
             </div>
             
-            <input type="hidden" name="idDescription" value="${currDirection.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="small input">
                     <h1 class="labelH"><fmt:message key="directDescription" bundle="${ rb }" />:</h1> 
@@ -147,7 +145,7 @@
             </div>        
                    
             <div class="parameterRow centrale">
-                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAll()"/>
+                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllDirection('saveRedactDirection')"/>
                 <div id="erNote">${errorSaveData}</div>
                 <div id="erNote">${errorReason}</div>
                 <div id="erAdminNote">${errorAdminMsg}</div>
