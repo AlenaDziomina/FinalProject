@@ -41,9 +41,8 @@ public class GoShowCountry implements ActionCommand {
         resaveParamsShowCountry(request);
         
         formCountryList(request);
-        if (page == null ? prevPage != null : page.equals(prevPage)) {
-            showSelectedCountry(request);
-        } else {
+        showSelectedCountry(request);
+        if (page == null ? prevPage != null : !page.equals(prevPage)) {
             request.setSessionAttribute(JSP_PAGE, page);
             cleanSessionShowCountry(request);
         }

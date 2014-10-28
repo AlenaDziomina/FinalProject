@@ -6,17 +6,15 @@
 
 <div id="main">
     
-    <form id="updCountry" name="updateCountry" method="POST" action="controller">
+    <form id="updCountry" name="updateCountry" method="POST" action="controller" onsubmit="return validateCountryForm();">
         <div class="inner">
-            <input type="hidden" name="command" value="saveRedactCountry" />
-            
-            <input type="hidden" name="idCountry" value="${currCountry.idCountry}"/>
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="countryName" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" name="nameCountry" class="inputLineContainer" value="${currCountry.name}"/>
+                    <input type="text" id="nameCountry" name="nameCountry" class="inputLineContainer" value="${currCountry.name}"/>
+                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="errorName" bundle="${ rb }" /></a></div>
                 </div>
             </div>
             
@@ -25,11 +23,11 @@
                     <h1 class="labelH"><fmt:message key="countryPicture" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" name="pictureCountry" class="inputLineContainer" value="${currCountry.picture}"/>
+                    <input type="text" id="pictureCountry" name="pictureCountry" class="inputLineContainer" value="${currCountry.picture}"/>
+                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="errorPicture" bundle="${ rb }" /></a></div>
                 </div>      
             </div>
             
-            <input type="hidden" name="idDescription" value="${currCountry.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="countryDescription" bundle="${ rb }" />:</h1> 
@@ -40,7 +38,7 @@
             </div>
             
             <div class="parameterRow centrale">
-                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllCountry()"/>
+                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllCountry('saveRedactCountry')"/>
                 <div id="erNote">${errorSaveData}</div>
                 <div id="erNote">${errorReason}</div>
                 <div id="erAdminNote">${errorAdminMsg}</div>

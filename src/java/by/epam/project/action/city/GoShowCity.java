@@ -12,14 +12,18 @@ import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.city.ShowCity.showSelectedCity;
 import static by.epam.project.action.hotel.GoShowHotel.getHotelStatus;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
+import by.epam.project.entity.ClientType;
+import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CityLogic;
+import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import java.util.List;
@@ -46,8 +50,15 @@ public class GoShowCity implements ActionCommand {
     
     public static void formCityList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
-        criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
-        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        criteria.addParam(DAO_ID_COUNTRY, request.getAttribute(JSP_ID_COUNTRY));
+        User user = (User) request.getSessionAttribute(JSP_USER);
+        if (user != null) {
+            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+            criteria.addParam(DAO_ROLE_NAME, type);
+        } else {
+            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        }
         
         Integer cityStatus = getCityStatus(request);
         if (cityStatus != null) {

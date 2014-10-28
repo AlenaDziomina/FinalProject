@@ -5,10 +5,8 @@
 --%>
 
 <div id="main">
-    <form id="updCity" name="updateCity" method="POST" action="controller">
+    <form id="updCity" name="updateCity" method="POST" action="controller" onsubmit="return validateCityForm();">
         <div class="inner">
-            <input type="hidden" name="command" value="saveRedactCity" />
-            
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="selectCity" bundle="${ rb }" />:</h1>
@@ -20,6 +18,7 @@
                             <option class="selectItem" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                         </c:forEach>
                     </select>
+                    <div id="erNote"><a id="selectCountryErrMsg" hidden="true"><fmt:message key="errorSelectCountry" bundle="${ rb }" /></a></div>    
                 </div>
             </div>
                             
@@ -27,13 +26,13 @@
                 select("currCountry", ${currIdCountry});
             </script>                
             
-            <input type="hidden" name="idCity" value="${currCity.idCity}"/>
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="cityName" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" name="nameCity" class="inputLineContainer" value="${currCity.name}"/>
+                    <input type="text" id="nameCity" name="nameCity" class="inputLineContainer" value="${currCity.name}"/>
+                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="errorName" bundle="${ rb }" /></a></div>
                 </div>
             </div>
             
@@ -42,11 +41,11 @@
                     <h1 class="labelH"><fmt:message key="cityPicture" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text"  name="pictureCity" class="inputLineContainer" value="${currCity.picture}"/>
+                    <input type="text" id="pictureCity" name="pictureCity" class="inputLineContainer" value="${currCity.picture}"/>
+                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="errorPicture" bundle="${ rb }" /></a></div>
                 </div>      
             </div>
             
-            <input type="hidden" name="idDescription" value="${currCity.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="cityDescription" bundle="${ rb }" />:</h1> 
@@ -57,7 +56,7 @@
             </div>
             
             <div class="parameterRow centrale">
-                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllCity()"/>
+                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllCity('saveRedactCity')"/>
                 <div id="erNote">${errorSaveData}</div>
                 <div id="erNote">${errorReason}</div>
                 <div id="erAdminNote">${errorAdminMsg}</div>

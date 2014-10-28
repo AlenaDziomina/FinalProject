@@ -4,7 +4,68 @@
  * and open the template in the editor.
  */
 
+function postHot(path, comnd, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveSelected(form, "currStars", "currStars");
+    saveSelected(form, "currCountry", "currIdCountry");
+    saveSelected(form, "currCity", "currIdCity");
+    saveTextVal(form, "nameHotel");
+    saveTextVal(form, "pictureHotel");
+    saveMultiTextVal(form, "textDescription");
+    saveCommand(form, comnd);
+        
+    document.body.appendChild(form);
+    form.submit();
+}
 
+//validate edithotel.jsp
+function validateHotelForm(){
+    var valid = isStringValid(40, "nameHotel", "nameErrMsg") && isStringValid(60, "pictureHotel", "pictureErrMsg") 
+            && isSelectedElem("currCity", "selectCityErrMsg") && isSelectedElem("currStars", "selectStarsErrMsg");
+    return valid;
+}
+
+//validate editcity.jsp
+function validateCityForm(){
+    var valid = isStringValid(40, "nameCity", "nameErrMsg") && isStringValid(60, "pictureCity", "pictureErrMsg") && isSelectedElem("currCountry", "selectCountryErrMsg");
+    return valid;
+}
+
+//validate editcountry.jsp
+function validateCountryForm(){
+    var valid = isStringValid(40, "nameCountry", "nameErrMsg") && isStringValid(60, "pictureCountry", "pictureErrMsg");
+    return valid;
+}
+
+//if text input is valid length
+function isStringValid(size, elemId, errId){
+    var elem = document.getElementById(elemId);
+    var errElem = document.getElementById(errId);
+    if (elem !== null && elem.value.length > 0 && elem.value.length <= size) {
+        errElem.hidden = true;
+        return true;
+    } else {
+        errElem.hidden = false;
+        return false;
+    }
+}
+
+//is any element in container selected
+function isSelectedElem(idElem, errId){
+    var select = document.getElementById(idElem).value;
+    var errElem = document.getElementById(errId);
+    if (select !== null && select > 0) {
+        errElem.hidden = true;
+        return true;
+    } else {
+        errElem.hidden = false;
+        return false;
+    }
+}
 
 //registration form validation
 function validateForm() {
@@ -149,31 +210,40 @@ function post(path, params, method) {
 }
 
 //save hotel properties on editHotel.jsp when click save-button
-function saveAllHotel() {
-    var form = document.getElementById("updHotel");
-    saveCurrElem(form, "currStars", "currStars");
-    saveCurrElem(form, "currCountry", "currIdCountry");
-    saveCurrElem(form, "currCity", "currIdCity");
-    saveTextVal(form, "nameHotel");
-    saveTextVal(form, "pictureHotel");
-    saveMultiTextVal(form, "textDescription");
+function saveAllHotel(command) {
+    if (validateHotelForm()) {
+        var form = document.getElementById("updHotel");
+        saveCommand(form, command);
+        saveCurrElem(form, "currStars", "currStars");
+        saveCurrElem(form, "currCountry", "currIdCountry");
+        saveCurrElem(form, "currCity", "currIdCity");
+        saveTextVal(form, "nameHotel");
+        saveTextVal(form, "pictureHotel");
+        saveMultiTextVal(form, "textDescription");
+    }
 }
 
 //save city properties on editCity.jsp when click save-button
-function saveAllCity() {
-    var form = document.getElementById("updCity");
-    saveCurrElem(form, "currCountry", "currIdCountry");
-    saveTextVal(form, "nameCity");
-    saveTextVal(form, "pictureCity");
-    saveMultiTextVal(form, "textDescription");
+function saveAllCity(command) {
+    if (validateCityForm()) {
+        var form = document.getElementById("updCity");
+        saveCommand(form, command);
+        saveCurrElem(form, "currCountry", "currIdCountry");
+        saveTextVal(form, "nameCity");
+        saveTextVal(form, "pictureCity");
+        saveMultiTextVal(form, "textDescription");
+    }
 }
 
 //save country properties on editCountry.jsp when click save-button
-function saveAllCountry() {
-    var form = document.getElementById("updCountry");
-    saveTextVal(form, "nameCountry");
-    saveTextVal(form, "pictureCountry");
-    saveMultiTextVal(form, "textDescription");
+function saveAllCountry(command) {
+    if (validateCountryForm()) {
+        var form = document.getElementById("updCountry");
+        saveCommand(form, command);
+        saveTextVal(form, "nameCountry");
+        saveTextVal(form, "pictureCountry");
+        saveMultiTextVal(form, "textDescription");
+    }
 }
 
 //save parameters of directions.jsp for reload page 
@@ -254,11 +324,13 @@ function postCountry(path, comnd, method) {
 //save current params from jsp page
 function saveCurrElem(form, idElem, nameParam){
     var select = document.getElementById(idElem).value;
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = nameParam;
-    elem.value=select;
-    form.appendChild(elem);
+    if (select !== null && select > 0) {
+        var elem = document.createElement("input");
+        elem.type = "hidden";
+        elem.name = nameParam;
+        elem.value=select;
+        form.appendChild(elem);
+    }
 }
 
 //save text input
@@ -508,30 +580,7 @@ function hideSearching(bool){
  
 }
 
-function postHot(path, comnd, method) {
-    
-    method = method || "post";
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-    
-    saveCurrHotelStars(form);
-    saveCurrIdCountry(form);
-    saveCurrIdCity(form);
-    saveTextVal(form, "nameHotel");
-    saveTextVal(form, "pictureHotel");
-    saveMultiTextVal(form, "textDescription");
 
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "command";
-    elem.value = comnd;
-    form.appendChild(elem);
-        
-    document.body.appendChild(form);
-    form.submit();
-    
-}
 
 
 function restoreCheck(str, txt){

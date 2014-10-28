@@ -5,10 +5,8 @@
 --%>
 
 <div id="main">
-    <form id="updHotel" method="POST" action="controller">
+    <form id="updHotel" method="POST" action="controller" onsubmit="return validateHotelForm();">
         <div class="inner">
-            <input type="hidden" name="command" value="saveRedactHotel" />
-            
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="selectCountry" bundle="${ rb }" />: </h1>
@@ -38,6 +36,7 @@
                             <option class="selectItem" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                         </c:forEach>
                     </select>
+                    <div id="erNote"><a id="selectCityErrMsg" hidden="true"><fmt:message key="errorSelectCity" bundle="${ rb }" /></a></div>    
                 </div>
             </div>
                             
@@ -45,13 +44,13 @@
                 select("currCity", ${currIdCity});
             </script>
             
-            <input type="hidden" name="idHotel" value="${currHotel.idHotel}"/>
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="hotelName" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" name="nameHotel" class="inputLineContainer"  value="${currHotel.name}"/>
+                    <input type="text" id="nameHotel" name="nameHotel" class="inputLineContainer"  value="${currHotel.name}"/>
+                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="errorName" bundle="${ rb }" /></a></div>
                 </div>
             </div>
                     
@@ -66,6 +65,7 @@
                             <option class="selectItem" value="${i}">${i}*</option>
                         </c:forEach>
                     </select>
+                    <div id="erNote"><a id="selectStarsErrMsg" hidden="true"><fmt:message key="errorSelectStars" bundle="${ rb }" /></a></div>
                 </div>
             </div>   
                             
@@ -78,11 +78,11 @@
                     <h1 class="labelH"><fmt:message key="hotelPicture" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" name="pictureHotel" class="inputLineContainer" value="${currHotel.picture}"/>
+                    <input type="text" id="pictureHotel" name="pictureHotel" class="inputLineContainer" value="${currHotel.picture}"/>
+                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="errorPicture" bundle="${ rb }" /></a></div>
                 </div>      
             </div>
             
-            <input type="hidden" name="idDescription" value="${currHotel.description.idDescription}"/>
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="hotelDescription" bundle="${ rb }" />:</h1> 
@@ -93,7 +93,7 @@
             </div>
             
             <div class="parameterRow centrale">
-                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllHotel()" />
+                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllHotel('saveRedactHotel')" />
                 <div id="erNote">${errorSaveData}</div>
                 <div id="erNote">${errorReason}</div>
                 <div id="erAdminNote">${errorAdminMsg}</div>
