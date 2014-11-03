@@ -26,7 +26,7 @@
                     <h1 class="labelH"><fmt:message key="price" bundle="${ rb }" />:</h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" id="price" name="price" class="inputLineContainer" value="${currTour.price}"/>
+                    <input type="text" name="price" class="inputLineContainer" value="${currTour.price}"/>
                     <div id="erNote"><a id="priceErrMsg" hidden="true"><fmt:message key="errorPrice" bundle="${ rb }" /></a></div>
                 </div>      
             </div>      
@@ -36,7 +36,7 @@
                     <h1 class="labelH"><fmt:message key="discount" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" id="discount" name="discount" class="inputLineContainer" value="${currTour.discount}"/>
+                    <input type="text" name="discount" class="inputLineContainer" value="${currTour.discount}"/>
                     <div id="erNote"><a id="discountErrMsg" hidden="true"><fmt:message key="errorDiscount" bundle="${ rb }" /></a></div>
                 </div>      
             </div>      
@@ -46,8 +46,7 @@
                     <h1 class="labelH"><fmt:message key="totalSeats" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" id="totalSeats" name="totalSeats" class="inputLineContainer" value="${currTour.totalSeats}"/>
-                    <div id="erNote"><a id="totalSeatsErrMsg" hidden="true"><fmt:message key="errorTotalSeats" bundle="${ rb }" /></a></div>
+                    <input type="text" name="totalSeats" class="inputLineContainer" value="${currTour.totalSeats}"/>
                 </div>      
             </div>             
             
@@ -56,8 +55,7 @@
                     <h1 class="labelH"><fmt:message key="freeSeats" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" id="freeSeats" name="freeSeats" class="inputLineContainer" value="${currTour.freeSeats}"/>
-                    <div id="erNote"><a id="freeSeatsErrMsg" hidden="true"><fmt:message key="errorFreeSeats" bundle="${ rb }" /></a></div>
+                    <input type="text" name="freeSeats" class="inputLineContainer" value="${currTour.freeSeats}"/>
                 </div>      
             </div>   
         

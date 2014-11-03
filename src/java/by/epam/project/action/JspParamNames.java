@@ -120,6 +120,8 @@ public abstract class JspParamNames {
     public static final String JSP_CURRENT_TOUR = "currTour";
     public static final String JSP_TOUR_VALID_STATUS = "validTourStatus";
     public static final String JSP_TOUR_INVALID_STATUS = "invalidTourStatus";
+    public static final String JSP_TOUR_VALID_DATE = "validTourDate";
+    public static final String JSP_TOUR_INVALID_DATE = "invalidTourDate";
     
     //search
     public static final String JSP_CURR_PRICE_FROM = "currPriceFrom";

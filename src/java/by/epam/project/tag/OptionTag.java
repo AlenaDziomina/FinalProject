@@ -7,11 +7,10 @@
 package by.epam.project.tag;
 
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.JspFragment;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import static javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -21,8 +20,10 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class OptionTag extends TagSupport {
     private Short status;
+    private Date date;
     private String valClass;
     private String invalClass;
+    private String invalDateClass;
     private Integer value;
 
     /**
@@ -36,10 +37,20 @@ public class OptionTag extends TagSupport {
     public int doStartTag() throws JspException {
         try {
             JspWriter out = pageContext.getOut();
-            if (status == 1) {
-                out.write("<option class='" + valClass + "' value='" + value + "'>");
-            } else if(status == 0) {
+            if (status == 0) {
                 out.write("<option class='" + invalClass + "' value='" + value + "'>");
+                
+            } else if(status == 1) {
+                if (date != null) {
+                    Date currDate = new Date();
+                    if (date.after(currDate)) {
+                        out.write("<option class='" + valClass + "' value='" + value + "'>");
+                    } else {
+                        out.write("<option class='" + invalDateClass + "' value='" + value + "'>");
+                    }
+                } else {
+                    out.write("<option class='" + valClass + "' value='" + value + "'>");
+                }
             }
         } catch (IOException e) {
             throw new JspTagException(e.getMessage());
@@ -72,6 +83,14 @@ public class OptionTag extends TagSupport {
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+    
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    public void setInvalDateClass(String invalDateClass) {
+        this.invalDateClass = invalDateClass;
     }
     
 }

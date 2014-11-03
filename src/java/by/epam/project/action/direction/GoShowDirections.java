@@ -9,9 +9,14 @@ package by.epam.project.action.direction;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
+import static by.epam.project.action.tour.ShowTour.getTourDateStatus;
+import static by.epam.project.action.tour.ShowTour.getTourStatus;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_STATUS;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
+import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_STATUS;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
@@ -28,6 +33,8 @@ import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import by.epam.project.tag.ObjList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,6 +73,21 @@ public class GoShowDirections implements ActionCommand {
         Integer directionStatus = getDirectionStatus(request);
         if (directionStatus != null) {
             criteria.addParam(DAO_DIRECTION_STATUS, directionStatus);
+        }
+        
+        Integer tourStatus = getTourStatus(request);
+        if (tourStatus != null) {
+            criteria.addParam(DAO_TOUR_STATUS, tourStatus);
+        }
+        Integer tourDateStatus = getTourDateStatus(request);
+        if (tourDateStatus != null) {
+            Calendar calendar = Calendar.getInstance();
+            Date date = calendar.getTime();
+            if (tourDateStatus == 1) {
+                criteria.addParam(DAO_TOUR_DATE_FROM, date);
+            } else if (tourDateStatus == 0) {
+                criteria.addParam(DAO_TOUR_DATE_TO, date);
+            }
         }
         
         try {
@@ -118,6 +140,27 @@ public class GoShowDirections implements ActionCommand {
         if(invalidDirectionStatus != null) {
             request.setAttribute(JSP_DIRECTION_INVALID_STATUS, invalidDirectionStatus);
         }
+        String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
+        if(validTourStatus != null) {
+            request.setAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
+        }
+        
+        String invalidTourStatus = request.getParameter(JSP_TOUR_INVALID_STATUS);
+        if(invalidTourStatus != null) {
+            request.setAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
+        }
+        
+        String validTourDate = request.getParameter(JSP_TOUR_VALID_DATE);
+        if(validTourDate != null) {
+            request.setAttribute(JSP_TOUR_VALID_DATE, validTourDate);
+        }
+        
+        String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
+        if(invalidTourDate != null) {
+            request.setAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
+        }
+        
+        
     }
     
     private void cleanSessionShowDirections(SessionRequestContent request) {

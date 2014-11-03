@@ -88,25 +88,25 @@ public abstract class ProcessSavedParameters {
 //            request.setAttribute(JSP_CURR_ID_HOTEL, currHotel);
 //        }
         
-        String currDirection = request.getParameter(JSP_CURR_ID_DIRECTION);
-        if (currDirection != null) {
-            request.setAttribute(JSP_CURR_ID_DIRECTION, currDirection);
-        }
+//        String currDirection = request.getParameter(JSP_CURR_ID_DIRECTION);
+//        if (currDirection != null) {
+//            request.setAttribute(JSP_CURR_ID_DIRECTION, currDirection);
+//        }
+//        
+//        String currTour = request.getParameter(JSP_CURR_ID_TOUR);
+//        if (currTour != null) {
+//            request.setAttribute(JSP_CURR_ID_TOUR, currTour);
+//        }
         
-        String currTour = request.getParameter(JSP_CURR_ID_TOUR);
-        if (currTour != null) {
-            request.setAttribute(JSP_CURR_ID_TOUR, currTour);
-        }
-        
-        String currDepartDate = request.getParameter("departDate");
-        if (currDepartDate != null) {
-            request.setAttribute(JSP_CURR_DEPART_DATE, currDepartDate);
-        }
-        
-        String currArrivalDate = request.getParameter("arrivalDate");
-        if (currDepartDate != null) {
-            request.setAttribute(JSP_CURR_ARRIVAL_DATE, currArrivalDate);
-        }
+//        String currDepartDate = request.getParameter("departDate");
+//        if (currDepartDate != null) {
+//            request.setAttribute(JSP_CURR_DEPART_DATE, currDepartDate);
+//        }
+//        
+//        String currArrivalDate = request.getParameter("arrivalDate");
+//        if (currDepartDate != null) {
+//            request.setAttribute(JSP_CURR_ARRIVAL_DATE, currArrivalDate);
+//        }
         
 //        String[] currCoutryTags = request.getAllParameters(JSP_CURR_COUNTRY_TAGS);
 //        if (currCoutryTags != null) {
@@ -267,7 +267,7 @@ public abstract class ProcessSavedParameters {
 //        
 //        createCurrDirect(request);
         
-        createCurrTour(request);
+//        createCurrTour(request);
         
 //        createCurrCity(request);
         
@@ -282,19 +282,19 @@ public abstract class ProcessSavedParameters {
     
     
     
-    private static void createCurrTour(SessionRequestContent request) {
-        Tour currTour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
-        if(currTour == null) {
-            currTour = new Tour();
-        }
-        
-        currTour.setPrice(getFltParam(request, JSP_TOUR_PRICE));
-        currTour.setDiscount(getIntParam(request, JSP_TOUR_DISCOUNT));
-        currTour.setTotalSeats(getIntParam(request, JSP_TOTAL_SEATS));
-        currTour.setFreeSeats(getIntParam(request, JSP_FREE_SEATS));
-        
-        request.setSessionAttribute(JSP_CURRENT_TOUR, currTour);
-    }
+//    private static void createCurrTour(SessionRequestContent request) {
+//        Tour currTour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
+//        if(currTour == null) {
+//            currTour = new Tour();
+//        }
+//        
+//        currTour.setPrice(getFltParam(request, JSP_TOUR_PRICE));
+//        currTour.setDiscount(getIntParam(request, JSP_TOUR_DISCOUNT));
+//        currTour.setTotalSeats(getIntParam(request, JSP_TOTAL_SEATS));
+//        currTour.setFreeSeats(getIntParam(request, JSP_FREE_SEATS));
+//        
+//        request.setSessionAttribute(JSP_CURRENT_TOUR, currTour);
+//    }
 
 //    private static void createCurrHotelTag(SessionRequestContent request) throws ServletLogicException {
 //        String[] currHotelTags = request.getAllParameters(JSP_CURR_HOTEL_TAGS);

@@ -96,6 +96,11 @@
       <type>java.lang.Short</type>
     </attribute>
     <attribute>
+      <name>date</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Date</type>
+    </attribute>
+    <attribute>
       <name>valClass</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
@@ -104,6 +109,11 @@
     <attribute>
       <name>invalClass</name>
       <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>invalDateClass</name>
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
     </attribute>

@@ -4,6 +4,99 @@
  * and open the template in the editor.
  */
 
+//validate edittour.jsp
+function validateTourForm(){
+    var valid = isValidDiscount(10, "discount", "discountErrMsg") &&
+            isPositiveIntegerValid(10, "totalSeats", "totalSeatsErrMsg") &&
+            isValidFreeSeats(10, "freeSeats", "freeSeatsErrMsg", "totalSeats") &&
+            isPositiveFloat(12, "price", "priceErrMsg");
+    
+    return valid;
+}
+
+//validate positive float value
+function isPositiveFloat(size, elemId, errId){
+    var elem = document.getElementById(elemId);
+    var errElem = document.getElementById(errId);
+    if (elem === null || elem.value === '' || elem.value.length > size) {
+        errElem.hidden = false;
+        return false;
+    }
+    
+    var re = new RegExp('\\d[\\.]?\\d');
+    var pars = re.exec(elem.value);
+    if (pars !== null && pars.length === 1) {
+        elem.value = parseFloat(elem.value);
+        errElem.hidden = true;
+        return true;
+    } else {
+        errElem.hidden = false;
+        return false;
+    }
+}
+
+//validate positive integer value
+function isPositiveIntegerValid(size, elemId, errId){
+    var elem = document.getElementById(elemId);
+    var errElem = document.getElementById(errId);
+    if (elem === null || elem.value === '' || elem.value.length > size) {
+        errElem.hidden = false;
+        return false;
+    }
+    
+    var re = new RegExp ('[\\d]{1,10}');
+    var pars = re.exec(elem.value);
+    if (pars !== null && pars.length === 1) {
+        elem.value = pars[0];
+        errElem.hidden = true;
+        return true;
+    } else {
+        errElem.hidden = false;
+        return false;
+    }
+}
+
+//validate discount
+function isValidDiscount(size, elemId, errId) {
+    if (isPositiveIntegerValid(size, elemId, errId)) {
+        var elem = document.getElementById(elemId);
+        var errElem = document.getElementById(errId);
+        var str = elem.value;
+        var i = parseInt(str);
+        if (i <= 100) {
+            errElem.hidden = true;
+            return true;
+        } else {
+            errElem.hidden = false;
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+//validate free seats
+function isValidFreeSeats(size, freeId, errId, totalId) {
+    if (isPositiveIntegerValid(size, freeId, errId)) {
+        var totalElem = document.getElementById(totalId);
+        var freeElem = document.getElementById(freeId);
+        var errElem = document.getElementById(errId);
+        var strTotal = totalElem.value;
+        var intTotal = parseInt(strTotal);
+        var strFree = freeElem.value;
+        var intFree = parseInt(strFree);
+        if (intFree <= intTotal) {
+            errElem.hidden = true;
+            return true;
+        } else {
+            errElem.hidden = false;
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
 //validate editdirection.jsp
 function validateDirectionForm(){
     var valid =isStringValid(80, "nameDirection", "nameErrMsg") && isStringValid(60, "pictureDirection", "pictureErrMsg") 
@@ -170,7 +263,7 @@ function isValidRepeatPass() {
 }
 
 //call servlet to action on click on select container
-//in cities.jsp, countries.jsp, hotels.jsp
+//in cities.jsp, countries.jsp, hotels.jsp, direction.jsp
 function post(path, params, method) {
     method = method || "post";
     
@@ -184,6 +277,10 @@ function post(path, params, method) {
     saveBox(form, "invalidCityStatus");
     saveBox(form, "validHotelStatus");
     saveBox(form, "invalidHotelStatus");
+    saveBox(form, "validTourStatus");
+    saveBox(form, "invalidTourStatus");
+    saveBox(form, "validTourDate");
+    saveBox(form, "invalidTourDate");
     
     for (var key in params) {
         if (params.hasOwnProperty(key)) {
@@ -197,6 +294,14 @@ function post(path, params, method) {
     
     document.body.appendChild(form);
     form.submit();
+}
+
+//save tour properties in editTour.jsp when click save-button
+function saveAllTour(command) {
+    if (validateTourForm()){
+        var form = document.getElementById("updTour");
+        saveCommand(form, command);
+    }
 }
 
 //save direction properties in editDirection.jsp when click save-button
@@ -269,6 +374,23 @@ function saveAllCountry(command) {
         saveTextVal(form, "pictureCountry");
         saveMultiTextVal(form, "textDescription");
     }
+}
+
+//save parameters on tour.jsp and direction.jsp when check boxes of tour
+function postTourDir(path, comnd, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveBox(form, "validTourStatus");
+    saveBox(form, "invalidTourStatus");
+    saveBox(form, "validTourDate");
+    saveBox(form, "invalidTourDate");
+    saveCommand(form, comnd);
+    
+    document.body.appendChild(form);
+    form.submit();
 }
 
 //save parameters of editdirection.jsp when country or city selected
@@ -518,22 +640,48 @@ function select(selName, atr){
     }
 }
 
+//restore checked hotels in hotelTagList
+function restoreCheck(str, txt){
+    
+    var elem = document.getElementById("currHotelTag");
+      
+    var checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.name = "hotelTag";
+    checkbox.value = str;
+    checkbox.id = "id"+str;
+    checkbox.checked = "true";
 
+    var label = document.createElement('label');
+    label.htmlFor = "id"+str;
 
-
-
-function nextPage(){
-    var elem = document.getElementsByTagName("PageTableTag");
-    for (var i=0; i<elem.length; i++) 
-    {
-        var curr = elem[i];
-        var t = curr.type;  
-        var pageNo = curr.pageNo;
-    }
-        
-    var n = elem.pageNo;
-    elem.pageNo = n + 1;
+    label.appendChild(document.createTextNode(txt));      
+    elem.appendChild(checkbox);
+    elem.appendChild(label);
+    elem.appendChild(document.createElement("br"));
 }
+
+//check checkBox
+function check(atrName, atr){
+    var str = String(atr);
+    var tags = document.getElementsByTagName("input");
+    for (var i=0; i<tags.length; i++) 
+    {
+        if(tags[i].type==="checkbox" && tags[i].name===atrName) 
+        {
+            var tag = tags[i];
+            var val = tag.value;
+                if (val === str){
+                    tag.checked = true;
+                } 
+        }
+    }
+}
+
+
+
+
+
 
 function buyTour(path, comnd, method){
     method = method || "post";
@@ -681,46 +829,6 @@ function hideSearching(bool){
 
 
 
-function restoreCheck(str, txt){
-    
-    var form = document.getElementById("updDirection");
-    var elem = document.getElementById("currHotelTag");
-      
-    var checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
-    checkbox.name = "hotelTag";
-    checkbox.value = str;
-    checkbox.id = "id"+str;
-    checkbox.checked = "true";
-
-
-    var label = document.createElement('label');
-    label.htmlFor = "id"+str;
-
-    label.appendChild(document.createTextNode(txt));      
-    elem.appendChild(checkbox);
-    elem.appendChild(label);
-    elem.appendChild(document.createElement("br"));
-    
-  
-    
-}
-
-function check(atrName, atr){
-    var str = String(atr);
-    var tags = document.getElementsByTagName("input");
-    for (var i=0; i<tags.length; i++) 
-    {
-        if(tags[i].type==="checkbox" && tags[i].name===atrName) 
-        {
-            var tag = tags[i];
-            var val = tag.value;
-                if (val === str){
-                    tag.checked = true;
-                } 
-        }
-    }
-}
 
 
 
@@ -729,11 +837,12 @@ function check(atrName, atr){
 
 
 
-function selectTourType(n){
-    var form = document.getElementById("updDirection");
-    var id = form.idTourType;
-    id.setAttribute("value", n);
-}
+
+//function selectTourType(n){
+//    var form = document.getElementById("updDirection");
+//    var id = form.idTourType;
+//    id.setAttribute("value", n);
+//}
 
 //function selectTourType(n){
 //    var form = document.getElementById("updDirection");

@@ -12,6 +12,9 @@ import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
+import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_STATUS;
 import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
 import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import by.epam.project.dao.query.Criteria;
@@ -40,6 +43,16 @@ public class DirectionLogic extends AbstractLogic {
     List<Direction> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         List<Direction> directions = dao.showDirections(criteria);
         fillDirections(directions, dao);
+         
+        for (Direction dir : directions) {
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
+            crit.addParam(DAO_TOUR_STATUS, criteria.getParam(DAO_TOUR_STATUS));
+            crit.addParam(DAO_TOUR_DATE_FROM, criteria.getParam(DAO_TOUR_DATE_FROM));
+            crit.addParam(DAO_TOUR_DATE_TO, criteria.getParam(DAO_TOUR_DATE_TO));
+            List<Tour> list = dao.showTours(crit);
+            dir.setTourCollection(list);
+        }
         return directions;   
     }
     
@@ -95,17 +108,8 @@ public class DirectionLogic extends AbstractLogic {
         getDescription(dao, directions);
         getTransMode(dao, directions);
         getTourType(dao, directions);
-        getTourCollection(dao, directions);
     }
     
-    private static void getTourCollection(AbstractDao dao, List<Direction> directions) throws DaoException {
-        for (Direction dir : directions) {
-            Criteria crit = new Criteria();
-            crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
-            List<Tour> list = dao.showTours(crit);
-            dir.setTourCollection(list);
-        }
-    }
     
     private static void getTransMode(AbstractDao dao, List<Direction> directions) throws DaoException {
         for (Direction dir : directions) {

@@ -7,6 +7,8 @@
 package by.epam.project.dao.entquery;
 
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.GenericDeleteQuery;
 import by.epam.project.dao.query.GenericLoadQuery;
@@ -116,6 +118,10 @@ public class TourQuery implements TypedQuery<Tour>{
                 append(DAO_TOUR_TOTAL_SEATS, DB_TOUR_TOTAL_SEATS, criteria, paramList, sb, separator);
                 append(DAO_TOUR_FREE_SEATS, DB_TOUR_FREE_SEATS, criteria, paramList, sb, separator);
                 append(DAO_TOUR_STATUS, DB_TOUR_STATUS, criteria, paramList, sb, separator);
+                String from = " >= ";
+                String to = " <= ";
+                append(DAO_TOUR_DATE_FROM, DB_TOUR_DATE, criteria, paramList, sb, separator, from);
+                append(DAO_TOUR_DATE_TO, DB_TOUR_DATE, criteria, paramList, sb, separator, to);
                 return sb.toString();
             }  
         }.mapQuery();

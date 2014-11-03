@@ -27,6 +27,7 @@ import by.epam.project.entity.Hotel;
 import by.epam.project.entity.LinkDirectionCity;
 import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.LinkDirectionFactory;
+import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoQueryException;
 import java.util.ArrayList;
@@ -58,6 +59,11 @@ public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     @Override
     public List<Direction> showDirections(Criteria criteria) throws DaoException {
         return new DirectionQuery().load(criteria, loadDao, mysqlConn);
+    }
+    
+    @Override
+    public List<Tour> showTours(Criteria criteria) throws DaoException {
+        return new TourQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override

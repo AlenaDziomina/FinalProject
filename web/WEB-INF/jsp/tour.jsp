@@ -5,22 +5,44 @@
 --%>
 
 <div id="main">
-    
     <div class="left inner column">
+        <ctg:RoleTag>
+            <input type="checkbox" id="validTourStatus" name="status" value="1" class="boxMar" onchange="postTourDir('controller', 'ShowTour', 'POST')" />
+                <fmt:message key="showValid" bundle="${ rb }" /><br>
+            <input type="checkbox" id="invalidTourStatus" name="status" value="0" class="boxMar" onchange="postTourDir('controller', 'ShowTour', 'POST')" />
+                <fmt:message key="showInvalid" bundle="${ rb }" /><br>
+            <input type="checkbox" id="validTourDate" name="status" value="1" class="boxMar" onchange="postTourDir('controller', 'ShowTour', 'POST')" />
+                <fmt:message key="showValidDate" bundle="${ rb }" /><br>
+            <input type="checkbox" id="invalidTourDate" name="status" value="0" class="boxMar" onchange="postTourDir('controller', 'ShowTour', 'POST')" />
+                <fmt:message key="showInvalidDate" bundle="${ rb }" /><br>
+        </ctg:RoleTag>
+        <script>
+            boxChecking('validTourStatus', ${validTourStatus});
+            boxChecking('invalidTourStatus', ${invalidTourStatus});
+            boxChecking('validTourDate', ${validTourDate});
+            boxChecking('invalidTourDate', ${invalidTourDate});
+        </script>
+                
         <select id="currTour" class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showTour'}, 'POST'))">               
             <c:forEach items="${tourList}" var="row">
-                <option class="menuHref" value="${row.idTour}">${row.departDate}</option>
+                <ctg:OptionTag status="${row.status}" date="${row.departDate}" 
+                               valClass="menuHref" invalClass="grey menuHref" 
+                               invalDateClass="blue menuHref" value="${row.idTour}">
+                    ${row.departDate}
+                </ctg:OptionTag>
             </c:forEach>
         </select>
-        <c:if test="${currDirection.status == 1}">
-            <ctg:RoleTag>
+                
+                
+        <ctg:RoleTag>
+            <c:if test="${currDirection.status == 1}">
                 <input class="large green awesome" type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goCreateNewTour', currIdDirection: '${currDirection.idDirection}' }, 'POST')" />
-            </ctg:RoleTag>
-        </c:if>
+            </c:if>
+        </ctg:RoleTag>
     </div>
             
     <script type="text/javascript">
-        select("currTour", ${currIdTour});
+        select("currTour", ${currTour.idTour});
     </script> 
     
     <div class="full center inner column">
@@ -75,11 +97,17 @@
             </div>      
         </div>   
 
-        <c:if test="${currDirection.status == 1}">
-            <ctg:RoleTag>
-                <input class="large orange awesome" type="submit" value="<fmt:message key="editTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goEditTour'}, 'POST')" />
-                <input class="large red awesome" type="submit" value="<fmt:message key="deleteTour" bundle="${ rb }" />" onclick="post('controller', {command: 'DeleteTour'}, 'POST')"/>
-            </ctg:RoleTag>
-        </c:if>
+        <ctg:RoleTag>
+            <c:choose>
+                <c:when test="${currTour.status == 1}">
+                    <input class="large orange awesome" type="submit" value="<fmt:message key="editTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goEditTour'}, 'POST')" />
+                    <input class="large red awesome" type="submit" value="<fmt:message key="deleteTour" bundle="${ rb }" />" onclick="post('controller', {command: 'DeleteTour'}, 'POST')"/>
+                </c:when>
+                <c:when test="${currTour.status == 0}">
+                    <input class="large green awesome" type="submit" value="<fmt:message key="restoreTour" bundle="${ rb }" />" onclick="post('controller', {command: 'RestoreTour'}, 'POST')"/>
+                 </c:when>
+            </c:choose>   
+        </ctg:RoleTag>
+                
     </div>
 </div>

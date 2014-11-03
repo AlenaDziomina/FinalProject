@@ -7,13 +7,21 @@
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_TOUR;
+import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_DATE;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
 import by.epam.project.action.SessionRequestContent;
+import static by.epam.project.action.tour.ShowTour.resaveParamsShowTour;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -31,12 +39,8 @@ public class GoEditTour implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edittour");
         request.setSessionAttribute(JSP_PAGE, page);
-        
+        resaveParamsEditTour(request);
         Tour currTour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
-        Integer idDirection = currTour.getDirection().getIdDirection();
-        request.setAttribute(JSP_CURR_ID_DIRECTION, idDirection);
-        Integer idTour = currTour.getIdTour();
-        request.setAttribute(JSP_CURR_ID_TOUR, idTour);
         
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = currTour.getDepartDate();
@@ -52,6 +56,26 @@ public class GoEditTour implements ActionCommand {
         request.setAttribute(JSP_CURR_ARRIVAL_DATE, ds2);
         
         return page;
+    }
+
+    private void resaveParamsEditTour(SessionRequestContent request) {
+        
+        String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
+        if(validTourStatus != null) {
+            request.setSessionAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
+        }
+        
+        String invalidTourStatus = request.getParameter(JSP_TOUR_INVALID_STATUS);
+        if(invalidTourStatus != null) {
+            request.setSessionAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
+        }
+        
+        String validTourDate = request.getParameter(JSP_TOUR_VALID_DATE);
+        if(validTourDate != null) {
+            request.setSessionAttribute(JSP_TOUR_VALID_DATE, validTourDate);
+        }
+        
+        
     }
     
 }

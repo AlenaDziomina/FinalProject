@@ -56,9 +56,33 @@
                 </c:choose>    
             </ctg:RoleTag>
             
+            <ctg:RoleTag>
+                <dir>
+                <input type="checkbox" id="validTourStatus" name="status" value="1" class="boxMar" onchange="postTourDir('controller', 'ShowDirection', 'POST')" />
+                    <fmt:message key="showValid" bundle="${ rb }" /><br>
+                <input type="checkbox" id="invalidTourStatus" name="status" value="0" class="boxMar" onchange="postTourDir('controller', 'ShowDirection', 'POST')" />
+                    <fmt:message key="showInvalid" bundle="${ rb }" /><br>
+                <input type="checkbox" id="validTourDate" name="status" value="1" class="boxMar" onchange="postTourDir('controller', 'ShowDirection', 'POST')" />
+                    <fmt:message key="showValidDate" bundle="${ rb }" /><br>
+                <input type="checkbox" id="invalidTourDate" name="status" value="0" class="boxMar" onchange="postTourDir('controller', 'ShowDirection', 'POST')" />
+                    <fmt:message key="showInvalidDate" bundle="${ rb }" /><br>
+                </dir>
+            </ctg:RoleTag>
+                        
+            <script>
+                boxChecking('validTourStatus', ${validTourStatus});
+                boxChecking('invalidTourStatus', ${invalidTourStatus});
+                boxChecking('validTourDate', ${validTourDate});
+                boxChecking('invalidTourDate', ${invalidTourDate});
+            </script>
+
             <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'showTour'}, 'POST'))">          
                 <c:forEach items="${currDirection.tourCollection}" var="row">
-                    <option class="menuHref" value="${row.idTour}">${row.departDate}</option>
+                    <ctg:OptionTag status="${row.status}" date="${row.departDate}" 
+                               valClass="menuHref" invalClass="grey menuHref" 
+                               invalDateClass="blue menuHref" value="${row.idTour}">
+                        ${row.departDate}
+                    </ctg:OptionTag>
                 </c:forEach>
             </select>
                         

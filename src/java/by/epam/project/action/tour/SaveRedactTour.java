@@ -7,17 +7,22 @@
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_FREE_SEATS;
+import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_TOTAL_SEATS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_DISCOUNT;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_PRICE;
+import static by.epam.project.action.JspParamNames.JSP_USER;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.action.SessionRequestContent;
@@ -32,15 +37,22 @@ import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_PRICE;
 import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_TOTAL_SEATS;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.ClientType;
+import by.epam.project.entity.Direction;
+import by.epam.project.entity.Tour;
+import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.TourLogic;
+import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import static by.epam.project.manager.ParamManager.checkFltParam;
 import static by.epam.project.manager.ParamManager.checkIntParam;
 import static by.epam.project.manager.ParamManager.getDateDiff;
 import static by.epam.project.manager.ParamManager.getDateParam;
+import static by.epam.project.manager.ParamManager.getFltParam;
+import static by.epam.project.manager.ParamManager.getIntParam;
 import java.util.Date;
 
 
@@ -53,24 +65,31 @@ public class SaveRedactTour implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edittour");
-        resaveParams(request);
+        resaveParamsSaveTour(request);
         
         Criteria criteria = new Criteria();
-        checkIntParam(request, criteria, JSP_CURR_ID_DIRECTION, DAO_ID_DIRECTION);
-        checkIntParam(request, criteria, JSP_CURR_ID_TOUR, DAO_ID_TOUR);
-        
-        Date d1 = getDateParam(request, JSP_CURR_DEPART_DATE);
-        Date d2 = getDateParam(request, JSP_CURR_ARRIVAL_DATE);
-        criteria.addParam(DAO_TOUR_DATE, d1);
-        criteria.addParam(DAO_TOUR_DAYS, getDateDiff(d1, d2));
-        
-        checkFltParam(request, criteria, JSP_TOUR_PRICE, DAO_TOUR_PRICE);
-        checkIntParam(request, criteria, JSP_TOUR_DISCOUNT, DAO_TOUR_DISCOUNT);
-        checkIntParam(request, criteria, JSP_TOTAL_SEATS, DAO_TOUR_TOTAL_SEATS);
-        checkIntParam(request, criteria, JSP_FREE_SEATS, DAO_TOUR_FREE_SEATS);
-        
-        criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
-        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        Tour tour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
+        if (tour != null) {
+            Integer idTour = tour.getIdTour();
+            if (idTour != null) {
+                criteria.addParam(DAO_ID_TOUR, idTour);
+            }
+            criteria.addParam(DAO_TOUR_DATE, tour.getDepartDate());
+            criteria.addParam(DAO_TOUR_DAYS, tour.getDaysCount());
+            criteria.addParam(DAO_TOUR_PRICE, tour.getPrice());
+            criteria.addParam(DAO_TOUR_DISCOUNT, tour.getDiscount());
+            criteria.addParam(DAO_TOUR_TOTAL_SEATS, tour.getTotalSeats());
+            criteria.addParam(DAO_TOUR_FREE_SEATS, tour.getFreeSeats());
+            criteria.addParam(DAO_ID_DIRECTION, tour.getDirection().getIdDirection());
+        }
+        User user = (User) request.getSessionAttribute(JSP_USER);
+        if (user != null) {
+            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+            criteria.addParam(DAO_ROLE_NAME, type);
+        } else {
+            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        }
         
         try {
             Integer resIdTour = new TourLogic().doRedactEntity(criteria);
@@ -84,6 +103,43 @@ public class SaveRedactTour implements ActionCommand {
             return page;
         }       
     }
+
+    private void resaveParamsSaveTour(SessionRequestContent request) {
+        String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
+        if(invalidTourDate != null) {
+            request.setSessionAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
+        }
+        String currDepartDate = request.getParameter("departDate");
+        if (currDepartDate != null) {
+            request.setAttribute(JSP_CURR_DEPART_DATE, currDepartDate);
+        }
+        
+        String currArrivalDate = request.getParameter("arrivalDate");
+        if (currDepartDate != null) {
+            request.setAttribute(JSP_CURR_ARRIVAL_DATE, currArrivalDate);
+        }
+        createCurrTour(request);
+    }
     
+    private static void createCurrTour(SessionRequestContent request) {
+        Tour currTour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
+        if(currTour == null) {
+            currTour = new Tour();
+            Direction currDir = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
+            if (currDir != null) {
+                Integer idDirection = currDir.getIdDirection();
+                currTour.setDirection(new Direction(idDirection));
+            }
+        }
+        Date departDate = getDateParam(request, JSP_CURR_DEPART_DATE);
+        Date arrivalDate = getDateParam(request, JSP_CURR_ARRIVAL_DATE);
+        currTour.setDepartDate(departDate);
+        currTour.setDaysCount(getDateDiff(departDate, arrivalDate));
+        currTour.setPrice(getFltParam(request, JSP_TOUR_PRICE));
+        currTour.setDiscount(getIntParam(request, JSP_TOUR_DISCOUNT));
+        currTour.setTotalSeats(getIntParam(request, JSP_TOTAL_SEATS));
+        currTour.setFreeSeats(getIntParam(request, JSP_FREE_SEATS));
+        request.setSessionAttribute(JSP_CURRENT_TOUR, currTour);
+    }
     
 }
