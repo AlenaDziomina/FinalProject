@@ -128,80 +128,80 @@ public abstract class ProcessSavedParameters {
 //            request.setAttribute(JSP_CURR_TRANS_MODE, currTransMode);
 //        }
 //        
-        String currPriceFrom = request.getParameter(JSP_CURR_PRICE_FROM);
-        if (currPriceFrom != null) {
-            request.setAttribute(JSP_CURR_PRICE_FROM, currPriceFrom);
-        }
-        
-        String currPriceTo = request.getParameter(JSP_CURR_PRICE_TO);
-        if (currPriceTo != null) {
-            request.setAttribute(JSP_CURR_PRICE_TO, currPriceTo);
-        }
-        
-        String currDepartDateFrom = request.getParameter(JSP_CURR_DEPART_DATE_FROM);
-        if (currDepartDateFrom != null) {
-            request.setAttribute(JSP_CURR_DEPART_DATE_FROM, currDepartDateFrom);
-        }
-        
-        String currDepartDateTo = request.getParameter(JSP_CURR_DEPART_DATE_TO);
-        if (currDepartDateTo != null) {
-            request.setAttribute(JSP_CURR_DEPART_DATE_TO, currDepartDateTo);
-        }
-        
-        String currDaysCountFrom = request.getParameter(JSP_CURR_DAYS_COUNT_FROM);
-        if (currDaysCountFrom != null) {
-            request.setAttribute(JSP_CURR_DAYS_COUNT_FROM, currDaysCountFrom);
-        }
-        
-        String currDaysCountTo = request.getParameter(JSP_CURR_DAYS_COUNT_TO);
-        if (currDaysCountTo != null) {
-            request.setAttribute(JSP_CURR_DAYS_COUNT_TO, currDaysCountTo);
-        }
-        
-        String currDiscountFrom = request.getParameter(JSP_CURR_DISCOUNT_FROM);
-        if (currDiscountFrom != null) {
-            request.setAttribute(JSP_CURR_DISCOUNT_FROM, currDiscountFrom);
-        }
-        
-        String currStars = request.getParameter(JSP_CURR_HOTEL_STARS);
-        if (currStars != null) {
-           request.setAttribute(JSP_CURR_HOTEL_STARS, currStars);
-        }
-        
-        String allDepartDate = request.getParameter(JSP_BOX_ALL_DEPART_DATE);
-        if (allDepartDate != null) {
-            request.setAttribute(JSP_BOX_ALL_DEPART_DATE, allDepartDate);
-        }
-        
-        String allDaysCount = request.getParameter(JSP_BOX_ALL_DAYS_COUNT);
-        if (allDaysCount != null) {
-            request.setAttribute(JSP_BOX_ALL_DAYS_COUNT, allDaysCount);
-        }
-        
-        String allPrice = request.getParameter(JSP_BOX_ALL_PRICE);
-        if (allPrice != null) {
-            request.setAttribute(JSP_BOX_ALL_PRICE, allPrice);
-        }
-        
-        String allCountries = request.getParameter(JSP_BOX_ALL_COUNTRIES);
-        if (allCountries != null) {
-            request.setAttribute(JSP_BOX_ALL_COUNTRIES, allCountries);
-        }
-        
-        String allCities = request.getParameter(JSP_BOX_ALL_CITIES);
-        if (allCities != null) {
-            request.setAttribute(JSP_BOX_ALL_CITIES, allCities);
-        }
-        
-        String allHotels = request.getParameter(JSP_BOX_ALL_HOTELS);
-        if (allHotels != null) {
-            request.setAttribute(JSP_BOX_ALL_HOTELS, allHotels);
-        }
-        
-        String isHidden = request.getParameter(JSP_IS_HIDDEN);
-        if(isHidden != null) {
-            request.setAttribute(JSP_IS_HIDDEN, false);
-        }
+//        String currPriceFrom = request.getParameter(JSP_CURR_PRICE_FROM);
+//        if (currPriceFrom != null) {
+//            request.setAttribute(JSP_CURR_PRICE_FROM, currPriceFrom);
+//        }
+//        
+//        String currPriceTo = request.getParameter(JSP_CURR_PRICE_TO);
+//        if (currPriceTo != null) {
+//            request.setAttribute(JSP_CURR_PRICE_TO, currPriceTo);
+//        }
+//        
+//        String currDepartDateFrom = request.getParameter(JSP_CURR_DEPART_DATE_FROM);
+//        if (currDepartDateFrom != null) {
+//            request.setAttribute(JSP_CURR_DEPART_DATE_FROM, currDepartDateFrom);
+//        }
+//        
+//        String currDepartDateTo = request.getParameter(JSP_CURR_DEPART_DATE_TO);
+//        if (currDepartDateTo != null) {
+//            request.setAttribute(JSP_CURR_DEPART_DATE_TO, currDepartDateTo);
+//        }
+//        
+//        String currDaysCountFrom = request.getParameter(JSP_CURR_DAYS_COUNT_FROM);
+//        if (currDaysCountFrom != null) {
+//            request.setAttribute(JSP_CURR_DAYS_COUNT_FROM, currDaysCountFrom);
+//        }
+//        
+//        String currDaysCountTo = request.getParameter(JSP_CURR_DAYS_COUNT_TO);
+//        if (currDaysCountTo != null) {
+//            request.setAttribute(JSP_CURR_DAYS_COUNT_TO, currDaysCountTo);
+//        }
+//        
+//        String currDiscountFrom = request.getParameter(JSP_CURR_DISCOUNT_FROM);
+//        if (currDiscountFrom != null) {
+//            request.setAttribute(JSP_CURR_DISCOUNT_FROM, currDiscountFrom);
+//        }
+//        
+//        String currStars = request.getParameter(JSP_CURR_HOTEL_STARS);
+//        if (currStars != null) {
+//           request.setAttribute(JSP_CURR_HOTEL_STARS, currStars);
+//        }
+//        
+//        String allDepartDate = request.getParameter(JSP_BOX_ALL_DEPART_DATE);
+//        if (allDepartDate != null) {
+//            request.setAttribute(JSP_BOX_ALL_DEPART_DATE, allDepartDate);
+//        }
+//        
+//        String allDaysCount = request.getParameter(JSP_BOX_ALL_DAYS_COUNT);
+//        if (allDaysCount != null) {
+//            request.setAttribute(JSP_BOX_ALL_DAYS_COUNT, allDaysCount);
+//        }
+//        
+//        String allPrice = request.getParameter(JSP_BOX_ALL_PRICE);
+//        if (allPrice != null) {
+//            request.setAttribute(JSP_BOX_ALL_PRICE, allPrice);
+//        }
+//        
+//        String allCountries = request.getParameter(JSP_BOX_ALL_COUNTRIES);
+//        if (allCountries != null) {
+//            request.setAttribute(JSP_BOX_ALL_COUNTRIES, allCountries);
+//        }
+//        
+//        String allCities = request.getParameter(JSP_BOX_ALL_CITIES);
+//        if (allCities != null) {
+//            request.setAttribute(JSP_BOX_ALL_CITIES, allCities);
+//        }
+//        
+//        String allHotels = request.getParameter(JSP_BOX_ALL_HOTELS);
+//        if (allHotels != null) {
+//            request.setAttribute(JSP_BOX_ALL_HOTELS, allHotels);
+//        }
+//        
+//        String isHidden = request.getParameter(JSP_IS_HIDDEN);
+//        if(isHidden != null) {
+//            request.setAttribute(JSP_IS_HIDDEN, false);
+//        }
         
 //        String validCountryStatus = request.getParameter(JSP_COUNTRY_VALID_STATUS);
 //        if(validCountryStatus != null) {

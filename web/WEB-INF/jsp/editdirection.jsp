@@ -38,7 +38,7 @@
                     <h1 class="cntr labelH"><fmt:message key="selectCountries" bundle="${ rb }" />: </h1>     
                     <div class="checkBoxGroup">
                         <c:forEach items="${countryTagList}" var="row">
-                            <input type="checkbox" name="countryTag" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /><br>
+                            <input type="checkbox" name="countryTag" value="${row.idCountry}"/><fmt:message key="${row.name}" bundle="${ rb }" /><br>
                         </c:forEach>
                     </div>  
                 </div>    
@@ -47,7 +47,7 @@
                     <h1 class="cntr labelH"><fmt:message key="selectCities" bundle="${ rb }" />: </h1>     
                     <div class="checkBoxGroup">
                         <c:forEach items="${cityTagList}" var="row">
-                            <input type="checkbox" name="cityTag" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /><br>
+                            <input type="checkbox" name="cityTag" value="${row.idCity}"/><fmt:message key="${row.name}" bundle="${ rb }" /><br>
                         </c:forEach>
                     </div>  
                 </div>  

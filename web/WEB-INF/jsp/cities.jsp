@@ -60,7 +60,7 @@
                 <fmt:message key="showInvalid" bundle="${ rb }" /><br>
         </ctg:RoleTag>
         
-        <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'goShowHotel', validHotelStatus: ${validHotelStatus}, invalidHotelStatus: ${invalidHotelStatus}}, 'POST'))">           
+        <select class="container" size="15" onclick="if(this.value)(post('controller', {selectId: this.value, command: 'goShowHotel'}, 'POST'))">           
             <c:forEach items="${currCity.hotelCollection}" var="row">
                 <ctg:OptionTag status="${row.status}" valClass="menuHref" invalClass="grey menuHref" value="${row.idHotel}">
                     ${row.name}

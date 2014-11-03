@@ -87,6 +87,8 @@ public class SearchQuery implements TypedQuery<Tour> {
             " left join " + DB_DIRSTAY + " dh on d." + DB_DIRECTION_ID_DIRECTION + " = dh." + DB_DIRSTAY_ID_DIRECTION;
     private static final String LOAD_QUERY_HOTEL =
             " left join " + DB_HOTEL + " h on h." + DB_HOTEL_ID_HOTEL + " = dh." + DB_DIRSTAY_ID_HOTEL;
+    private static final String LOAD_QUERY_TOUR_GROUP = 
+            " group by " + DB_TOUR_ID_TOUR;
 
     private static boolean formQueryTour(Criteria crit, List params, StringBuilder sb, StringBuilder sbw) {
         
@@ -106,8 +108,7 @@ public class SearchQuery implements TypedQuery<Tour> {
                 append(DAO_TOUR_PRICE_TO, DB_TOUR_PRICE, crit, list, str, separator, to);
                 append(DAO_TOUR_DISCOUNT_FROM, DB_TOUR_DISCOUNT, crit, list, str, separator, from);
                 append(DAO_TOUR_FREE_SEATS_FROM, DB_TOUR_FREE_SEATS, crit, list, str, separator, from);
-                append(DAO_TOUR_STATUS, DB_TOUR_STATUS, crit, list, str, separator);
-                
+                append(DAO_TOUR_STATUS, "t." + DB_TOUR_STATUS, crit, list, str, separator);
                 return str.toString();
             }  
         }.mapQuery();
@@ -129,14 +130,12 @@ public class SearchQuery implements TypedQuery<Tour> {
         List list = new ArrayList<>();
         StringBuilder str = new StringBuilder();
         String separator = " and ";
-        String from = " >= ";
-        String to = " <= ";
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
                 append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, crit, list, str, separator);
                 append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, crit, list, str, separator);
-                append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, crit, list, str, separator);
+                append(DAO_DIRECTION_STATUS, "d." + DB_DIRECTION_STATUS, crit, list, str, separator);
                 return str.toString();
             }  
         }.mapQuery();
@@ -248,8 +247,7 @@ public class SearchQuery implements TypedQuery<Tour> {
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " or ";
-                appendArr(DAO_HOTEL_STARS, DB_HOTEL_STARS, crit, list, str, separator);
+                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, crit, list, str, separator);
                 return str.toString() + " ) ";
             }  
         }.mapQuery();
@@ -291,6 +289,7 @@ public class SearchQuery implements TypedQuery<Tour> {
         if (f1|f2|f3|f4|f5|f6) {
             sb.append(sbw);
         }
+        sb.append(LOAD_QUERY_TOUR_GROUP);
        
         try {
             return loadDao.query(sb.toString(), params.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {

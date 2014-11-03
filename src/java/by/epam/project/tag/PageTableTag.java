@@ -43,6 +43,10 @@ public class PageTableTag extends TagSupport {
  
     @Override
     public int doStartTag() throws JspTagException {
+        if (pages <= 0) {
+            return SKIP_BODY;
+        }
+        
         try {
             JspWriter out = pageContext.getOut();
             out.write("<table class='parameterRowB' border='1'><colgroup span='2' title='title' />");

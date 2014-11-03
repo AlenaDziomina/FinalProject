@@ -20,6 +20,7 @@ import static by.epam.project.action.city.GoShowCity.formCityList;
 import static by.epam.project.action.direction.SaveRedactDirection.resaveParamsSaveDirection;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import static by.epam.project.action.hotel.SaveRedactHotel.resaveParamsSaveHotel;
+import static by.epam.project.action.tour.SearchTour.resaveParamsSearchTour;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.ServletLogicException;
@@ -66,10 +67,13 @@ public class IfCountrySelected implements ActionCommand {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         String editHotelPage = ConfigurationManager.getProperty("path.page.edithotel");
         String editDirectionPage = ConfigurationManager.getProperty("path.page.editdirection");
+        String searchingPage = ConfigurationManager.getProperty("path.page.tours");
         if (page == null ? editHotelPage == null : page.equals(editHotelPage)) {
             resaveParamsSaveHotel(request);
         } else if (page == null ? editDirectionPage == null : page.equals(editDirectionPage)) {
             resaveParamsSaveDirection(request);
+        } else if (page == null ? searchingPage == null : page.equals(searchingPage)) {
+            resaveParamsSearchTour(request);
         }
     }
     

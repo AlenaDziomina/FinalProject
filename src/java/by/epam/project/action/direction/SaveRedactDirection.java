@@ -8,7 +8,6 @@ package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
-import static by.epam.project.action.ProcessSavedParameters.resaveParams;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
@@ -16,7 +15,6 @@ import static by.epam.project.dao.entquery.DescriptionQuery.DAO_DESCRIPTION_TEXT
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_NAME;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_PICTURE;
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_STATUS;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_TEXT;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
@@ -40,7 +38,6 @@ import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import static by.epam.project.manager.ParamManager.checkArrParam;
-import static by.epam.project.manager.ParamManager.checkIntParam;
 import java.util.ArrayList;
 import java.util.List;
 

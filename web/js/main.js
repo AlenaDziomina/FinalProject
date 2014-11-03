@@ -544,7 +544,7 @@ function postCountry(path, comnd, method) {
 //save current params from jsp page
 function saveCurrElem(form, idElem, nameParam){
     var select = document.getElementById(idElem).value;
-    if (select !== null && select > 0) {
+    if (select !== null && (select > 0 || select !== '')) {
         var elem = document.createElement("input");
         elem.type = "hidden";
         elem.name = nameParam;
@@ -678,7 +678,45 @@ function check(atrName, atr){
     }
 }
 
+//hide part of searching parameters
+function disable(elemId, boxId) {
+    var box = document.getElementById(boxId);
+    var elem = document.getElementById(elemId);
+    var val = box.checked;
+    if (val) {
+        elem.hidden = true;
+    } else {
+        elem.hidden = false;
+    }
+}
 
+//hide all searching parameters
+function hideSearching(bool){
+    var elem = document.getElementById("searching");
+    var show = document.getElementById("show");
+    var hide = document.getElementById("hide");
+    if (bool === true) {
+        elem.hidden = true;
+        hide.hidden = true;
+        show.hidden = false;
+    } else {
+        elem.hidden = false;
+        hide.hidden = false;
+        show.hidden = true;
+    }
+}
+
+//check checkBox
+function checkBox(boxId, val, elemId) {
+    var box = document.getElementById(boxId);
+    var elem = document.getElementById(elemId);
+    box.checked = val;
+    if (val) {
+        elem.hidden = true;
+    } else {
+        elem.hidden = false;
+    }
+}
 
 
 
@@ -706,15 +744,15 @@ function buyTour(path, comnd, method){
     form.submit();
 }
 
-
+//save all searching parameters when pressed button 'search'
 function saveAllSearch() {
     var form = document.getElementById("srcTour");
-    saveCountryTags(form);
-    saveCityTags(form);
-    saveHotelTags(form);
-    saveCurrHotelStars(form);
-    saveMode(form, "transMode", "currTransMode");
-    saveTourType(form, "tourType", "currTourType");
+    saveCurrTags(form, "countryTag", "currCountryTag");
+    saveCurrTags(form, "cityTag", "currCityTag");
+    saveCurrTags(form, "hotelTag", "currHotelTag");
+    saveCurrElem(form, "currStars", "currStars");
+    saveCurrElem(form, "transMode", "currTransMode");
+    saveCurrElem(form, "tourType", "currTourType");
     saveCurrElem(form, "currCountry", "currIdCountry");
     saveCurrElem(form, "currCity", "currIdCity");
     saveCurrElem(form, "dateFrom", "currDepartDateFrom");
@@ -733,6 +771,8 @@ function saveAllSearch() {
     saveIsHidden(form, "searching");
 }
 
+//save searching parameters of tours.jsp when country or city selected
+//and list of cities or hotels must be changed
 function postTour(path, comnd, method) {
     
     method = method || "post";
@@ -740,12 +780,12 @@ function postTour(path, comnd, method) {
     form.setAttribute("method", method);
     form.setAttribute("action", path);
     
-    saveCountryTags(form);
-    saveCityTags(form);
-    saveHotelTags(form);
-    saveCurrHotelStars(form);
-    saveMode(form, "transMode", "currTransMode");
-    saveTourType(form, "tourType", "currTourType");
+    saveCurrTags(form, "countryTag", "currCountryTag");
+    saveCurrTags(form, "cityTag", "currCityTag");
+    saveCurrTags(form, "hotelTag", "currHotelTag");
+    saveCurrElem(form, "currStars", "currStars");
+    saveCurrElem(form, "transMode", "currTransMode");
+    saveCurrElem(form, "tourType", "currTourType");
     saveCurrElem(form, "currCountry", "currIdCountry");
     saveCurrElem(form, "currCity", "currIdCity");
     saveCurrElem(form, "dateFrom", "currDepartDateFrom");
@@ -762,116 +802,21 @@ function postTour(path, comnd, method) {
     saveBox(form, "allCities");
     saveBox(form, "allHotels");
     saveIsHidden(form, "searching");
-    
-
-    var elem = document.createElement("input");
-    elem.type = "hidden";
-    elem.name = "command";
-    elem.value = comnd;
-    form.appendChild(elem);
+    saveCommand(form, comnd);
         
     document.body.appendChild(form);
     form.submit();
-    
 }
 
+//save option of hidden parameters
 function saveIsHidden(form, idElem){
-    var srch = document.getElementById("searching");
+    var srch = document.getElementById(idElem);
     var elem = document.createElement("input");
     elem.type = "hidden";
     elem.name = "isHidden";
     elem.value=srch.hidden;
     form.appendChild(elem);
 }
-
-
-
-function checkBox(boxId, val, elemId) {
-    var box = document.getElementById(boxId);
-    var elem = document.getElementById(elemId);
-    box.checked = val;
-    if (val) {
-        elem.hidden = true;
-    } else {
-        elem.hidden = false;
-    }
-   
-}
-
-function disable(elemId, boxId) {
-    var box = document.getElementById(boxId);
-    var elem = document.getElementById(elemId);
-    var val = box.checked;
-    if (val) {
-        elem.hidden = true;
-    } else {
-        elem.hidden = false;
-    }
-    
-}
-
-function hideSearching(bool){
-    var elem = document.getElementById("searching");
-    var show = document.getElementById("show");
-    var hide = document.getElementById("hide");
-    if (bool === true) {
-        elem.hidden = true;
-        hide.hidden = true;
-        show.hidden = false;
-    } else {
-        elem.hidden = false;
-        hide.hidden = false;
-        show.hidden = true;
-    }
- 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-//function selectTourType(n){
-//    var form = document.getElementById("updDirection");
-//    var id = form.idTourType;
-//    id.setAttribute("value", n);
-//}
-
-//function selectTourType(n){
-//    var form = document.getElementById("updDirection");
-//    var id = form.idTransMode;
-//    id.setAttribute("value", n);
-//}
-
-
-//function selectCountry(n){
-//    var form = document.getElementById("updCity");
-//    var id = form.idCountry;
-//    id.setAttribute("value", n);
-//  
-//}
-//
-//function selectCity(n){
-//    var form = document.getElementById("updHotel");
-//    var id = form.idCity;
-//    id.setAttribute("value", n);
-//    
-//}
-//
-//function selectStars(n){
-//    var form = document.getElementById("updHotel");
-//    var id = form.stars_hotel;
-//    id.setAttribute("value", n);
-//}
-
-
 
 
 

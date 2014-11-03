@@ -6,74 +6,73 @@
 
 
 <div id="main">
+    
+    
     <jsp:include page="/WEB-INF/other/searching.jsp" />
-    <div id="erNote" class="centrale">${emptysearch}</div>
+    <div class="parameterRow">
+        <div id="erNote" class="centrale">${emptysearch}</div>
+    </div>
     
-    <c:forEach items="${tourList}" var="row">
-        <div class="parameterRowB">
-            
-            <img class="smallimg" id="images" src="<%=request.getContextPath()%>${row.direction.picture}">
-            <div class="padB">
-                <a class="nodec cntr labelH" href="controller?command=showDirection&selectId=${row.direction.idDirection}">${row.direction.name}   ${row.departDate}   (${row.daysCount} days)</a>
-            </div>
-            <h2 class="small lft labelH">${row.direction.text}</h2>
-            <div>
-                <ul class="containerLabel">
-                    <div class="lblH">tourType:</div>
-                    ${row.direction.tourType.nameTourType}
-                </ul>
-                <ul class="containerLabel">
-                    <div class="lblH">transMode:</div>
-                    ${row.direction.transMode.nameMode} 
-                </ul>
-                <ul class="containerLabel">
-                    <div class="lblH">FreeSeats:</div>
-                    ${row.freeSeats}
-                </ul>
-                <ul class="containerLabel">
-                    <h2 class="small lft labelH">Price:</h2>
-                    <h2 class="small lft labelH">${row.price}</h2>
-                </ul>
-                <ul class="containerLabel">
-                    <h2 class="blu small lft labelH">Discount:</h2>
-                    <h2 class="blu small lft labelH">${row.discount}</h2>
-                </ul>
-                <ul class="containerLabel">
-                    <h2 class="grnt small lft labelH">FinalPrice:</h2>
-                    <h2 class="grnt small lft labelH">${row.price * (100 - row.discount) / 100 }</h2>
-                </ul>
-                
-            </div>
-            
-            <div>
-                <ul class="containerLabel">
-                    <div class="lblH">DirectionCountryTags:</div>
-                    <c:forEach items="${row.direction.countryCollection}" var="cntr">
-                        <li>${cntr.name}</li>
-                    </c:forEach>
-                </ul>
-                <ul class="containerLabel">
-                    <div class="lblH">DirectionCityTags:</div>
-                    <c:forEach items="${row.direction.cityCollection}" var="ct">
-                        <li>${ct.name}</li>
-                    </c:forEach>
-                </ul>
-                <ul class="containerLabelR">
-                    <div class="lblH">DirectionStayHotels:</div>
-                    <c:forEach items="${row.direction.stayCollection}" var="st">
-                        <li>${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name}) </li>
-                    </c:forEach>
-                </ul>
-            </div>     
-                
-            <div class="parameterRow centrale">
-                <input type="hidden" id="currIdTour" value="${row.idTour}"/>
-                <input class="large green awesome" type="submit" value="<fmt:message key="buy" bundle="${ rb }" />" onclick="buyTour('controller', 'buyTour', 'POST')"/>
-                <div id="erNote">${errorSaveData}</div>
-                <div id="erNote">${errorReason}</div>
-                <div id="erAdminNote">${errorAdminMsg}</div>
-            </div>  
+    <ctg:PageTableTag rows="${ pageList.size }" pageNo="${pageList.currPageNo}" pages="${pageList.pages}">
+        
+        <ctg:ImgTag classImg="smallimg" idImg="images" nameImg="${pageList.next.direction.picture}"/>
+        
+        <div class="padB">
+            <ctg:StatusTag status="${pageList.same.direction.status}" href="controller?command=showDirection&selectId=${pageList.same.direction.idDirection}" ifValid="nodec cntr labelH" ifInvalid="nodec cntr grey labelH">
+                ${pageList.same.direction.name} ${pageList.same.departDate}   (${pageList.same.daysCount} days)
+            </ctg:StatusTag>
         </div>
-    </c:forEach>
-    
+        <h2 class="small lft labelH">${pageList.same.direction.text}</h2>
+
+        <div>
+            <ul class="containerLabel">
+                <div class="lblH">tourType:</div>
+                ${pageList.same.direction.tourType.nameTourType}
+            </ul>
+            <ul class="containerLabel">
+                <div class="lblH">transMode:</div>
+                ${pageList.same.direction.transMode.nameMode} 
+            </ul>
+            <ul class="containerLabel">
+                <div class="lblH">FreeSeats:</div>
+                ${pageList.same.freeSeats}
+            </ul>
+            <ul class="containerLabel">
+                <h2 class="small lft labelH">Price:</h2>
+                <h2 class="small lft labelH">${pageList.same.price}</h2>
+            </ul>
+            <ul class="containerLabel">
+                <h2 class="blu small lft labelH">Discount:</h2>
+                <h2 class="blu small lft labelH">${pageList.same.discount}</h2>
+            </ul>
+            <ul class="containerLabel">
+                <h2 class="grnt small lft labelH">FinalPrice:</h2>
+                <h2 class="grnt small lft labelH">${pageList.same.price * (100 - pageList.same.discount) / 100 }</h2>
+            </ul>
+        </div>
+        <div>
+            <ul class="containerLabel">
+                <div class="lblH">DirectionCountryTags:</div>
+                <c:forEach items="${pageList.same.direction.countryCollection}" var="cntr">
+                    <li><ctg:StatusTag status="${cntr.status}" ifInvalid="greyA">${cntr.name}</ctg:StatusTag></li>
+                </c:forEach>
+            </ul>
+            <ul class="containerLabel">
+                <div class="lblH">DirectionCityTags:</div>
+                <c:forEach items="${pageList.same.direction.cityCollection}" var="ct">
+                    <li><ctg:StatusTag status="${ct.status}" ifInvalid="greyA">${ct.name}</ctg:StatusTag></li>
+                </c:forEach>
+            </ul>
+            <ul class="containerLabelR">
+                <div class="lblH">DirectionStayHotels:</div>
+                <c:forEach items="${pageList.same.direction.stayCollection}" var="st">
+                    <li><ctg:StatusTag status="${st.status}" ifInvalid="greyA">${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name})</ctg:StatusTag></li>
+                </c:forEach>
+            </ul>
+        </div>   
+       
+        <c:if test="${pageList.same.status == 1}">
+            <input class="large green awesome" type="submit" value="<fmt:message key="buy" bundle="${ rb }" />" onclick="post('controller', {command: 'goBuyTour', currIdTour: ${pageList.same.idTour}}, 'POST')"/>
+        </c:if>
+    </ctg:PageTableTag>
 </div>

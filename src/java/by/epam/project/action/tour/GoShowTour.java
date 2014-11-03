@@ -21,6 +21,7 @@ import static by.epam.project.action.JspParamNames.JSP_DISCOUNT_STEP;
 import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_PAGE_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PRICE_STEP;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
@@ -37,6 +38,7 @@ import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
@@ -44,6 +46,7 @@ import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.SearchLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
+import by.epam.project.tag.ObjList;
 import java.util.List;
 
 /**
@@ -82,6 +85,8 @@ public class GoShowTour implements ActionCommand {
         try {
             List<Tour> tours = new SearchLogic().doGetEntity(criteria);
             request.setSessionAttribute(JSP_TOUR_LIST, tours);
+            ObjList<Tour> list = new ObjList<>(tours);
+            request.setSessionAttribute(JSP_PAGE_LIST, list);
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
@@ -92,13 +97,13 @@ public class GoShowTour implements ActionCommand {
         request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
         request.setSessionAttribute(JSP_PRICE_STEP, ConfigurationManager.getProperty("price.step"));
         request.setSessionAttribute(JSP_DISCOUNT_STEP, ConfigurationManager.getProperty("discount.step"));
-        request.setAttribute(JSP_BOX_ALL_DEPART_DATE, true);
-        request.setAttribute(JSP_BOX_ALL_DAYS_COUNT, true);
-        request.setAttribute(JSP_BOX_ALL_PRICE, true);
-        request.setAttribute(JSP_BOX_ALL_COUNTRIES, true);
-        request.setAttribute(JSP_BOX_ALL_CITIES, true);
-        request.setAttribute(JSP_BOX_ALL_HOTELS, true);
-        request.setAttribute(JSP_IS_HIDDEN, true);
+        request.setSessionAttribute(JSP_BOX_ALL_DEPART_DATE, true);
+        request.setSessionAttribute(JSP_BOX_ALL_DAYS_COUNT, true);
+        request.setSessionAttribute(JSP_BOX_ALL_PRICE, true);
+        request.setSessionAttribute(JSP_BOX_ALL_COUNTRIES, true);
+        request.setSessionAttribute(JSP_BOX_ALL_CITIES, true);
+        request.setSessionAttribute(JSP_BOX_ALL_HOTELS, true);
+        request.setSessionAttribute(JSP_IS_HIDDEN, true);
     }
             
 }

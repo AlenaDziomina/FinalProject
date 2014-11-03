@@ -16,6 +16,9 @@ import by.epam.project.dao.entquery.DirectionQuery;
 import by.epam.project.dao.entquery.DirectionStayHotelQuery;
 import by.epam.project.dao.entquery.HotelQuery;
 import by.epam.project.dao.entquery.OrderQuery;
+import by.epam.project.dao.entquery.SearchQuery;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
+import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
 import by.epam.project.dao.entquery.TourQuery;
 import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
@@ -31,6 +34,7 @@ import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoQueryException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,6 +68,11 @@ public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     @Override
     public List<Tour> showTours(Criteria criteria) throws DaoException {
         return new TourQuery().load(criteria, loadDao, mysqlConn);
+    }
+    
+    @Override
+    public List<Tour> searchTours(Criteria criteria) throws DaoException {
+        return new SearchQuery().load(criteria, loadDao, mysqlConn);
     }
     
     @Override

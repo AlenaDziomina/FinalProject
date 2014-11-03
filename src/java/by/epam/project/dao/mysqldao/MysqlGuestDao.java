@@ -35,7 +35,6 @@ import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoLogicException;
-import by.epam.project.exception.DaoQueryException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -151,7 +150,23 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
 
     @Override
     public List<Tour> searchTours(Criteria criteria) throws DaoException {
-       return new SearchQuery().load(criteria, loadDao, mysqlConn);
+        if (criteria.getParam(DirectionQuery.DAO_DIRECTION_STATUS) == null) {
+            criteria.addParam(DirectionQuery.DAO_DIRECTION_STATUS, 1);
+        }
+        if (criteria.getParam(TourQuery.DAO_TOUR_STATUS) == null) {
+            criteria.addParam(TourQuery.DAO_TOUR_STATUS, 1);
+        }
+        Date currDate = new Date();
+        Date dateFrom = (Date) criteria.getParam(DAO_TOUR_DATE_FROM);
+        if (dateFrom == null || dateFrom.before(currDate)) {
+            criteria.addParam(DAO_TOUR_DATE_FROM, currDate);
+        }
+        Date dateTo = (Date) criteria.getParam(DAO_TOUR_DATE_TO);
+        if (dateTo != null && dateTo.before(currDate)) {
+            criteria.addParam(DAO_TOUR_DATE_TO, currDate);
+        }
+        
+        return new SearchQuery().load(criteria, loadDao, mysqlConn);
     }
    
 }

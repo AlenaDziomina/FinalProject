@@ -30,6 +30,7 @@ import by.epam.project.action.hotel.GoEditHotel;
 import by.epam.project.action.hotel.GoShowHotel;
 import by.epam.project.action.hotel.SaveRedactHotel;
 import by.epam.project.action.hotel.ShowHotel;
+import by.epam.project.action.order.GoBuyTour;
 import by.epam.project.action.order.GoCreateNewOrder;
 import by.epam.project.action.tour.GoCreateNewTour;
 import by.epam.project.action.tour.GoEditTour;
@@ -229,14 +230,19 @@ public enum CommandEnum {
             setCurrentCommand(new SearchTour());
         }
     },
-    BUYTOUR {
-        {
-            setCurrentCommand(new GoCreateNewOrder());
-        }
-    },
     SHOWPAGE {
         {
             setCurrentCommand(new ShowPage());
+        }
+    },
+    GOBUYTOUR {
+        {
+            setCurrentCommand(new GoBuyTour());
+        }
+    },
+    BUYTOUR {
+        {
+            setCurrentCommand(new GoCreateNewOrder());
         }
     };
             
