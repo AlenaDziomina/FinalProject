@@ -142,10 +142,15 @@ public abstract class JspParamNames {
     public static final String JSP_DISCOUNT_STEP = "discountStep";
     
     //order
+    public static final String JSP_CURRENT_ORDER = "currOrder";
+    public static final String JSP_CURR_ORDER_SEATS = "currSeats";
     
     
     //tourist
-    
+    public static final String JSP_TOURIST_FIRST_NAME = "firstName";
+    public static final String JSP_TOURIST_MIDDLE_NAME = "middleName";
+    public static final String JSP_TOURIST_LAST_NAME = "lastName";
+    public static final String JSP_TOURIST_PASSPORT = "passport";
     
     
 }

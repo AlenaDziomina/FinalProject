@@ -18,12 +18,9 @@
                             <option class="selectItem" value="${row.idCountry}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                         </c:forEach>
                     </select>
+                    <script>select("currCountry", ${currIdCountry});</script>
                 </div>
             </div>
-                            
-            <script type="text/javascript">
-                select("currCountry", ${currIdCountry});
-            </script>
             
             <div class="parameterRow">
                 <div class="mid input">
@@ -36,13 +33,10 @@
                             <option class="selectItem" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                         </c:forEach>
                     </select>
-                    <div id="erNote"><a id="selectCityErrMsg" hidden="true"><fmt:message key="errorSelectCity" bundle="${ rb }" /></a></div>    
+                    <div id="erNote"><a id="selectCityErrMsg" hidden="true"><fmt:message key="errorSelectCity" bundle="${ rb }" /></a></div> 
+                    <script>select("currCity", ${currIdCity});</script>
                 </div>
             </div>
-                            
-            <script type="text/javascript">
-                select("currCity", ${currIdCity});
-            </script>
             
             <div class="parameterRow">
                 <div class="mid input">
@@ -65,14 +59,11 @@
                             <option class="selectItem" value="${i}">${i}*</option>
                         </c:forEach>
                     </select>
+                    <script>select("currStars", ${currHotel.stars});</script>
                     <div id="erNote"><a id="selectStarsErrMsg" hidden="true"><fmt:message key="errorSelectStars" bundle="${ rb }" /></a></div>
                 </div>
             </div>   
-                            
-            <script type="text/javascript">
-                select("currStars", ${currHotel.stars});
-            </script>
-            
+          
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="hotelPicture" bundle="${ rb }" />:</h1> 

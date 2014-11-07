@@ -24,21 +24,21 @@
 
         <div>
             <ul class="containerLabel">
-                <div class="lblH">DirectionCountryTags:</div>
+                <div class="lblH"><fmt:message key="directionCountryTags" bundle="${ rb }" />:</div>
                 <c:forEach items="${pageList.same.countryCollection}" var="cntr">
-                    <li><ctg:StatusTag status="${cntr.status}" ifInvalid="greyA">${cntr.name}</ctg:StatusTag></li>
+                    <li><ctg:StatusTag status="${cntr.status}" ifInvalid="greyA"><fmt:message key="${cntr.name}" bundle="${ rb }" /></ctg:StatusTag></li>
                 </c:forEach>
             </ul>
             <ul class="containerLabel">
-                <div class="lblH">DirectionCityTags:</div>
+                <div class="lblH"><fmt:message key="directionCityTags" bundle="${ rb }" />:</div>
                 <c:forEach items="${pageList.same.cityCollection}" var="ct">
-                    <li><ctg:StatusTag status="${ct.status}" ifInvalid="greyA">${ct.name}</ctg:StatusTag></li>
+                    <li><ctg:StatusTag status="${ct.status}" ifInvalid="greyA"><fmt:message key="${ct.name}" bundle="${ rb }" /></ctg:StatusTag></li>
                 </c:forEach>
             </ul>
             <ul class="containerLabelR">
-                <div class="lblH">DirectionStayHotels:</div>
+                <div class="lblH"><fmt:message key="directionStayHotels" bundle="${ rb }" />:</div>
                 <c:forEach items="${pageList.same.stayCollection}" var="st">
-                    <li><ctg:StatusTag status="${st.status}" ifInvalid="greyA">${st.hotel.name} ${st.hotel.stars}* (${st.hotel.city.name})</ctg:StatusTag></li>
+                    <li><ctg:StatusTag status="${st.status}" ifInvalid="greyA">${st.hotel.name} ${st.hotel.stars}* (<fmt:message key="${st.hotel.city.name}" bundle="${ rb }" />)</ctg:StatusTag></li>
                 </c:forEach>
             </ul>
         </div>      

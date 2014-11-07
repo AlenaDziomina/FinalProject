@@ -9,10 +9,14 @@ package by.epam.project.logic;
 import by.epam.project.dao.AbstractDao;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
+import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
+import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
+import by.epam.project.entity.TourType;
+import by.epam.project.entity.TransMode;
 import by.epam.project.exception.DaoException;
 import java.util.List;
 
@@ -53,6 +57,15 @@ public class TourLogic extends AbstractLogic {
                 List<Order> orders = dao.showOrders(crit2);
                 tour.setOrderCollection(orders);
                 
+                Criteria crit3 = new Criteria();
+                crit3.addParam(DAO_ID_TOURTYPE, tour.getDirection().getTourType().getIdTourType());
+                List<TourType> types = dao.showTourTypes(crit3);
+                tour.getDirection().setTourType(types.get(0));
+                
+                Criteria crit4 = new Criteria();
+                crit4.addParam(DAO_ID_TRANSMODE, tour.getDirection().getTransMode().getIdMode());
+                List<TransMode> modes = dao.showTransModes(crit4);
+                tour.getDirection().setTransMode(modes.get(0));
             }
         }
     }

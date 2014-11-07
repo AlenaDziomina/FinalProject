@@ -32,6 +32,8 @@ li {
     list-style-position: inside;
 }
 
+
+
 #header {
     text-align: center;
     height: 70px;
@@ -561,3 +563,45 @@ li {
     color:#111
 }
 
+.firstName {
+    width: 250px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+
+.middleName {
+    width: 250px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+.lastName {
+    width: 250px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+.passport {
+    width: 150px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+
+.red.firstName, .red.middleName, .red.lastName, .red.passport {
+    background-color:  lightpink;
+}
+
+.ordertable {
+    margin: 15px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid darkmagenta;
+    border-radius: 5px;
+}
+
+.fio {
+    width: 750px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+.border.fio, .border.passport {
+    border: 1px solid darkblue;
+}

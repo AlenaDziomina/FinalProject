@@ -240,7 +240,7 @@ public enum CommandEnum {
             setCurrentCommand(new GoBuyTour());
         }
     },
-    BUYTOUR {
+    GOCREATENEWORDER {
         {
             setCurrentCommand(new GoCreateNewOrder());
         }

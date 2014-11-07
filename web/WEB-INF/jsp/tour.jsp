@@ -31,20 +31,15 @@
                     ${row.departDate}
                 </ctg:OptionTag>
             </c:forEach>
-        </select>
-                
-                
+        </select>               
+        <script>select("currTour", ${currTour.idTour});</script>         
         <ctg:RoleTag>
             <c:if test="${currDirection.status == 1}">
                 <input class="large green awesome" type="submit" value="<fmt:message key="newTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goCreateNewTour', currIdDirection: '${currDirection.idDirection}' }, 'POST')" />
             </c:if>
         </ctg:RoleTag>
     </div>
-            
-    <script type="text/javascript">
-        select("currTour", ${currTour.idTour});
-    </script> 
-    
+  
     <div class="full center inner column">
         <div class="parameterRow">
             <jsp:include page="/WEB-INF/other/statcalend.jsp" />
@@ -66,7 +61,7 @@
                 <h1 class="labelH"><fmt:message key="price" bundle="${ rb }" />:</h1> 
             </div>
             <div class="input inner">
-                <label class="inputLineContainer" name="price">${currTour.price}</label>
+                <label class="inputLineContainer" name="price">${currTour.price}<fmt:message key="$" bundle="${ rb }" /></label>
             </div>      
         </div>      
             
@@ -75,7 +70,7 @@
                 <h1 class="labelH"><fmt:message key="discount" bundle="${ rb }" />: </h1> 
             </div>
             <div class="input inner">
-                <label name="discount" class="inputLineContainer">${currTour.discount}</label>
+                <label name="discount" class="inputLineContainer">${currTour.discount}%</label>
             </div>      
         </div>      
             

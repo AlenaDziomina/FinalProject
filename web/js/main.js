@@ -4,6 +4,113 @@
  * and open the template in the editor.
  */
 
+//validate form of creating order and tourists
+function validateOrderForm(){
+    var validFirstName = validateFIO('firstName');
+    var validMiddleName = validateFIO('middleName');
+    var validLastName = validateFIO('lastName');
+    var validPassport = validatePassport('passport');
+    var valid = validFirstName && validMiddleName && validLastName && validPassport;
+    return valid;
+}
+
+//validate and coloring false input strings
+function validatePassport(name) {
+    var flag = true;
+    var elem = document.getElementsByTagName('input');
+    for (var i = 0; i < elem.length; i++) {
+        if (elem[i].className === name || elem[i].className === 'red ' + name) {
+            if (validateStrPassport(elem[i].value)) {
+                elem[i].className = name;
+            } else {
+                elem[i].className = 'red ' + name;
+                flag = false;
+            }
+        }
+    }
+    return flag;
+}
+
+//validate passport string in format AA1234567
+function validateStrPassport(str) {
+    if (str === null || str === '') {
+        return false;
+    }
+    var re = new RegExp ('[A-Z]{2}\\d{7}');
+    var pars = re.exec(str);
+    if (pars !== null && pars.length === 1&& str === pars[0]) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//validate and coloring false input strings
+function validateFIO(name){
+    var flag = true;
+    var elem = document.getElementsByTagName('input');
+    for (var i = 0; i < elem.length; i++) {
+        if (elem[i].className === name || elem[i].className === 'red ' + name) {
+            if (validateStrFio(elem[i].value)) {
+                elem[i].className = name;
+            } else {
+                elem[i].className = 'red ' + name;
+                flag = false;
+            }
+        }
+    }
+    return flag;
+}
+
+//validate first, middle and last name strings
+function validateStrFio(str) {
+    if (str === null || str === '' || str.length > 60) {
+        return false;
+    }
+    var re = new RegExp ('[а-яёA-ЯЁ a-zA-Z\'\-]+');
+    var pars = re.exec(str);
+    if (pars !== null && pars.length === 1 && str === pars[0]) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//add row in table of tourists on editorder.jsp
+function funcAddTourist(currSeats){
+    var table = document.getElementById("currTourists");
+    var size = table.lastElementChild.childElementCount;
+    while (size < currSeats) {
+        var row = createRow();
+        table.lastElementChild.appendChild(row);
+        size = table.lastElementChild.childElementCount;
+    }
+    for (var i = currSeats; i < size; i++) {
+        table.deleteRow(i);
+    }
+}
+
+//create new row on tourist table
+function createRow(){
+    var tr = document.createElement('tr');
+    tr.appendChild(createCell('firstName'));
+    tr.appendChild(createCell('middleName'));
+    tr.appendChild(createCell('lastName'));
+    tr.appendChild(createCell('passport'));
+    return tr;
+}
+
+//create new cell on row in tourist table
+function createCell(name){
+    var td = document.createElement('td');
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.name = name;
+    input.className = name;
+    td.appendChild(input);
+    return td;
+}
+
 //validate edittour.jsp
 function validateTourForm(){
     var valid = isValidDiscount(10, "discount", "discountErrMsg") &&
