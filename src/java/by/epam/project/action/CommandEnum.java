@@ -6,7 +6,6 @@
 
 package by.epam.project.action;
 
-import by.epam.project.action.direction.ShowPage;
 import by.epam.project.action.city.GoCreateNewCity;
 import by.epam.project.action.city.GoEditCity;
 import by.epam.project.action.city.GoShowCity;
@@ -25,6 +24,7 @@ import by.epam.project.action.direction.GoEditDirection;
 import by.epam.project.action.direction.GoShowDirections;
 import by.epam.project.action.direction.SaveRedactDirection;
 import by.epam.project.action.direction.ShowDirection;
+import by.epam.project.action.direction.ShowPage;
 import by.epam.project.action.hotel.GoCreateNewHotel;
 import by.epam.project.action.hotel.GoEditHotel;
 import by.epam.project.action.hotel.GoShowHotel;
@@ -32,6 +32,7 @@ import by.epam.project.action.hotel.SaveRedactHotel;
 import by.epam.project.action.hotel.ShowHotel;
 import by.epam.project.action.order.GoBuyTour;
 import by.epam.project.action.order.GoCreateNewOrder;
+import by.epam.project.action.order.PayForOrder;
 import by.epam.project.action.tour.GoCreateNewTour;
 import by.epam.project.action.tour.GoEditTour;
 import by.epam.project.action.tour.GoShowTour;
@@ -243,6 +244,11 @@ public enum CommandEnum {
     GOCREATENEWORDER {
         {
             setCurrentCommand(new GoCreateNewOrder());
+        }
+    },
+    PAYFORORDER {
+        {
+            setCurrentCommand(new PayForOrder());
         }
     };
             

@@ -17,6 +17,7 @@ import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LANGUAGE;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.UserLogic;
@@ -59,7 +60,7 @@ public class LocalCommand implements ActionCommand {
         
         try {
             Integer res = new UserLogic().doRedactEntity(criteria);           
-        } catch (TechnicalException ex) {
+        } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
             request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));

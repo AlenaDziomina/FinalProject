@@ -21,6 +21,7 @@ import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.User;
+import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CountryLogic;
@@ -69,7 +70,7 @@ public class SaveRedactCountry implements ActionCommand {
             Integer resIdCountry = new CountryLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdCountry.toString());
             return new GoShowCountry().execute(request);     
-        } catch (TechnicalException ex) {
+        } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
             request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));

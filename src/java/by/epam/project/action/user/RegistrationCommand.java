@@ -22,6 +22,7 @@ import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PASSWORD;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PHONE;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.UserLogic;
@@ -55,7 +56,7 @@ public class RegistrationCommand implements ActionCommand {
             } else {
                 return null;
             }
-        } catch (TechnicalException ex) {
+        } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
             request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));

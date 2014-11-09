@@ -27,4 +27,19 @@ public class PriceDiscountManager {
         Float totalPrice = getFinalPrice(price, discount, userDiscount, count);
         return totalPrice;
     }
+
+    public static Integer getDiscountForOrder(Integer discount, Float finalPrice) {
+        
+        int coef = Math.floorDiv(Math.round(finalPrice), 1000);
+        if (coef <= 0) {
+            coef = 1;
+        }
+        Integer maxDiscount = Integer.decode(ConfigurationManager.getProperty("user.discount.max"));
+        Integer discountForOrder = discount + coef;
+        if (discountForOrder > 50) {
+            return maxDiscount;
+        } else {
+            return discountForOrder;
+        }
+    }
 }

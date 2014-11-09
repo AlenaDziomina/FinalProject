@@ -109,6 +109,23 @@ public interface AbstractDao {
         throw new DaoAccessException("Method updateUser. Current role: " 
                 + bean.getParam(DAO_ROLE_NAME).toString());
     }
+    default List<Integer> createNewOrder(Criteria criteria) throws DaoException{
+        throw new DaoAccessException("Method createNewOrder. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    default List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoAccessException("Method updateTour. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    default List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoAccessException("Method updateOrder. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    default List<Integer> createNewTourist(Criteria criteria) throws DaoException{
+        throw new DaoAccessException("Method createNewTourist. Current role: " 
+               + criteria.getParam(DAO_ROLE_NAME).toString());
+    };
+    
     
     //admin
     default List<Integer> createNewDescription(Criteria criteria) throws DaoException{
@@ -179,16 +196,8 @@ public interface AbstractDao {
         throw new DaoAccessException("Method createNewTour. Current role: " 
                + criteria.getParam(DAO_ROLE_NAME).toString());
     };
-    default List<Integer> createNewOrder(Criteria criteria) throws DaoException{
-        throw new DaoAccessException("Method createNewOrder. Current role: " 
-               + criteria.getParam(DAO_ROLE_NAME).toString());
-    };
-    default List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException{
-        throw new DaoAccessException("Method updateTour. Current role: " 
-               + criteria.getParam(DAO_ROLE_NAME).toString());
-    };
-    default List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException{
-        throw new DaoAccessException("Method updateOrder. Current role: " 
+    default List<Integer> updateTourist(Criteria beans, Criteria criteria) throws DaoException{
+        throw new DaoAccessException("Method updateTourist. Current role: " 
                + criteria.getParam(DAO_ROLE_NAME).toString());
     };
 }

@@ -30,6 +30,7 @@ import by.epam.project.entity.Hotel;
 import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
+import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.DirectionLogic;
@@ -95,7 +96,7 @@ public class SaveRedactDirection implements ActionCommand {
             Integer resIdDirection = new DirectionLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdDirection.toString());
             return new ShowDirection().execute(request);
-        } catch (TechnicalException ex) {
+        } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
             request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
@@ -152,8 +153,14 @@ public class SaveRedactDirection implements ActionCommand {
                 Integer idHotel = Integer.decode(tag);
                 if (idHotel > 0) {
                     Criteria criteria = new Criteria();
-                    criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
-                    criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+                    User user = (User) request.getSessionAttribute(JSP_USER);
+                    if (user != null) {
+                        criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+                        ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+                        criteria.addParam(DAO_ROLE_NAME, type);
+                    } else {
+                        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+                    }
                     criteria.addParam(DAO_ID_HOTEL, idHotel);
                     try {
                         List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);

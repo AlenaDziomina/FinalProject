@@ -53,7 +53,7 @@ public class RoleQuery implements TypedQuery<Role>{
         
         Role bean = new Role();
         bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));
-        bean.setRoleName((String)criteria.getParam(DAO_ROLE_NAME));
+        bean.setRoleName(criteria.getParam(DAO_ROLE_NAME).toString());
         return bean;
     }
     

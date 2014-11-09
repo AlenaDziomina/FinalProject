@@ -6,63 +6,11 @@
 
 package by.epam.project.action;
 
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_CITIES;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_COUNTRIES;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DAYS_COUNT;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DEPART_DATE;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_HOTELS;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_PRICE;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DAYS_COUNT_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DAYS_COUNT_TO;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE_TO;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DISCOUNT_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_STARS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_TOUR;
-import static by.epam.project.action.JspParamNames.JSP_CURR_PRICE_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_PRICE_TO;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
-import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_NAME;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_PICTURE;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_TEXT;
-import static by.epam.project.action.JspParamNames.JSP_FREE_SEATS;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
-import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_TOTAL_SEATS;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_DISCOUNT;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_PRICE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_USER_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
 import static by.epam.project.action.JspParamNames.JSP_USER_VALID_STATUS;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
-import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.Description;
-import by.epam.project.entity.Direction;
-import by.epam.project.entity.Hotel;
-import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;
-import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.HotelLogic;
-import static by.epam.project.manager.ParamManager.getFltParam;
-import static by.epam.project.manager.ParamManager.getIntParam;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

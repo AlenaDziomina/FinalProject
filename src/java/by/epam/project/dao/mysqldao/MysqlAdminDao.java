@@ -20,6 +20,7 @@ import by.epam.project.dao.entquery.SearchQuery;
 import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
 import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
 import by.epam.project.dao.entquery.TourQuery;
+import by.epam.project.dao.entquery.TouristQuery;
 import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
@@ -184,20 +185,8 @@ public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     }
 
     @Override
-    public List<Integer> createNewOrder(Criteria criteria) throws DaoException {
-        List list = new ArrayList<>();
-        list.add(OrderQuery.createBean(criteria));
-        return new OrderQuery().save(list, saveDao, mysqlConn);
-    }
-
-    @Override
-    public List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException {
-        return new TourQuery().update(beans, criteria, updateDao, mysqlConn);
-    }
-    
-    @Override
-    public List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException {
-        return new OrderQuery().update(beans, criteria, updateDao, mysqlConn);
+    public List<Integer> updateTourist(Criteria beans, Criteria criteria) throws DaoException {
+        return new TouristQuery().update(beans, criteria, updateDao, mysqlConn);
     }
 
 }

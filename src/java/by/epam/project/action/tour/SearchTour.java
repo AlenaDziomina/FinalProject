@@ -26,13 +26,16 @@ import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
 import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.Tour;
+import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.logic.SearchLogic;
+import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import by.epam.project.manager.ParamManager;
@@ -89,9 +92,14 @@ public class SearchTour implements ActionCommand {
         checkIntParam(request, criteria, JSP_CURR_TOUR_TYPE, DAO_ID_TOURTYPE);
         checkIntParam(request, criteria, JSP_CURR_TRANS_MODE, DAO_ID_TRANSMODE);
         
-        
-        criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
-        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        User user = (User) request.getSessionAttribute(JSP_USER);
+        if (user != null) {
+            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+            criteria.addParam(DAO_ROLE_NAME, type);
+        } else {
+            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        }
         
         if ( ! ParamManager.getBoolParam(request, JSP_BOX_ALL_COUNTRIES)) {
             checkArrParam(request, criteria, JSP_CURR_COUNTRY_TAGS, DAO_ID_COUNTRY);
@@ -246,8 +254,14 @@ public class SearchTour implements ActionCommand {
                 Integer idHotel = Integer.decode(tag);
                 if (idHotel > 0) {
                     Criteria criteria = new Criteria();
-                    criteria.addParam(DAO_USER_LOGIN, request.getSessionAttribute(JSP_USER_LOGIN));
-                    criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+                    User user = (User) request.getSessionAttribute(JSP_USER);
+                    if (user != null) {
+                        criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+                        ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+                        criteria.addParam(DAO_ROLE_NAME, type);
+                    } else {
+                        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+                    }
                     criteria.addParam(DAO_ID_HOTEL, idHotel);
                     try {
                         List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);

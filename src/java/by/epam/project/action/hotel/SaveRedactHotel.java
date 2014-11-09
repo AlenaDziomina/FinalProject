@@ -34,6 +34,7 @@ import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.User;
+import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.HotelLogic;
@@ -88,7 +89,7 @@ public class SaveRedactHotel implements ActionCommand {
             Integer resIdHotel = new HotelLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdHotel.toString());
             return new GoShowHotel().execute(request);
-        } catch (TechnicalException ex) {
+        } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
             request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));

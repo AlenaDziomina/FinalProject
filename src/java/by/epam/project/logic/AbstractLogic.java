@@ -15,7 +15,9 @@ import by.epam.project.exception.DaoAccessException;
 import by.epam.project.exception.DaoConnectException;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoInitException;
+import by.epam.project.exception.DaoLogicException;
 import by.epam.project.exception.DaoQueryException;
+import by.epam.project.exception.LogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.manager.MessageManager;
 import java.util.List;
@@ -73,7 +75,7 @@ public abstract class AbstractLogic {
         }
     }
     
-    public Integer doRedactEntity(Criteria criteria) throws TechnicalException {
+    public Integer doRedactEntity(Criteria criteria) throws TechnicalException, LogicException {
         AbstractDao dao = null;
         try {
             ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
@@ -95,6 +97,15 @@ public abstract class AbstractLogic {
                 LOGGER.error(ex1.getMessage());
             }
             throw new TechnicalException(MessageManager.getProperty("message.errordaoquery"), ex);
+        } catch (DaoLogicException ex) {
+            try {
+                if (dao != null) {
+                    dao.rollback();
+                }
+            } catch (DaoException ex1) {
+                LOGGER.error(ex1.getMessage());
+            }
+            throw new LogicException(MessageManager.getProperty(ex.getMessage()));
         } catch (DaoException ex){
             try {
                 if (dao != null) {

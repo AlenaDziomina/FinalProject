@@ -30,6 +30,7 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.User;
+import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CityLogic;
@@ -80,7 +81,7 @@ public class SaveRedactCity implements ActionCommand {
             Integer resIdCity = new CityLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdCity.toString());
             return new GoShowCity().execute(request); 
-        } catch (TechnicalException ex) {
+        } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
             request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));

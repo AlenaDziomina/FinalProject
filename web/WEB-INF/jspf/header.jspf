@@ -65,5 +65,9 @@
                 <img src="#" id="menuText" alt="<fmt:message key="tours" bundle="${ rb }" />">
             </a>
             
+            <a href="controller?command=goShowUserOrder" class="menuHref">
+                <img src="#" id="menuText" alt="<fmt:message key="myOrders" bundle="${ rb }" />">
+            </a>
+            
 
         </div>

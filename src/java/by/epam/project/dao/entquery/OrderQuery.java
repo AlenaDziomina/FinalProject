@@ -53,6 +53,7 @@ public class OrderQuery implements TypedQuery<Order> {
     public static final String DAO_ORDER_FINAL_PRICE = "finalPriceOrder";
     public static final String DAO_ORDER_DATE = "dateOrder";
     public static final String DAO_ORDER_STATUS = "statusOrder";
+    public static final String DAO_ORDER_TOURIST_LIST = "orderTouristList";
     
     private static final String SAVE_QUERY = 
             "Insert into " + DB_ORDER + " (" + DB_ORDER_ID_USER + ", "

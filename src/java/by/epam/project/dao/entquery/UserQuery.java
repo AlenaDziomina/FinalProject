@@ -51,7 +51,8 @@ public class UserQuery implements TypedQuery<User>{
     public static final String DAO_USER_LANGUAGE = "language";
     public static final String DAO_USER_DISCOUNT = "discount";
     public static final String DAO_USER_BALANCE = "balance";
-   
+    public static final String DAO_USER_SELECT_FOR_UPDATE = "userSelectForUpdate";
+    
     private static final String SAVE_QUERY = 
             "Insert into " + DB_USER + " (" + DB_USER_LOGIN + ", " 
             + DB_USER_PASSWORD + ", " + DB_USER_EMAIL + ", " 

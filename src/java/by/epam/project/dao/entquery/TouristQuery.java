@@ -22,6 +22,7 @@ import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +49,7 @@ public class TouristQuery implements TypedQuery<Tourist>{
     public static final String DAO_TOURIST_PASSPORT = "passportTourist";
     public static final String DAO_TOURIST_STATUS = "statusTourist";
     
+    
     private static final String SAVE_QUERY = 
             "Insert into " + DB_TOURIST + " (" + DB_TOURIST_ID_ORDER + ", "
             + DB_TOURIST_FNAME + ", " + DB_TOURIST_MNAME + ", " 
@@ -59,6 +61,18 @@ public class TouristQuery implements TypedQuery<Tourist>{
     
     private static final String UPDATE_QUERY = 
             "Update " + DB_TOURIST + " set ";
+
+    public static Object createBean(Criteria criteria) {
+        Tourist bean = new Tourist();
+        bean.setIdTourist((Integer) criteria.getParam(DAO_ID_TOURIST));
+        bean.setOrder(new Order((Integer) criteria.getParam(DAO_ID_ORDER)));
+        bean.setFirstName((String) criteria.getParam(DAO_TOURIST_FNAME));
+        bean.setMiddleName((String) criteria.getParam(DAO_TOURIST_MNAME));
+        bean.setLastName((String) criteria.getParam(DAO_TOURIST_LNAME));
+        bean.setBirthDate((Date) criteria.getParam(DAO_TOURIST_BIRTH));
+        bean.setPassport((String) criteria.getParam(DAO_TOURIST_PASSPORT));
+        return bean;
+    }
 
     
 
@@ -130,7 +144,7 @@ public class TouristQuery implements TypedQuery<Tourist>{
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 

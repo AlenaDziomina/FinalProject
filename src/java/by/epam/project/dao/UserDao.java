@@ -18,5 +18,12 @@ public interface UserDao extends AbstractDao {
     
     @Override
     List<Integer> updateUser(Criteria bean, Criteria criteria) throws DaoException;
-
+    @Override
+    List<Integer> createNewOrder(Criteria criteria) throws DaoException;
+    @Override
+    List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException;
+    @Override
+    List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException;
+    @Override
+    List<Integer> createNewTourist(Criteria criteria) throws DaoException;
 }
