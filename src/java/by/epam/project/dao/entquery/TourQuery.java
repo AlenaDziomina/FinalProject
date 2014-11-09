@@ -52,6 +52,8 @@ public class TourQuery implements TypedQuery<Tour>{
     public static final String DAO_TOUR_TOTAL_SEATS = "totalSeatsTour";
     public static final String DAO_TOUR_FREE_SEATS = "freeSeatsTour";
     public static final String DAO_TOUR_STATUS = "statusTour";
+    public static final String DAO_TOUR_ALLSTATUS = "allStatusTour";
+    public static final String DAO_TOUR_ALLDATE = "allDateTour";
     public static final String DAO_TOUR_SELECT_FOR_UPDATE = "tourSelectForUpdate";
     
     private static final String SAVE_QUERY = 

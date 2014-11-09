@@ -142,11 +142,6 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         }
         return new TourQuery().load(criteria, loadDao, mysqlConn);
     }
-    
-    @Override
-    public List<Order> showOrders(Criteria criteria) throws DaoException {
-        return new OrderQuery().load(criteria, loadDao, mysqlConn);
-    }
 
     @Override
     public List<Tour> searchTours(Criteria criteria) throws DaoException {

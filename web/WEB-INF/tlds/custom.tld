@@ -124,4 +124,9 @@
       <type>java.lang.Integer</type>
     </attribute>
   </tag>
+  <tag>
+    <name>RoleUserTag</name>
+    <tag-class>by.epam.project.tag.RoleUserTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
 </taglib>

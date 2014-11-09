@@ -20,6 +20,7 @@ import by.epam.project.entity.Order;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.TourType;
+import by.epam.project.entity.Tourist;
 import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoAccessException;
@@ -99,10 +100,7 @@ public interface AbstractDao {
         throw new DaoAccessException("Method searchTours. Current role: " 
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<Order> showOrders(Criteria criteria) throws DaoException{
-        throw new DaoAccessException("Method showOrders. Current role: " 
-                + criteria.getParam(DAO_ROLE_NAME).toString());
-    }
+    
     
     //user
     default List<Integer> updateUser(Criteria bean, Criteria criteria) throws DaoException {
@@ -125,7 +123,14 @@ public interface AbstractDao {
         throw new DaoAccessException("Method createNewTourist. Current role: " 
                + criteria.getParam(DAO_ROLE_NAME).toString());
     };
-    
+    default List<Order> showOrders(Criteria criteria) throws DaoException{
+        throw new DaoAccessException("Method showOrders. Current role: " 
+                + criteria.getParam(DAO_ROLE_NAME).toString());
+    }
+    default List<Tourist> showTourists(Criteria criteria) throws DaoException {
+        throw new DaoAccessException("Method showOrders. Current role: " 
+                + criteria.getParam(DAO_ROLE_NAME).toString());
+    }
     
     //admin
     default List<Integer> createNewDescription(Criteria criteria) throws DaoException{

@@ -144,7 +144,10 @@ public abstract class JspParamNames {
     //order
     public static final String JSP_CURRENT_ORDER = "currOrder";
     public static final String JSP_CURR_ORDER_SEATS = "currSeats";
-    
+    public static final String JSP_ORDER_LIST = "currOrderList";
+    public static final String JSP_ORDER_VALID_STATUS = "validOrderStatus";
+    public static final String JSP_ORDER_INVALID_STATUS = "invalidOrderStatus";
+    public static final String JSP_CURR_ID_ORDER = "currIdOrder";
     
     //tourist
     public static final String JSP_TOURIST_FIRST_NAME = "firstName";

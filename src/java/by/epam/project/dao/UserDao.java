@@ -7,6 +7,8 @@
 package by.epam.project.dao;
 
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.Order;
+import by.epam.project.entity.Tourist;
 import by.epam.project.exception.DaoException;
 import java.util.List;
 
@@ -26,4 +28,8 @@ public interface UserDao extends AbstractDao {
     List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException;
     @Override
     List<Integer> createNewTourist(Criteria criteria) throws DaoException;
+    @Override
+    List<Order> showOrders(Criteria criteria) throws DaoException;
+    @Override
+    List<Tourist> showTourists(Criteria criteria) throws DaoException;
 }

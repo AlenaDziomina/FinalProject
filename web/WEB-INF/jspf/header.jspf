@@ -65,9 +65,18 @@
                 <img src="#" id="menuText" alt="<fmt:message key="tours" bundle="${ rb }" />">
             </a>
             
-            <a href="controller?command=goShowUserOrder" class="menuHref">
-                <img src="#" id="menuText" alt="<fmt:message key="myOrders" bundle="${ rb }" />">
-            </a>
+            <ctg:RoleTag>
+                <a href="controller?command=goShowOrders" class="menuHref">
+                    <img src="#" id="menuText" alt="<fmt:message key="orders" bundle="${ rb }" />">
+                </a>
+            </ctg:RoleTag>
+            
+            <ctg:RoleUserTag>
+                <a href="controller?command=goShowUserOrder" class="menuHref">
+                    <img src="#" id="menuText" alt="<fmt:message key="myOrders" bundle="${ rb }" />">
+                </a>
+            </ctg:RoleUserTag>
+            
             
 
         </div>

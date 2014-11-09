@@ -1,13 +1,13 @@
 <%-- 
-    Document   : userorder
-    Created on : 09.11.2014, 17:02:27
+    Document   : orders
+    Created on : 09.11.2014, 21:26:44
     Author     : User
 --%>
 
 <div id="main">
-    <input type="checkbox" id="validOrderStatus" name="status" value="1" class="boxMar" onchange="postOrders('controller', 'goShowUserOrder', 'POST')" />
+    <input type="checkbox" id="validOrderStatus" name="status" value="1" class="boxMar" onchange="postOrders('controller', 'goShowOrders', 'POST')" />
         <fmt:message key="showValid" bundle="${ rb }" />
-    <input type="checkbox" id="invalidOrderStatus" name="status" value="0" class="boxMar" onchange="postOrders('controller', 'goShowUserOrder', 'POST')" />
+    <input type="checkbox" id="invalidOrderStatus" name="status" value="0" class="boxMar" onchange="postOrders('controller', 'goShowOrders', 'POST')" />
         <fmt:message key="showInvalid" bundle="${ rb }" />
     <script>
         boxChecking('validOrderStatus', ${validOrderStatus});
@@ -25,6 +25,14 @@
         <h2 class="small lft labelH">${pageList.same.tour.direction.text}</h2>
 
         <div>
+            <ul class="containerLabel">
+                <h2 class="small lft labelH"><fmt:message key="user" bundle="${ rb }" />:</h2>
+                <h2 class="small lft labelH">${pageList.same.user.login}</h2>
+            </ul>
+            <ul class="containerLabel">
+                <h2 class="small lft labelH"><fmt:message key="orderDate" bundle="${ rb }" />:</h2>
+                <h2 class="small lft labelH">${pageList.same.orderDate}</h2>
+            </ul>
             <ul class="containerLabel">
                 <h2 class="blu small lft labelH"><fmt:message key="seatsCount" bundle="${ rb }" />:</h2>
                 <h2 class="blu small lft labelH">${pageList.same.seats}</h2>

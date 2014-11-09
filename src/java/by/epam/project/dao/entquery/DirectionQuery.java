@@ -50,6 +50,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
     public static final String DAO_DIRECTION_PICTURE = "pictureDirection";
     public static final String DAO_DIRECTION_TEXT = "textDirection";
     public static final String DAO_DIRECTION_STATUS = "statusDirection";
+    public static final String DAO_DIRECTION_ALLSTATUS = "allStatusDirection";
    
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRECTION + " (" + DB_DIRECTION_NAME + ", "
