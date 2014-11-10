@@ -211,6 +211,16 @@ li {
     margin: 20px;
 }
 
+.banner {
+    text-align: center; 
+}
+
+.gifBanner {
+    width: auto;
+    height: auto;
+    margin: 1%;
+}
+
 .cueetext {
     text-align:justify;
     
@@ -267,13 +277,13 @@ li {
 .nodec.cntr.labelH {
     text-decoration: none;
 }
-.small.padL.labelH, .small.padR.labelH, .small.lft.labelH {
+.small.padL.labelH, .small.padR.labelH, .small.lft.labelH, .small.cntr.labelH {
     font-size: 14px;
 }
 .grnt.small.lft.labelH {
     color: #749a02;
 }
-.blu.small.lft.labelH {
+.blu.small.lft.labelH, .blu.small.cntr.labelH {
     color: #007d9a;
 }
 
