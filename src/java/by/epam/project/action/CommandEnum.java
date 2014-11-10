@@ -32,6 +32,7 @@ import by.epam.project.action.hotel.SaveRedactHotel;
 import by.epam.project.action.hotel.ShowHotel;
 import by.epam.project.action.order.GoBuyTour;
 import by.epam.project.action.order.GoCreateNewOrder;
+import by.epam.project.action.order.GoEditOrder;
 import by.epam.project.action.order.GoShowOrders;
 import by.epam.project.action.order.GoShowUserOrder;
 import by.epam.project.action.order.PayForOrder;
@@ -267,6 +268,11 @@ public enum CommandEnum {
     SHOWORDER {
         {
             setCurrentCommand(new ShowOrder());
+        }
+    },
+    GOEDITORDER {
+        {
+            setCurrentCommand(new GoEditOrder());
         }
     };
             

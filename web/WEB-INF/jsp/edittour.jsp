@@ -15,9 +15,9 @@
                 <div class="input inner">
                     <jsp:include page="/WEB-INF/other/selctcalend.jsp" />
                     <label class="small padR labelH"><fmt:message key="from" bundle="${ rb }" /></label>
-                    <input type="text" id="from" name="departDate" class="inputLineContainer" />
+                    <input type="text" id="from" name="departDate" readonly="true" class="inputLineContainer" />
                     <label class="small padR labelH"><fmt:message key="to" bundle="${ rb }" />:</label>
-                    <input type="text" id="to" name="arrivalDate" class="inputLineContainer" />
+                    <input type="text" id="to" name="arrivalDate" readonly="true" class="inputLineContainer" />
                 </div>
             </div>
                     

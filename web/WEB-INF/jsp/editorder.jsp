@@ -87,6 +87,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <c:forEach var="tourist" items="${currOrder.touristCollection}">
                                 <tr>
                                     <td><input name="firstName" class="firstName" type="text" value="${tourist.firstName}" /></td>

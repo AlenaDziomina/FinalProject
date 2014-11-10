@@ -137,7 +137,7 @@ public class OrderLogic extends AbstractLogic {
         return crit;
     }
     
-    private void createTouristList(Criteria criteria, Integer idOrder, AbstractDao dao) {
+    private void createTouristList(Criteria criteria, Integer idOrder, AbstractDao dao) throws DaoException {
         List<Tourist> list = (List<Tourist>) criteria.getParam(DAO_ORDER_TOURIST_LIST);
         for (Tourist t : list) {
             Criteria crit = new Criteria();
@@ -146,7 +146,7 @@ public class OrderLogic extends AbstractLogic {
             crit.addParam(DAO_TOURIST_MNAME, t.getMiddleName());
             crit.addParam(DAO_TOURIST_LNAME, t.getLastName());
             crit.addParam(DAO_TOURIST_PASSPORT, t.getPassport());
-            //dao.createNewTourist(crit);
+            dao.createNewTourist(crit);
         }
     }
     

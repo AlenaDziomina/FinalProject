@@ -84,6 +84,7 @@ function funcAddTourist(currSeats){
         var row = createRow();
         table.lastElementChild.appendChild(row);
         size = table.lastElementChild.childElementCount;
+        
     }
     for (var i = currSeats; i < size; i++) {
         table.deleteRow(i);
@@ -97,6 +98,7 @@ function createRow(){
     tr.appendChild(createCell('middleName'));
     tr.appendChild(createCell('lastName'));
     tr.appendChild(createCell('passport'));
+    
     return tr;
 }
 
@@ -481,6 +483,31 @@ function saveAllCountry(command) {
         saveTextVal(form, "pictureCountry");
         saveMultiTextVal(form, "textDescription");
     }
+}
+
+function postOrder(path, comnd, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    saveCommand(form, comnd);
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//save order properties of userorder.jsp and orders.jsp
+function postOrders(path, comnd, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    
+    saveCommand(form, comnd);
+    saveBox(form, "validOrderStatus");
+    saveBox(form, "invalidOrderStatus");
+    
+    document.body.appendChild(form);
+    form.submit();
 }
 
 //save parameters on tour.jsp and direction.jsp when check boxes of tour
