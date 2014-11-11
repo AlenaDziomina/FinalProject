@@ -260,16 +260,16 @@ function isSelectedElem(idElem, errId){
 }
 
 //registration form validation
-function validateForm() {
-	var valid = isValidLogin() && isValidEmail() && isValidPhone() 
-                && isValidPassword() && isValidRepeatPass();
+function validateForm(formId) {
+	var valid = isValidLogin(formId) && isValidEmail(formId) && isValidPhone(formId) 
+                && isValidPassword(formId) && isValidRepeatPass(formId);
         
         return valid;
 }
 
 //login validation
-function isValidLogin() {
-    var form = document.getElementById("registration");
+function isValidLogin(formId) {
+    var form = document.getElementById(formId);
     var login = form.login.value;
     var elem = document.getElementById("loginErrMsg");
     if (login === null || login === "") {
@@ -290,8 +290,8 @@ function isValidLogin() {
 }
 
 //email validation
-function isValidEmail() {
-    var form = document.getElementById("registration");
+function isValidEmail(formId) {
+    var form = document.getElementById(formId);
     var email = form.email.value;
     var elem = document.getElementById("emailErrMsg");
     if (email === null || email === "") {
@@ -312,8 +312,8 @@ function isValidEmail() {
 }
 
 //phone number validation
-function isValidPhone() {
-    var form = document.getElementById("registration");
+function isValidPhone(formId) {
+    var form = document.getElementById(formId);
     var phone = form.phone.value;
     var elem = document.getElementById("phoneErrMsg");
     if (phone === null || phone === "") {
@@ -334,8 +334,8 @@ function isValidPhone() {
 }
 
 //password validation
-function isValidPassword() {
-    var form = document.getElementById("registration");
+function isValidPassword(formId) {
+    var form = document.getElementById(formId);
     var password = form.password.value;
     var elem = document.getElementById("passwordErrMsg");
     if (password === null || password === "") {
@@ -357,8 +357,8 @@ function isValidPassword() {
 }
 
 //repeat password validation
-function isValidRepeatPass() {
-    var form = document.getElementById("registration");
+function isValidRepeatPass(formId) {
+    var form = document.getElementById(formId);
     var password = form.password.value;
     var repeatPass = form.repeatPassword.value;
     var elem = document.getElementById("repeatPassErrMsg");

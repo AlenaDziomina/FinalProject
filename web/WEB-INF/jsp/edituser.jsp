@@ -1,20 +1,20 @@
 <%-- 
-    Document   : registration
-    Created on : 20.09.2014, 2:34:31
+    Document   : edituser
+    Created on : 11.11.2014, 21:44:15
     Author     : User
 --%>
 
 <div id="main">
-    <form id="registration" name="registrationForm" method="POST" action="controller" onsubmit="return validateForm('registration');">
+    <form name="updUser" id="editUser" method="POST" action="controller" onsubmit="return validateForm('editUser');">
         <div class="inner">
-            <input type="hidden" name="command" value="registration" />
+            <input type="hidden" name="command" value="saveRedactUser" />
             
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="login" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
-                    <input type="text" name="login" class="inputLineContainer" value="${currUser.login}"/>
+                    <input readonly="true" type="text" name="login" class="inputLineContainer" value="${currUser.login}"/>
                     <div id="erNote"><a id="loginErrMsg" hidden="true"><fmt:message key="errorLogin" bundle="${ rb }" /></a></div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
             </div>
                 
             <div class="parameterRow centrale">
-                <input class="large magenta awesome" type="submit" value="<fmt:message key="registrate" bundle="${ rb }" />" onclick="saveAllUser()"/>
+                <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />"/>
                 <div id="erNote">${errorSaveData}</div>
                 <div id="erNote">${errorReason}</div>
                 <div id="erAdminNote">${errorAdminMsg}</div>

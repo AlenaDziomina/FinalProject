@@ -325,6 +325,11 @@ public enum CommandEnum {
         {
             setCurrentCommand(new GoEditUser());
         }
+    },
+    SAVEREDACTUSER {
+        {
+            setCurrentCommand(new SaveRedactUser());
+        }
     };
             
             
