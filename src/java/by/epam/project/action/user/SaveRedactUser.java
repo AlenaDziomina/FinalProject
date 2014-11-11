@@ -11,6 +11,7 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_USER;
 import static by.epam.project.action.JspParamNames.JSP_LOCALE;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
+import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_USER;
 import static by.epam.project.action.JspParamNames.JSP_USER_EMAIL;
 import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
@@ -44,7 +45,7 @@ public class SaveRedactUser implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException{
-        String page = ConfigurationManager.getProperty("path.page.registration");
+        String page = ConfigurationManager.getProperty("path.page.edituser");
         resaveParamsSaveUser(request);
         Criteria criteria = new Criteria();
         User currUser = (User) request.getSessionAttribute(JSP_CURRENT_USER);
@@ -62,12 +63,9 @@ public class SaveRedactUser implements ActionCommand {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
         try {
-            Integer res = new UserLogic().doRedactEntity(criteria);
-            if (res == null) {
-                request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
-            } else {
-                return null;
-            }
+            Integer resUser = new UserLogic().doRedactEntity(criteria);
+            request.setParameter(JSP_SELECT_ID, resUser.toString());
+            return new ShowUser().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
