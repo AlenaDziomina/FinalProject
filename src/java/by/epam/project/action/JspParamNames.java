@@ -33,6 +33,8 @@ public abstract class JspParamNames {
     public static final String JSP_USER_BALANCE = "balance";
     public static final String JSP_USER_VALID_STATUS = "validUserStatus";
     public static final String JSP_USER_INVALID_STATUS = "invalidUserStatus";
+    public static final String JSP_CURRENT_USER = "currUser";
+    public static final String JSP_USER_LIST = "userList";
     
     //role
     public static final String JSP_ROLE_TYPE = "role";

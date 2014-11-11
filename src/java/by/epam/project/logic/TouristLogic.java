@@ -40,5 +40,15 @@ public class TouristLogic extends AbstractLogic {
     private Integer createTourist(Criteria criteria, AbstractDao dao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        throw new DaoException("Not supported.");
+    }
+
+    @Override
+    Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        throw new DaoException("Not supported.");
+    }
     
 }

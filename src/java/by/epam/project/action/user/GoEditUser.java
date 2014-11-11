@@ -10,6 +10,6 @@ package by.epam.project.action.user;
  *
  * @author User
  */
-public class GoShowUser {
+public class GoEditUser {
     
 }

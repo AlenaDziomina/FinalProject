@@ -51,6 +51,7 @@ public class UserQuery implements TypedQuery<User>{
     public static final String DAO_USER_LANGUAGE = "language";
     public static final String DAO_USER_DISCOUNT = "discount";
     public static final String DAO_USER_BALANCE = "balance";
+    public static final String DAO_USER_STATUS = "status";
     public static final String DAO_USER_SELECT_FOR_UPDATE = "userSelectForUpdate";
     
     private static final String SAVE_QUERY = 
@@ -77,6 +78,7 @@ public class UserQuery implements TypedQuery<User>{
         bean.setLanguage((String) criteria.getParam(DAO_USER_LANGUAGE));
         bean.setDiscount((Integer) criteria.getParam(DAO_USER_DISCOUNT));
         bean.setBalance((Float) criteria.getParam(DAO_USER_BALANCE));
+        bean.setStatus((Short) criteria.getParam(DAO_USER_STATUS));
         return bean;
     }
     
@@ -119,7 +121,7 @@ public class UserQuery implements TypedQuery<User>{
                 append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList, sb, separator);
                 append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList, sb, separator);
                 append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList, sb, separator);
-
+                append(DAO_USER_STATUS, DB_USER_STATUS, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -141,6 +143,7 @@ public class UserQuery implements TypedQuery<User>{
                 bean.setLanguage(rs.getString(DB_USER_LANGUAGE));
                 bean.setDiscount(rs.getInt(DB_USER_DISCOUNT));
                 bean.setBalance(rs.getFloat(DB_USER_BALANCE));
+                bean.setStatus(rs.getShort(DB_USER_STATUS));
                 return bean;
             });
         } catch (DaoException ex) {
@@ -164,6 +167,7 @@ public class UserQuery implements TypedQuery<User>{
                 append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList1, sb, separator);
                 append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList1, sb, separator);
                 append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList1, sb, separator);
+                append(DAO_USER_STATUS, DB_USER_STATUS, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
                 append(DAO_ID_USER, DB_USER_ID_USER, beans, paramList2, sb, separator);
@@ -175,7 +179,7 @@ public class UserQuery implements TypedQuery<User>{
                 append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, beans, paramList2, sb, separator);
                 append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, beans, paramList2, sb, separator);
                 append(DAO_USER_BALANCE, DB_USER_BALANCE, beans, paramList2, sb, separator);
-                
+                append(DAO_USER_STATUS, DB_USER_STATUS, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();

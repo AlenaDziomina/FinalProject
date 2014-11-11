@@ -6,12 +6,19 @@
 
 package by.epam.project.logic;
 
+import static by.epam.project.action.JspParamNames.ACTIVE;
+import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
+import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
+import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_STATUS;
 import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
 import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.City;
+import by.epam.project.entity.Country;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
@@ -83,5 +90,19 @@ public class TourLogic extends AbstractLogic {
         beans.addParam(DAO_ID_TOUR, idTour);
         dao.updateTour(beans, criteria);
         return idTour;
+    }
+    
+    @Override
+    Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_TOUR_STATUS, DELETED);
+        Integer res = updateTour(criteria, dao);
+        return res;
+    }
+
+    @Override
+    Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_TOUR_STATUS, ACTIVE);
+        Integer res = updateTour(criteria, dao);
+        return res;
     }
 }

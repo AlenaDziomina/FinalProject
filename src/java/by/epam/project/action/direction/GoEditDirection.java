@@ -16,8 +16,6 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.city.GoShowCity.formCityList;

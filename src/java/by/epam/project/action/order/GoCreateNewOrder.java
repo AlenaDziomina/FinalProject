@@ -16,7 +16,6 @@ import static by.epam.project.action.JspParamNames.JSP_TOURIST_LAST_NAME;
 import static by.epam.project.action.JspParamNames.JSP_TOURIST_MIDDLE_NAME;
 import static by.epam.project.action.JspParamNames.JSP_TOURIST_PASSPORT;
 import static by.epam.project.action.JspParamNames.JSP_USER;
-import static by.epam.project.action.SessionGarbageCollector.cleanSession;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;

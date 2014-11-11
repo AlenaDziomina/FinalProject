@@ -15,10 +15,7 @@ import by.epam.project.dao.entquery.DirectionCountryQuery;
 import by.epam.project.dao.entquery.DirectionQuery;
 import by.epam.project.dao.entquery.DirectionStayHotelQuery;
 import by.epam.project.dao.entquery.HotelQuery;
-import by.epam.project.dao.entquery.OrderQuery;
 import by.epam.project.dao.entquery.SearchQuery;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
 import by.epam.project.dao.entquery.TourQuery;
 import by.epam.project.dao.entquery.TouristQuery;
 import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
@@ -33,9 +30,7 @@ import by.epam.project.entity.LinkDirectionCountry;
 import by.epam.project.entity.LinkDirectionFactory;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoException;
-import by.epam.project.exception.DaoQueryException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

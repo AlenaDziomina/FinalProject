@@ -149,6 +149,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
                 append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList1, sb, separator);
                 append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList1, sb, separator);
                 append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList1, sb, separator);
+                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
                 append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, beans, paramList2, sb, separator);

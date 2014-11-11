@@ -6,11 +6,15 @@
 
 package by.epam.project.logic;
 
+import by.epam.project.action.JspParamNames;
+import static by.epam.project.action.JspParamNames.ACTIVE;
+import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ID_ROLE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_EMAIL;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_STATUS;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;
@@ -47,6 +51,18 @@ public class UserLogic extends AbstractLogic {
         return idUser;
     }
     
+    @Override
+    Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_USER_STATUS, DELETED);
+        return updateUser(criteria, dao);
+    }
+    
+    @Override
+    Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_USER_STATUS, ACTIVE);
+        return updateUser(criteria, dao);
+    }
+    
     public static Integer createUser(Criteria criteria, AbstractDao dao) throws DaoException{   
         Criteria crit1 = new Criteria();
         crit1.addParam(DAO_USER_LOGIN, criteria.getParam(DAO_USER_LOGIN));
@@ -66,5 +82,9 @@ public class UserLogic extends AbstractLogic {
             u.setRole(dao.showRoles(crit).get(0));
         }
     }
+
+    
+
+    
     
 }

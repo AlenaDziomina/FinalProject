@@ -45,4 +45,14 @@ public class SearchLogic extends AbstractLogic {
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         return null;
     }
+
+    @Override
+    Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        throw new DaoException("Not supported.");
+    }
+
+    @Override
+    Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        throw new DaoException("Not supported.");
+    }
 }

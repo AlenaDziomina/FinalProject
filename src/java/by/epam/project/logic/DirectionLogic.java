@@ -6,14 +6,19 @@
 
 package by.epam.project.logic;
 
+import static by.epam.project.action.JspParamNames.ACTIVE;
+import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_STATUS;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
 import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
+import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
 import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_STATUS;
 import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
 import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
@@ -84,21 +89,24 @@ public class DirectionLogic extends AbstractLogic {
     }
     
     private static Integer updateDirection(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans1 = new Criteria();
-        Criteria beans2 = new Criteria();
         Integer idDirection = (Integer) criteria.getParam(DAO_ID_DIRECTION);
-        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
-        beans2.addParam(DAO_ID_DIRECTION, idDirection);
-        dao.updateDescription(beans1, criteria);
-        dao.updateDirection(beans2, criteria);
-        
-        Criteria crit = new Criteria();
-        crit.addParam(DAO_ID_DIRECTION, idDirection);
-        dao.updateDirectionCountryLinks(crit, criteria);
-        dao.updateDirectionCityLinks(crit, criteria);
-        dao.updateDirectionStayHotels(crit, criteria);
+        if (idDirection != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_DIRECTION, idDirection);
+            dao.updateDirection(beans, criteria);
+        }
+        Integer idDescription = (Integer) criteria.getParam(DAO_ID_DESCRIPTION);
+        if (idDescription != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_DESCRIPTION, idDescription);
+            dao.updateDescription(beans, criteria);
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ID_DIRECTION, idDirection);
+            dao.updateDirectionCountryLinks(crit, criteria);
+            dao.updateDirectionCityLinks(crit, criteria);
+            dao.updateDirectionStayHotels(crit, criteria);
+        }
         return idDirection;
-       
     }
     
     public static void fillDirections(List<Direction> directions, AbstractDao dao) throws DaoException {
@@ -152,10 +160,14 @@ public class DirectionLogic extends AbstractLogic {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_HOTEL, st.getHotel().getIdHotel());
             List<Hotel> hotels = dao.showHotels(crit);
-            st.setHotel(hotels.get(0));
-            crit.addParam(DAO_ID_CITY, st.getHotel().getCity().getIdCity());
-            List<City> cities = dao.showCities(crit);
-            st.getHotel().setCity(cities.get(0));
+            if (hotels != null && !hotels.isEmpty()) {
+                st.setHotel(hotels.get(0));
+                crit.addParam(DAO_ID_CITY, st.getHotel().getCity().getIdCity());
+                List<City> cities = dao.showCities(crit);
+                if (cities != null && !cities.isEmpty()) {
+                    st.getHotel().setCity(cities.get(0));
+                }
+            }
         }
         return stays;
     }
@@ -204,6 +216,27 @@ public class DirectionLogic extends AbstractLogic {
         return list;
     }
 
-    
+    @Override
+    Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_DIRECTION_STATUS, DELETED);
+        Integer res = updateDirection(criteria, dao);
+        List<Direction> list = getEntity(criteria, dao);
+        for (Direction d : list) {
+            List<Tour> tours = (List<Tour>) d.getTourCollection();
+            for (Tour t : tours) {
+                Criteria crit = new Criteria();
+                crit.addParam(DAO_ID_TOUR, t.getIdTour());
+                new TourLogic().deleteEntity(crit, dao);
+            }
+        }
+        return res;
+    }
+
+    @Override
+    Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_DIRECTION_STATUS, ACTIVE);
+        Integer res = updateDirection(criteria, dao);
+        return res;
+    }
     
 }

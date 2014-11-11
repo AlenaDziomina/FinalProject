@@ -10,7 +10,7 @@
         <div class="inner">
             <div class="parameterRow">
                 <div class="mid input">
-                    <h1 class="labelH"><fmt:message key="departDate" bundle="${ rb }" />: </h1> 
+                    <h1 class="labelH"><fmt:message key="tourDepartDate" bundle="${ rb }" />: </h1> 
                 </div>
                 <div class="input inner">
                     <jsp:include page="/WEB-INF/other/selctcalend.jsp" />

@@ -27,7 +27,6 @@ import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
-import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.User;

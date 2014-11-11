@@ -6,9 +6,13 @@
 
 package by.epam.project.logic;
 
+import static by.epam.project.action.JspParamNames.ACTIVE;
+import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
+import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
@@ -68,14 +72,33 @@ public class HotelLogic extends AbstractLogic {
     }
     
     private static Integer updateHotel(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans1 = new Criteria();
-        Criteria beans2 = new Criteria();
+        Integer idDescription = (Integer) criteria.getParam(DAO_ID_DESCRIPTION);
+        if (idDescription != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_DESCRIPTION, idDescription);
+            dao.updateDescription(beans, criteria);
+        }
         Integer idHotel = (Integer) criteria.getParam(DAO_ID_HOTEL);
-        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
-        beans2.addParam(DAO_ID_HOTEL, idHotel);
-        dao.updateDescription(beans1, criteria);
-        dao.updateHotel(beans2, criteria);
+        if (idHotel != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_HOTEL, idHotel);
+            dao.updateHotel(beans, criteria);
+        }
         return idHotel;
+    }
+    
+    @Override
+    Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_HOTEL_STATUS, DELETED);
+        Integer res = updateHotel(criteria, dao);
+        return res;
+    }
+
+    @Override
+    Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_HOTEL_STATUS, ACTIVE);
+        Integer res = updateHotel(criteria, dao);
+        return res;
     }
 }
 

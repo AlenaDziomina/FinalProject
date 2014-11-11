@@ -12,7 +12,6 @@ import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_PAGE_LIST;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.direction.GoShowDirections.resaveParamsShowDirections;
-import static by.epam.project.action.tour.SearchTour.resaveParamsSearchTour;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;

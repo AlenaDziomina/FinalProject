@@ -32,6 +32,8 @@ public abstract class AbstractLogic {
     private static final Logger LOGGER = Logger.getLogger(AbstractLogic.class);
     abstract List getEntity(Criteria criteria, AbstractDao dao) throws DaoException;
     abstract Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException;
+    abstract Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException;
+    abstract Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException;
     
     public List doGetEntity(Criteria criteria) throws TechnicalException {
         AbstractDao dao = null;
@@ -126,5 +128,87 @@ public abstract class AbstractLogic {
         }
     }
     
+    public Integer doDeleteEntity(Criteria criteria) throws TechnicalException {
+        AbstractDao dao = null;
+        try {
+            ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
+            dao = DaoFactory.getInstance(role);
+            dao.open();
+            Integer res = deleteEntity(criteria, dao);
+            dao.commit();
+            return res;   
+        } catch (DaoAccessException ex) {
+            throw new TechnicalException( MessageManager.getProperty("message.errordaoaccess"), ex);
+        } catch (DaoConnectException | DaoInitException ex) {
+            throw new TechnicalException(MessageManager.getProperty("message.errordaoconnect"), ex);
+        } catch (DaoQueryException ex) {
+            try {
+                if (dao != null) {
+                    dao.rollback();
+                }
+            } catch (DaoException ex1) {
+                LOGGER.error(ex1.getMessage());
+            }
+            throw new TechnicalException(MessageManager.getProperty("message.errordaoquery"), ex);
+        } catch (DaoException ex){
+            try {
+                if (dao != null) {
+                    dao.rollback();
+                }
+            } catch (DaoException ex1) {
+                LOGGER.error(ex1.getMessage());
+            }
+            throw new TechnicalException(MessageManager.getProperty("message.daoerror"), ex);
+        } finally {
+            try {
+                if (dao != null) {
+                    dao.close();
+                }
+            } catch (DaoException ex) {
+                LOGGER.error(ex.getMessage());
+            }
+        }
+    }
     
+    public Integer doRestoreEntity(Criteria criteria) throws TechnicalException {
+        AbstractDao dao = null;
+        try {
+            ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
+            dao = DaoFactory.getInstance(role);
+            dao.open();
+            Integer res = restoreEntity(criteria, dao);
+            dao.commit();
+            return res;   
+        } catch (DaoAccessException ex) {
+            throw new TechnicalException( MessageManager.getProperty("message.errordaoaccess"), ex);
+        } catch (DaoConnectException | DaoInitException ex) {
+            throw new TechnicalException(MessageManager.getProperty("message.errordaoconnect"), ex);
+        } catch (DaoQueryException ex) {
+            try {
+                if (dao != null) {
+                    dao.rollback();
+                }
+            } catch (DaoException ex1) {
+                LOGGER.error(ex1.getMessage());
+            }
+            throw new TechnicalException(MessageManager.getProperty("message.errordaoquery"), ex);
+        } catch (DaoException ex){
+            try {
+                if (dao != null) {
+                    dao.rollback();
+                }
+            } catch (DaoException ex1) {
+                LOGGER.error(ex1.getMessage());
+            }
+            throw new TechnicalException(MessageManager.getProperty("message.daoerror"), ex);
+        } finally {
+            try {
+                if (dao != null) {
+                    dao.close();
+                }
+            } catch (DaoException ex) {
+                LOGGER.error(ex.getMessage());
+            }
+        }
+    }
 }

@@ -7,7 +7,6 @@
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.DELETED;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_ORDER;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
@@ -18,9 +17,7 @@ import static by.epam.project.action.JspParamNames.JSP_TOURIST_MIDDLE_NAME;
 import static by.epam.project.action.JspParamNames.JSP_TOURIST_PASSPORT;
 import static by.epam.project.action.JspParamNames.JSP_USER;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.dao.entquery.OrderQuery;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ID_ORDER;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_TOURIST_LIST;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
@@ -36,8 +33,6 @@ import by.epam.project.logic.OrderLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
-import by.epam.project.manager.PriceDiscountManager;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

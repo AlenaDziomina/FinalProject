@@ -35,14 +35,23 @@ public class StatusTag extends TagSupport {
     public int doStartTag() throws JspException {
         try {
             JspWriter out = pageContext.getOut();
-            if (status != null && status == 1 && ifValid != null && !ifValid.isEmpty()) {
-                out.write("<a class='" + ifValid + "' ");
-                writeHref(out);
-            } else if(status != null && status == 0 && ifInvalid != null && !ifInvalid.isEmpty()) {
-                out.write("<a class='" + ifInvalid + "' ");
-                writeHref(out);
+            if (ifValid != null && ifValid == "tr") {
+                if (status != null && status == 1) {
+                    out.write("<tr");
+                    writeHref(out);
+                } else if (status != null && status == 0) {
+                    out.write("<tr class='" + ifInvalid + "' ");
+                    writeHref(out);
+                }
+            } else {
+                if (status != null && status == 1 && ifValid != null && !ifValid.isEmpty()) {
+                    out.write("<a class='" + ifValid + "' ");
+                    writeHref(out);
+                } else if(status != null && status == 0 && ifInvalid != null && !ifInvalid.isEmpty()) {
+                    out.write("<a class='" + ifInvalid + "' ");
+                    writeHref(out);
+                }
             }
-            
         } catch (IOException e) {
             throw new JspTagException(e.getMessage());
         }
@@ -60,10 +69,15 @@ public class StatusTag extends TagSupport {
     public int doEndTag() throws JspTagException {
         try {
             JspWriter out = pageContext.getOut();
-            if (status != null && status == 1 && ifValid != null && !ifValid.isEmpty()) {
-                out.write("</a>");
-            } else if(status != null && status == 0 && ifInvalid != null && !ifInvalid.isEmpty()) {
-                out.write("</a>");
+            if (ifValid != null && ifValid == "tr" && status != null) {
+                out.write("</tr>");
+                writeHref(out);
+            } else {
+                if (status != null && status == 1 && ifValid != null && !ifValid.isEmpty()) {
+                    out.write("</a>");
+                } else if(status != null && status == 0 && ifInvalid != null && !ifInvalid.isEmpty()) {
+                    out.write("</a>");
+                }
             }
         } catch (IOException e) {
             throw new JspTagException(e.getMessage());

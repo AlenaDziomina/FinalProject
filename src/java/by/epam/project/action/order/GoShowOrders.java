@@ -18,7 +18,6 @@ import static by.epam.project.action.order.GoShowUserOrder.getOrderStatus;
 import static by.epam.project.action.order.GoShowUserOrder.resaveParamsShowOrder;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;

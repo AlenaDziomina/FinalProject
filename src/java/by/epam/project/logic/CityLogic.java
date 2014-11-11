@@ -6,10 +6,16 @@
 
 package by.epam.project.logic;
 
+import static by.epam.project.action.JspParamNames.ACTIVE;
+import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
+import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
+import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -74,14 +80,42 @@ public class CityLogic extends AbstractLogic {
     }
     
     private static Integer updateCity(Criteria criteria, AbstractDao dao) throws DaoException {
-        Criteria beans1 = new Criteria();
-        Criteria beans2 = new Criteria();
+        Integer idDescription = (Integer) criteria.getParam(DAO_ID_DESCRIPTION);
+        if (idDescription != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_DESCRIPTION, idDescription);
+            dao.updateDescription(beans, criteria);
+        }
         Integer idCity = (Integer) criteria.getParam(DAO_ID_CITY);
-        beans1.addParam(DAO_ID_DESCRIPTION, criteria.getParam(DAO_ID_DESCRIPTION));
-        beans2.addParam(DAO_ID_CITY, criteria.getParam(DAO_ID_CITY));
-        dao.updateDescription(beans1, criteria);
-        dao.updateCity(beans2, criteria);
+        if (idCity != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_CITY, criteria.getParam(DAO_ID_CITY));
+            dao.updateCity(beans, criteria);
+        }
         return idCity;
+    }
+    
+    @Override
+    Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_CITY_STATUS, DELETED);
+        Integer res = updateCity(criteria, dao);
+        List<City> list = getEntity(criteria, dao);
+        for (City c : list) {
+            List<Hotel> hotels = (List<Hotel>) c.getHotelCollection();
+            for (Hotel h : hotels) {
+                Criteria crit = new Criteria();
+                crit.addParam(DAO_ID_HOTEL, h.getIdHotel());
+                new HotelLogic().deleteEntity(crit, dao);
+            }
+        }
+        return res;
+    }
+
+    @Override
+    Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
+        criteria.addParam(DAO_CITY_STATUS, ACTIVE);
+        Integer res = updateCity(criteria, dao);
+        return res;
     }
     
 }

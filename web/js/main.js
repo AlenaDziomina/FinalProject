@@ -485,6 +485,18 @@ function saveAllCountry(command) {
     }
 }
 
+//go edit or block user
+function postUser(path, comnd, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    saveCommand(form, comnd);
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//go edit or cancel order
 function postOrder(path, comnd, method) {
     method = method || "post";
     var form = document.createElement("form");
@@ -852,9 +864,7 @@ function checkBox(boxId, val, elemId) {
     }
 }
 
-
-
-
+//save parameters of buyTour
 function buyTour(path, comnd, method){
     method = method || "post";
     var form = document.createElement("form");

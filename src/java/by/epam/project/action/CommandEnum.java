@@ -6,51 +6,15 @@
 
 package by.epam.project.action;
 
-import by.epam.project.action.city.GoCreateNewCity;
-import by.epam.project.action.city.GoEditCity;
-import by.epam.project.action.city.GoShowCity;
-import by.epam.project.action.city.IfCitySelected;
-import by.epam.project.action.city.SaveRedactCity;
-import by.epam.project.action.city.ShowCitiesOfCountry;
-import by.epam.project.action.city.ShowCity;
-import by.epam.project.action.country.GoCreateNewCountry;
-import by.epam.project.action.country.GoEditCountry;
-import by.epam.project.action.country.GoShowCountry;
-import by.epam.project.action.country.IfCountrySelected;
-import by.epam.project.action.country.SaveRedactCountry;
-import by.epam.project.action.country.ShowCountry;
-import by.epam.project.action.direction.GoCreateNewDirection;
-import by.epam.project.action.direction.GoEditDirection;
-import by.epam.project.action.direction.GoShowDirections;
-import by.epam.project.action.direction.SaveRedactDirection;
-import by.epam.project.action.direction.ShowDirection;
-import by.epam.project.action.direction.ShowPage;
-import by.epam.project.action.hotel.GoCreateNewHotel;
-import by.epam.project.action.hotel.GoEditHotel;
-import by.epam.project.action.hotel.GoShowHotel;
-import by.epam.project.action.hotel.SaveRedactHotel;
-import by.epam.project.action.hotel.ShowHotel;
-import by.epam.project.action.order.DeleteOrder;
-import by.epam.project.action.order.GoBuyTour;
-import by.epam.project.action.order.GoCreateNewOrder;
-import by.epam.project.action.order.GoEditOrder;
-import by.epam.project.action.order.GoShowOrders;
-import by.epam.project.action.order.GoShowUserOrder;
-import by.epam.project.action.order.PayForOrder;
-import by.epam.project.action.order.SaveRedactOrder;
-import by.epam.project.action.order.ShowOrder;
-import by.epam.project.action.tour.GoCreateNewTour;
-import by.epam.project.action.tour.GoEditTour;
-import by.epam.project.action.tour.GoShowTour;
-import by.epam.project.action.tour.SaveRedactTour;
-import by.epam.project.action.tour.SearchTour;
-import by.epam.project.action.tour.ShowTour;
-import by.epam.project.action.user.GoLoginCommand;
-import by.epam.project.action.user.GoRegistrationCommand;
-import by.epam.project.action.user.LocalCommand;
-import by.epam.project.action.user.LoginCommand;
-import by.epam.project.action.user.LogoutCommand;
-import by.epam.project.action.user.RegistrationCommand;
+import by.epam.project.action.user.RestoreUser;
+import by.epam.project.action.user.DeleteUser;
+import by.epam.project.action.city.*;
+import by.epam.project.action.country.*;
+import by.epam.project.action.direction.*;
+import by.epam.project.action.hotel.*;
+import by.epam.project.action.order.*;
+import by.epam.project.action.tour.*;
+import by.epam.project.action.user.*;
 
 /**
  *
@@ -285,6 +249,81 @@ public enum CommandEnum {
     DELETEORDER {
         {
             setCurrentCommand(new DeleteOrder());
+        }
+    },
+    SHOWUSER {
+        {
+            setCurrentCommand(new ShowUser());
+        }
+    }, 
+    GOSHOWUSERS {
+        {
+            setCurrentCommand(new GoShowUsers());
+        }
+    },
+    DELETEUSER {
+        {
+            setCurrentCommand(new DeleteUser());
+        }
+    },
+    RESTOREUSER {
+        {
+            setCurrentCommand(new RestoreUser());
+        }
+    },
+    DELETECOUNTRY {
+        {
+            setCurrentCommand(new DeleteCountry());
+        }
+    },
+    RESTORECOUNTRY {
+        {
+            setCurrentCommand(new RestoreCountry());
+        }
+    },
+    DELETECITY {
+        {
+            setCurrentCommand(new DeleteCity());
+        }
+    },
+    RESTORECITY {
+        {
+            setCurrentCommand(new RestoreCity());
+        }
+    },
+    DELETEHOTEL {
+        {
+            setCurrentCommand(new DeleteHotel());
+        }
+    },
+    RESTOREHOTEL {
+        {
+            setCurrentCommand(new RestoreHotel());
+        }
+    },
+    DELETEDIRECTION {
+        {
+            setCurrentCommand(new DeleteDirection());
+        }
+    },
+    RESTOREDIRECTION {
+        {
+            setCurrentCommand(new RestoreDirection());
+        }
+    },
+    DELETETOUR {
+        {
+            setCurrentCommand(new DeleteTour());
+        }
+    },
+    RESTORETOUR {
+        {
+            setCurrentCommand(new RestoreTour());
+        }
+    },
+    GOEDITUSER {
+        {
+            setCurrentCommand(new GoEditUser());
         }
     };
             

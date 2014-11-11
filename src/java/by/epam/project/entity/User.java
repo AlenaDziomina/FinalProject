@@ -26,7 +26,7 @@ public class User {
     public User(){}
     
     public User(Integer idUser){
-        setIdUser(idUser);
+        this.idUser = idUser;
     }
     
     public void setIdUser(Integer id){
@@ -102,15 +102,8 @@ public class User {
         this.status = status;
     }
     
-//    public Date getDate(){
-//        return date;
-//    }
-//    
-//    public void setDate(String date) throws BeanInitException{
-//        if (date == null || date.isEmpty()) {
-//            throw new BeanInitException();
-//        } else {
-//            this.date = Date.valueOf(date);
-//        }
-//    }
+    public Short getStatus(){
+        return this.status;
+    }
+    
 }

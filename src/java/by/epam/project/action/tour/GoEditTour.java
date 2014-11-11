@@ -7,21 +7,14 @@
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_TOUR;
-import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_DATE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.tour.ShowTour.resaveParamsShowTour;
-import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;

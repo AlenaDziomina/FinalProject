@@ -156,6 +156,9 @@ li {
 .inner.column, .inner {
     padding: 1.2%;
 }
+.top.inner {
+    padding-top: 0.6%
+}
 .left.inner.column {
     float: left;
 }
@@ -621,4 +624,60 @@ li {
 }
 .border.fio, .border.passport {
     border: 1px solid darkblue;
+}
+
+.border.padB {
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    border-collapse: collapse;
+}
+
+.login {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.email {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.phone {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.discount {
+    min-width: 100px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.balance {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.greyBG {
+    background-color:  #ccc;
 }

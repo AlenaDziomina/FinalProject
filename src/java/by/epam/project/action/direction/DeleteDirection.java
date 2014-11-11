@@ -4,31 +4,30 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.action.order;
+package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.DELETED;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_ORDER;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
 import static by.epam.project.action.JspParamNames.JSP_USER;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ID_ORDER;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_TOURIST_LIST;
+import by.epam.project.action.country.GoShowCountry;
+import by.epam.project.action.country.ShowCountry;
+import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
+import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.TouristQuery.DAO_TOURIST_STATUS;
-import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
-import by.epam.project.entity.Order;
+import by.epam.project.entity.Country;
+import by.epam.project.entity.Direction;
 import by.epam.project.entity.User;
-import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.OrderLogic;
+import by.epam.project.logic.CountryLogic;
+import by.epam.project.logic.DirectionLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
@@ -37,26 +36,20 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class DeleteOrder implements ActionCommand {
+public class DeleteDirection implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
-        String page = ConfigurationManager.getProperty("path.page.order");
+        String page = ConfigurationManager.getProperty("path.page.direction");
         
         Criteria criteria = new Criteria();
-        Order order = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
-        if (order != null) {
-            Integer idOrder = order.getIdOrder();
-            if (idOrder != null) {
-                criteria.addParam(DAO_ID_ORDER, idOrder);
-            }
-            criteria.addParam(DAO_ID_USER, order.getUser().getIdUser());
-            criteria.addParam(DAO_ORDER_TOURIST_LIST, order.getTouristCollection());
+        Direction currDirection = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
+        if (currDirection != null) {
+            criteria.addParam(DAO_ID_DIRECTION, currDirection.getIdDirection());
         }
         
         User user = (User) request.getSessionAttribute(JSP_USER);
         if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
             ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
             criteria.addParam(DAO_ROLE_NAME, type);
         } else {
@@ -64,10 +57,9 @@ public class DeleteOrder implements ActionCommand {
         }
         
         try {
-            Integer resIdOrder = new OrderLogic().doDeleteEntity(criteria);
-            request.setParameter(JSP_SELECT_ID, resIdOrder.toString());
-            order.setStatus(DELETED);
-            return new ShowOrder().execute(request);
+            Integer resIdDirection = new DirectionLogic().doDeleteEntity(criteria);
+            currDirection.setStatus(DELETED);
+            return new ShowDirection().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
@@ -76,6 +68,5 @@ public class DeleteOrder implements ActionCommand {
             return page;
         }
     }
-    
     
 }

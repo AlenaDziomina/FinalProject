@@ -26,9 +26,11 @@ import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.OrderLogic;
+import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
+import java.util.List;
 
 /**
  *
@@ -53,6 +55,10 @@ public class PayForOrder implements ActionCommand {
         }
         try {
             Integer resIdOrder = new OrderLogic().doRedactEntity(criteria);
+            List<User> users = new UserLogic().doGetEntity(criteria);
+            if (users != null) {
+                request.setSessionAttribute(JSP_USER, users.get(0));
+            }
             request.setParameter(JSP_SELECT_ID, resIdOrder.toString());
             return new GoShowUserOrder().execute(request);
         } catch (TechnicalException | LogicException ex) {
