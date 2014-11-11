@@ -286,6 +286,9 @@ li {
 .blu.small.lft.labelH, .blu.small.cntr.labelH {
     color: #007d9a;
 }
+.grey.small.lft.labelH {
+    color: #666
+}
 
 
 .inputLineContainer {
@@ -442,6 +445,10 @@ li {
     width: 20%;
     height: auto;
     float: left;
+}
+
+.auto.containerLabel {
+    width: auto;
 }
 
 .containerLabelR {

@@ -30,12 +30,14 @@ import by.epam.project.action.hotel.GoEditHotel;
 import by.epam.project.action.hotel.GoShowHotel;
 import by.epam.project.action.hotel.SaveRedactHotel;
 import by.epam.project.action.hotel.ShowHotel;
+import by.epam.project.action.order.DeleteOrder;
 import by.epam.project.action.order.GoBuyTour;
 import by.epam.project.action.order.GoCreateNewOrder;
 import by.epam.project.action.order.GoEditOrder;
 import by.epam.project.action.order.GoShowOrders;
 import by.epam.project.action.order.GoShowUserOrder;
 import by.epam.project.action.order.PayForOrder;
+import by.epam.project.action.order.SaveRedactOrder;
 import by.epam.project.action.order.ShowOrder;
 import by.epam.project.action.tour.GoCreateNewTour;
 import by.epam.project.action.tour.GoEditTour;
@@ -273,6 +275,16 @@ public enum CommandEnum {
     GOEDITORDER {
         {
             setCurrentCommand(new GoEditOrder());
+        }
+    }, 
+    SAVEREDACTORDER {
+        {
+            setCurrentCommand(new SaveRedactOrder());
+        }
+    }, 
+    DELETEORDER {
+        {
+            setCurrentCommand(new DeleteOrder());
         }
     };
             

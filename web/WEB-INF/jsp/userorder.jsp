@@ -22,16 +22,28 @@
                 ${pageList.same.tour.direction.name} ${pageList.same.tour.departDate}   (${pageList.same.tour.daysCount} <fmt:message key="days" bundle="${ rb }" />)
             </ctg:StatusTag>
         </div>
-        <h2 class="small lft labelH">${pageList.same.tour.direction.text}</h2>
+        <ctg:StatusTag status="${pageList.same.tour.direction.status}" ifValid="small lft labelH" ifInvalid="grey small lft labelH">
+            <h4>${pageList.same.tour.direction.text}</h4>
+        </ctg:StatusTag>
 
         <div>
-            <ul class="containerLabel">
-                <h2 class="blu small lft labelH"><fmt:message key="seatsCount" bundle="${ rb }" />:</h2>
-                <h2 class="blu small lft labelH">${pageList.same.seats}</h2>
+            <ul class="auto containerLabel">
+                <ctg:StatusTag status="${pageList.same.status}" ifValid="small lft labelH" ifInvalid="grey small lft labelH">
+                    <h4><fmt:message key="orderDate" bundle="${ rb }" />:</h4>
+                    <h4>${pageList.same.orderDate}</h4>
+                </ctg:StatusTag>
             </ul>
-            <ul class="containerLabel">
-                <h2 class="grnt small lft labelH"><fmt:message key="finalPrice" bundle="${ rb }" />:</h2>
-                <h2 class="grnt small lft labelH">${pageList.same.finalPrice}<fmt:message key="$" bundle="${ rb }" /></h2>
+            <ul class="auto containerLabel">
+                <ctg:StatusTag status="${pageList.same.status}" ifValid="blu small lft labelH" ifInvalid="grey small lft labelH">
+                    <h4><fmt:message key="seatsCount" bundle="${ rb }" />:</h4>
+                    <h4>${pageList.same.seats}</h4>
+                </ctg:StatusTag>
+            </ul>
+            <ul class="auto containerLabel">
+                <ctg:StatusTag status="${pageList.same.status}" ifValid="grnt small lft labelH" ifInvalid="grey small lft labelH">
+                    <h4><fmt:message key="finalPrice" bundle="${ rb }" />:</h4>
+                    <h4>${pageList.same.finalPrice}<fmt:message key="$" bundle="${ rb }" /></h4>
+                </ctg:StatusTag>
             </ul>
         </div>
     </ctg:PageTableTag>

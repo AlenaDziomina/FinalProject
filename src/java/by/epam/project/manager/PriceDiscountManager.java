@@ -42,4 +42,13 @@ public class PriceDiscountManager {
             return discountForOrder;
         }
     }
+
+    public static Integer getDiscountForDeleteOrder(Integer discount) {
+        Integer discountForDeleteOrder = Integer.decode(ConfigurationManager.getProperty("user.discount.fine"));
+        if (discountForDeleteOrder > discount) {
+            return 0;
+        } else {
+            return discount - discountForDeleteOrder;
+        }
+    }
 }

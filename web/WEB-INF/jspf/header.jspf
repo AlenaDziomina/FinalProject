@@ -32,7 +32,7 @@
                             <a href="controller?command=goregistration"><fmt:message key="registration" bundle="${ rb }" /></a>
                         </c:when>
                         <c:otherwise>
-                            <fmt:message key="welcome" bundle="${ rb }" />, ${user.login}
+                            <fmt:message key="welcome" bundle="${ rb }" />, <a href="controller?command=showUser&selectId=${user.idUser}">${user.login}</a>
                             <a href="controller?command=logout"><fmt:message key="tologout" bundle="${ rb }" /></a>
                         </c:otherwise>
                     </c:choose>
@@ -77,6 +77,11 @@
                 </a>
             </ctg:RoleUserTag>
             
+            <ctg:RoleTag>
+                <a href="controller?command=goShowUsers" class="menuHref">
+                    <img src="#" id="menuText" alt="<fmt:message key="users" bundle="${ rb }" />">
+                </a>
+            </ctg:RoleTag>
             
 
         </div>

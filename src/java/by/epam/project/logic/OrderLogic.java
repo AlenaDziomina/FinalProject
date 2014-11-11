@@ -14,6 +14,7 @@ import by.epam.project.dao.entquery.OrderQuery;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ID_ORDER;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_FINAL_PRICE;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_SEATS;
+import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_TOURIST_LIST;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
@@ -24,10 +25,12 @@ import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_ALLSTATUS;
 import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_FREE_SEATS;
 import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_SELECT_FOR_UPDATE;
 import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_STATUS;
+import static by.epam.project.dao.entquery.TouristQuery.DAO_ID_TOURIST;
 import static by.epam.project.dao.entquery.TouristQuery.DAO_TOURIST_FNAME;
 import static by.epam.project.dao.entquery.TouristQuery.DAO_TOURIST_LNAME;
 import static by.epam.project.dao.entquery.TouristQuery.DAO_TOURIST_MNAME;
 import static by.epam.project.dao.entquery.TouristQuery.DAO_TOURIST_PASSPORT;
+import static by.epam.project.dao.entquery.TouristQuery.DAO_TOURIST_STATUS;
 import by.epam.project.dao.entquery.UserQuery;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_BALANCE;
@@ -44,6 +47,7 @@ import by.epam.project.exception.DaoLogicException;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.ParamManager;
 import by.epam.project.manager.PriceDiscountManager;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -150,8 +154,55 @@ public class OrderLogic extends AbstractLogic {
         }
     }
     
-    private Integer updateOrder(Criteria criteria, AbstractDao dao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Integer updateOrder(Criteria criteria, AbstractDao dao) throws DaoException {
+        updateTouristList(criteria, dao);
+        fineUser(criteria, dao);
+        //в заказе можно отредактировать только его статус
+        Integer idOrder = (Integer) criteria.getParam(DAO_ID_ORDER);
+        if (criteria.getParam(DAO_ORDER_STATUS) != null) {
+            Criteria bean = new Criteria();
+            bean.addParam(DAO_ID_ORDER, idOrder);
+            Criteria crit = new Criteria();
+            crit.addParam(DAO_ORDER_STATUS, criteria.getParam(DAO_ORDER_STATUS));
+            dao.updateOrder(bean, crit);
+        }
+        return idOrder;
+    }
+    
+    private void fineUser(Criteria criteria, AbstractDao dao) throws DaoException {
+        Criteria bean = new Criteria();
+        bean.addParam(DAO_ID_USER, criteria.getParam(DAO_ID_USER));
+        bean.addParam(DAO_USER_SELECT_FOR_UPDATE, true);
+        List<User> users = dao.showUsers(bean);
+        if (users.isEmpty()) {
+            throw new DaoException("User not found.");
+        }
+        User user = users.get(0);
+        Integer userDiscount = user.getDiscount();
+        Integer discountForDeleteOrder = PriceDiscountManager.getDiscountForDeleteOrder(userDiscount);
+        Criteria crit = new Criteria();
+        crit.addParam(DAO_USER_DISCOUNT, discountForDeleteOrder);
+        dao.updateUser(bean, crit);
+    }
+    
+    private void updateTouristList(Criteria criteria, AbstractDao dao) throws DaoException {
+        List<Tourist> list = (List<Tourist>) criteria.getParam(DAO_ORDER_TOURIST_LIST);
+        for (Tourist t : list) {
+            Criteria bean = new Criteria();
+            
+            bean.addParam(DAO_ID_TOURIST, t.getIdTourist());
+            Criteria crit = new Criteria();
+            if (criteria.getParam(DAO_TOURIST_STATUS) == null) {
+                crit.addParam(DAO_TOURIST_FNAME, t.getFirstName());
+                crit.addParam(DAO_TOURIST_MNAME, t.getMiddleName());
+                crit.addParam(DAO_TOURIST_LNAME, t.getLastName());
+                crit.addParam(DAO_TOURIST_PASSPORT, t.getPassport());
+            } else {
+                crit.addParam(DAO_TOURIST_STATUS, criteria.getParam(DAO_TOURIST_STATUS));
+            }
+            
+            dao.updateTourist(bean, crit);
+        }
     }
 
     private void fillOrders(List<Order> orders, AbstractDao dao) throws DaoException {
@@ -189,5 +240,4 @@ public class OrderLogic extends AbstractLogic {
             }
         }
     }
-    
 }

@@ -13,15 +13,21 @@
                     ${currOrder.tour.direction.name} ${currOrder.tour.departDate}   (${currOrder.tour.daysCount} <fmt:message key="days" bundle="${ rb }" />)
                 </ctg:StatusTag>
             </div>
-            <h2 class="small lft labelH">${currOrder.tour.direction.text}</h2>
+            <ctg:StatusTag status="${currOrder.tour.direction.status}" ifValid="small lft labelH" ifInvalid="grey small lft labelH">
+                <h4>${currOrder.tour.direction.text}</h4>
+            </ctg:StatusTag>
             <div>
                 <ul class="containerLabel">
-                    <h2 class="small lft labelH"><fmt:message key="user" bundle="${ rb }" />:</h2>
-                    <h2 class="small lft labelH">${currOrder.user.login}</h2>
+                    <ctg:StatusTag status="${currOrder.status}" href="controller?command=showUser&selectId=${currOrder.user.idUser}" ifValid="grnt small lft labelH" ifInvalid="grey small lft labelH">
+                        <h3><fmt:message key="user" bundle="${ rb }" />:</h3>
+                        <h3>${currOrder.user.login}</h3>
+                    </ctg:StatusTag>
                 </ul>
                 <ul class="containerLabel">
-                    <h2 class="small lft labelH"><fmt:message key="orderDate" bundle="${ rb }" />:</h2>
-                    <h2 class="small lft labelH">${currOrder.orderDate}</h2>
+                    <ctg:StatusTag status="${currOrder.status}" ifValid="blu small lft labelH" ifInvalid="grey small lft labelH">
+                        <h3><fmt:message key="orderDate" bundle="${ rb }" />:</h3>
+                        <h3>${currOrder.orderDate}</h3>
+                    </ctg:StatusTag>
                 </ul>
             </div>
         </div>
@@ -89,6 +95,9 @@
             </ctg:RoleTag>
             <ctg:RoleUserTag>
                 <input class="large red awesome" type="submit" value="<fmt:message key="deleteOrder" bundle="${ rb }" />" onclick="postOrder('controller', 'DeleteOrder', 'POST')"/>
+                <div id="erNote">${errorSaveData}</div>
+                <div id="erNote">${errorReason}</div>
+                <div id="erAdminNote">${errorAdminMsg}</div>
             </ctg:RoleUserTag>
         </c:if>
     </div>

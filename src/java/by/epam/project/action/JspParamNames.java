@@ -19,6 +19,8 @@ public abstract class JspParamNames {
     public static final String JSP_SELECT_ID = "selectId";
     public static final String JSP_CURR_PAGE_NO = "currPageNo";
     public static final String JSP_PAGE_LIST = "pageList";
+    public static final Short DELETED = 0;
+    public static final Short ACTIVE = 1;
     
     //user
     public static final String JSP_USER = "user";

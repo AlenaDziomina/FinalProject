@@ -52,10 +52,10 @@ public class TourLogic extends AbstractLogic {
                 List<Direction> dir = dao.showDirections(crit1);
                 tour.setDirection(dir.get(0));
                 
-                Criteria crit2 = new Criteria();
-                crit2.addParam(DAO_ID_TOUR, tour.getIdTour());
-                List<Order> orders = dao.showOrders(crit2);
-                tour.setOrderCollection(orders);
+//                Criteria crit2 = new Criteria();
+//                crit2.addParam(DAO_ID_TOUR, tour.getIdTour());
+//                List<Order> orders = dao.showOrders(crit2);
+//                tour.setOrderCollection(orders);
                 
                 Criteria crit3 = new Criteria();
                 crit3.addParam(DAO_ID_TOURTYPE, tour.getDirection().getTourType().getIdTourType());

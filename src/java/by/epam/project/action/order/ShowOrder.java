@@ -31,9 +31,13 @@ public class ShowOrder implements ActionCommand {
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.order");
-        request.setSessionAttribute(JSP_PAGE, page);
+        String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
         resaveParamsShowOrder(request);
         showSelectedOrder(request);
+        if(page == null ? prevPage == null : !page.equals(prevPage)){
+            request.setSessionAttribute(JSP_PAGE, page);
+            cleanSessionShowOrder(request);
+        }
         return page;
     }
     
