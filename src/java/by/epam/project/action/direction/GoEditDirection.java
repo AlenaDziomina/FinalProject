@@ -7,17 +7,7 @@
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.*;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
 import static by.epam.project.action.direction.GoShowDirections.formTourTypeList;

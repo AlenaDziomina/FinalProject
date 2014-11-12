@@ -7,17 +7,7 @@
 package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
-import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_STARS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_NAME;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_PICTURE;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;

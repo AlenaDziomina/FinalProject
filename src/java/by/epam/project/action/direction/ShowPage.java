@@ -11,7 +11,6 @@ import static by.epam.project.action.JspParamNames.JSP_CURR_PAGE_NO;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_PAGE_LIST;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.direction.GoShowDirections.resaveParamsShowDirections;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;
@@ -41,7 +40,6 @@ public class ShowPage implements ActionCommand {
         ObjList<Direction> list = (ObjList<Direction>) request.getSessionAttribute(JSP_PAGE_LIST);
         Integer currPageNo = Integer.decode(request.getParameter(JSP_CURR_PAGE_NO));
         list.setCurrPageNo(currPageNo);
-        resaveParamsShowDirections(request);
     }
 
     private void showTourPage(SessionRequestContent request) throws ServletLogicException {

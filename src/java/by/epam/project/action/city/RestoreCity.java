@@ -7,11 +7,7 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -52,8 +48,7 @@ public class RestoreCity implements ActionCommand {
         
         try {
             Integer resIdCity = new CityLogic().doRestoreEntity(criteria);
-            new GoShowCity().execute(request);
-            return new ShowCity().execute(request);
+            return new GoShowCity().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());

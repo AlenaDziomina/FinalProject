@@ -7,16 +7,7 @@
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_LIST;
-import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_DATE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.direction.GoShowDirections.formDirectionList;
 import static by.epam.project.action.tour.ShowTour.formTourList;
@@ -38,11 +29,10 @@ public class ShowDirection implements ActionCommand {
         request.setSessionAttribute(JSP_PAGE, page);
         resaveParamsShowDirection(request);
         showSelectedDirection(request);
-        
         return page;
     }
 
-    private static void showSelectedDirection(SessionRequestContent request) throws ServletLogicException {
+    private void showSelectedDirection(SessionRequestContent request) throws ServletLogicException {
         String selectId = request.getParameter(JSP_SELECT_ID);
         if (selectId != null) {
             Integer idDirection = Integer.decode(selectId);

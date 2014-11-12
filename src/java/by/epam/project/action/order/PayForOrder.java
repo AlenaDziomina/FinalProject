@@ -7,11 +7,7 @@
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_ORDER;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.OrderQuery.*;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;

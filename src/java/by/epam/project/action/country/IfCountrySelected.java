@@ -7,14 +7,7 @@
 package by.epam.project.action.country;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
-import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import static by.epam.project.action.direction.SaveRedactDirection.resaveParamsSaveDirection;
@@ -63,7 +56,7 @@ public class IfCountrySelected implements ActionCommand {
         return page;
     }
 
-    private static void resaveParamsCountrySelected(SessionRequestContent request) throws ServletLogicException {
+    private void resaveParamsCountrySelected(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         String editHotelPage = ConfigurationManager.getProperty("path.page.edithotel");
         String editDirectionPage = ConfigurationManager.getProperty("path.page.editdirection");

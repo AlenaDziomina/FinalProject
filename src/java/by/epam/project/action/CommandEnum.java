@@ -41,11 +41,6 @@ public enum CommandEnum {
             setCurrentCommand(new LogoutCommand());
         }
     },
-    GETSESSION {
-        {
-            setCurrentCommand(new GetSessionCommand());
-        }
-    },
     GOREGISTRATION {
         {
             setCurrentCommand(new GoRegistrationCommand());

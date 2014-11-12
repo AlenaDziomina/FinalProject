@@ -7,15 +7,7 @@
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_ORDER;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ORDER_SEATS;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_FIRST_NAME;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_LAST_NAME;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_MIDDLE_NAME;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_PASSPORT;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
@@ -51,7 +43,7 @@ public class GoCreateNewOrder implements ActionCommand {
         return page;
     }
     
-    private static void createCurrOrder(SessionRequestContent request) throws LogicException{
+    private void createCurrOrder(SessionRequestContent request) throws LogicException{
         Order order = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
         if (order == null) {
             order = new Order();

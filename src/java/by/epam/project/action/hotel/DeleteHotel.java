@@ -7,26 +7,16 @@
 package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.action.city.GoShowCity;
-import by.epam.project.action.city.ShowCity;
-import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
 import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.City;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Hotel;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CityLogic;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
@@ -58,8 +48,7 @@ public class DeleteHotel implements ActionCommand {
         
         try {
             Integer resIdHotel = new HotelLogic().doDeleteEntity(criteria);
-            new GoShowHotel().execute(request);
-            return new ShowHotel().execute(request);
+            return new GoShowHotel().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());

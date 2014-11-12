@@ -7,13 +7,8 @@
 package by.epam.project.action.country;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.country.GoShowCountry.resaveParamsShowCountry;
 import by.epam.project.entity.Country;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -54,5 +49,27 @@ public class ShowCountry implements ActionCommand {
             }
         }
         request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
+    }
+    
+    private void resaveParamsShowCountry(SessionRequestContent request) {
+        String validCountryStatus = request.getParameter(JSP_COUNTRY_VALID_STATUS);
+        if(validCountryStatus != null) {
+            request.setAttribute(JSP_COUNTRY_VALID_STATUS, validCountryStatus);
+        }
+        
+        String invalidCountryStatus = request.getParameter(JSP_COUNTRY_INVALID_STATUS);
+        if(invalidCountryStatus != null) {
+            request.setAttribute(JSP_COUNTRY_INVALID_STATUS, invalidCountryStatus);
+        }
+        
+        String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
+        if(validCityStatus != null) {
+            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
+        }
+        
+        String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
+        if(invalidCityStatus != null) {
+            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
+        }
     }
 }

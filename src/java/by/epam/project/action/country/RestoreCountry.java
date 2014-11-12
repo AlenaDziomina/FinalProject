@@ -7,11 +7,7 @@
 package by.epam.project.action.country;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
@@ -52,8 +48,7 @@ public class RestoreCountry implements ActionCommand {
         
         try {
             Integer resIdCountry = new CountryLogic().doRestoreEntity(criteria);
-            new GoShowCountry().execute(request);
-            return new ShowCountry().execute(request);
+            return new GoShowCountry().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());

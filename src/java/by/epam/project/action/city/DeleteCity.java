@@ -7,27 +7,17 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.action.country.GoShowCountry;
-import by.epam.project.action.country.ShowCountry;
 import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.ClientType;
-import by.epam.project.entity.Country;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CityLogic;
-import by.epam.project.logic.CountryLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
@@ -58,8 +48,7 @@ public class DeleteCity implements ActionCommand {
         
         try {
             Integer resIdCity = new CityLogic().doDeleteEntity(criteria);
-            new GoShowCity().execute(request);
-            return new ShowCity().execute(request);
+            return new GoShowCity().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());

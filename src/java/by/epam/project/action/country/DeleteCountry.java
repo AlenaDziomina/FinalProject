@@ -7,28 +7,17 @@
 package by.epam.project.action.country;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.DELETED;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_USER;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.action.user.ShowUser;
 import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_STATUS;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.User;
-import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CountryLogic;
-import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
@@ -59,8 +48,7 @@ public class DeleteCountry implements ActionCommand {
         
         try {
             Integer resIdCountry = new CountryLogic().doDeleteEntity(criteria);
-            new GoShowCountry().execute(request);
-            return new ShowCountry().execute(request);
+            return new GoShowCountry().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorAdminMsg", ex.getCause().getMessage());

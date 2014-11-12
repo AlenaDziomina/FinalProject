@@ -7,11 +7,7 @@
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_ORDER;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_ORDER;
-import static by.epam.project.action.JspParamNames.JSP_ORDER_LIST;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.order.GoShowUserOrder.cleanSessionShowOrder;
 import static by.epam.project.action.order.GoShowUserOrder.resaveParamsShowOrder;
@@ -41,7 +37,7 @@ public class ShowOrder implements ActionCommand {
         return page;
     }
     
-    public static void showSelectedOrder(SessionRequestContent request) {
+    private void showSelectedOrder(SessionRequestContent request) {
         String selected = request.getParameter(JSP_SELECT_ID);
         Order currOrder = null;
         if (selected != null) {

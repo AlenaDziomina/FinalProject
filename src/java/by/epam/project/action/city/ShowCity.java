@@ -7,13 +7,8 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.city.GoShowCity.resaveParamsShowCity;
 import by.epam.project.entity.City;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -57,4 +52,25 @@ public class ShowCity implements ActionCommand {
         request.setSessionAttribute(JSP_CURRENT_CITY, currCity);
     }
     
+    private void resaveParamsShowCity(SessionRequestContent request) {
+        String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
+        if(validCityStatus != null) {
+            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
+        }
+        
+        String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
+        if(invalidCityStatus != null) {
+            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
+        }
+        
+        String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
+        if(validHotelStatus != null) {
+            request.setAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
+        }
+        
+        String invalidHotelStatus = request.getParameter(JSP_HOTEL_INVALID_STATUS);
+        if(invalidHotelStatus != null) {
+            request.setAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
+        }
+    }
 }

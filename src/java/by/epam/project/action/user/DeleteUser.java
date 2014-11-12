@@ -7,12 +7,7 @@
 package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.DELETED;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_USER;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;

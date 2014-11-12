@@ -7,15 +7,7 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CITY_NAME;
-import static by.epam.project.action.JspParamNames.JSP_CITY_PICTURE;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_DESCRIPTION_TEXT;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_NAME;
 import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_PICTURE;
@@ -90,7 +82,7 @@ public class SaveRedactCity implements ActionCommand {
         }         
     }
 
-    private static void resaveParamsSaveCity(SessionRequestContent request) {
+    private void resaveParamsSaveCity(SessionRequestContent request) {
         String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);
         if (currCountry != null && !currCountry.isEmpty()) {
             request.setAttribute(JSP_CURR_ID_COUNTRY, currCountry);
@@ -98,7 +90,7 @@ public class SaveRedactCity implements ActionCommand {
         createCurrCity(request);
     }
     
-    private static void createCurrCity(SessionRequestContent request) {
+    private void createCurrCity(SessionRequestContent request) {
         City currCity = (City) request.getSessionAttribute(JSP_CURRENT_CITY);
         if (currCity == null) {
             currCity = new City();

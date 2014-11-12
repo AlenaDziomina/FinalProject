@@ -7,13 +7,7 @@
 package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_LOCALE;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_USER_EMAIL;
-import static by.epam.project.action.JspParamNames.JSP_USER_LOGIN;
-import static by.epam.project.action.JspParamNames.JSP_USER_PASSWORD;
-import static by.epam.project.action.JspParamNames.JSP_USER_PHONE;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_EMAIL;

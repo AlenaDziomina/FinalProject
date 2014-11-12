@@ -7,15 +7,7 @@
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_ORDER;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_SELECT_ID;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_FIRST_NAME;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_LAST_NAME;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_MIDDLE_NAME;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_PASSPORT;
-import static by.epam.project.action.JspParamNames.JSP_USER;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ID_ORDER;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_TOURIST_LIST;

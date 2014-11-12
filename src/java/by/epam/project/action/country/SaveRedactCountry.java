@@ -79,11 +79,7 @@ public class SaveRedactCountry implements ActionCommand {
         }       
     }
 
-    private static void resaveParamsSaveCountry(SessionRequestContent request) {
-        createCurrCountry(request);
-    }
-    
-    private static void createCurrCountry(SessionRequestContent request) {
+    private void resaveParamsSaveCountry(SessionRequestContent request) {
         Country currCountry = (Country) request.getSessionAttribute(JSP_CURRENT_COUNTRY);
         if (currCountry == null) {
             currCountry = new Country();
@@ -94,6 +90,7 @@ public class SaveRedactCountry implements ActionCommand {
         currCountry.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));
         request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
     }
+    
 }
 
 

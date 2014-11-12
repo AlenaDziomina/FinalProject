@@ -8,12 +8,12 @@ package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.SessionGarbageCollector.cleanSession;
+import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.city.GoShowCity.formCityList;
 import static by.epam.project.action.country.GoShowCountry.formCountryList;
-import by.epam.project.action.SessionRequestContent;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -29,7 +29,7 @@ public class GoCreateNewHotel implements ActionCommand {
         request.setSessionAttribute(JSP_PAGE, page);
         formCountryList(request);
         formCityList(request);
-        cleanSession(request);
+        request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         request.setSessionAttribute(JSP_CURR_CITY_LIST, request.getSessionAttribute(JSP_CITY_LIST));
         return page;
     }

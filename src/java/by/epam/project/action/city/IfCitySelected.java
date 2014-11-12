@@ -7,10 +7,7 @@
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
-import static by.epam.project.action.JspParamNames.JSP_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import static by.epam.project.action.direction.SaveRedactDirection.resaveParamsSaveDirection;
 import static by.epam.project.action.hotel.GoShowHotel.formHotelList;

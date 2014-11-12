@@ -18,6 +18,7 @@ import static by.epam.project.action.JspParamNames.JSP_DISCOUNT_STEP;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import static by.epam.project.action.JspParamNames.JSP_PRICE_STEP;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_TYPE_LIST;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_DATE;
@@ -37,7 +38,7 @@ public class GoCreateNewTour implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edittour");
         request.setSessionAttribute(JSP_PAGE, page);
-        cleanSessionCreateTour(request);
+        request.deleteSessionAttribute(JSP_CURRENT_TOUR);
         resaveParamsCreateTour(request);
         return page;
     }
@@ -58,26 +59,11 @@ public class GoCreateNewTour implements ActionCommand {
         if(validTourDate != null) {
             request.setSessionAttribute(JSP_TOUR_VALID_DATE, validTourDate);
         }
+        
+        String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
+        if(invalidTourDate != null) {
+            request.setSessionAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
+        }
     }
 
-    private void cleanSessionCreateTour(SessionRequestContent request) {
-        request.deleteSessionAttribute(JSP_CURRENT_CITY);
-        request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
-        request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
-        request.deleteSessionAttribute(JSP_CURRENT_TOUR);
-        
-        request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
-        request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
-        
-        request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
-        request.deleteSessionAttribute(JSP_CITY_TAG_LIST);
-        request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
-        
-        
-        request.deleteSessionAttribute(JSP_PRICE_STEP);
-        request.deleteSessionAttribute(JSP_DISCOUNT_STEP);
-        
-        request.setSessionAttribute(JSP_CURR_CITY_LIST, null);
-    }
-    
 }

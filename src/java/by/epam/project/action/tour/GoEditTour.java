@@ -11,6 +11,7 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
 import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
 import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
+import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_DATE;
 import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
@@ -68,6 +69,10 @@ public class GoEditTour implements ActionCommand {
             request.setSessionAttribute(JSP_TOUR_VALID_DATE, validTourDate);
         }
         
+        String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
+        if(invalidTourDate != null) {
+            request.setSessionAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
+        }
         
     }
     

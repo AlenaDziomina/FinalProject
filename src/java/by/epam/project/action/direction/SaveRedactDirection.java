@@ -201,6 +201,7 @@ public class SaveRedactDirection implements ActionCommand {
         }
         request.setSessionAttribute(JSP_CURRENT_DIRECTION, currDir);
     }
+    
 }
 
         
