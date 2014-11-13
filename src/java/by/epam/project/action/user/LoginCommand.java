@@ -23,6 +23,7 @@ import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.LocaleManager.getLocale;
 import by.epam.project.manager.MessageManager;
+import by.epam.project.manager.Validator;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,13 +36,17 @@ public class LoginCommand implements ActionCommand{
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException{
         String page;
-        
-        Criteria criteria = new Criteria();
-        criteria.addParam(DAO_USER_LOGIN, request.getParameter(JSP_USER_LOGIN));
-        criteria.addParam(DAO_USER_PASSWORD, request.getParameter(JSP_USER_PASSWORD).hashCode());
-        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        criteria.addParam(DAO_USER_STATUS, ACTIVE);
         try {
+            Criteria criteria = new Criteria();
+            String login = request.getParameter(JSP_USER_LOGIN);
+            Validator.validateLogin(login);
+            criteria.addParam(DAO_USER_LOGIN, login);
+            String password = request.getParameter(JSP_USER_PASSWORD);
+            Validator.validatePassword(password);
+            criteria.addParam(DAO_USER_PASSWORD, password.hashCode());
+            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+            criteria.addParam(DAO_USER_STATUS, ACTIVE);
+        
             List<User> users = new UserLogic().doGetEntity(criteria);
             if (users != null && ! users.isEmpty()) {
                 User user = users.get(0);
@@ -55,7 +60,7 @@ public class LoginCommand implements ActionCommand{
                 }
                 page = ConfigurationManager.getProperty("path.page.main");
             } else {
-                request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
+                request.setAttribute("errorLoginPassMessage", "passLoginError");
                 page = ConfigurationManager.getProperty("path.page.login");
             }
             request.setSessionAttribute(JSP_PAGE, page);

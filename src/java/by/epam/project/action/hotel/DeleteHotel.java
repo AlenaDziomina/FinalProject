@@ -26,7 +26,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class DeleteHotel implements ActionCommand {
+public class DeleteHotel extends HotelCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -47,12 +47,11 @@ public class DeleteHotel implements ActionCommand {
         }
         
         try {
-            Integer resIdHotel = new HotelLogic().doDeleteEntity(criteria);
+            new HotelLogic().doDeleteEntity(criteria);
             return new GoShowHotel().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorDeleteReason", ex.getMessage());
+            request.setAttribute("errorDelete", "errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

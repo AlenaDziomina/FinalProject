@@ -9,39 +9,14 @@ package by.epam.project.action.direction;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.tour.ShowTour.getTourDateStatus;
-import static by.epam.project.action.tour.ShowTour.getTourStatus;
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_STATUS;
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
-import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_STATUS;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
-import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.ClientType;
-import by.epam.project.entity.Direction;
-import by.epam.project.entity.TourType;
-import by.epam.project.entity.TransMode;
-import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
-import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.DirectionLogic;
-import by.epam.project.logic.TourTypeLogic;
-import by.epam.project.logic.TransModeLogic;
-import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
-import static by.epam.project.manager.ParamManager.getBoolParam;
-import by.epam.project.tag.ObjList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  *
  * @author User
  */
-public class GoShowDirections implements ActionCommand {
+public class GoShowDirections extends DirectionCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -57,145 +32,34 @@ public class GoShowDirections implements ActionCommand {
         return page;
     }
   
-    public static void formDirectionList(SessionRequestContent request) throws ServletLogicException {
-
-        Criteria criteria = new Criteria();
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
-        criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
-        
-        Integer directionStatus = getDirectionStatus(request);
-        if (directionStatus != null) {
-            criteria.addParam(DAO_DIRECTION_STATUS, directionStatus);
-        }
-        
-        Integer tourStatus = getTourStatus(request);
-        if (tourStatus != null) {
-            criteria.addParam(DAO_TOUR_STATUS, tourStatus);
-        }
-        Integer tourDateStatus = getTourDateStatus(request);
-        if (tourDateStatus != null) {
-            Calendar calendar = Calendar.getInstance();
-            Date date = calendar.getTime();
-            if (tourDateStatus == 1) {
-                criteria.addParam(DAO_TOUR_DATE_FROM, date);
-            } else if (tourDateStatus == 0) {
-                criteria.addParam(DAO_TOUR_DATE_TO, date);
-            }
-        }
-        
-        try {
-            List<Direction> directions = new DirectionLogic().doGetEntity(criteria);
-            request.setSessionAttribute(JSP_DIRECTION_LIST, directions);
-            ObjList<Direction> list = new ObjList<>(directions);
-            request.setSessionAttribute(JSP_PAGE_LIST, list);
-        } catch (TechnicalException ex) {
-            throw new ServletLogicException(ex.getMessage(), ex);
-        }
-    }
-    
-    public static void formTourTypeList(SessionRequestContent request) throws ServletLogicException {
-        Criteria criteria = new Criteria();
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
-        
-        try {
-            List<TourType> types = new TourTypeLogic().doGetEntity(criteria);
-            request.setSessionAttribute(JSP_TOUR_TYPE_LIST, types);
-        } catch (TechnicalException ex) {
-            throw new ServletLogicException(ex.getMessage(), ex);
-        }
-    }
-    
-    public static void formTransModeList(SessionRequestContent request) throws ServletLogicException {
-        Criteria criteria = new Criteria();
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
-        
-        try {
-            List<TransMode> modes = new TransModeLogic().doGetEntity(criteria);
-            request.setSessionAttribute(JSP_TRANS_MODE_LIST, modes);
-        } catch (TechnicalException ex) {
-            throw new ServletLogicException(ex.getMessage(), ex);
-        }
-    }
- 
-    private static Integer getDirectionStatus(SessionRequestContent request) {
-        Boolean validStatus = getBoolParam(request, JSP_DIRECTION_VALID_STATUS);
-        Boolean invalidStatus = getBoolParam(request, JSP_DIRECTION_INVALID_STATUS);
-        if (validStatus == null && invalidStatus == null) {
-            validStatus = (Boolean) request.getSessionAttribute(JSP_DIRECTION_VALID_STATUS);
-            invalidStatus = (Boolean) request.getSessionAttribute(JSP_DIRECTION_INVALID_STATUS);
-            if (validStatus == null && invalidStatus == null) {
-                validStatus = true;
-                invalidStatus = false;
-            }
-        } else {
-            if (validStatus == null) {
-                validStatus = false;
-            }
-            if (invalidStatus == null) {
-                invalidStatus = false;
-            }
-        }
-        request.setSessionAttribute(JSP_DIRECTION_VALID_STATUS, validStatus);
-        request.setSessionAttribute(JSP_DIRECTION_INVALID_STATUS, invalidStatus);
-        
-        Integer status = null;
-        if (validStatus && ! invalidStatus) {
-            status = 1;
-        } else if ( ! validStatus && invalidStatus) {
-            status = 0;
-        }
-        return status;
-    }
-    
     private void resaveParamsShowDirections(SessionRequestContent request) {
         String validDirectionStatus = request.getParameter(JSP_DIRECTION_VALID_STATUS);
         if(validDirectionStatus != null) {
-            request.setAttribute(JSP_DIRECTION_VALID_STATUS, validDirectionStatus);
+            request.setSessionAttribute(JSP_DIRECTION_VALID_STATUS, validDirectionStatus);
         }
         
         String invalidDirectionStatus = request.getParameter(JSP_DIRECTION_INVALID_STATUS);
         if(invalidDirectionStatus != null) {
-            request.setAttribute(JSP_DIRECTION_INVALID_STATUS, invalidDirectionStatus);
+            request.setSessionAttribute(JSP_DIRECTION_INVALID_STATUS, invalidDirectionStatus);
         }
         String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
         if(validTourStatus != null) {
-            request.setAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
+            request.setSessionAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
         }
         
         String invalidTourStatus = request.getParameter(JSP_TOUR_INVALID_STATUS);
         if(invalidTourStatus != null) {
-            request.setAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
+            request.setSessionAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
         }
         
         String validTourDate = request.getParameter(JSP_TOUR_VALID_DATE);
         if(validTourDate != null) {
-            request.setAttribute(JSP_TOUR_VALID_DATE, validTourDate);
+            request.setSessionAttribute(JSP_TOUR_VALID_DATE, validTourDate);
         }
         
         String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
         if(invalidTourDate != null) {
-            request.setAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
+            request.setSessionAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
         }
         
         

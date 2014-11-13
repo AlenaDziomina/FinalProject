@@ -95,9 +95,8 @@
             </ctg:RoleTag>
             <ctg:RoleUserTag>
                 <input class="large red awesome" type="submit" value="<fmt:message key="deleteOrder" bundle="${ rb }" />" onclick="postOrder('controller', 'DeleteOrder', 'POST')"/>
-                <div id="erNote">${errorSaveData}</div>
-                <div id="erNote">${errorReason}</div>
-                <div id="erAdminNote">${errorAdminMsg}</div>
+                <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
+                <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
             </ctg:RoleUserTag>
         </c:if>
     </div>

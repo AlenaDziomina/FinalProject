@@ -29,6 +29,11 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractLogic {
     
+    private static final String MSG_ERR_DAO_ACCESS = "message.errorDaoAccess";
+    private static final String MSG_ERR_DAO_CONNECT = "message.errorDaoConnect";
+    private static final String MSG_ERR_DAO_QUERY = "message.errorDaoQuery";
+    private static final String MSG_ERR_DAO = "message.daoError";
+    
     private static final Logger LOGGER = Logger.getLogger(AbstractLogic.class);
     abstract List getEntity(Criteria criteria, AbstractDao dao) throws DaoException;
     abstract Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException;
@@ -45,9 +50,9 @@ public abstract class AbstractLogic {
             dao.commit();
             return res;   
         } catch (DaoAccessException ex) {
-            throw new TechnicalException( MessageManager.getProperty("message.errordaoaccess"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_ACCESS, ex);
         } catch (DaoConnectException | DaoInitException ex) {
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoconnect"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_CONNECT, ex);
         } catch (DaoQueryException ex) {
             try {
                 if (dao != null) {
@@ -56,7 +61,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoquery"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_QUERY, ex);
         } catch (DaoException ex){
             try {
                 if (dao != null) {
@@ -65,7 +70,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(MessageManager.getProperty("message.daoerror"), ex);
+            throw new TechnicalException(MSG_ERR_DAO, ex);
         } finally {
             try {
                 if (dao != null) {
@@ -87,9 +92,9 @@ public abstract class AbstractLogic {
             dao.commit();
             return res;
         } catch (DaoAccessException ex) {
-            throw new TechnicalException( MessageManager.getProperty("message.errordaoaccess"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_ACCESS, ex);
         } catch (DaoConnectException | DaoInitException ex) {
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoconnect"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_CONNECT, ex);
         } catch (DaoQueryException ex) {
             try {
                 if (dao != null) {
@@ -98,7 +103,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoquery"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_QUERY, ex);
         } catch (DaoLogicException ex) {
             try {
                 if (dao != null) {
@@ -116,7 +121,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(ex);
+            throw new TechnicalException(MSG_ERR_DAO, ex);
         } finally {
             try {
                 if (dao != null) {
@@ -138,9 +143,9 @@ public abstract class AbstractLogic {
             dao.commit();
             return res;   
         } catch (DaoAccessException ex) {
-            throw new TechnicalException( MessageManager.getProperty("message.errordaoaccess"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_ACCESS, ex);
         } catch (DaoConnectException | DaoInitException ex) {
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoconnect"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_CONNECT, ex);
         } catch (DaoQueryException ex) {
             try {
                 if (dao != null) {
@@ -149,7 +154,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoquery"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_QUERY, ex);
         } catch (DaoException ex){
             try {
                 if (dao != null) {
@@ -158,7 +163,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(MessageManager.getProperty("message.daoerror"), ex);
+            throw new TechnicalException(MSG_ERR_DAO, ex);
         } finally {
             try {
                 if (dao != null) {
@@ -180,9 +185,9 @@ public abstract class AbstractLogic {
             dao.commit();
             return res;   
         } catch (DaoAccessException ex) {
-            throw new TechnicalException( MessageManager.getProperty("message.errordaoaccess"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_ACCESS, ex);
         } catch (DaoConnectException | DaoInitException ex) {
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoconnect"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_CONNECT, ex);
         } catch (DaoQueryException ex) {
             try {
                 if (dao != null) {
@@ -191,7 +196,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(MessageManager.getProperty("message.errordaoquery"), ex);
+            throw new TechnicalException(MSG_ERR_DAO_QUERY, ex);
         } catch (DaoException ex){
             try {
                 if (dao != null) {
@@ -200,7 +205,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new TechnicalException(MessageManager.getProperty("message.daoerror"), ex);
+            throw new TechnicalException(MSG_ERR_DAO, ex);
         } finally {
             try {
                 if (dao != null) {

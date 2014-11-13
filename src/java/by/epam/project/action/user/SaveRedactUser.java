@@ -25,6 +25,7 @@ import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
+import by.epam.project.manager.Validator;
 import java.util.Locale;
 
 /**
@@ -37,29 +38,31 @@ public class SaveRedactUser implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException{
         String page = ConfigurationManager.getProperty("path.page.edituser");
         resaveParamsSaveUser(request);
-        Criteria criteria = new Criteria();
-        User currUser = (User) request.getSessionAttribute(JSP_CURRENT_USER);
-        criteria.addParam(DAO_ID_USER, currUser.getIdUser());
-        criteria.addParam(DAO_USER_PASSWORD, request.getParameter(JSP_USER_PASSWORD).hashCode());
-        criteria.addParam(DAO_USER_EMAIL, request.getParameter(JSP_USER_EMAIL));
-        criteria.addParam(DAO_USER_PHONE, request.getParameter(JSP_USER_PHONE));
-        Locale locale = (Locale)(request.getSessionAttribute(JSP_LOCALE));
-        criteria.addParam(DAO_USER_LANGUAGE, locale.getLanguage());
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
         try {
+            Criteria criteria = new Criteria();
+            User currUser = (User) request.getSessionAttribute(JSP_CURRENT_USER);
+            Validator.validateUser(currUser);
+            criteria.addParam(DAO_ID_USER, currUser.getIdUser());
+            criteria.addParam(DAO_USER_EMAIL, currUser.getEmail());
+            criteria.addParam(DAO_USER_PHONE, currUser.getPhone());
+            String password = request.getParameter(JSP_USER_PASSWORD);
+            Validator.validatePassword(password);
+            criteria.addParam(DAO_USER_PASSWORD, password.hashCode());
+        
+            User user = (User) request.getSessionAttribute(JSP_USER);
+            if (user != null) {
+                ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+                criteria.addParam(DAO_ROLE_NAME, type);
+            } else {
+                criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+            }
+        
             Integer resUser = new UserLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resUser.toString());
             return new ShowUser().execute(request);
         } catch (TechnicalException | LogicException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorSaveReason", ex.getMessage());
+            request.setAttribute("errorSave", "errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
         }   
         return page;

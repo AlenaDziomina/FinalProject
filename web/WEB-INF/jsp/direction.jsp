@@ -54,9 +54,13 @@
                     <c:when test="${currDirection.status == 1}">
                         <input class="large orange awesome" type="submit" value="<fmt:message key="editDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'goEditDirection'}, 'POST')"/>
                         <input class="large red awesome" type="submit" value="<fmt:message key="deleteDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'DeleteDirection'}, 'POST')"/>
+                        <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
+                        <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
                     </c:when>
                     <c:when test="${currDirection.status == 0}">
                         <input class="large green awesome" type="submit" value="<fmt:message key="restoreDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'RestoreDirection'}, 'POST')"/>
+                        <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
+                        <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
                     </c:when>
                 </c:choose>    
             </ctg:RoleTag>

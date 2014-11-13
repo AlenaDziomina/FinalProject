@@ -34,7 +34,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class DeleteTour implements ActionCommand {
+public class DeleteTour extends TourCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -55,12 +55,11 @@ public class DeleteTour implements ActionCommand {
         }
         
         try {
-            Integer resIdTour = new TourLogic().doDeleteEntity(criteria);
+            new TourLogic().doDeleteEntity(criteria);
             return new ShowTour().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorDeleteReason", ex.getMessage());
+            request.setAttribute("errorDelete", "errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

@@ -26,7 +26,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class RestoreHotel implements ActionCommand {
+public class RestoreHotel extends HotelCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -47,12 +47,11 @@ public class RestoreHotel implements ActionCommand {
         }
         
         try {
-            Integer resIdHotel = new HotelLogic().doRestoreEntity(criteria);
+            new HotelLogic().doRestoreEntity(criteria);
             return new GoShowHotel().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorRestoreReason", ex.getMessage());
+            request.setAttribute("errorRestore", "errorRestoreData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

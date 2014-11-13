@@ -271,8 +271,9 @@ function validateForm(formId) {
 function isValidLogin(formId) {
     var form = document.getElementById(formId);
     var login = form.login.value;
+    var size = 20;
     var elem = document.getElementById("loginErrMsg");
-    if (login === null || login === "") {
+    if (login === null || login === "" || login.length > size) {
         elem.hidden = false;
         return false;
     }
@@ -293,8 +294,9 @@ function isValidLogin(formId) {
 function isValidEmail(formId) {
     var form = document.getElementById(formId);
     var email = form.email.value;
+    var size = 60;
     var elem = document.getElementById("emailErrMsg");
-    if (email === null || email === "") {
+    if (email === null || email === "" || email.length > size) {
         elem.hidden = false;
         return false;
     }
@@ -315,8 +317,9 @@ function isValidEmail(formId) {
 function isValidPhone(formId) {
     var form = document.getElementById(formId);
     var phone = form.phone.value;
+    var size = 17;
     var elem = document.getElementById("phoneErrMsg");
-    if (phone === null || phone === "") {
+    if (phone === null || phone === "" || phone.length > size) {
         elem.hidden = false;
         return false;
     }
@@ -337,8 +340,9 @@ function isValidPhone(formId) {
 function isValidPassword(formId) {
     var form = document.getElementById(formId);
     var password = form.password.value;
+    var size = 20;
     var elem = document.getElementById("passwordErrMsg");
-    if (password === null || password === "") {
+    if (password === null || password === "" || password.length > size) {
         elem.hidden = false;
         return false;
     }

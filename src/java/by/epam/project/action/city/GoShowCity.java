@@ -9,30 +9,14 @@ package by.epam.project.action.city;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.city.ShowCity.showSelectedCity;
-import static by.epam.project.action.hotel.GoShowHotel.getHotelStatus;
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
-import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.City;
-import by.epam.project.entity.ClientType;
-import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
-import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CityLogic;
-import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
-import static by.epam.project.manager.ParamManager.getBoolParam;
-import java.util.List;
 
 /**
  *
  * @author User
  */
-public class GoShowCity implements ActionCommand {
+public class GoShowCity extends CityCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -48,81 +32,25 @@ public class GoShowCity implements ActionCommand {
         return page;
     }
     
-    public static void formCityList(SessionRequestContent request) throws ServletLogicException {
-        Criteria criteria = new Criteria();
-        criteria.addParam(DAO_ID_COUNTRY, request.getAttribute(JSP_ID_COUNTRY));
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
-        
-        Integer cityStatus = getCityStatus(request);
-        if (cityStatus != null) {
-            criteria.addParam(DAO_CITY_STATUS, cityStatus);
-        }
-        
-        Integer hotelStatus = getHotelStatus(request);
-        if (hotelStatus != null) {
-            criteria.addParam(DAO_HOTEL_STATUS, hotelStatus);
-        }
-        
-        try {
-            List<City> cities = new CityLogic().doGetEntity(criteria);
-            request.setSessionAttribute(JSP_CITY_LIST, cities);
-        } catch (TechnicalException ex) {
-            throw new ServletLogicException(ex.getMessage(), ex);
-        }
-    }
-    
-    public static Integer getCityStatus(SessionRequestContent request) {
-        Boolean validStatus = getBoolParam(request, JSP_CITY_VALID_STATUS);
-        Boolean invalidStatus = getBoolParam(request, JSP_CITY_INVALID_STATUS);
-        if (validStatus == null && invalidStatus == null) {
-            validStatus = true;
-            invalidStatus = false;
-        } else {
-            if (validStatus == null) {
-                validStatus = false;
-            }
-            if (invalidStatus == null) {
-                invalidStatus = false;
-            }
-        }
-        request.setAttribute(JSP_CITY_VALID_STATUS, validStatus);
-        request.setAttribute(JSP_CITY_INVALID_STATUS, invalidStatus);
-        
-        Integer status = null;
-        if (validStatus && ! invalidStatus) {
-            status = 1;
-        } else if ( ! validStatus && invalidStatus) {
-            status = 0;
-        }
-        return status;
-    }
-    
     private void resaveParamsShowCity(SessionRequestContent request) {
         String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
         if(validCityStatus != null) {
-            request.setAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
+            request.setSessionAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
         }
         
         String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
         if(invalidCityStatus != null) {
-            request.setAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
+            request.setSessionAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
         }
         
         String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
         if(validHotelStatus != null) {
-            request.setAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
+            request.setSessionAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
         }
         
         String invalidHotelStatus = request.getParameter(JSP_HOTEL_INVALID_STATUS);
         if(invalidHotelStatus != null) {
-            request.setAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
+            request.setSessionAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
         }
     }
     

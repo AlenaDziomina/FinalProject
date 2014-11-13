@@ -32,38 +32,13 @@ import by.epam.project.manager.ConfigurationManager;
  *
  * @author User
  */
-public class GoCreateNewTour implements ActionCommand {
+public class GoCreateNewTour extends TourCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edittour");
         request.setSessionAttribute(JSP_PAGE, page);
         request.deleteSessionAttribute(JSP_CURRENT_TOUR);
-        resaveParamsCreateTour(request);
         return page;
     }
-    
-    private void resaveParamsCreateTour(SessionRequestContent request) {
-        
-        String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
-        if(validTourStatus != null) {
-            request.setSessionAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
-        }
-        
-        String invalidTourStatus = request.getParameter(JSP_TOUR_INVALID_STATUS);
-        if(invalidTourStatus != null) {
-            request.setSessionAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
-        }
-        
-        String validTourDate = request.getParameter(JSP_TOUR_VALID_DATE);
-        if(validTourDate != null) {
-            request.setSessionAttribute(JSP_TOUR_VALID_DATE, validTourDate);
-        }
-        
-        String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
-        if(invalidTourDate != null) {
-            request.setSessionAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
-        }
-    }
-
 }

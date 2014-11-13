@@ -17,7 +17,7 @@ import by.epam.project.manager.ConfigurationManager;
  *
  * @author User
  */
-public class GoEditCountry implements ActionCommand {
+public class GoEditCountry extends CountryCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {

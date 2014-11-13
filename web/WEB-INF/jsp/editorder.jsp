@@ -106,8 +106,8 @@
         <div class="parameterRow centrale">
             <input class="large blue awesome" type="submit" value="<fmt:message key="book" bundle="${ rb }" />"/>
             <div id="erNote"><a id="touristListErrMsg" hidden="true"><fmt:message key="errorTouristList" bundle="${ rb }" /></a></div>
-            <div id="erNote">${errorSaveData}</div>
-            <div id="erNote">${errorReason}</div>
+            <div id="erNote"><fmt:message key="${errorSave}" bundle="${ rb }" /></div>
+            <div id="erNote"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></div>
         </div>
     </form>
 </div>

@@ -42,9 +42,13 @@
                 <c:when test="${currHotel.status == 1}">
                     <input class="large orange awesome" type="submit" value="<fmt:message key="editHotel" bundle="${ rb }" />" onclick="postHotel('controller', 'goEditHotel', 'POST')"/>
                     <input class="large red awesome" type="submit" value="<fmt:message key="deleteHotel" bundle="${ rb }" />" onclick="postHotel('controller', 'DeleteHotel', 'POST')"/>
+                    <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
+                    <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
                 </c:when>
                 <c:when test="${currHotel.status == 0}">
                     <input class="large green awesome" type="submit" value="<fmt:message key="restoreHotel" bundle="${ rb }" />" onclick="postHotel('controller', 'RestoreHotel', 'POST')"/>
+                    <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
+                    <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
                 </c:when>
             </c:choose> 
         </ctg:RoleTag>

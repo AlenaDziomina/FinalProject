@@ -85,9 +85,8 @@
             
             <div class="parameterRow centrale">
                 <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllHotel('saveRedactHotel')" />
-                <div id="erNote">${errorSaveData}</div>
-                <div id="erNote">${errorReason}</div>
-                <div id="erAdminNote">${errorAdminMsg}</div>
+                <div id="erNote"><fmt:message key="${errorSave}" bundle="${ rb }" /></div>
+                <div id="erNote"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></div>
             </div>
         </div>
     </form>

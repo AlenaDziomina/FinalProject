@@ -39,6 +39,7 @@ import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
 import static by.epam.project.manager.ParamManager.checkArrParam;
+import by.epam.project.manager.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,162 +47,65 @@ import java.util.List;
  *
  * @author User
  */
-public class SaveRedactDirection implements ActionCommand {
+public class SaveRedactDirection extends DirectionCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         
         String page = ConfigurationManager.getProperty("path.page.editdirection");
         resaveParamsSaveDirection(request);
-        
-        Criteria criteria = new Criteria();
-        Direction direction = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
-        if (direction != null) {
-            Integer idDirection = direction.getIdDirection();
-            if (idDirection != null) {
-                criteria.addParam(DAO_ID_DIRECTION, idDirection);
-            }
-            Integer idDescription = direction.getDescription().getIdDescription();
-            if (idDescription != null) {
-                criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-            }
-            Integer idTourType = direction.getTourType().getIdTourType();
-            if (idTourType != null) {
-                criteria.addParam(DAO_ID_TOURTYPE, idTourType);
-            }
-            Integer idTransMode = direction.getTransMode().getIdMode();
-            if (idTransMode != null) {
-                criteria.addParam(DAO_ID_TRANSMODE, idTransMode);
-            }
-            criteria.addParam(DAO_DIRECTION_NAME, direction.getName());
-            criteria.addParam(DAO_DIRECTION_PICTURE, direction.getPicture());
-            criteria.addParam(DAO_DIRECTION_TEXT, direction.getText());
-            criteria.addParam(DAO_DESCRIPTION_TEXT, direction.getDescription().getText());
-        }
-        
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
-        
-        checkArrParam(request, criteria, JSP_CURR_COUNTRY_TAGS, DAO_ID_COUNTRY);
-        checkArrParam(request, criteria, JSP_CURR_CITY_TAGS, DAO_ID_CITY);
-        checkArrParam(request, criteria, JSP_CURR_HOTEL_TAGS, DAO_ID_HOTEL);
-        
         try {
+            Criteria criteria = new Criteria();
+            Direction direction = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
+            Validator.validateDirection(direction);
+            if (direction != null) {
+                Integer idDirection = direction.getIdDirection();
+                if (idDirection != null) {
+                    criteria.addParam(DAO_ID_DIRECTION, idDirection);
+                }
+                Integer idDescription = direction.getDescription().getIdDescription();
+                if (idDescription != null) {
+                    criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+                }
+                Integer idTourType = direction.getTourType().getIdTourType();
+                if (idTourType != null) {
+                    criteria.addParam(DAO_ID_TOURTYPE, idTourType);
+                }
+                Integer idTransMode = direction.getTransMode().getIdMode();
+                if (idTransMode != null) {
+                    criteria.addParam(DAO_ID_TRANSMODE, idTransMode);
+                }
+                criteria.addParam(DAO_DIRECTION_NAME, direction.getName());
+                criteria.addParam(DAO_DIRECTION_PICTURE, direction.getPicture());
+                criteria.addParam(DAO_DIRECTION_TEXT, direction.getText());
+                criteria.addParam(DAO_DESCRIPTION_TEXT, direction.getDescription().getText());
+            }
+
+            User user = (User) request.getSessionAttribute(JSP_USER);
+            if (user != null) {
+                criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+                ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+                criteria.addParam(DAO_ROLE_NAME, type);
+            } else {
+                criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+            }
+            checkArrParam(request, criteria, JSP_CURR_COUNTRY_TAGS, DAO_ID_COUNTRY);
+            checkArrParam(request, criteria, JSP_CURR_CITY_TAGS, DAO_ID_CITY);
+            checkArrParam(request, criteria, JSP_CURR_HOTEL_TAGS, DAO_ID_HOTEL);
+        
             Integer resIdDirection = new DirectionLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdDirection.toString());
             return new ShowDirection().execute(request);
         } catch (TechnicalException | LogicException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorSaveReason", ex.getMessage());
+            request.setAttribute("errorSave", "errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }       
     }
-
-    public static void resaveParamsSaveDirection(SessionRequestContent request) throws ServletLogicException {
-        String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);
-        if (currCountry != null && !currCountry.isEmpty()) {
-            request.setAttribute(JSP_CURR_ID_COUNTRY, currCountry);
-        }
- 
-        String currCity = request.getParameter(JSP_CURR_ID_CITY);
-        if (currCity != null && !currCity.isEmpty()) {
-            request.setAttribute(JSP_CURR_ID_CITY, currCity);
-        }
-        
-        String currHotel = request.getParameter(JSP_CURR_ID_HOTEL);
-        if (currHotel != null && !currHotel.isEmpty()) {
-            request.setAttribute(JSP_CURR_ID_HOTEL, currHotel);
-        }
-        
-        String[] currCoutryTags = request.getAllParameters(JSP_CURR_COUNTRY_TAGS);
-        if (currCoutryTags != null) {
-            request.setAttribute(JSP_CURR_COUNTRY_TAGS, currCoutryTags);
-        }
-        
-        String[] currCityTags = request.getAllParameters(JSP_CURR_CITY_TAGS);
-        if (currCityTags != null) {
-            request.setAttribute(JSP_CURR_CITY_TAGS, currCityTags);
-        }
-        
-        String currTourType = request.getParameter(JSP_CURR_TOUR_TYPE);
-        if (currTourType != null) {
-            request.setAttribute(JSP_CURR_TOUR_TYPE, currTourType);
-        }
-        
-        String currTransMode = request.getParameter(JSP_CURR_TRANS_MODE);
-        if (currTransMode != null) {
-            request.setAttribute(JSP_CURR_TRANS_MODE, currTransMode);
-        }
-        
-        createCurrHotelTag(request);
-        createCurrDirect(request);
-    }
     
-    private static void createCurrHotelTag(SessionRequestContent request) throws ServletLogicException {
-        String[] currHotelTags = request.getAllParameters(JSP_CURR_HOTEL_TAGS);
-        if (currHotelTags != null) {
-            List<Hotel> hotelTagList = new ArrayList();
-            for (String tag : currHotelTags) {
-                Integer idHotel = Integer.decode(tag);
-                if (idHotel > 0) {
-                    Criteria criteria = new Criteria();
-                    User user = (User) request.getSessionAttribute(JSP_USER);
-                    if (user != null) {
-                        criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-                        ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-                        criteria.addParam(DAO_ROLE_NAME, type);
-                    } else {
-                        criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-                    }
-                    criteria.addParam(DAO_ID_HOTEL, idHotel);
-                    try {
-                        List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);
-                        hotelTagList.addAll(hotels);
-                    } catch (TechnicalException ex) {
-                        throw new ServletLogicException(ex.getMessage(), ex);
-                    }
-                }
-            }
-            request.setAttribute(JSP_HOTEL_TAG_LIST, hotelTagList);
-        }
-    }
-
-    private static void createCurrDirect(SessionRequestContent request) {
-        Direction currDir = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
-        if (currDir == null) {
-            currDir = new Direction();
-            currDir.setDescription(new Description());
-            currDir.setTourType(new TourType());
-            currDir.setTransMode(new TransMode());
-        }
-        
-        currDir.setName(request.getParameter(JSP_DIRECTION_NAME));
-        currDir.setPicture(request.getParameter(JSP_DIRECTION_PICTURE));
-        currDir.setText(request.getParameter(JSP_DIRECTION_TEXT));
-        currDir.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));
-        String tourType = request.getParameter(JSP_CURR_TOUR_TYPE);
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (tourType != null && !tourType.isEmpty()) {
-            currDir.getTourType().setIdTourType(Integer.decode(tourType));
-        }
-        String transMode = request.getParameter(JSP_CURR_TRANS_MODE);
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (transMode != null && !transMode.isEmpty()) {
-            currDir.getTransMode().setIdMode(Integer.decode(transMode));
-        }
-        request.setSessionAttribute(JSP_CURRENT_DIRECTION, currDir);
-    }
     
+
 }
 
         

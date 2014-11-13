@@ -9,8 +9,7 @@ package by.epam.project.action.direction;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.direction.GoShowDirections.formDirectionList;
-import static by.epam.project.action.tour.ShowTour.formTourList;
+import by.epam.project.action.tour.TourCommand;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;
@@ -21,7 +20,7 @@ import java.util.List;
  *
  * @author User
  */
-public class ShowDirection implements ActionCommand {
+public class ShowDirection extends DirectionCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -45,7 +44,7 @@ public class ShowDirection implements ActionCommand {
         } else {
             Direction direction = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
             request.setAttribute(JSP_ID_DIRECTION, direction.getIdDirection());
-            formTourList(request);
+            new TourCommand().formTourList(request);
             List<Tour> list = (List<Tour>) request.getSessionAttribute(JSP_TOUR_LIST);
             direction.setTourCollection(list);
         }

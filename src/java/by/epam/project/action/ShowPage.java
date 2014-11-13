@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.action.direction;
+package by.epam.project.action;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.JSP_CURR_PAGE_NO;

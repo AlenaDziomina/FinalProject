@@ -93,7 +93,7 @@ import java.util.Objects;
  *
  * @author User
  */
-public class ShowTour implements ActionCommand {
+public class ShowTour extends TourCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -108,42 +108,6 @@ public class ShowTour implements ActionCommand {
             cleanSessionShowTour(request);
         }
         return page;
-    }
-    
-    public static void formTourList(SessionRequestContent request) throws ServletLogicException {
-        Criteria criteria = new Criteria();
-        criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
-        
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
-        
-        Integer tourStatus = getTourStatus(request);
-        if (tourStatus != null) {
-            criteria.addParam(DAO_TOUR_STATUS, tourStatus);
-        }
-        Integer tourDateStatus = getTourDateStatus(request);
-        if (tourDateStatus != null) {
-            Calendar calendar = Calendar.getInstance();
-            Date date = calendar.getTime();
-            if (tourDateStatus == 1) {
-                criteria.addParam(DAO_TOUR_DATE_FROM, date);
-            } else if (tourDateStatus == 0) {
-                criteria.addParam(DAO_TOUR_DATE_TO, date);
-            }
-        }
-        
-        try { 
-            List<Tour> tours = new TourLogic().doGetEntity(criteria);
-            request.setSessionAttribute(JSP_TOUR_LIST, tours);
-        } catch (TechnicalException ex) {
-            throw new ServletLogicException(ex.getMessage(), ex);
-        }
     }
 
     private void distinguishTour(SessionRequestContent request) {
@@ -178,68 +142,6 @@ public class ShowTour implements ActionCommand {
         }
     }
 
-    public static void resaveParamsShowTour(SessionRequestContent request) {
-        Direction direction = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
-        if (direction != null) {
-            Integer idDirection = direction.getIdDirection();
-            if (idDirection != null) {
-                request.setAttribute(JSP_ID_DIRECTION, idDirection);
-            }
-        }
-    }
-
-    public static Integer getTourStatus(SessionRequestContent request) {
-        Boolean validStatus = getBoolParam(request, JSP_TOUR_VALID_STATUS);
-        Boolean invalidStatus = getBoolParam(request, JSP_TOUR_INVALID_STATUS);
-        if (validStatus == null && invalidStatus == null) {
-            validStatus = true;
-            invalidStatus = false;
-        } else {
-            if (validStatus == null) {
-                validStatus = false;
-            }
-            if (invalidStatus == null) {
-                invalidStatus = false;
-            }
-        }
-        request.setAttribute(JSP_TOUR_VALID_STATUS, validStatus);
-        request.setAttribute(JSP_TOUR_INVALID_STATUS, invalidStatus);
-        
-        Integer status = null;
-        if (validStatus && ! invalidStatus) {
-            status = 1;
-        } else if ( ! validStatus && invalidStatus) {
-            status = 0;
-        }
-        return status;
-    }
-
-    public static Integer getTourDateStatus(SessionRequestContent request) {
-        Boolean validStatus = getBoolParam(request, JSP_TOUR_VALID_DATE);
-        Boolean invalidStatus = getBoolParam(request, JSP_TOUR_INVALID_DATE);
-        if (validStatus == null && invalidStatus == null) {
-            validStatus = true;
-            invalidStatus = false;
-        } else {
-            if (validStatus == null) {
-                validStatus = false;
-            }
-            if (invalidStatus == null) {
-                invalidStatus = false;
-            }
-        }
-        request.setAttribute(JSP_TOUR_VALID_DATE, validStatus);
-        request.setAttribute(JSP_TOUR_INVALID_DATE, invalidStatus);
-        
-        Integer status = null;
-        if (validStatus && ! invalidStatus) {
-            status = 1;
-        } else if ( ! validStatus && invalidStatus) {
-            status = 0;
-        }
-        return status;
-    }
-    
     private void cleanSessionShowTour(SessionRequestContent request) {
         //city
         request.deleteSessionAttribute(JSP_CITY_LIST);

@@ -26,7 +26,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class RestoreDirection implements ActionCommand {
+public class RestoreDirection extends DirectionCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -47,13 +47,12 @@ public class RestoreDirection implements ActionCommand {
         }
         
         try {
-            Integer resIdDirection = new DirectionLogic().doRestoreEntity(criteria);
+            new DirectionLogic().doRestoreEntity(criteria);
             currDirection.setStatus(ACTIVE);
             return new ShowDirection().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorRestoreReason", ex.getMessage());
+            request.setAttribute("errorRestore", "errorRestoreData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

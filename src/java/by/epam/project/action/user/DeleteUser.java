@@ -51,9 +51,8 @@ public class DeleteUser implements ActionCommand {
             currUser.setStatus(DELETED);
             return new ShowUser().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorDeleteReason", ex.getMessage());
+            request.setAttribute("errorDelete", "errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

@@ -53,9 +53,8 @@ public class RestoreUser implements ActionCommand {
             currUser.setStatus(DELETED);
             return new ShowUser().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorRestoreReason", ex.getMessage());
+            request.setAttribute("errorRestore", "errorRestoreData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

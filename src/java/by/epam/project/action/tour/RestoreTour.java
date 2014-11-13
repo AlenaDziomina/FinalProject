@@ -29,7 +29,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class RestoreTour implements ActionCommand {
+public class RestoreTour extends TourCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -50,12 +50,11 @@ public class RestoreTour implements ActionCommand {
         }
         
         try {
-            Integer resIdTour = new TourLogic().doRestoreEntity(criteria);
+            new TourLogic().doRestoreEntity(criteria);
             return new ShowTour().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorRestoreReason", ex.getMessage());
+            request.setAttribute("errorRestore", "errorRestoreData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

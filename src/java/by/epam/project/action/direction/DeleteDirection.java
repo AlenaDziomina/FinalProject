@@ -26,7 +26,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class DeleteDirection implements ActionCommand {
+public class DeleteDirection extends DirectionCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -47,13 +47,12 @@ public class DeleteDirection implements ActionCommand {
         }
         
         try {
-            Integer resIdDirection = new DirectionLogic().doDeleteEntity(criteria);
+            new DirectionLogic().doDeleteEntity(criteria);
             currDirection.setStatus(DELETED);
             return new ShowDirection().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorDeleteReason", ex.getMessage());
+            request.setAttribute("errorDelete", "errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

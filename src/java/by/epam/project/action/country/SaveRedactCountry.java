@@ -28,52 +28,51 @@ import by.epam.project.logic.CountryLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.MessageManager;
+import by.epam.project.manager.Validator;
 
 /**
  *
  * @author User
  */
-public class SaveRedactCountry implements ActionCommand {
+public class SaveRedactCountry extends CountryCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
-        
         String page = ConfigurationManager.getProperty("path.page.editcountry");
         resaveParamsSaveCountry(request);
-        
-        Criteria criteria = new Criteria();
-        Country country = (Country) request.getSessionAttribute(JSP_CURRENT_COUNTRY);
-        if (country != null) {
-            Integer idCountry = country.getIdCountry();
-            if (idCountry != null) {
-                criteria.addParam(DAO_ID_COUNTRY, idCountry);
-            }
-            Integer idDescription = country.getDescription().getIdDescription();
-            if (idDescription != null) {
-                criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-            }
-            criteria.addParam(DAO_COUNTRY_NAME, country.getName());
-            criteria.addParam(DAO_COUNTRY_PICTURE, country.getPicture());
-            criteria.addParam(DAO_DESCRIPTION_TEXT, country.getDescription().getText());
-        }
-        
-        User user = (User) request.getSessionAttribute(JSP_USER);
-        if (user != null) {
-            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
-            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
-            criteria.addParam(DAO_ROLE_NAME, type);
-        } else {
-            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
-        }
-                
         try {
+            Criteria criteria = new Criteria();
+            Country country = (Country) request.getSessionAttribute(JSP_CURRENT_COUNTRY);
+            Validator.validateCountry(country);
+            if (country != null) {
+                Integer idCountry = country.getIdCountry();
+                if (idCountry != null) {
+                    criteria.addParam(DAO_ID_COUNTRY, idCountry);
+                }
+                Integer idDescription = country.getDescription().getIdDescription();
+                if (idDescription != null) {
+                    criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+                }
+                criteria.addParam(DAO_COUNTRY_NAME, country.getName());
+                criteria.addParam(DAO_COUNTRY_PICTURE, country.getPicture());
+                criteria.addParam(DAO_DESCRIPTION_TEXT, country.getDescription().getText());
+            }
+
+            User user = (User) request.getSessionAttribute(JSP_USER);
+            if (user != null) {
+                criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+                ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+                criteria.addParam(DAO_ROLE_NAME, type);
+            } else {
+                criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+            }
+        
             Integer resIdCountry = new CountryLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdCountry.toString());
             return new GoShowCountry().execute(request);     
         } catch (TechnicalException | LogicException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorSaveReason", ex.getMessage());
+            request.setAttribute("errorSave", "errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }       

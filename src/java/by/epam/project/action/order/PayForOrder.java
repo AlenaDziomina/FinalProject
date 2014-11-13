@@ -32,7 +32,7 @@ import java.util.List;
  *
  * @author User
  */
-public class PayForOrder implements ActionCommand {
+public class PayForOrder extends OrderCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {

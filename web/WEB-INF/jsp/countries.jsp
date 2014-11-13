@@ -44,9 +44,13 @@
                 <c:when test="${currCountry.status == 1}">
                     <input class="large orange awesome" type="submit" value="<fmt:message key="editCountry" bundle="${ rb }" />" onclick="postCountry('controller', 'goEditCountry', 'POST')"/>
                     <input class="large red awesome" type="submit" value="<fmt:message key="deleteCountry" bundle="${ rb }" />" onclick="postCountry('controller', 'DeleteCountry', 'POST')"/>
+                    <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
+                    <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
                 </c:when>
                 <c:when test="${currCountry.status == 0}">
                     <input class="large green awesome" type="submit" value="<fmt:message key="restoreCountry" bundle="${ rb }" />" onclick="postCountry('controller', 'RestoreCountry', 'POST')"/>
+                    <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
+                    <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
                 </c:when>
             </c:choose>    
          </ctg:RoleTag>

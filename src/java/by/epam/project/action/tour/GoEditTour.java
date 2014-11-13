@@ -27,13 +27,12 @@ import java.util.Date;
  *
  * @author User
  */
-public class GoEditTour implements ActionCommand {
+public class GoEditTour extends TourCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edittour");
         request.setSessionAttribute(JSP_PAGE, page);
-        resaveParamsEditTour(request);
         Tour currTour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
         
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -50,30 +49,6 @@ public class GoEditTour implements ActionCommand {
         request.setAttribute(JSP_CURR_ARRIVAL_DATE, ds2);
         
         return page;
-    }
-
-    private void resaveParamsEditTour(SessionRequestContent request) {
-        
-        String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
-        if(validTourStatus != null) {
-            request.setSessionAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
-        }
-        
-        String invalidTourStatus = request.getParameter(JSP_TOUR_INVALID_STATUS);
-        if(invalidTourStatus != null) {
-            request.setSessionAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
-        }
-        
-        String validTourDate = request.getParameter(JSP_TOUR_VALID_DATE);
-        if(validTourDate != null) {
-            request.setSessionAttribute(JSP_TOUR_VALID_DATE, validTourDate);
-        }
-        
-        String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
-        if(invalidTourDate != null) {
-            request.setSessionAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
-        }
-        
     }
     
 }

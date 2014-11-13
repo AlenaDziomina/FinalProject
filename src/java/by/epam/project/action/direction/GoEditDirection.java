@@ -8,12 +8,10 @@ package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
-import static by.epam.project.action.city.GoShowCity.formCityList;
-import static by.epam.project.action.country.GoShowCountry.formCountryList;
-import static by.epam.project.action.direction.GoShowDirections.formTourTypeList;
-import static by.epam.project.action.direction.GoShowDirections.formTransModeList;
-import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
 import by.epam.project.action.SessionRequestContent;
+import by.epam.project.action.city.CityCommand;
+import by.epam.project.action.country.CountryCommand;
+import by.epam.project.action.hotel.HotelCommand;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.ServletLogicException;
@@ -25,16 +23,16 @@ import java.util.List;
  *
  * @author User
  */
-public class GoEditDirection implements ActionCommand {
+public class GoEditDirection extends DirectionCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.editdirection");
         request.setSessionAttribute(JSP_PAGE, page);
         
-        formCountryList(request);
-        formCityList(request);
-        formHotelList(request);
+        new CountryCommand().formCountryList(request);
+        new CityCommand().formCityList(request);
+        new HotelCommand().formHotelList(request);
         formTourTypeList(request);
         formTransModeList(request);
         

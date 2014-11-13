@@ -86,8 +86,8 @@
         </div>
         <div class="parameterRow centrale">
             <input class="large magenta awesome" type="submit" value="<fmt:message key="pay" bundle="${ rb }" />"/>
-            <div id="erNote">${errorSaveData}</div>
-            <div id="erNote">${errorReason}</div>
+            <div id="erNote">${errorSave}</div>
+            <div id="erNote">${errorSaveReason}</div>
         </div>
     </form>
 </div>

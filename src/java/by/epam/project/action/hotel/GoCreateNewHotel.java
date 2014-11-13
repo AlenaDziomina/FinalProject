@@ -12,8 +12,8 @@ import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
 import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_PAGE;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.city.GoShowCity.formCityList;
-import static by.epam.project.action.country.GoShowCountry.formCountryList;
+import by.epam.project.action.city.CityCommand;
+import by.epam.project.action.country.CountryCommand;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -21,14 +21,14 @@ import by.epam.project.manager.ConfigurationManager;
  *
  * @author User
  */
-public class GoCreateNewHotel implements ActionCommand {
+public class GoCreateNewHotel extends HotelCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edithotel");
         request.setSessionAttribute(JSP_PAGE, page);
-        formCountryList(request);
-        formCityList(request);
+        new CountryCommand().formCountryList(request);
+        new CityCommand().formCityList(request);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         request.setSessionAttribute(JSP_CURR_CITY_LIST, request.getSessionAttribute(JSP_CITY_LIST));
         return page;

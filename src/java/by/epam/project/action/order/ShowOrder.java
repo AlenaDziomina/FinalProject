@@ -9,8 +9,6 @@ package by.epam.project.action.order;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.order.GoShowUserOrder.cleanSessionShowOrder;
-import static by.epam.project.action.order.GoShowUserOrder.resaveParamsShowOrder;
 import by.epam.project.entity.Order;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -22,13 +20,13 @@ import java.util.Objects;
  *
  * @author User
  */
-public class ShowOrder implements ActionCommand {
+public class ShowOrder extends OrderCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.order");
         String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
-        resaveParamsShowOrder(request);
+        
         showSelectedOrder(request);
         if(page == null ? prevPage == null : !page.equals(prevPage)){
             request.setSessionAttribute(JSP_PAGE, page);
@@ -56,4 +54,5 @@ public class ShowOrder implements ActionCommand {
         }
         request.setSessionAttribute(JSP_CURRENT_ORDER, currOrder);
     }
+    
 }

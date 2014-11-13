@@ -20,7 +20,7 @@ import java.util.Objects;
  *
  * @author User
  */
-public class ShowCitiesOfCountry implements ActionCommand {
+public class ShowCitiesOfCountry extends CityCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {

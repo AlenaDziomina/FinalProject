@@ -29,7 +29,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class DeleteOrder implements ActionCommand {
+public class DeleteOrder extends OrderCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -61,13 +61,10 @@ public class DeleteOrder implements ActionCommand {
             order.setStatus(DELETED);
             return new ShowOrder().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorDeleteReason", ex.getMessage());
+            request.setAttribute("errorDelete", "errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }
-    }
-    
-    
+    }   
 }

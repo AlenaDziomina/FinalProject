@@ -26,12 +26,11 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class DeleteCountry implements ActionCommand {
+public class DeleteCountry extends CountryCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");
-        
         Criteria criteria = new Criteria();
         Country currCountry = (Country) request.getSessionAttribute(JSP_CURRENT_COUNTRY);
         if (currCountry != null) {
@@ -47,12 +46,11 @@ public class DeleteCountry implements ActionCommand {
         }
         
         try {
-            Integer resIdCountry = new CountryLogic().doDeleteEntity(criteria);
+            new CountryLogic().doDeleteEntity(criteria);
             return new GoShowCountry().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorDeleteReason", ex.getMessage());
+            request.setAttribute("errorDelete", "errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

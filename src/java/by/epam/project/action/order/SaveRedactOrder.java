@@ -24,14 +24,14 @@ import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.OrderLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
+import by.epam.project.manager.Validator;
 import java.util.List;
 
 /**
  *
  * @author User
  */
-public class SaveRedactOrder implements ActionCommand {
+public class SaveRedactOrder extends OrderCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -41,12 +41,12 @@ public class SaveRedactOrder implements ActionCommand {
         
             Criteria criteria = new Criteria();
             Order order = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
+            Validator.validateOrder(order);
             if (order != null) {
                 Integer idOrder = order.getIdOrder();
                 if (idOrder != null) {
                     criteria.addParam(DAO_ID_ORDER, idOrder);
                 }
-                
                 criteria.addParam(DAO_ORDER_TOURIST_LIST, order.getTouristCollection());
             }
         
@@ -63,9 +63,8 @@ public class SaveRedactOrder implements ActionCommand {
             request.setParameter(JSP_SELECT_ID, resIdOrder.toString());
             return new ShowOrder().execute(request);
         } catch (TechnicalException | LogicException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorSaveReason", ex.getMessage());
+            request.setAttribute("errorSave", "errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }
@@ -105,6 +104,7 @@ public class SaveRedactOrder implements ActionCommand {
             tourist.setMiddleName(middleName[i]);
             tourist.setLastName(lastName[i]);
             tourist.setPassport(passport[i]);
+            Validator.validateTourist(tourist);
         }
         request.setSessionAttribute(JSP_CURRENT_ORDER, order);
     }

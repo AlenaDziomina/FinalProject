@@ -16,7 +16,7 @@ import by.epam.project.manager.ConfigurationManager;
  *
  * @author User
  */
-public class GoEditOrder implements ActionCommand {
+public class GoEditOrder extends OrderCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {

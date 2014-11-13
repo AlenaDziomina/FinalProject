@@ -9,11 +9,10 @@ package by.epam.project.action.country;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.city.GoShowCity.formCityList;
-import static by.epam.project.action.direction.SaveRedactDirection.resaveParamsSaveDirection;
-import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
-import static by.epam.project.action.hotel.SaveRedactHotel.resaveParamsSaveHotel;
-import static by.epam.project.action.tour.SearchTour.resaveParamsSearchTour;
+import by.epam.project.action.city.CityCommand;
+import by.epam.project.action.direction.DirectionCommand;
+import by.epam.project.action.hotel.HotelCommand;
+import by.epam.project.action.tour.TourCommand;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Hotel;
 import by.epam.project.exception.ServletLogicException;
@@ -25,7 +24,7 @@ import java.util.List;
  *
  * @author User
  */
-public class IfCountrySelected implements ActionCommand {
+public class IfCountrySelected extends CountryCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -39,14 +38,14 @@ public class IfCountrySelected implements ActionCommand {
             if (idCountry != 0) {
                 request.setAttribute(JSP_ID_COUNTRY, idCountry);
             }
-            formCityList(request);
+            new CityCommand().formCityList(request);
             List<City> cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
             request.setSessionAttribute(JSP_CURR_CITY_LIST, cityList);
             
             List<Hotel> commonHotelList = new ArrayList();
             for (City c : cityList) {
                 request.setAttribute(JSP_ID_CITY, c.getIdCity());
-                formHotelList(request);
+                new HotelCommand().formHotelList(request);
                 List<Hotel> hotelList = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
                 commonHotelList.addAll(hotelList);
             }
@@ -62,11 +61,11 @@ public class IfCountrySelected implements ActionCommand {
         String editDirectionPage = ConfigurationManager.getProperty("path.page.editdirection");
         String searchingPage = ConfigurationManager.getProperty("path.page.tours");
         if (page == null ? editHotelPage == null : page.equals(editHotelPage)) {
-            resaveParamsSaveHotel(request);
+            new HotelCommand().resaveParamsSaveHotel(request);
         } else if (page == null ? editDirectionPage == null : page.equals(editDirectionPage)) {
-            resaveParamsSaveDirection(request);
+            new DirectionCommand().resaveParamsSaveDirection(request);
         } else if (page == null ? searchingPage == null : page.equals(searchingPage)) {
-            resaveParamsSearchTour(request);
+            new TourCommand().resaveParamsSearchTour(request);
         }
     }
     

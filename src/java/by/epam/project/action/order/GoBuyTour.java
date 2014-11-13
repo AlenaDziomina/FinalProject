@@ -33,7 +33,7 @@ import java.util.List;
  *
  * @author User
  */
-public class GoBuyTour implements ActionCommand {
+public class GoBuyTour extends OrderCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {

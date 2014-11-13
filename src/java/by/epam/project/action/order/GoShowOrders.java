@@ -9,9 +9,6 @@ package by.epam.project.action.order;
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.action.order.GoShowUserOrder.cleanSessionShowOrder;
-import static by.epam.project.action.order.GoShowUserOrder.getOrderStatus;
-import static by.epam.project.action.order.GoShowUserOrder.resaveParamsShowOrder;
 import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
@@ -31,7 +28,7 @@ import java.util.List;
  *
  * @author User
  */
-public class GoShowOrders implements ActionCommand {
+public class GoShowOrders extends OrderCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {

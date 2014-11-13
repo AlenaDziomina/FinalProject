@@ -26,7 +26,7 @@ import by.epam.project.manager.MessageManager;
  *
  * @author User
  */
-public class RestoreCountry implements ActionCommand {
+public class RestoreCountry extends CountryCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -47,12 +47,11 @@ public class RestoreCountry implements ActionCommand {
         }
         
         try {
-            Integer resIdCountry = new CountryLogic().doRestoreEntity(criteria);
+            new CountryLogic().doRestoreEntity(criteria);
             return new GoShowCountry().execute(request);
         } catch (TechnicalException ex) {
-            request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorRestoreReason", ex.getMessage());
+            request.setAttribute("errorRestore", "errorRestoreData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

@@ -29,7 +29,7 @@
     
             <div class="parameterRow centrale">
                 <input class="large blue awesome" type="submit" value="<fmt:message key="log_in" bundle="${ rb }" />" onclick="saveLogin()"/>
-                <div id="erNote">${errorLoginPassMessage}</div>   
+                <div id="erNote"><fmt:message key="${errorLoginPassMessage}" bundle="${ rb }" /></div> 
                 <div id="erNote">${wrongAction}</div>
                 <div id="erNote">${nullPage}</div>
             </div>

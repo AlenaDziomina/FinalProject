@@ -64,14 +64,15 @@
                 </ctg:RoleUserTag>
                 <ctg:RoleTag>
                     <input class="large red awesome" type="submit" value="<fmt:message key="deleteUser" bundle="${ rb }" />" onclick="postUser('controller', 'DeleteUser', 'POST')"/>
-                    <div id="erNote">${errorSaveData}</div>
-                    <div id="erNote">${errorReason}</div>
-                    <div id="erAdminNote">${errorAdminMsg}</div>
+                    <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
+                    <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
                 </ctg:RoleTag>
             </c:when>
             <c:when test="${currUser.status == 0}">
                 <ctg:RoleTag>
                     <input class="large green awesome" type="submit" value="<fmt:message key="restoreUser" bundle="${ rb }" />" onclick="postUser('controller', 'RestoreUser', 'POST')"/>
+                    <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
+                    <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
                 </ctg:RoleTag>
              </c:when>
         </c:choose>   

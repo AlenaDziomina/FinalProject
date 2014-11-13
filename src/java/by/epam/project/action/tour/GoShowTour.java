@@ -7,67 +7,12 @@
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_CITIES;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_COUNTRIES;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DAYS_COUNT;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DEPART_DATE;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_HOTELS;
-import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_PRICE;
-import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_HOTEL;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_ORDER;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_USER;
-import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_LIST;
-import static by.epam.project.action.JspParamNames.JSP_CURR_CITY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_COUNTRY_TAGS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DAYS_COUNT_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DAYS_COUNT_TO;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE_TO;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DISCOUNT_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_HOTEL_STARS;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_CITY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_COUNTRY;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ID_HOTEL;
-import static by.epam.project.action.JspParamNames.JSP_CURR_PRICE_FROM;
-import static by.epam.project.action.JspParamNames.JSP_CURR_PRICE_TO;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TOUR_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_TRANS_MODE;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_LIST;
-import static by.epam.project.action.JspParamNames.JSP_DIRECTION_VALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_DISCOUNT_STEP;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
-import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
-import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
-import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
-import static by.epam.project.action.JspParamNames.JSP_ORDER_LIST;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_PAGE_LIST;
-import static by.epam.project.action.JspParamNames.JSP_PRICE_STEP;
-import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_LIST;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_TYPE_LIST;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_DATE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_TRANS_MODE_LIST;
-import static by.epam.project.action.JspParamNames.JSP_USER;
-import static by.epam.project.action.JspParamNames.JSP_USER_LIST;
-import static by.epam.project.action.city.GoShowCity.formCityList;
-import static by.epam.project.action.country.GoShowCountry.formCountryList;
-import static by.epam.project.action.direction.GoShowDirections.formTourTypeList;
-import static by.epam.project.action.direction.GoShowDirections.formTransModeList;
-import static by.epam.project.action.hotel.GoShowHotel.formHotelList;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
+import by.epam.project.action.city.CityCommand;
+import by.epam.project.action.country.CountryCommand;
+import by.epam.project.action.direction.DirectionCommand;
+import by.epam.project.action.hotel.HotelCommand;
 import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
@@ -87,24 +32,24 @@ import java.util.List;
  *
  * @author User
  */
-public class GoShowTour implements ActionCommand {
+public class GoShowTour extends TourCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.tours");
         request.setSessionAttribute(JSP_PAGE, page);
-        formTourList(request);
-        formCountryList(request);
-        formCityList(request);
-        formHotelList(request);
-        formTourTypeList(request);
-        formTransModeList(request);
+        formTourSearchList(request);
+        new CountryCommand().formCountryList(request);
+        new CityCommand().formCityList(request);
+        new HotelCommand().formHotelList(request);
+        new DirectionCommand().formTourTypeList(request);
+        new DirectionCommand().formTransModeList(request);
         cleanSessionShowTour(request);
         setDefaultParameters(request);
         return page;
     }
     
-    private static void formTourList(SessionRequestContent request) throws ServletLogicException {
+    private void formTourSearchList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
         User user = (User) request.getSessionAttribute(JSP_USER);
