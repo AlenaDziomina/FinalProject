@@ -79,7 +79,7 @@ public class SaveRedactTour extends TourCommand implements ActionCommand {
             return new ShowTour().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
-            request.setAttribute("errorSave", "errorSaveData");
+            request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }       

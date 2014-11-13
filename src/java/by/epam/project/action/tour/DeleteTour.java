@@ -59,7 +59,7 @@ public class DeleteTour extends TourCommand implements ActionCommand {
             return new ShowTour().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorDeleteReason", ex.getMessage());
-            request.setAttribute("errorDelete", "errorDeleteData");
+            request.setAttribute("errorDelete", "message.errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

@@ -11,7 +11,10 @@ import static by.epam.project.action.JspParamNames.ACTIVE;
 import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ID_ROLE;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_BALANCE;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_DISCOUNT;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_EMAIL;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_STATUS;
@@ -68,7 +71,12 @@ public class UserLogic extends AbstractLogic {
         crit1.addParam(DAO_USER_LOGIN, criteria.getParam(DAO_USER_LOGIN));
         Criteria crit2 = new Criteria();
         crit2.addParam(DAO_USER_EMAIL, criteria.getParam(DAO_USER_EMAIL));
-        
+        Criteria crit3 = new Criteria();
+        crit3.addParam(DAO_ROLE_NAME, "user");
+        Integer idRole = dao.showRoles(crit3).get(0).getIdRole();
+        criteria.addParam(DAO_ID_ROLE, idRole);
+        criteria.addParam(DAO_USER_BALANCE, 0f);
+        criteria.addParam(DAO_USER_DISCOUNT, 0);
         if (dao.showUsers(crit1).isEmpty() && dao.showUsers(crit2).isEmpty()) {
             return dao.createNewUser(criteria);
         } 

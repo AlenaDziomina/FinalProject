@@ -50,7 +50,7 @@ public class DeleteCountry extends CountryCommand implements ActionCommand {
             return new GoShowCountry().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorDeleteReason", ex.getMessage());
-            request.setAttribute("errorDelete", "errorDeleteData");
+            request.setAttribute("errorDelete", "message.errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

@@ -81,6 +81,7 @@ public class GoCreateNewOrder extends OrderCommand implements ActionCommand {
             tourist.setMiddleName(middleName[i]);
             tourist.setLastName(lastName[i]);
             tourist.setPassport(passport[i]);
+            Validator.validateTourist(tourist);
             touristList.add(tourist);
         }
         order.setTouristCollection(touristList);

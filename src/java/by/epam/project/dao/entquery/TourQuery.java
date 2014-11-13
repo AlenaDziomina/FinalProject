@@ -68,6 +68,9 @@ public class TourQuery implements TypedQuery<Tour>{
     
     private static final String UPDATE_QUERY = 
             "Update " + DB_TOUR + " set ";
+    
+    private static final String LOCK_QUERY = 
+            " for update";
 
     public static Tour createBean(Criteria criteria) {
         Tour bean = new Tour();
@@ -133,6 +136,10 @@ public class TourQuery implements TypedQuery<Tour>{
             queryStr = LOAD_QUERY;
         } else {
             queryStr = LOAD_QUERY + queryStr;
+        }
+        Boolean forApdate = (Boolean) criteria.getParam(DAO_TOUR_SELECT_FOR_UPDATE);
+        if (forApdate != null && forApdate) {
+            queryStr += LOCK_QUERY;
         }
         
         try {

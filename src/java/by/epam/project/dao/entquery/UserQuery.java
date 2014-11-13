@@ -66,6 +66,9 @@ public class UserQuery implements TypedQuery<User>{
 
     private static final String UPDATE_QUERY = 
             "Update " + DB_USER + " set ";
+    
+    private static final String LOCK_QUERY = 
+            " for update";
         
     public static User createBean(Criteria criteria) {
         User bean = new User();
@@ -131,7 +134,11 @@ public class UserQuery implements TypedQuery<User>{
         } else {
             queryStr = LOAD_QUERY + queryStr;
         }
-        
+        Boolean forApdate = (Boolean) criteria.getParam(DAO_USER_SELECT_FOR_UPDATE);
+        if (forApdate != null && forApdate) {
+            queryStr += LOCK_QUERY;
+        }
+    
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 User bean = new User();

@@ -5,10 +5,11 @@
 --%>
 
 
-    <h>Error Page DAO</h>
+    <h>Error Page</h>
         Request from ${pageContext.errorData.requestURI} is failed<br/>
         Servlet name or type: ${pageContext.errorData.servletName}<br/>
         Status code: ${pageContext.errorData.statusCode}<br/>
-        Exception: ${pageContext.errorData.throwable}
+        Exception: ${pageContext.errorData.throwable}<br/>
+        Message: <fmt:message key="${pageContext.errorData.throwable.message}" bundle="${ rb }" /><br/>
     </body>
 

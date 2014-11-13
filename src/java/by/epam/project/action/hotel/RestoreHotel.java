@@ -51,7 +51,7 @@ public class RestoreHotel extends HotelCommand implements ActionCommand {
             return new GoShowHotel().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorRestoreReason", ex.getMessage());
-            request.setAttribute("errorRestore", "errorRestoreData");
+            request.setAttribute("errorRestore", "message.errorRestoreData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

@@ -62,7 +62,7 @@ public class DeleteOrder extends OrderCommand implements ActionCommand {
             return new ShowOrder().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorDeleteReason", ex.getMessage());
-            request.setAttribute("errorDelete", "errorDeleteData");
+            request.setAttribute("errorDelete", "message.errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

@@ -59,10 +59,7 @@ public class PayForOrder extends OrderCommand implements ActionCommand {
             return new GoShowUserOrder().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
-            if (ex.getCause() != null) {
-                request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            }
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorSaveData", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }       

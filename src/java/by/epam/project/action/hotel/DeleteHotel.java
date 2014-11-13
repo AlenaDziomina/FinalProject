@@ -51,7 +51,7 @@ public class DeleteHotel extends HotelCommand implements ActionCommand {
             return new GoShowHotel().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorDeleteReason", ex.getMessage());
-            request.setAttribute("errorDelete", "errorDeleteData");
+            request.setAttribute("errorDelete", "message.errorDeleteData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

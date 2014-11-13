@@ -52,7 +52,7 @@ public class RestoreDirection extends DirectionCommand implements ActionCommand 
             return new ShowDirection().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorRestoreReason", ex.getMessage());
-            request.setAttribute("errorRestore", "errorRestoreData");
+            request.setAttribute("errorRestore", "message.errorRestoreData");
             request.setSessionAttribute(JSP_PAGE, page);
             return page;
         }

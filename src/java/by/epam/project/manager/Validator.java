@@ -29,7 +29,7 @@ public class Validator {
     private static final String LOGIN_ERROR_MSG = "message.errorLogin";
     private static final int PASSWORD_SIZE = 20;
     private static final String PASSWORD_ERROR_MSG = "message.errorPassword"; //errorRepeatPass
-    private static final int PHONE_SIZE = 16;
+    private static final int PHONE_SIZE = 17;
     private static final String PHONE_ERROR_MSG = "message.errorPhone";
     private static final int EMAIL_SIZE = 60;
     private static final String EMAIL_ERROR_MSG = "message.errorEmail";
@@ -146,7 +146,7 @@ public class Validator {
         if (passport == null || passport.isEmpty() || passport.length() > PASSPORT_SIZE) {
             throw new TechnicalException(PASSPORT_ERROR_MSG);
         }
-        String regex = "[A-Z]{2}\\\\d{7}";
+        String regex = "[A-Z]{2}\\d{7}";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(passport);
         if (! m.matches()) {

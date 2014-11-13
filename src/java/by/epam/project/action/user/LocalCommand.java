@@ -55,11 +55,10 @@ public class LocalCommand implements ActionCommand {
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         
         try {
-            Integer res = new UserLogic().doRedactEntity(criteria);           
+            new UserLogic().doRedactEntity(criteria);           
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
-            request.setAttribute("errorAdminMsg", ex.getCause().getMessage());
-            request.setAttribute("errorSaveData", MessageManager.getProperty("message.errorsavedata"));
+            request.setAttribute("errorSaveData", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
         }  
         return page;

@@ -115,7 +115,7 @@ public class SearchTour extends TourCommand implements ActionCommand {
             List<Tour> tours = new SearchLogic().doGetEntity(criteria);
             if (tours.isEmpty()) {
                 request.deleteSessionAttribute(JSP_TOUR_LIST);
-                request.setAttribute("emptysearch", MessageManager.getProperty("message.emptysearch"));
+                request.setAttribute("emptysearch", "message.emptySearch");
                 request.setSessionAttribute(JSP_IS_HIDDEN, false);
                 request.deleteSessionAttribute(JSP_PAGE_LIST);
             } else {

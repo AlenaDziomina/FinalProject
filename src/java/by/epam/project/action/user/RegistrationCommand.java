@@ -16,6 +16,7 @@ import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PASSWORD;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PHONE;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
@@ -53,13 +54,13 @@ public class RegistrationCommand implements ActionCommand {
         
             Integer res = new UserLogic().doRedactEntity(criteria);
             if (res == null) {
-                request.setAttribute("errorLoginPassMessage", "message.passLoginError");
+                request.setAttribute("errorLoginPassMessage", "message.errorLoginExist");
             } else {
                 return null;
             }
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
-            request.setAttribute("errorSave", "errorSaveData");
+            request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
         }   
         return page;
@@ -69,6 +70,7 @@ public class RegistrationCommand implements ActionCommand {
         User currUser = (User) request.getSessionAttribute(JSP_CURRENT_USER);
         if (currUser == null) {
             currUser = new User();
+            currUser.setRole(new Role());
         }
         currUser.setLogin(request.getParameter(JSP_USER_LOGIN));
         currUser.setPhone(request.getParameter(JSP_USER_PHONE));
