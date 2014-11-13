@@ -44,13 +44,13 @@
                 <c:when test="${currCity.status == 1}">
                     <input class="large orange awesome" type="submit" value="<fmt:message key="editCity" bundle="${ rb }" />" onclick="postCity('controller', 'goEditCity', 'POST')"/>
                     <input class="large red awesome" type="submit" value="<fmt:message key="deleteCity" bundle="${ rb }" />" onclick="postCity('controller', 'DeleteCity', 'POST')"/>
-                    <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
-                    <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorDelete}"><fmt:message key="${errorDelete}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorDeleteReason}"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 </c:when>
                 <c:when test="${currCity.status == 0}">
                     <input class="large green awesome" type="submit" value="<fmt:message key="restoreCity" bundle="${ rb }" />" onclick="postCity('controller', 'RestoreCity', 'POST')"/>
-                    <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
-                    <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestore}"><fmt:message key="${errorRestore}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestoreReason}"><fmt:message key="${errorrestoreReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 </c:when>
             </c:choose>   
         </ctg:RoleTag>

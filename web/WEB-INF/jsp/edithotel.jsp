@@ -33,7 +33,7 @@
                             <option class="selectItem" value="${row.idCity}"><fmt:message key="${row.name}" bundle="${ rb }" /></option>
                         </c:forEach>
                     </select>
-                    <div id="erNote"><a id="selectCityErrMsg" hidden="true"><fmt:message key="errorSelectCity" bundle="${ rb }" /></a></div> 
+                    <div id="erNote"><a id="selectCityErrMsg" hidden="true"><fmt:message key="message.errorSelectCity" bundle="${ rb }" /></a></div> 
                     <script>select("currCity", ${currIdCity});</script>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="input inner">
                     <input type="text" id="nameHotel" name="nameHotel" class="inputLineContainer"  value="${currHotel.name}"/>
-                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="errorName" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="message.errorName" bundle="${ rb }" /></a></div>
                 </div>
             </div>
                     
@@ -60,7 +60,7 @@
                         </c:forEach>
                     </select>
                     <script>select("currStars", ${currHotel.stars});</script>
-                    <div id="erNote"><a id="selectStarsErrMsg" hidden="true"><fmt:message key="errorSelectStars" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="selectStarsErrMsg" hidden="true"><fmt:message key="message.errorSelectStars" bundle="${ rb }" /></a></div>
                 </div>
             </div>   
           
@@ -70,7 +70,7 @@
                 </div>
                 <div class="input inner">
                     <input type="text" id="pictureHotel" name="pictureHotel" class="inputLineContainer" value="${currHotel.picture}"/>
-                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="errorPicture" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="message.errorPicture" bundle="${ rb }" /></a></div>
                 </div>      
             </div>
             
@@ -85,8 +85,8 @@
             
             <div class="parameterRow centrale">
                 <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllHotel('saveRedactHotel')" />
-                <div id="erNote"><fmt:message key="${errorSave}" bundle="${ rb }" /></div>
-                <div id="erNote"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></div>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorSave}"><fmt:message key="${errorSave}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorSaveReason}"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
             </div>
         </div>
     </form>

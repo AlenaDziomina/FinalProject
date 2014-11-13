@@ -11,6 +11,7 @@ import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.action.tour.TourCommand;
 import by.epam.project.entity.Direction;
+import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
@@ -40,6 +41,11 @@ public class ShowDirection extends DirectionCommand implements ActionCommand {
             List<Direction> list = (List<Direction>) request.getSessionAttribute(JSP_DIRECTION_LIST);
             if (!list.isEmpty()){
                 request.setSessionAttribute(JSP_CURRENT_DIRECTION, list.get(0));
+            } else {
+                Order currOrder = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
+                if (currOrder != null) {
+                    request.setSessionAttribute(JSP_CURRENT_DIRECTION, currOrder.getTour().getDirection());
+                }
             }
         } else {
             Direction direction = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);

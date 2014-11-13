@@ -17,7 +17,7 @@
                                 <option class="selectItem" value="${row.idTourType}"><fmt:message key="${row.nameTourType}" bundle="${ rb }" /></option>   
                             </c:forEach>
                         </select>
-                        <div id="erNote"><a id="selectTourTypeErrMsg" hidden="true"><fmt:message key="errorSelectTourType" bundle="${ rb }" /></a></div>
+                        <div id="erNote"><a id="selectTourTypeErrMsg" hidden="true"><fmt:message key="message.errorSelectTourType" bundle="${ rb }" /></a></div>
                     </div>
                     <script>select("tourType", ${currDirection.tourType.idTourType});</script>
                             
@@ -29,7 +29,7 @@
                                 <option class="selectItem" value="${row.idMode}"><fmt:message key="${row.nameMode}" bundle="${ rb }" /></option>
                             </c:forEach>
                         </select>
-                        <div id="erNote"><a id="selectTransModeErrMsg" hidden="true"><fmt:message key="errorSelectTransMode" bundle="${ rb }" /></a></div>
+                        <div id="erNote"><a id="selectTransModeErrMsg" hidden="true"><fmt:message key="message.errorSelectTransMode" bundle="${ rb }" /></a></div>
                     </div>
                     <script>select("transMode", ${currDirection.transMode.idMode});</script>
                 </div>
@@ -122,16 +122,16 @@
                 <div class="padinput">
                     <h1 class="cntr labelH"><fmt:message key="directName" bundle="${ rb }" />: </h1> 
                     <input type="text" class="large inputLineContainer" id="nameDirection" name="nameDirection" value="${currDirection.name}"/> 
-                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="errorName" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="nameErrMsg" hidden="true"><fmt:message key="message.errorName" bundle="${ rb }" /></a></div>
                     
                     <h1 class="cntr labelH"><fmt:message key="directPicture" bundle="${ rb }" />:</h1> 
                     <input type="text" class="large inputLineContainer" id="pictureDirection" name="pictureDirection"   value="${currDirection.picture}"/>
-                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="errorPicture" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="pictureErrMsg" hidden="true"><fmt:message key="message.errorPicture" bundle="${ rb }" /></a></div>
                 </div>
                 <div class="large padinput">
                     <h1 class="cntr labelH"><fmt:message key="directText" bundle="${ rb }" />: </h1> 
                     <textarea id="textDirection" name="textDirection" class="small inputMultilineineContainer">${currDirection.text}</textarea>
-                    <div id="erNote"><a id="textErrMsg" hidden="true"><fmt:message key="errorTextDir" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="textErrMsg" hidden="true"><fmt:message key="message.errorTextDir" bundle="${ rb }" /></a></div>
                 </div>    
             </div>
             
@@ -146,8 +146,8 @@
                    
             <div class="parameterRow centrale">
                 <input class="large magenta awesome" type="submit" value="<fmt:message key="save" bundle="${ rb }" />" onclick="saveAllDirection('saveRedactDirection')"/>
-                <div id="erNote"><fmt:message key="${errorSave}" bundle="${ rb }" /></div>
-                <div id="erNote"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></div>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorSave}"><fmt:message key="${errorSave}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorSaveReason}"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
             </div>   
         </div>  
     </form>

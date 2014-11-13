@@ -32,6 +32,8 @@ import java.util.List;
  * @author User
  */
 public class SaveRedactOrder extends OrderCommand implements ActionCommand {
+    private static final String MSG_ERR_NULL_ENTITY = "message.errorNullEntity";
+    private static final String MSG_ERR_TOURIST_ENTITY = "message.errorTableTourist";
 
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
@@ -70,34 +72,26 @@ public class SaveRedactOrder extends OrderCommand implements ActionCommand {
         }
     }
 
-    private void resaveParamsSaveOrder(SessionRequestContent request) throws TechnicalException, LogicException {
+    private void resaveParamsSaveOrder(SessionRequestContent request) throws TechnicalException {
         
         Order order = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
         if (order == null) {
-            throw new TechnicalException("Redacted order is null.");
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
         }
-        List<Tourist> touristList = (List<Tourist>) order.getTouristCollection();
         Integer seats = order.getSeats();
-        if (touristList.size() != seats) {
-            throw new TechnicalException("Count of tourists not equals to count of tourists.");
-        }
+        List<Tourist> touristList = (List<Tourist>) order.getTouristCollection();
         String[] firstName = request.getAllParameters(JSP_TOURIST_FIRST_NAME);
-        if (firstName == null || firstName.length < seats) {
-            throw new TechnicalException("Error in first name data.");
-        }
         String[] middleName = request.getAllParameters(JSP_TOURIST_MIDDLE_NAME);
-        if (middleName == null || middleName.length < seats) {
-            throw new TechnicalException("Error in middle name data.");
-        }
         String[] lastName = request.getAllParameters(JSP_TOURIST_LAST_NAME);
-        if (lastName == null || lastName.length < seats) {
-            throw new TechnicalException("Error in last name data.");
-        }
         String[] passport = request.getAllParameters(JSP_TOURIST_PASSPORT);
-        if (passport == null || passport.length < seats) {
-            throw new TechnicalException("Error in passport data.");
-        }
                 
+        if (touristList.size() != seats || firstName == null || firstName.length < seats
+                || middleName == null || middleName.length < seats 
+                || lastName == null || lastName.length < seats
+                || passport == null || passport.length < seats) {
+            throw new TechnicalException(MSG_ERR_TOURIST_ENTITY);
+        }
+                        
         for (int i = 0; i < seats; i++) {
             Tourist tourist = touristList.get(i);
             tourist.setFirstName(firstName[i]);

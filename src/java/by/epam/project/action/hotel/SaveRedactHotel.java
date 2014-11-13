@@ -46,27 +46,24 @@ public class SaveRedactHotel extends HotelCommand implements ActionCommand {
         resaveParamsSaveHotel(request);
         try {
             Criteria criteria = new Criteria();
-            checkIntParam(request, criteria, JSP_CURR_ID_COUNTRY, DAO_ID_COUNTRY);
-            checkIntParam(request, criteria, JSP_CURR_ID_CITY, DAO_ID_CITY);
             Hotel hotel = (Hotel) request.getSessionAttribute(JSP_CURRENT_HOTEL);
             Validator.validateHotel(hotel);
-            if (hotel != null) {
-                Integer idHotel = hotel.getIdHotel();
-                if (idHotel != null) {
-                    criteria.addParam(DAO_ID_HOTEL, idHotel);
-                }
-                Integer idDescription = hotel.getDescription().getIdDescription();
-                if (idDescription != null) {
-                    criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-                }
-                Integer stars = hotel.getStars();
-                if (stars != null) {
-                    criteria.addParam(DAO_HOTEL_STARS, stars);
-                }
-                criteria.addParam(DAO_HOTEL_NAME, hotel.getName());
-                criteria.addParam(DAO_HOTEL_PICTURE, hotel.getPicture());
-                criteria.addParam(DAO_DESCRIPTION_TEXT, hotel.getDescription().getText());
+            Integer idHotel = hotel.getIdHotel();
+            if (idHotel != null) {
+                criteria.addParam(DAO_ID_HOTEL, idHotel);
             }
+            Integer idDescription = hotel.getDescription().getIdDescription();
+            if (idDescription != null) {
+                criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+            }
+            Integer stars = hotel.getStars();
+            if (stars != null) {
+                criteria.addParam(DAO_HOTEL_STARS, stars);
+            }
+            criteria.addParam(DAO_HOTEL_NAME, hotel.getName());
+            criteria.addParam(DAO_HOTEL_PICTURE, hotel.getPicture());
+            criteria.addParam(DAO_DESCRIPTION_TEXT, hotel.getDescription().getText());
+            criteria.addParam(DAO_ID_CITY, hotel.getCity().getIdCity());
         
             User user = (User) request.getSessionAttribute(JSP_USER);
             if (user != null) {

@@ -38,6 +38,7 @@ import by.epam.project.entity.Tourist;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoLogicException;
+import static by.epam.project.logic.DirectionLogic.fillDirections;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.PriceDiscountManager;
 import java.util.List;
@@ -124,7 +125,7 @@ public class OrderLogic extends AbstractLogic {
         crit[0].addParam(DAO_USER_SELECT_FOR_UPDATE, true);
         List<User> companys = dao.showUsers(crit[0]);
         if (companys.isEmpty()) {
-            throw new DaoLogicException("Company not found.");
+            throw new DaoException("Company not found.");
         }
         Float companyBalance = companys.get(0).getBalance();
         Float finalPrice = (Float) criteria.getParam(DAO_ORDER_FINAL_PRICE);
@@ -208,6 +209,7 @@ public class OrderLogic extends AbstractLogic {
                     crit4.addParam(DAO_DIRECTION_ALLSTATUS, true);
                     List<Direction> dirs = dao.showDirections(crit4);
                     if (!dirs.isEmpty()) {
+                        fillDirections(dirs, dao);
                         tour.setDirection(dirs.get(0));
                     }
                 }

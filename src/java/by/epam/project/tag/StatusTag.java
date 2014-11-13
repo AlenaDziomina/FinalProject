@@ -6,12 +6,18 @@
 
 package by.epam.project.tag;
 
+import static by.epam.project.action.JspParamNames.JSP_USER;
+import by.epam.project.entity.ClientType;
+import by.epam.project.entity.User;
+import by.epam.project.manager.ClientTypeManager;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+import static javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE;
+import static javax.servlet.jsp.tagext.Tag.SKIP_BODY;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
@@ -23,6 +29,7 @@ public class StatusTag extends TagSupport {
     private String ifValid;
     private String ifInvalid;
     private String href;
+    private String role;
 
     /**
      * Called by the container to invoke this tag. The implementation of this
@@ -35,6 +42,17 @@ public class StatusTag extends TagSupport {
     public int doStartTag() throws JspException {
         try {
             JspWriter out = pageContext.getOut();
+            if (role != null && (status == null || status == 0)) {
+                User user = (User) pageContext.getSession().getAttribute(JSP_USER);
+                if (user == null || status == null) {
+                    return SKIP_BODY;
+                }
+                ClientType type = ClientTypeManager.clientTypeOf(role);
+                ClientType currType = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+                if (type != currType) {
+                    return SKIP_BODY;
+                }
+            }
             if (ifValid != null && ifValid == "tr") {
                 if (status != null && status == 1) {
                     out.write("<tr");
@@ -101,6 +119,9 @@ public class StatusTag extends TagSupport {
         this.href = href;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
     
     
 }

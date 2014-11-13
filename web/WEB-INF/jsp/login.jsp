@@ -8,7 +8,6 @@
     <form name="loginForm" method="POST" action="controller">
         <div class="inner">
             <input type="hidden" name="command" value="login" />
-            
             <div class="parameterRow">
                 <div class="mid input">
                     <h1 class="labelH"><fmt:message key="login" bundle="${ rb }" />: </h1> 
@@ -29,9 +28,8 @@
     
             <div class="parameterRow centrale">
                 <input class="large blue awesome" type="submit" value="<fmt:message key="log_in" bundle="${ rb }" />" onclick="saveLogin()"/>
-                <div id="erNote"><fmt:message key="${errorLoginPassMessage}" bundle="${ rb }" /></div> 
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorLoginPassMessage}"><fmt:message key="${errorLoginPassMessage}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 <div id="erNote">${wrongAction}</div>
-                <div id="erNote">${nullPage}</div>
             </div>
         </div>
     </form>

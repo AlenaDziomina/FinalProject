@@ -9,7 +9,8 @@
         <div class="parameterRowB">
             <ctg:ImgTag classImg="smallimg" idImg="images" nameImg="${currOrder.tour.direction.picture}"/>
             <div class="padB">
-                <ctg:StatusTag status="${currOrder.tour.direction.status}" href="controller?command=showDirection&selectId=${currOrder.tour.direction.idDirection}" ifValid="nodec cntr labelH" ifInvalid="nodec cntr grey labelH">
+                <ctg:StatusTag status="${currOrder.tour.direction.status}" 
+                    href="controller?command=showDirection&selectId=${currOrder.tour.direction.idDirection}" ifValid="nodec cntr labelH" ifInvalid="nodec cntr grey labelH">
                     ${currOrder.tour.direction.name} ${currOrder.tour.departDate}   (${currOrder.tour.daysCount} <fmt:message key="days" bundle="${ rb }" />)
                 </ctg:StatusTag>
             </div>
@@ -95,8 +96,8 @@
             </ctg:RoleTag>
             <ctg:RoleUserTag>
                 <input class="large red awesome" type="submit" value="<fmt:message key="deleteOrder" bundle="${ rb }" />" onclick="postOrder('controller', 'DeleteOrder', 'POST')"/>
-                <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
-                <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorDelete}"><fmt:message key="${errorDelete}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorDeleteReason}"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
             </ctg:RoleUserTag>
         </c:if>
     </div>

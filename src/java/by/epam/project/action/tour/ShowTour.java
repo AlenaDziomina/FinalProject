@@ -13,10 +13,14 @@ import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DAYS_COUNT;
 import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_DEPART_DATE;
 import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_HOTELS;
 import static by.epam.project.action.JspParamNames.JSP_BOX_ALL_PRICE;
+import static by.epam.project.action.JspParamNames.JSP_CITY_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_CITY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_CITY_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_CITY_VALID_STATUS;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_LIST;
 import static by.epam.project.action.JspParamNames.JSP_COUNTRY_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_COUNTRY_VALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_CITY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_COUNTRY;
 import static by.epam.project.action.JspParamNames.JSP_CURRENT_DIRECTION;
@@ -46,8 +50,10 @@ import static by.epam.project.action.JspParamNames.JSP_DIRECTION_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_LIST;
 import static by.epam.project.action.JspParamNames.JSP_DIRECTION_VALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_DISCOUNT_STEP;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_INVALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_LIST;
 import static by.epam.project.action.JspParamNames.JSP_HOTEL_TAG_LIST;
+import static by.epam.project.action.JspParamNames.JSP_HOTEL_VALID_STATUS;
 import static by.epam.project.action.JspParamNames.JSP_ID_DIRECTION;
 import static by.epam.project.action.JspParamNames.JSP_IS_HIDDEN;
 import static by.epam.project.action.JspParamNames.JSP_ORDER_LIST;
@@ -113,31 +119,35 @@ public class ShowTour extends TourCommand implements ActionCommand {
     private void distinguishTour(SessionRequestContent request) {
         List<Tour> list = (List<Tour>) request.getSessionAttribute(JSP_TOUR_LIST);
         String selectId = request.getParameter(JSP_SELECT_ID);
-        Integer idTour;
+        Integer idTour = null;
         if (selectId != null) {
             idTour = Integer.decode(selectId);
         } else {
             Tour tour = (Tour) request.getSessionAttribute(JSP_CURRENT_TOUR);
-            idTour = tour.getIdTour();
+            if (tour != null) {
+                idTour = tour.getIdTour();
+            }
         }
         
-        for (Tour tour: list) {
-            if (Objects.equals(tour.getIdTour(), idTour)) {
-                request.setSessionAttribute(JSP_CURRENT_TOUR, tour);
-                
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                Date d1 = tour.getDepartDate();
-                String ds1 = formatter.format(d1);  
-                request.setAttribute(JSP_CURR_DEPART_DATE, ds1);
+        if (idTour != null) {
+            request.setSessionAttribute(JSP_CURRENT_TOUR, null);
+            for (Tour tour: list) {
+                if (Objects.equals(tour.getIdTour(), idTour)) {
+                    request.setSessionAttribute(JSP_CURRENT_TOUR, tour);
 
-                Integer dn = tour.getDaysCount();
-                Calendar c = Calendar.getInstance(); 
-                c.setTime(d1); 
-                c.add(Calendar.DATE, dn);
-                Date d2 = c.getTime();
-                String ds2 = formatter.format(d2);
-                request.setAttribute(JSP_CURR_ARRIVAL_DATE, ds2);
-                return;
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    Date d1 = tour.getDepartDate();
+                    String ds1 = formatter.format(d1);  
+                    request.setAttribute(JSP_CURR_DEPART_DATE, ds1);
+
+                    Integer dn = tour.getDaysCount();
+                    Calendar c = Calendar.getInstance(); 
+                    c.setTime(d1); 
+                    c.add(Calendar.DATE, dn);
+                    Date d2 = c.getTime();
+                    String ds2 = formatter.format(d2);
+                    request.setAttribute(JSP_CURR_ARRIVAL_DATE, ds2);
+                }
             }
         }
     }
@@ -147,10 +157,14 @@ public class ShowTour extends TourCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CITY_LIST);
         request.deleteSessionAttribute(JSP_CURR_CITY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_CITY);
+        request.deleteSessionAttribute(JSP_CITY_VALID_STATUS);
+        request.deleteSessionAttribute(JSP_CITY_INVALID_STATUS);
         
         //country
         request.deleteSessionAttribute(JSP_COUNTRY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
+        request.deleteSessionAttribute(JSP_COUNTRY_VALID_STATUS);
+        request.deleteSessionAttribute(JSP_COUNTRY_INVALID_STATUS);
         
         //direction
         request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
@@ -167,6 +181,8 @@ public class ShowTour extends TourCommand implements ActionCommand {
         //hotel
         request.deleteSessionAttribute(JSP_HOTEL_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
+        request.deleteSessionAttribute(JSP_HOTEL_VALID_STATUS);
+        request.deleteSessionAttribute(JSP_HOTEL_INVALID_STATUS);
         
         //order
         request.deleteSessionAttribute(JSP_CURRENT_ORDER);

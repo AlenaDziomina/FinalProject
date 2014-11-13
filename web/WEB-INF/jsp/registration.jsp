@@ -15,7 +15,7 @@
                 </div>
                 <div class="input inner">
                     <input type="text" name="login" class="inputLineContainer" value="${currUser.login}"/>
-                    <div id="erNote"><a id="loginErrMsg" hidden="true"><fmt:message key="errorLogin" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="loginErrMsg" hidden="true"><fmt:message key="message.errorLogin" bundle="${ rb }" /></a></div>
                 </div>
             </div>
             
@@ -25,7 +25,7 @@
                 </div>
                 <div class="input inner">
                     <input type="text" name="email" class="inputLineContainer" value="${currUser.email}"/>
-                    <div id="erNote"><a id="emailErrMsg" hidden="true"><fmt:message key="errorEmail" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="emailErrMsg" hidden="true"><fmt:message key="message.errorEmail" bundle="${ rb }" /></a></div>
                 </div>
             </div>
                 
@@ -35,7 +35,7 @@
                 </div>
                 <div class="input inner">
                     <input type="text" name="phone" class="inputLineContainer" value="${currUser.phone}"/>
-                    <div id="erNote"><a id="phoneErrMsg" hidden="true"><fmt:message key="errorPhone" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="phoneErrMsg" hidden="true"><fmt:message key="message.errorPhone" bundle="${ rb }" /></a></div>
                 </div>
             </div>
     
@@ -45,7 +45,7 @@
                 </div>
                 <div class="input inner">
                     <input type="text" name="password" class="inputLineContainer" value=""/>
-                    <div id="erNote"><a id="passwordErrMsg" hidden="true"><fmt:message key="errorPassword" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="passwordErrMsg" hidden="true"><fmt:message key="message.errorPassword" bundle="${ rb }" /></a></div>
                 </div>
             </div>
                 
@@ -55,15 +55,15 @@
                 </div>
                 <div class="input inner">
                     <input type="text" name="repeatPassword" class="inputLineContainer" value=""/>
-                    <div id="erNote"><a id="repeatPassErrMsg" hidden="true"><fmt:message key="errorRepeatPass" bundle="${ rb }" /></a></div>
+                    <div id="erNote"><a id="repeatPassErrMsg" hidden="true"><fmt:message key="message.errorRepeatPass" bundle="${ rb }" /></a></div>
                 </div>
             </div>
                 
             <div class="parameterRow centrale">
                 <input class="large magenta awesome" type="submit" value="<fmt:message key="registrate" bundle="${ rb }" />" onclick="saveAllUser()"/>
-                <div id="erNote"><fmt:message key="${errorSave}" bundle="${ rb }" /></div>
-                <div id="erNote"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></div>
-                <div id="erNote"><fmt:message key="${errorLoginPassMessage}" bundle="${ rb }" /></div>    
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorSave}"><fmt:message key="${errorSave}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorSaveReason}"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                <ctg:ErrorMsgTag classErr="erNote" msg="${errorLoginPassMessage}"><fmt:message key="${errorLoginPassMessage}" bundle="${ rb }" /></ctg:ErrorMsgTag>
             </div>
         </div>
     </form>

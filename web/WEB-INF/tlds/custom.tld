@@ -84,6 +84,11 @@
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
     </attribute>
+    <attribute>
+      <name>role</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
   </tag>
   <tag>
     <name>OptionTag</name>
@@ -128,5 +133,20 @@
     <name>RoleUserTag</name>
     <tag-class>by.epam.project.tag.RoleUserTag</tag-class>
     <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <name>ErrorMsgTag</name>
+    <tag-class>by.epam.project.tag.ErrorMsgTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>msg</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>classErr</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
   </tag>
 </taglib>

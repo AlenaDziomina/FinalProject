@@ -19,7 +19,6 @@ import by.epam.project.exception.DaoLogicException;
 import by.epam.project.exception.DaoQueryException;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.manager.MessageManager;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -112,7 +111,7 @@ public abstract class AbstractLogic {
             } catch (DaoException ex1) {
                 LOGGER.error(ex1.getMessage());
             }
-            throw new LogicException(MessageManager.getProperty(ex.getMessage()));
+            throw new LogicException(ex.getMessage());
         } catch (DaoException ex){
             try {
                 if (dao != null) {

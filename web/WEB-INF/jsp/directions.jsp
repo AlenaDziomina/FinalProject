@@ -38,7 +38,12 @@
             <ul class="containerLabelR">
                 <div class="lblH"><fmt:message key="directionStayHotels" bundle="${ rb }" />:</div>
                 <c:forEach items="${pageList.same.stayCollection}" var="st">
-                    <li><ctg:StatusTag status="${st.status}" ifInvalid="greyA">${st.hotel.name} ${st.hotel.stars}* (<fmt:message key="${st.hotel.city.name}" bundle="${ rb }" />)</ctg:StatusTag></li>
+                    <ctg:StatusTag status="${st.hotel.status}" ifInvalid="greyA" role="ADMIN">
+                        <li> ${st.hotel.name} ${st.hotel.stars} * 
+                        <ctg:StatusTag status="${st.hotel.city.status}" ifInvalid="greyA" role="ADMIN">
+                            ( <fmt:message key="${st.hotel.city.name}" bundle="${ rb }" /> )
+                        </ctg:StatusTag> </li>
+                    </ctg:StatusTag>
                 </c:forEach>
             </ul>
         </div>      

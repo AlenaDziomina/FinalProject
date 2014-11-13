@@ -26,15 +26,16 @@ import jdk.nashorn.internal.runtime.regexp.RegExp;
 public class Validator {
     
     private static final int LOGIN_SIZE = 20;
-    private static final String LOGIN_ERROR_MSG = "errorLogin";
+    private static final String LOGIN_ERROR_MSG = "message.errorLogin";
     private static final int PASSWORD_SIZE = 20;
-    private static final String PASSWORD_ERROR_MSG = "errorPassword"; //errorRepeatPass
+    private static final String PASSWORD_ERROR_MSG = "message.errorPassword"; //errorRepeatPass
     private static final int PHONE_SIZE = 16;
-    private static final String PHONE_ERROR_MSG = "errorPhone";
+    private static final String PHONE_ERROR_MSG = "message.errorPhone";
     private static final int EMAIL_SIZE = 60;
-    private static final String EMAIL_ERROR_MSG = "errorEmail";
+    private static final String EMAIL_ERROR_MSG = "message.errorEmail";
     private static final int NAME_SIZE = 60;
-    private static final String NAME_ERROR_MSG = "errorName";
+    private static final int DIRECT_NAME_SIZE = 80;
+    private static final String NAME_ERROR_MSG = "message.errorName";
     private static final int PICTURE_SIZE = 60;
     private static final String PICTURE_ERROR_MSG = "errorPicture";
     private static final String SELECT_COUNTRY_ERROR_MSG = "errorSelectCountry";
@@ -87,7 +88,7 @@ public class Validator {
     }
 
     public static void validateDirection(Direction direction) throws TechnicalException {
-        if ( ! isStringValid(direction.getName(), NAME_SIZE)) {
+        if ( ! isStringValid(direction.getName(), DIRECT_NAME_SIZE)) {
             throw new TechnicalException(NAME_ERROR_MSG);
         }
         if ( ! isStringValid(direction.getPicture(), PICTURE_SIZE)) {

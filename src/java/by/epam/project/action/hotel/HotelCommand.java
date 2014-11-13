@@ -13,6 +13,7 @@ import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
 import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.City;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Hotel;
@@ -21,6 +22,7 @@ import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.HotelLogic;
 import by.epam.project.manager.ClientTypeManager;
+import by.epam.project.manager.ParamManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import java.util.Iterator;
 import java.util.List;
@@ -105,17 +107,16 @@ public class HotelCommand {
         Hotel currHotel = (Hotel) request.getSessionAttribute(JSP_CURRENT_HOTEL);
         if (currHotel == null) {
             currHotel = new Hotel();
+            currHotel.setCity(new City());
             currHotel.setDescription(new Description());
         }
+        Integer idCity = ParamManager.getIntParam(request, JSP_CURR_ID_CITY);
+        currHotel.getCity().setIdCity(idCity);
         currHotel.setName(request.getParameter(JSP_HOTEL_NAME));
         currHotel.setPicture(request.getParameter(JSP_HOTEL_PICTURE));
         currHotel.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));
-        String stars = request.getParameter(JSP_CURR_HOTEL_STARS);
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (stars != null && !stars.isEmpty()) {
-            currHotel.setStars(Integer.decode(stars));
-        }
+        Integer stars = ParamManager.getIntParam(request, JSP_CURR_HOTEL_STARS);
+        currHotel.setStars(stars);
         request.setSessionAttribute(JSP_CURRENT_HOTEL, currHotel);
     }
     

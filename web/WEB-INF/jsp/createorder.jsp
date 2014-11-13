@@ -86,8 +86,8 @@
         </div>
         <div class="parameterRow centrale">
             <input class="large magenta awesome" type="submit" value="<fmt:message key="pay" bundle="${ rb }" />"/>
-            <div id="erNote">${errorSave}</div>
-            <div id="erNote">${errorSaveReason}</div>
+            <ctg:ErrorMsgTag classErr="erNote" msg="${errorSave}"><fmt:message key="${errorSave}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+            <ctg:ErrorMsgTag classErr="erNote" msg="${errorSaveReason}"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
         </div>
     </form>
 </div>

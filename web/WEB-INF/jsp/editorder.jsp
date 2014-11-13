@@ -105,9 +105,9 @@
         </div>
         <div class="parameterRow centrale">
             <input class="large blue awesome" type="submit" value="<fmt:message key="book" bundle="${ rb }" />"/>
-            <div id="erNote"><a id="touristListErrMsg" hidden="true"><fmt:message key="errorTouristList" bundle="${ rb }" /></a></div>
-            <div id="erNote"><fmt:message key="${errorSave}" bundle="${ rb }" /></div>
-            <div id="erNote"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></div>
+            <div id="erNote"><a id="touristListErrMsg" hidden="true"><fmt:message key="message.errorTableTourist" bundle="${ rb }" /></a></div>
+            <ctg:ErrorMsgTag classErr="erNote" msg="${errorSave}"><fmt:message key="${errorSave}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+            <ctg:ErrorMsgTag classErr="erNote" msg="${errorSaveReason}"><fmt:message key="${errorSaveReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
         </div>
     </form>
 </div>

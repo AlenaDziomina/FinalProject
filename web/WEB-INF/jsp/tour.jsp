@@ -97,13 +97,13 @@
                 <c:when test="${currTour.status == 1}">
                     <input class="large orange awesome" type="submit" value="<fmt:message key="editTour" bundle="${ rb }" />" onclick="post('controller', {command: 'goEditTour'}, 'POST')" />
                     <input class="large red awesome" type="submit" value="<fmt:message key="deleteTour" bundle="${ rb }" />" onclick="post('controller', {command: 'DeleteTour'}, 'POST')"/>
-                    <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
-                    <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorDelete}"><fmt:message key="${errorDelete}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorDeleteReason}"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 </c:when>
                 <c:when test="${currTour.status == 0}">
                     <input class="large green awesome" type="submit" value="<fmt:message key="restoreTour" bundle="${ rb }" />" onclick="post('controller', {command: 'RestoreTour'}, 'POST')"/>
-                    <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
-                    <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestore}"><fmt:message key="${errorRestore}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestoreReason}"><fmt:message key="${errorrestoreReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 </c:when>
             </c:choose>   
         </ctg:RoleTag>

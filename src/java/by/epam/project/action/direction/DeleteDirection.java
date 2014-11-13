@@ -20,7 +20,6 @@ import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.DirectionLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 
 /**
  *

@@ -60,7 +60,7 @@ public class LoginCommand implements ActionCommand{
                 }
                 page = ConfigurationManager.getProperty("path.page.main");
             } else {
-                request.setAttribute("errorLoginPassMessage", "passLoginError");
+                request.setAttribute("errorLoginPassMessage", "message.passLoginError");
                 page = ConfigurationManager.getProperty("path.page.login");
             }
             request.setSessionAttribute(JSP_PAGE, page);

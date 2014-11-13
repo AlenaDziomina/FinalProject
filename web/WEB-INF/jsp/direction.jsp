@@ -38,7 +38,12 @@
                 <ul class="containerLabelR">
                     <div class="lblH"><fmt:message key="directionStayHotels" bundle="${ rb }" />:</div>
                     <c:forEach items="${currDirection.stayCollection}" var="st">
-                        <li><ctg:StatusTag status="${st.status}" ifInvalid="greyA">${st.hotel.name} ${st.hotel.stars}* (<fmt:message key="${st.hotel.city.name}" bundle="${ rb }" />)</ctg:StatusTag></li>
+                        <ctg:StatusTag status="${st.hotel.status}" ifInvalid="greyA" role="ADMIN">
+                            <li> ${st.hotel.name} ${st.hotel.stars} * 
+                            <ctg:StatusTag status="${st.hotel.city.status}" ifInvalid="greyA" role="ADMIN">
+                                ( <fmt:message key="${st.hotel.city.name}" bundle="${ rb }" /> )
+                            </ctg:StatusTag> </li>
+                        </ctg:StatusTag>
                     </c:forEach>
                 </ul>
             </div>
@@ -54,13 +59,13 @@
                     <c:when test="${currDirection.status == 1}">
                         <input class="large orange awesome" type="submit" value="<fmt:message key="editDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'goEditDirection'}, 'POST')"/>
                         <input class="large red awesome" type="submit" value="<fmt:message key="deleteDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'DeleteDirection'}, 'POST')"/>
-                        <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
-                        <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
+                        <ctg:ErrorMsgTag classErr="erNote" msg="${errorDelete}"><fmt:message key="${errorDelete}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                        <ctg:ErrorMsgTag classErr="erNote" msg="${errorDeleteReason}"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                     </c:when>
                     <c:when test="${currDirection.status == 0}">
                         <input class="large green awesome" type="submit" value="<fmt:message key="restoreDirection" bundle="${ rb }" />" onclick="post('controller', {command: 'RestoreDirection'}, 'POST')"/>
-                        <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
-                        <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
+                        <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestore}"><fmt:message key="${errorRestore}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                        <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestoreReason}"><fmt:message key="${errorrestoreReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                     </c:when>
                 </c:choose>    
             </ctg:RoleTag>

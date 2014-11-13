@@ -62,11 +62,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         List list = new ArrayList<>();
         list.add(user);
         List<Integer> res = new UserQuery().save(list, saveDao, mysqlConn);
-        if (res != null && !res.isEmpty()) {
-            return res.get(0);
-        } else {
-            throw new DaoLogicException("New user not created.");
-        }
+        return res.get(0);
     }
 
     @Override

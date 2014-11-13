@@ -53,7 +53,7 @@ public class RegistrationCommand implements ActionCommand {
         
             Integer res = new UserLogic().doRedactEntity(criteria);
             if (res == null) {
-                request.setAttribute("errorLoginPassMessage", "passLoginError");
+                request.setAttribute("errorLoginPassMessage", "message.passLoginError");
             } else {
                 return null;
             }

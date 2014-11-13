@@ -64,15 +64,15 @@
                 </ctg:RoleUserTag>
                 <ctg:RoleTag>
                     <input class="large red awesome" type="submit" value="<fmt:message key="deleteUser" bundle="${ rb }" />" onclick="postUser('controller', 'DeleteUser', 'POST')"/>
-                    <div id="erNote"><fmt:message key="${errorDelete}" bundle="${ rb }" /></div>
-                    <div id="erNote"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></div>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorDelete}"><fmt:message key="${errorDelete}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorDeleteReason}"><fmt:message key="${errorDeleteReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 </ctg:RoleTag>
             </c:when>
             <c:when test="${currUser.status == 0}">
                 <ctg:RoleTag>
                     <input class="large green awesome" type="submit" value="<fmt:message key="restoreUser" bundle="${ rb }" />" onclick="postUser('controller', 'RestoreUser', 'POST')"/>
-                    <div id="erNote"><fmt:message key="${errorRestore}" bundle="${ rb }" /></div>
-                    <div id="erNote"><fmt:message key="${errorRestoreReason}" bundle="${ rb }" /></div>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestore}"><fmt:message key="${errorRestore}" bundle="${ rb }" /></ctg:ErrorMsgTag>
+                    <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestoreReason}"><fmt:message key="${errorrestoreReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 </ctg:RoleTag>
              </c:when>
         </c:choose>   

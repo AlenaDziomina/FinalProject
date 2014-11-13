@@ -115,12 +115,35 @@ function createCell(name){
 
 //validate edittour.jsp
 function validateTourForm(){
-    var valid = isValidDiscount(10, "discount", "discountErrMsg") &&
-            isPositiveIntegerValid(10, "totalSeats", "totalSeatsErrMsg") &&
-            isValidFreeSeats(10, "freeSeats", "freeSeatsErrMsg", "totalSeats") &&
-            isPositiveFloat(12, "price", "priceErrMsg");
+    var valid = isValidDate("from", "dateErrMsg")
+        && isValidDate("to", "dateErrMsg")
+        && isPositiveFloat(12, "price", "priceErrMsg")
+        && isValidDiscount(10, "discount", "discountErrMsg")
+        && isPositiveIntegerValid(10, "totalSeats", "totalSeatsErrMsg")
+        && isValidFreeSeats(10, "freeSeats", "freeSeatsErrMsg", "totalSeats");
     
     return valid;
+}
+
+function isValidDate(elemId, errId) {
+    var elem = document.getElementById(elemId);
+    var errElem = document.getElementById(errId);
+    if (elem === null || elem.value === '') {
+        errElem.hidden = false;
+        return false;
+    }
+    
+    var re = new RegExp ('\\d{4}\\-\\d{2}\\-\\d{2}');
+    var pars = re.exec(elem.value);
+    if (pars !== null) {
+        elem.value = pars[0];
+        errElem.hidden = true;
+        return true;
+    } else {
+        errElem.hidden = false;
+        return false;
+    }
+    
 }
 
 //validate positive float value
@@ -208,28 +231,35 @@ function isValidFreeSeats(size, freeId, errId, totalId) {
 
 //validate editdirection.jsp
 function validateDirectionForm(){
-    var valid =isStringValid(80, "nameDirection", "nameErrMsg") && isStringValid(60, "pictureDirection", "pictureErrMsg") 
-            && isSelectedElem("tourType", "selectTourTypeErrMsg") && isSelectedElem("transMode", "selectTransModeErrMsg")
+    var valid = isSelectedElem("tourType", "selectTourTypeErrMsg") 
+            && isSelectedElem("transMode", "selectTransModeErrMsg")
+            && isStringValid(80, "nameDirection", "nameErrMsg") 
+            && isStringValid(60, "pictureDirection", "pictureErrMsg") 
             && isStringValid(63355, "textDirection", "textErrMsg");
     return valid;
 }
 
 //validate edithotel.jsp
 function validateHotelForm(){
-    var valid = isStringValid(40, "nameHotel", "nameErrMsg") && isStringValid(60, "pictureHotel", "pictureErrMsg") 
-            && isSelectedElem("currCity", "selectCityErrMsg") && isSelectedElem("currStars", "selectStarsErrMsg");
+    var valid = isSelectedElem("currCity", "selectCityErrMsg") 
+            && isStringValid(40, "nameHotel", "nameErrMsg") 
+            &&  isSelectedElem("currStars", "selectStarsErrMsg")
+            && isStringValid(60, "pictureHotel", "pictureErrMsg");
     return valid;
 }
 
 //validate editcity.jsp
 function validateCityForm(){
-    var valid = isStringValid(40, "nameCity", "nameErrMsg") && isStringValid(60, "pictureCity", "pictureErrMsg") && isSelectedElem("currCountry", "selectCountryErrMsg");
+    var valid =  isSelectedElem("currCountry", "selectCountryErrMsg") 
+            && isStringValid(40, "nameCity", "nameErrMsg") 
+            && isStringValid(60, "pictureCity", "pictureErrMsg");
     return valid;
 }
 
 //validate editcountry.jsp
 function validateCountryForm(){
-    var valid = isStringValid(40, "nameCountry", "nameErrMsg") && isStringValid(60, "pictureCountry", "pictureErrMsg");
+    var valid = isStringValid(40, "nameCountry", "nameErrMsg") 
+            && isStringValid(60, "pictureCountry", "pictureErrMsg");
     return valid;
 }
 
@@ -261,8 +291,9 @@ function isSelectedElem(idElem, errId){
 
 //registration form validation
 function validateForm(formId) {
-	var valid = isValidLogin(formId) && isValidEmail(formId) && isValidPhone(formId) 
-                && isValidPassword(formId) && isValidRepeatPass(formId);
+	var valid = isValidLogin(formId) && isValidEmail(formId) 
+                && isValidPhone(formId) && isValidPassword(formId) 
+                && isValidRepeatPass(formId);
         
         return valid;
 }

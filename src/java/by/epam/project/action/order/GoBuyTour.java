@@ -91,10 +91,14 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CITY_LIST);
         request.deleteSessionAttribute(JSP_CURR_CITY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_CITY);
+        request.deleteSessionAttribute(JSP_CITY_VALID_STATUS);
+        request.deleteSessionAttribute(JSP_CITY_INVALID_STATUS);
         
         //country
         request.deleteSessionAttribute(JSP_COUNTRY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
+        request.deleteSessionAttribute(JSP_COUNTRY_VALID_STATUS);
+        request.deleteSessionAttribute(JSP_COUNTRY_INVALID_STATUS);
         
         //direction
         request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
@@ -110,6 +114,8 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         //hotel
         request.deleteSessionAttribute(JSP_HOTEL_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
+        request.deleteSessionAttribute(JSP_HOTEL_VALID_STATUS);
+        request.deleteSessionAttribute(JSP_HOTEL_INVALID_STATUS);
         
         //order
         //request.deleteSessionAttribute(JSP_CURRENT_TOUR);
