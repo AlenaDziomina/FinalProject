@@ -7,6 +7,7 @@
 package by.epam.project.manager;
 
 import by.epam.project.entity.Order;
+import java.math.BigDecimal;
 
 /**
  *
@@ -14,9 +15,20 @@ import by.epam.project.entity.Order;
  */
 public class PriceDiscountManager {
     
+    public static Float getFinalPrice(float price, int discount) {
+        Float finalPrice = price * (100 - discount) / 100;
+        return round(finalPrice, 2);
+    }
+    
+    public static Float getFinalPrice(float price, int discount, int userDiscount) {
+        Float finalPrice = price * (100 - discount) * (100 - userDiscount) / 10000;
+        return round(finalPrice, 2);
+    }
+    
     public static Float getFinalPrice(float price, int discount, int userDiscount, int count) {
-        Float totalPrice = price * (100 - discount) * (100 - userDiscount) * count / 10000;
-        return totalPrice;
+        Float finalPrice = price * (100 - discount) * (100 - userDiscount) / 10000;
+        finalPrice = round(finalPrice, 2) * count;
+        return finalPrice;
     }
     
     public static Float getFinalPrice(Order order) {
@@ -50,5 +62,11 @@ public class PriceDiscountManager {
         } else {
             return discount - discountForDeleteOrder;
         }
+    }
+    
+    private static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }

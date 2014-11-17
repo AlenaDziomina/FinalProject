@@ -325,6 +325,11 @@ public enum CommandEnum {
         {
             setCurrentCommand(new SaveRedactUser());
         }
+    },
+    SHOWTOURTOURISTS {
+        {
+            setCurrentCommand(new ShowTourTourists());
+        }
     };
             
             

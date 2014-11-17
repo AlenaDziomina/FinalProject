@@ -106,7 +106,8 @@
                     <ctg:ErrorMsgTag classErr="erNote" msg="${errorRestoreReason}"><fmt:message key="${errorrestoreReason}" bundle="${ rb }" /></ctg:ErrorMsgTag>
                 </c:when>
             </c:choose>   
+            <input class="large blue awesome" type="submit" value="<fmt:message key="findOrders" bundle="${ rb }" />" onclick="post('controller', {command: 'goShowOrders', currIdTour: '${currTour.idTour}'}, 'POST')" />
+            <input class="large yellow awesome" type="submit" value="<fmt:message key="formTouristList" bundle="${ rb }" />" onclick="post('controller', {command: 'ShowTourTourists', currIdTour: '${currTour.idTour}'}, 'POST')" />
         </ctg:RoleTag>
-                
     </div>
 </div>

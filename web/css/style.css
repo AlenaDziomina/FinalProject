@@ -603,6 +603,7 @@ li {
     width: 150px;
     font-family: 'League Gotic', Arial, sans-serif;
     font-size: 17px;
+    text-align: center;
 }
 
 .red.firstName, .red.middleName, .red.lastName, .red.passport {
@@ -621,6 +622,7 @@ li {
     width: 750px;
     font-family: 'League Gotic', Arial, sans-serif;
     font-size: 17px;
+    text-align: center;
 }
 .border.fio, .border.passport {
     border: 1px solid darkblue;

@@ -39,7 +39,7 @@
                     </ul>
                     <ul class="containerLabel">
                         <h2 class="grnt small lft labelH"><fmt:message key="finalPrice" bundle="${ rb }" />:</h2>
-                        <h2 class="grnt small lft labelH">${currTour.price * (100 - currTour.discount) / 100 } <fmt:message key="$" bundle="${ rb }" /></h2>
+                        <h2 class="grnt small lft labelH"><ctg:tourTag price="${currTour.price}" discount="${currTour.discount}"><fmt:message key="$" bundle="${ rb }" /></ctg:tourTag></h2>
                     </ul>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <h2 class="grnt small labelH"><fmt:message key="priceWithPersonalDiscount" bundle="${ rb }" />: </h2>
                 </div>
                 <div class="input inner">
-                    <h2 class="grnt small lft labelH">${currTour.price * (100 - currTour.discount) * (100 - user.discount) / 10000 }<fmt:message key="$" bundle="${ rb }" /></h2>
+                    <h2 class="grnt small lft labelH"><ctg:tourTag price="${currTour.price}" discount="${currTour.discount}" userDiscount="${user.discount}"><fmt:message key="$" bundle="${ rb }" /></ctg:tourTag></h2>
                 </div>
             </div>    
            

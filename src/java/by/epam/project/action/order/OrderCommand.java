@@ -8,8 +8,21 @@ package by.epam.project.action.order;
 
 import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
+import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
+import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
+import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
+import by.epam.project.dao.query.Criteria;
+import by.epam.project.entity.ClientType;
+import by.epam.project.entity.Order;
+import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
+import by.epam.project.exception.TechnicalException;
+import by.epam.project.logic.OrderLogic;
+import by.epam.project.manager.ClientTypeManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
+import by.epam.project.tag.ObjList;
+import java.util.List;
 
 /**
  *
@@ -17,7 +30,7 @@ import static by.epam.project.manager.ParamManager.getBoolParam;
  */
 public class OrderCommand {
     
-    public void resaveParamsShowOrder(SessionRequestContent request) throws ServletLogicException {
+    protected void resaveParamsShowOrder(SessionRequestContent request) throws ServletLogicException {
         String validHotelStatus = request.getParameter(JSP_ORDER_VALID_STATUS);
         if(validHotelStatus != null) {
             request.setSessionAttribute(JSP_ORDER_VALID_STATUS, validHotelStatus);
@@ -29,7 +42,39 @@ public class OrderCommand {
         }
     }
     
-    public Integer getOrderStatus(SessionRequestContent request) {
+    protected void formOrderList(SessionRequestContent request) throws ServletLogicException {
+        Criteria criteria = new Criteria();
+        User user = (User) request.getSessionAttribute(JSP_USER);
+        if (user != null) {
+            criteria.addParam(DAO_USER_LOGIN, user.getLogin());
+            ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
+            criteria.addParam(DAO_ROLE_NAME, type);
+        } else {
+            criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
+        }
+        
+        Integer orderStatus = getOrderStatus(request);
+        if (orderStatus != null) {
+            criteria.addParam(DAO_ORDER_STATUS, orderStatus);
+        }
+        String selectId = request.getParameter(JSP_CURR_ID_TOUR);
+        if (selectId != null) {
+            Integer idTour = Integer.decode(selectId);
+            criteria.addParam(DAO_ID_TOUR, idTour);
+            request.setAttribute(JSP_CURR_ID_TOUR, idTour);
+        }
+        
+        try {
+            List<Order> orders = new OrderLogic().doGetEntity(criteria);
+            request.setSessionAttribute(JSP_ORDER_LIST, orders);
+            ObjList<Order> list = new ObjList<>(orders);
+            request.setSessionAttribute(JSP_PAGE_LIST, list);
+        } catch (TechnicalException ex) {
+            throw new ServletLogicException(ex.getMessage(), ex);
+        }
+    }
+    
+    protected Integer getOrderStatus(SessionRequestContent request) {
         Boolean validStatus = getBoolParam(request, JSP_ORDER_VALID_STATUS);
         Boolean invalidStatus = getBoolParam(request, JSP_ORDER_INVALID_STATUS);
         if (validStatus == null && invalidStatus == null) {

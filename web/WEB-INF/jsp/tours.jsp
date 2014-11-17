@@ -47,7 +47,7 @@
             </ul>
             <ul class="containerLabel">
                 <h2 class="grnt small lft labelH"><fmt:message key="finalPrice" bundle="${ rb }" />:</h2>
-                <h2 class="grnt small lft labelH">${pageList.same.price * (100 - pageList.same.discount) / 100 }<fmt:message key="$" bundle="${ rb }" /></h2>
+                <h2 class="grnt small lft labelH"><ctg:tourTag price="${pageList.same.price}" discount ="${pageList.same.discount}"><fmt:message key="$" bundle="${ rb }" /></ctg:tourTag></h2>
             </ul>
         </div>
         <div>

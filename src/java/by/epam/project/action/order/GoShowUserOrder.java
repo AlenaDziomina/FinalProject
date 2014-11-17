@@ -38,7 +38,7 @@ public class GoShowUserOrder extends OrderCommand implements ActionCommand {
         String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
         resaveParamsShowOrder(request);
         
-        formOrderList(request);
+        formUserOrderList(request);
         if (page == null ? prevPage != null : ! page.equals(prevPage)) {
             request.setSessionAttribute(JSP_PAGE, page);
             cleanSessionShowOrder(request);
@@ -46,7 +46,7 @@ public class GoShowUserOrder extends OrderCommand implements ActionCommand {
         return page;
     }
 
-    private void formOrderList(SessionRequestContent request) throws ServletLogicException {
+    private void formUserOrderList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         User user = (User) request.getSessionAttribute(JSP_USER);
         if (user != null) {

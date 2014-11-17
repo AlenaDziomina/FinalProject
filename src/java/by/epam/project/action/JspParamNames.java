@@ -158,6 +158,6 @@ public abstract class JspParamNames {
     public static final String JSP_TOURIST_MIDDLE_NAME = "middleName";
     public static final String JSP_TOURIST_LAST_NAME = "lastName";
     public static final String JSP_TOURIST_PASSPORT = "passport";
-    
+    public static final String JSP_TOURIST_LIST = "touristList";
     
 }

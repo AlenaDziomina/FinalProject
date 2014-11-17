@@ -552,6 +552,7 @@ function postOrders(path, comnd, method) {
     saveCommand(form, comnd);
     saveBox(form, "validOrderStatus");
     saveBox(form, "invalidOrderStatus");
+    saveCurrElem(form, "currIdTour", "currIdTour");
     
     document.body.appendChild(form);
     form.submit();

@@ -25,6 +25,7 @@ import by.epam.project.logic.TourLogic;
 import by.epam.project.manager.ClientTypeManager;
 import static by.epam.project.manager.ClientTypeManager.clientTypeOf;
 import by.epam.project.manager.ConfigurationManager;
+import by.epam.project.manager.PriceDiscountManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,7 +67,8 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         try { 
             List<Tour> tours = new TourLogic().doGetEntity(criteria);
             if (tours != null && !tours.isEmpty()) {
-                request.setSessionAttribute(JSP_CURRENT_TOUR, tours.get(0));
+                Tour tour = tours.get(0);
+                request.setSessionAttribute(JSP_CURRENT_TOUR, tour);
             }
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
