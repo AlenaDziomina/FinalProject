@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
@@ -16,11 +10,11 @@ import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
- *
- * @author User
+ * Class of command of displaying the new hotels list corresponding
+ * to the selected city
+ * @author Helena.Grouk
  */
 public class IfCitySelected extends CityCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
@@ -38,14 +32,21 @@ public class IfCitySelected extends CityCommand implements ActionCommand {
         return page;
     }
 
+    /**
+     * Resave common parameters of page if city selected.
+     * @param request parameters and attributes of the request and the session
+     * @throws by.epam.project.exception.ServletLogicException
+     */
     private void resaveParamsCitySelected(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         String editDirectionPage = ConfigurationManager.getProperty("path.page.editdirection");
         String searchingPage = ConfigurationManager.getProperty("path.page.tours");
-        if (page == null ? editDirectionPage == null : page.equals(editDirectionPage)) {
-            new DirectionCommand().resaveParamsSaveDirection(request);
-        } else if (page == null ? searchingPage == null : page.equals(searchingPage)) {
-            new TourCommand().resaveParamsSearchTour(request);
+        if (page != null) {
+            if (page.equals(editDirectionPage)) {
+                new DirectionCommand().resaveParamsSaveDirection(request);
+            } else if (page.equals(searchingPage)) {
+                new TourCommand().resaveParamsSearchTour(request);
+            }
         }
     }    
 }

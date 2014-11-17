@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
@@ -20,11 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of direction object editing
+ * @author Helena.Grouk
  */
 public class GoEditDirection extends DirectionCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.editdirection");
@@ -60,5 +53,4 @@ public class GoEditDirection extends DirectionCommand implements ActionCommand {
         
         return page;
     }
-    
 }

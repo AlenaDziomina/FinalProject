@@ -1,29 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action;
 
 import by.epam.project.manager.MessageManager;
 
 /**
- *
- * @author User
+ * Class-factory of objects corresponding the command
+ * @author Helena.Grouk
  */
 public abstract class CommandFactory {
     
+    /**
+     * Create a command object corresponding to the command name.
+     * @param request parameters and attributes of the request and the session
+     * @return object of command
+     */
     public static ActionCommand defineCommand(SessionRequestContent request){
 
-        // извлечение имени команды из запроса
         String action = request.getParameter("command");
         if (action == null || action.isEmpty()) {
-            // если команда не задана в текущем запросе
             return new EmptyCommand();
         }
         
-        // получение объекта, соответствующего команде
         ActionCommand current;
         try {
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
@@ -34,5 +30,4 @@ public abstract class CommandFactory {
         }
         return current;
     }       
-    
 }

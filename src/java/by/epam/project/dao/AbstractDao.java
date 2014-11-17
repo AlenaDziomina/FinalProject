@@ -6,7 +6,7 @@
 
 package by.epam.project.dao;
 
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
+import static by.epam.project.dao.DaoParamNames.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;

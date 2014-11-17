@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
@@ -13,17 +7,15 @@ import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of direction object list
+ * @author Helena.Grouk
  */
 public class GoShowDirections extends DirectionCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.directions");
         String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
         resaveParamsShowDirections(request);
-        
         formDirectionList(request);
         if (page == null ? prevPage != null : ! page.equals(prevPage)) {
             request.setSessionAttribute(JSP_PAGE, page);
@@ -32,6 +24,10 @@ public class GoShowDirections extends DirectionCommand implements ActionCommand 
         return page;
     }
   
+    /**
+     * Resave common parameters of show direction page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void resaveParamsShowDirections(SessionRequestContent request) {
         String validDirectionStatus = request.getParameter(JSP_DIRECTION_VALID_STATUS);
         if(validDirectionStatus != null) {
@@ -64,7 +60,11 @@ public class GoShowDirections extends DirectionCommand implements ActionCommand 
         
         
     }
-
+    
+    /**
+     * Clean session attributes of show direction page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void cleanSessionShowDirections(SessionRequestContent request) {
         //city
         request.deleteSessionAttribute(JSP_CITY_LIST);

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
@@ -17,16 +11,14 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
- * @author User
+ * Class of command of displaying the order selected in order list
+ * @author Helena.Grouk
  */
 public class ShowOrder extends OrderCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.order");
         String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
-        
         showSelectedOrder(request);
         if(page == null ? prevPage == null : !page.equals(prevPage)){
             request.setSessionAttribute(JSP_PAGE, page);
@@ -35,6 +27,11 @@ public class ShowOrder extends OrderCommand implements ActionCommand {
         return page;
     }
     
+    /**
+     * Determine and store in session attributes current order for 
+     * displaying it. It needs selected id in request.
+     * @param request parameters and attributes of the request and the session
+     */
     private void showSelectedOrder(SessionRequestContent request) {
         String selected = request.getParameter(JSP_SELECT_ID);
         Order currOrder = null;
@@ -54,5 +51,4 @@ public class ShowOrder extends OrderCommand implements ActionCommand {
         }
         request.setSessionAttribute(JSP_CURRENT_ORDER, currOrder);
     }
-    
 }

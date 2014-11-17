@@ -9,11 +9,7 @@ package by.epam.project.logic;
 import static by.epam.project.action.JspParamNames.ACTIVE;
 import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
-import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -46,7 +42,7 @@ public class CountryLogic extends AbstractLogic {
     
     private static void fillCountries(List<Country> countries, AbstractDao dao, Criteria criteria) throws DaoException {
         if (countries != null) {
-            Integer cityStatus = (Integer) criteria.getParam(DAO_CITY_STATUS);
+            Short cityStatus = (Short) criteria.getParam(DAO_CITY_STATUS);
             for (Country country : countries) {
                 Criteria descCrit = new Criteria();
                 descCrit.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());

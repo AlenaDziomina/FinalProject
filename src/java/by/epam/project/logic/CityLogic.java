@@ -8,14 +8,8 @@ package by.epam.project.logic;
 
 import static by.epam.project.action.JspParamNames.ACTIVE;
 import static by.epam.project.action.JspParamNames.DELETED;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
-import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;

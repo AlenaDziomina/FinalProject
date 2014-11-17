@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
@@ -13,11 +7,10 @@ import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
- *
- * @author User
+ * Class of command of displaying the hotel selected in city list
+ * @author Helena.Grouk
  */
 public class ShowHotel extends HotelCommand implements ActionCommand {
-    
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.hotels");
@@ -25,7 +18,4 @@ public class ShowHotel extends HotelCommand implements ActionCommand {
         showSelectedHotel(request);
         return page;
     }
-    
-    
-    
 }

@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Order;
@@ -22,22 +13,19 @@ import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.OrderLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
-import static by.epam.project.manager.ParamManager.getBoolParam;
 import by.epam.project.tag.ObjList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of users order object list
+ * @author Helena.Grouk
  */
 public class GoShowUserOrder extends OrderCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.userorder");
         String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
         resaveParamsShowOrder(request);
-        
         formUserOrderList(request);
         if (page == null ? prevPage != null : ! page.equals(prevPage)) {
             request.setSessionAttribute(JSP_PAGE, page);
@@ -46,6 +34,14 @@ public class GoShowUserOrder extends OrderCommand implements ActionCommand {
         return page;
     }
 
+    /**
+     * Find the list of user orders and save it as the attribute of session.
+     * Also determine and store in session attributes display options of order 
+     * status.
+     * @param request parameters and attributes of the request and the session
+     * @throws ServletLogicException if this can not be done due to the 
+     * exceptions of logic layer
+     */
     private void formUserOrderList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         User user = (User) request.getSessionAttribute(JSP_USER);
@@ -58,7 +54,7 @@ public class GoShowUserOrder extends OrderCommand implements ActionCommand {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
         
-        Integer orderStatus = getOrderStatus(request);
+        Short orderStatus = getOrderStatus(request);
         if (orderStatus != null) {
             criteria.addParam(DAO_ORDER_STATUS, orderStatus);
         }

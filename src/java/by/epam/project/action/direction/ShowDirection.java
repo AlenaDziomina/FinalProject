@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
@@ -18,11 +12,10 @@ import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command of displaying the direction selected in direction list
+ * @author Helena.Grouk
  */
 public class ShowDirection extends DirectionCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.direction");
@@ -31,7 +24,12 @@ public class ShowDirection extends DirectionCommand implements ActionCommand {
         showSelectedDirection(request);
         return page;
     }
-
+    
+    /**
+     * Determine and store in session attributes current direction for 
+     * displaying it. It needs selected id in request.
+     * @param request parameters and attributes of the request and the session
+     */
     private void showSelectedDirection(SessionRequestContent request) throws ServletLogicException {
         String selectId = request.getParameter(JSP_SELECT_ID);
         if (selectId != null) {
@@ -55,7 +53,11 @@ public class ShowDirection extends DirectionCommand implements ActionCommand {
             direction.setTourCollection(list);
         }
     }
-
+    
+    /**
+     * Resave common parameters of direction page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void resaveParamsShowDirection(SessionRequestContent request) {
         String validTourStatus = request.getParameter(JSP_TOUR_VALID_STATUS);
         if(validTourStatus != null) {
@@ -77,5 +79,4 @@ public class ShowDirection extends DirectionCommand implements ActionCommand {
             request.setAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);
         }
     }
-    
 }

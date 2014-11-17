@@ -8,8 +8,8 @@ package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.User;

@@ -4,15 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
-import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
@@ -45,15 +41,7 @@ public class OrderQuery implements TypedQuery<Order> {
     public static final String DB_ORDER_DATE = "orderDate";
     public static final String DB_ORDER_STATUS = "status";
     
-    public static final String DAO_ID_ORDER = "idOrder";
-    public static final String DAO_ORDER_SEATS = "seatsOrder";
-    public static final String DAO_ORDER_CURR_PRICE = "currPriceOrder";
-    public static final String DAO_ORDER_CURR_DISCOUNT = "currDiscountOrder";
-    public static final String DAO_ORDER_USER_DISCOUNT = "currUserDiscountOrder";
-    public static final String DAO_ORDER_FINAL_PRICE = "finalPriceOrder";
-    public static final String DAO_ORDER_DATE = "dateOrder";
-    public static final String DAO_ORDER_STATUS = "statusOrder";
-    public static final String DAO_ORDER_TOURIST_LIST = "orderTouristList";
+    
     
     private static final String SAVE_QUERY = 
             "Insert into " + DB_ORDER + " (" + DB_ORDER_ID_USER + ", "

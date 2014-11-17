@@ -4,15 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
@@ -41,12 +37,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
     public static final String DB_HOTEL_PICTURE = "picture";
     public static final String DB_HOTEL_ID_DESCRIPTION = "id_description";
     
-    public static final String DAO_ID_HOTEL = "idHotel";
-    public static final String DAO_HOTEL_NAME = "nameHotel";
-    public static final String DAO_HOTEL_STARS = "starsHotel";
-    public static final String DAO_HOTEL_STATUS = "statusHotel";
-    public static final String DAO_HOTEL_PICTURE = "pictureHotel";    
-    public static final String DAO_HOTEL_LIST = "hotelList";
+    
 
     private static final String SAVE_QUERY = 
             "Insert into " + DB_HOTEL + " (" + DB_HOTEL_ID_CITY + ", "

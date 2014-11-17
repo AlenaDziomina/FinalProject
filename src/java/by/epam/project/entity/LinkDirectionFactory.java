@@ -6,10 +6,7 @@
 
 package by.epam.project.entity;
 
-import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_ID_HOTEL;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Criteria;
 import java.util.ArrayList;
 import java.util.Collection;

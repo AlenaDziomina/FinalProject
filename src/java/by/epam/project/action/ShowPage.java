@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action;
 
 import static by.epam.project.action.JspParamNames.JSP_CURR_PAGE_NO;
@@ -17,8 +11,8 @@ import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.tag.ObjList;
 
 /**
- *
- * @author User
+ * Class of command to display the page of a multipage list of objects
+ * @author Helena.Grouk
  */
 public class ShowPage implements ActionCommand {
 
@@ -29,16 +23,17 @@ public class ShowPage implements ActionCommand {
         String toursPage = ConfigurationManager.getProperty("path.page.tours");
         String ordersPage = ConfigurationManager.getProperty("path.page.orders");
         String userOrdersPage = ConfigurationManager.getProperty("path.page.userorder");
-        if (page == null ? directionsPage == null : page.equals(directionsPage)) {
-            showDirectionPage(request);
-        } else if (page == null ? toursPage == null : page.equals(toursPage)) {
-            showTourPage(request);
-        } else if (page == null ? ordersPage == null : page.equals(ordersPage)) {
-            showOrderPage(request);
-        } else if (page == null ? userOrdersPage == null : page.equals(userOrdersPage)) {
-            showUserOrderPage(request);
+        if (page != null) {
+            if (page.equals(directionsPage)) {
+                showDirectionPage(request);
+            } else if (page.equals(toursPage)) {
+                showTourPage(request);
+            } else if (page.equals(ordersPage)) {
+                showOrderPage(request);
+            } else if (page.equals(userOrdersPage)) {
+                showUserOrderPage(request);
+            }
         }
-        
         return page;
     }
 

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
@@ -13,11 +7,10 @@ import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of city object list
+ * @author Helena.Grouk
  */
 public class GoShowCity extends CityCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.cities");
@@ -32,6 +25,10 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         return page;
     }
     
+    /**
+     * Resave common parameters of show city page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void resaveParamsShowCity(SessionRequestContent request) {
         String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
         if(validCityStatus != null) {
@@ -54,12 +51,15 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         }
     }
     
+    /**
+     * Clean session attributes of show city page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void cleanSessionShowCity(SessionRequestContent request) {
         //city
         //request.deleteSessionAttribute(JSP_CITY_LIST);
         //request.deleteSessionAttribute(JSP_CURR_CITY_LIST);
         //request.deleteSessionAttribute(JSP_CURRENT_CITY);
-        
         
         //country
         request.deleteSessionAttribute(JSP_COUNTRY_LIST);
@@ -121,5 +121,4 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);
     }
-    
 }

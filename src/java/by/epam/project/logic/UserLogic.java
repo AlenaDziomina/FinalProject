@@ -6,18 +6,10 @@
 
 package by.epam.project.logic;
 
-import by.epam.project.action.JspParamNames;
 import static by.epam.project.action.JspParamNames.ACTIVE;
 import static by.epam.project.action.JspParamNames.DELETED;
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ID_ROLE;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_BALANCE;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_DISCOUNT;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_EMAIL;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_STATUS;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;

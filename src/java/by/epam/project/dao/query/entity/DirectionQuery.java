@@ -4,16 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
-import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
-import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -45,12 +40,7 @@ public class DirectionQuery implements TypedQuery<Direction>{
     public static final String DB_DIRECTION_TEXT = "text";
     public static final String DB_DIRECTION_STATUS = "status";
     
-    public static final String DAO_ID_DIRECTION = "idDirection";
-    public static final String DAO_DIRECTION_NAME = "nameDirection";
-    public static final String DAO_DIRECTION_PICTURE = "pictureDirection";
-    public static final String DAO_DIRECTION_TEXT = "textDirection";
-    public static final String DAO_DIRECTION_STATUS = "statusDirection";
-    public static final String DAO_DIRECTION_ALLSTATUS = "allStatusDirection";
+    
    
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRECTION + " (" + DB_DIRECTION_NAME + ", "

@@ -4,15 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_LIST;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -41,10 +37,7 @@ public class CountryQuery implements TypedQuery<Country>{
     public static final String DB_COUNTRY_PICTURE = "picture";
     public static final String DB_COUNTRY_ID_DESCRIPTION = "id_description";
     
-    public static final String DAO_ID_COUNTRY = "idCountry";
-    public static final String DAO_COUNTRY_NAME = "nameCountry";
-    public static final String DAO_COUNTRY_PICTURE = "pictureCountry";
-    public static final String DAO_COUNTRY_STATUS = "statusCountry";
+    
    
     private static final String SAVE_QUERY = 
             "Insert into " + DB_COUNTRY + " (" + DB_COUNTRY_NAME + ", "

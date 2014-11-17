@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action;
 
 import by.epam.project.action.user.RestoreUser;
@@ -17,9 +11,10 @@ import by.epam.project.action.tour.*;
 import by.epam.project.action.user.*;
 
 /**
- *
- * @author User
+ * Enumeration of commands names.
+ * @author Helena.Grouk
  */
+
 public enum CommandEnum {
     LOCALIZATION {
         { 
@@ -331,12 +326,10 @@ public enum CommandEnum {
             setCurrentCommand(new ShowTourTourists());
         }
     };
-            
-            
-    
+
     private ActionCommand command;
     
-    public void setCurrentCommand(ActionCommand command) {
+    protected void setCurrentCommand(ActionCommand command) {
         this.command = command;
     }
     

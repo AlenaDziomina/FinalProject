@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.direction;
 
 import by.epam.project.action.ActionCommand;
@@ -16,11 +10,10 @@ import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of direction object creation.
+ * @author Helena.Grouk
  */
 public class GoCreateNewDirection extends DirectionCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.editdirection");
@@ -32,10 +25,8 @@ public class GoCreateNewDirection extends DirectionCommand implements ActionComm
         new HotelCommand().formHotelList(request);
         formTourTypeList(request);
         formTransModeList(request);
-        
         request.setSessionAttribute(JSP_COUNTRY_TAG_LIST, request.getSessionAttribute(JSP_COUNTRY_LIST));
         request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
-        
         return page;
     }
 }

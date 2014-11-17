@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.hotel;
 
 import by.epam.project.action.ActionCommand;
@@ -13,11 +7,10 @@ import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of hotel object list
+ * @author Helena.Grouk
  */
 public class GoShowHotel extends HotelCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.hotels");
@@ -33,6 +26,10 @@ public class GoShowHotel extends HotelCommand implements ActionCommand {
         return page;
     }
     
+    /**
+     * Resave common parameters of show hotel page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void resaveParamsShowHotel(SessionRequestContent request) {
         String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
         if(validHotelStatus != null) {
@@ -44,7 +41,11 @@ public class GoShowHotel extends HotelCommand implements ActionCommand {
             request.setSessionAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
         }
     }
-        
+    
+    /**
+     * Clean session attributes of show hotel page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void cleanSessionShowHotel(SessionRequestContent request) {
         //city
         request.deleteSessionAttribute(JSP_CITY_LIST);

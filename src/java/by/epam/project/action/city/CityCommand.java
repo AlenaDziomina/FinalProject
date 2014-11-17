@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.city;
 
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.action.hotel.HotelCommand;
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STATUS;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.ClientType;
@@ -28,11 +18,20 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
- * @author User
+ * Class {@code CityCommand} is the parent class of all commands of actions
+ * on the city objects.
+ * Contains custom public methods of actions on the city objects.
+ * @author Helena.Grouk
  */
 public class CityCommand {
-    
+    /**
+     * Find the list of cities and save it as the attribute of session.
+     * Also determine and store in session attributes display options of city 
+     * and hotel status.
+     * @param request parameters and attributes of the request and the session
+     * @throws ServletLogicException if this can not be done due to the 
+     * exceptions of logic layer
+     */
     public void formCityList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_ID_COUNTRY, request.getAttribute(JSP_ID_COUNTRY));
@@ -45,12 +44,12 @@ public class CityCommand {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
         
-        Integer cityStatus = getCityStatus(request);
+        Short cityStatus = getCityStatus(request);
         if (cityStatus != null) {
             criteria.addParam(DAO_CITY_STATUS, cityStatus);
         }
         
-        Integer hotelStatus = new HotelCommand().getHotelStatus(request);
+        Short hotelStatus = new HotelCommand().getHotelStatus(request);
         if (hotelStatus != null) {
             criteria.addParam(DAO_HOTEL_STATUS, hotelStatus);
         }
@@ -63,7 +62,14 @@ public class CityCommand {
         }
     }
     
-    public Integer getCityStatus(SessionRequestContent request) {
+    /**
+     * Determine and store in session attributes display options of city 
+     * status. Default value means 'only valid'.
+     * @param request parameters and attributes of the request and the session
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * if 'only invalid'.
+     */
+    public Short getCityStatus(SessionRequestContent request) {
         Boolean validStatus = getBoolParam(request, JSP_CITY_VALID_STATUS);
         Boolean invalidStatus = getBoolParam(request, JSP_CITY_INVALID_STATUS);
         if (validStatus == null && invalidStatus == null) {
@@ -84,16 +90,21 @@ public class CityCommand {
         request.setSessionAttribute(JSP_CITY_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_CITY_INVALID_STATUS, invalidStatus);
         
-        Integer status = null;
+        Short status = null;
         if (validStatus && ! invalidStatus) {
-            status = 1;
+            status = ACTIVE;
         } else if ( ! validStatus && invalidStatus) {
-            status = 0;
+            status = DELETED;
         }
         return status;
     }
     
-    public void showSelectedCity(SessionRequestContent request) {
+    /**
+     * Determine and store in session attributes current city and its id for 
+     * displaying it. It needs list of cities and selected id in request.
+     * @param request parameters and attributes of the request and the session
+     */
+    protected void showSelectedCity(SessionRequestContent request) {
         String selected = request.getParameter(JSP_SELECT_ID);
         City currCity = null;
         if (selected != null) {
@@ -112,5 +123,4 @@ public class CityCommand {
         }
         request.setSessionAttribute(JSP_CURRENT_CITY, currCity);
     }
-    
 }

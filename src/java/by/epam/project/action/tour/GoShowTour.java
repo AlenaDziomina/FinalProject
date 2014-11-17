@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.action.city.CityCommand;
 import by.epam.project.action.country.CountryCommand;
 import by.epam.project.action.direction.DirectionCommand;
 import by.epam.project.action.hotel.HotelCommand;
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Tour;
@@ -29,11 +21,10 @@ import by.epam.project.tag.ObjList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of tour searching and start tour list
+ * @author Helena.Grouk
  */
 public class GoShowTour extends TourCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.tours");
@@ -49,6 +40,14 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         return page;
     }
     
+    /**
+     * Find the full list of tours and save it as the attribute of session.
+     * Also determine and store in session attributes display options of tour 
+     * status.
+     * @param request parameters and attributes of the request and the session
+     * @throws ServletLogicException if this can not be done due to the 
+     * exceptions of logic layer
+     */
     private void formTourSearchList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
@@ -71,6 +70,10 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         }
     }
 
+    /**
+     * Save default session attributes of tour searching.
+     * @param request parameters and attributes of the request and the session
+     */
     private void setDefaultParameters(SessionRequestContent request) {
         request.setSessionAttribute(JSP_COUNTRY_TAG_LIST, request.getSessionAttribute(JSP_COUNTRY_LIST));
         request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
@@ -85,6 +88,10 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         request.setSessionAttribute(JSP_IS_HIDDEN, true);
     }
     
+    /**
+     * Clean session attributes of show tour page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void cleanSessionShowTour(SessionRequestContent request) {
         //city
         request.deleteSessionAttribute(JSP_CURR_CITY_LIST);
@@ -153,7 +160,5 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         //user
         request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);
-        
     }
-            
 }

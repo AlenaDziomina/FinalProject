@@ -6,19 +6,25 @@
 
 package by.epam.project.dao.mysqldao;
 
+import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.GuestDao;
-import by.epam.project.dao.entquery.*;
-import by.epam.project.dao.entquery.CountryQuery;
-import by.epam.project.dao.entquery.DirectionQuery;
-import by.epam.project.dao.entquery.HotelQuery;
-import by.epam.project.dao.entquery.RoleQuery;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
-import by.epam.project.dao.entquery.TourTypeQuery;
-import by.epam.project.dao.entquery.TransModeQuery;
-import by.epam.project.dao.entquery.UserQuery;
 import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.entity.CityQuery;
+import by.epam.project.dao.query.entity.CountryQuery;
+import by.epam.project.dao.query.entity.DescriptionQuery;
+import by.epam.project.dao.query.entity.DirectionCityQuery;
+import by.epam.project.dao.query.entity.DirectionCountryQuery;
+import by.epam.project.dao.query.entity.DirectionQuery;
+import by.epam.project.dao.query.entity.DirectionStayHotelQuery;
+import by.epam.project.dao.query.entity.HotelQuery;
+import by.epam.project.dao.query.entity.RoleQuery;
+import by.epam.project.dao.query.entity.SearchQuery;
+import by.epam.project.dao.query.entity.TourQuery;
+import by.epam.project.dao.query.entity.TourTypeQuery;
+import by.epam.project.dao.query.entity.TransModeQuery;
+import by.epam.project.dao.query.entity.UserQuery;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
@@ -33,7 +39,6 @@ import by.epam.project.entity.TourType;
 import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.DaoException;
-import by.epam.project.exception.DaoLogicException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,24 +77,24 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
     
     @Override
     public List<Country> showCountries(Criteria criteria) throws DaoException {
-        if (criteria.getParam(CountryQuery.DAO_COUNTRY_STATUS) == null) {
-            criteria.addParam(CountryQuery.DAO_COUNTRY_STATUS, 1);
+        if (criteria.getParam(DAO_COUNTRY_STATUS) == null) {
+            criteria.addParam(DAO_COUNTRY_STATUS, ACTIVE);
         }
         return new CountryQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
     public List<City> showCities(Criteria criteria) throws DaoException {
-        if (criteria.getParam(CityQuery.DAO_CITY_STATUS) == null) {
-            criteria.addParam(CityQuery.DAO_CITY_STATUS, 1);
+        if (criteria.getParam(DAO_CITY_STATUS) == null) {
+            criteria.addParam(DAO_CITY_STATUS, ACTIVE);
         }
         return new CityQuery().load(criteria, loadDao, mysqlConn);
     }
 
     @Override
     public List<Hotel> showHotels(Criteria criteria) throws DaoException {
-        if (criteria.getParam(HotelQuery.DAO_HOTEL_STATUS) == null) {
-            criteria.addParam(HotelQuery.DAO_HOTEL_STATUS, 1);
+        if (criteria.getParam(DAO_HOTEL_STATUS) == null) {
+            criteria.addParam(DAO_HOTEL_STATUS, ACTIVE);
         }
         return new HotelQuery().load(criteria, loadDao, mysqlConn);
     }
@@ -106,8 +111,8 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
 
     @Override
     public List<Direction> showDirections(Criteria criteria) throws DaoException {
-        if (criteria.getParam(DirectionQuery.DAO_DIRECTION_STATUS) == null) {
-            criteria.addParam(DirectionQuery.DAO_DIRECTION_STATUS, 1);
+        if (criteria.getParam(DAO_DIRECTION_STATUS) == null) {
+            criteria.addParam(DAO_DIRECTION_STATUS, ACTIVE);
         }
         return new DirectionQuery().load(criteria, loadDao, mysqlConn);
     }
@@ -129,8 +134,8 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
 
     @Override
     public List<Tour> showTours(Criteria criteria) throws DaoException {
-        if (criteria.getParam(TourQuery.DAO_TOUR_STATUS) == null) {
-            criteria.addParam(TourQuery.DAO_TOUR_STATUS, 1);
+        if (criteria.getParam(DAO_TOUR_STATUS) == null) {
+            criteria.addParam(DAO_TOUR_STATUS, ACTIVE);
         }
         if (criteria.getParam(DAO_TOUR_DATE_FROM) == null && criteria.getParam(DAO_TOUR_DATE_TO) == null) {
             criteria.addParam(DAO_TOUR_DATE_FROM, new Date());
@@ -140,11 +145,11 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
 
     @Override
     public List<Tour> searchTours(Criteria criteria) throws DaoException {
-        if (criteria.getParam(DirectionQuery.DAO_DIRECTION_STATUS) == null) {
-            criteria.addParam(DirectionQuery.DAO_DIRECTION_STATUS, 1);
+        if (criteria.getParam(DAO_DIRECTION_STATUS) == null) {
+            criteria.addParam(DAO_DIRECTION_STATUS, ACTIVE);
         }
-        if (criteria.getParam(TourQuery.DAO_TOUR_STATUS) == null) {
-            criteria.addParam(TourQuery.DAO_TOUR_STATUS, 1);
+        if (criteria.getParam(DAO_TOUR_STATUS) == null) {
+            criteria.addParam(DAO_TOUR_STATUS, ACTIVE);
         }
         Date currDate = new Date();
         Date dateFrom = (Date) criteria.getParam(DAO_TOUR_DATE_FROM);

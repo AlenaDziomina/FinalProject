@@ -24,11 +24,11 @@ import jdk.nashorn.internal.runtime.regexp.RegExp;
  * @author User
  */
 public class Validator {
-    
+    private static final String MSG_ERR_NULL_ENTITY = "message.errorNullEntity";
     private static final int LOGIN_SIZE = 20;
     private static final String LOGIN_ERROR_MSG = "message.errorLogin";
     private static final int PASSWORD_SIZE = 20;
-    private static final String PASSWORD_ERROR_MSG = "message.errorPassword"; //errorRepeatPass
+    private static final String PASSWORD_ERROR_MSG = "message.errorPassword";
     private static final int PHONE_SIZE = 17;
     private static final String PHONE_ERROR_MSG = "message.errorPhone";
     private static final int EMAIL_SIZE = 60;
@@ -37,36 +37,39 @@ public class Validator {
     private static final int DIRECT_NAME_SIZE = 80;
     private static final String NAME_ERROR_MSG = "message.errorName";
     private static final int PICTURE_SIZE = 60;
-    private static final String PICTURE_ERROR_MSG = "errorPicture";
-    private static final String SELECT_COUNTRY_ERROR_MSG = "errorSelectCountry";
-    private static final String SELECT_CITY_ERROR_MSG = "errorSelectCity";
-    private static final String SELECT_STARS_ERROR_MSG = "errorSelectStars";
+    private static final String PICTURE_ERROR_MSG = "message.errorPicture";
+    private static final String SELECT_COUNTRY_ERROR_MSG = "message.errorSelectCountry";
+    private static final String SELECT_CITY_ERROR_MSG = "message.errorSelectCity";
+    private static final String SELECT_STARS_ERROR_MSG = "message.errorSelectStars";
     private static final int STARS_MIN = 1;
     private static final int STARS_MAX = 5;
-    private static final String SELECT_TOURTYPE_ERROR_MSG = "errorSelectTourType";
-    private static final String SELECT_TRANSMODE_ERROR_MSG = "errorSelectTransMode";
+    private static final String SELECT_TOURTYPE_ERROR_MSG = "message.errorSelectTourType";
+    private static final String SELECT_TRANSMODE_ERROR_MSG = "message.errorSelectTransMode";
     private static final int TEXT_SIZE = 63355;
-    private static final String TEXT_ERROR_MSG = "errorTextDir";
-    private static final String DISCOUNT_ERROR_MSG = "errorDiscount";
+    private static final String TEXT_ERROR_MSG = "message.errorTextDir";
+    private static final String DISCOUNT_ERROR_MSG = "message.errorDiscount";
     private static final int DISCOUNT_MIN = 0;
     private static final int DISCOUNT_MAX = 100;
-    private static final String TOTALSEATS_ERROR_MSG = "erroTotalSeats";
+    private static final String TOTALSEATS_ERROR_MSG = "message.erroTotalSeats";
     private static final int TOTALSEATS_MIN = 0;
     private static final int TOTALSEATS_MAX = Integer.MAX_VALUE;
-    private static final String FREESEATS_ERROR_MSG = "errorFreeSeats";
+    private static final String FREESEATS_ERROR_MSG = "message.errorFreeSeats";
     private static final int FREESEATS_MIN = 0;
     private static final float PRICE_MIN = 0;
     private static final float PRICE_MAX = Float.MAX_VALUE;
-    private static final String PRICE_ERROR_MSG = "errorPrice";
-    private static final String SEATS_ERROR_MSG = "errorOrderSeats";
+    private static final String PRICE_ERROR_MSG = "message.errorPrice";
+    private static final String SEATS_ERROR_MSG = "message.errorOrderSeats";
     private static final int SEATS_MIN = 1;
     private static final int SEATS_MAX = Integer.MAX_VALUE;
-    private static final String FIO_ERROR_MSG = "errorFio"; //errorTouristList
+    private static final String FIO_ERROR_MSG = "message.errorFio";
     private static final int FIO_SIZE = 60;
-    private static final String PASSPORT_ERROR_MSG = "errorPassport";
+    private static final String PASSPORT_ERROR_MSG = "message.errorPassport";
     private static final int PASSPORT_SIZE = 9;
 
     public static void validateCity(City city) throws TechnicalException {
+        if (city == null) {
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
+        }
         if ( ! isStringValid(city.getName(), NAME_SIZE)) {
             throw new TechnicalException(NAME_ERROR_MSG);
         }
@@ -79,6 +82,9 @@ public class Validator {
     }
 
     public static void validateCountry(Country country) throws TechnicalException {
+        if (country == null) {
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
+        }
         if ( ! isStringValid(country.getName(), NAME_SIZE)) {
             throw new TechnicalException(NAME_ERROR_MSG);
         }
@@ -88,6 +94,9 @@ public class Validator {
     }
 
     public static void validateDirection(Direction direction) throws TechnicalException {
+        if (direction == null) {
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
+        }
         if ( ! isStringValid(direction.getName(), DIRECT_NAME_SIZE)) {
             throw new TechnicalException(NAME_ERROR_MSG);
         }
@@ -107,6 +116,9 @@ public class Validator {
     }
 
     public static void validateHotel(Hotel hotel) throws TechnicalException {
+        if (hotel == null) {
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
+        }
         if ( ! isStringValid(hotel.getName(), NAME_SIZE)) {
             throw new TechnicalException(NAME_ERROR_MSG);
         }
@@ -136,6 +148,9 @@ public class Validator {
     }
     
     public static void validateTourist(Tourist tourist) throws TechnicalException {
+        if (tourist == null) {
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
+        }
         validateFIO(tourist.getFirstName());
         validateFIO(tourist.getMiddleName());
         validateFIO(tourist.getLastName());
@@ -167,6 +182,9 @@ public class Validator {
     }
 
     public static void validateTour(Tour tour) throws TechnicalException {
+        if (tour == null) {
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
+        }
         if ( ! isValidDiscount(tour.getDiscount())) {
             throw new TechnicalException(DISCOUNT_ERROR_MSG);
         }
@@ -222,6 +240,9 @@ public class Validator {
     }
 
     public static void validateUser(User currUser) throws TechnicalException {
+        if (currUser == null) {
+            throw new TechnicalException(MSG_ERR_NULL_ENTITY);
+        }
         validatePhone(currUser.getPhone());
         validateEmail(currUser.getEmail());
     }

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
@@ -13,11 +7,9 @@ import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.Tourist;
 import by.epam.project.entity.User;
-import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import by.epam.project.manager.ParamManager;
 import by.epam.project.manager.PriceDiscountManager;
 import by.epam.project.manager.Validator;
@@ -26,8 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of order object confirmation.
+ * @author Helena.Grouk
  */
 public class GoCreateNewOrder extends OrderCommand implements ActionCommand {
     private static final String MSG_ERR_NULL_ENTITY = "message.errorNullEntity";
@@ -49,6 +41,11 @@ public class GoCreateNewOrder extends OrderCommand implements ActionCommand {
         return page;
     }
     
+    /**
+     * Create and store in session attributes current order object using 
+     * current input parameters.
+     * @param request parameters and attributes of the request and the session
+     */
     private void createCurrOrder(SessionRequestContent request)throws TechnicalException{
         Order order = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
         User user = (User) request.getSessionAttribute(JSP_USER);
@@ -88,5 +85,4 @@ public class GoCreateNewOrder extends OrderCommand implements ActionCommand {
         order.setFinalPrice(PriceDiscountManager.getFinalPrice(order));
         request.setSessionAttribute(JSP_CURRENT_ORDER, order);
     }
-
 }

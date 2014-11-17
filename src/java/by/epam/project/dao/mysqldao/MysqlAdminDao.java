@@ -7,17 +7,17 @@
 package by.epam.project.dao.mysqldao;
 
 import by.epam.project.dao.AdminDao;
-import by.epam.project.dao.entquery.CityQuery;
-import by.epam.project.dao.entquery.CountryQuery;
-import by.epam.project.dao.entquery.DescriptionQuery;
-import by.epam.project.dao.entquery.DirectionCityQuery;
-import by.epam.project.dao.entquery.DirectionCountryQuery;
-import by.epam.project.dao.entquery.DirectionQuery;
-import by.epam.project.dao.entquery.DirectionStayHotelQuery;
-import by.epam.project.dao.entquery.HotelQuery;
-import by.epam.project.dao.entquery.SearchQuery;
-import by.epam.project.dao.entquery.TourQuery;
-import by.epam.project.dao.entquery.TouristQuery;
+import by.epam.project.dao.query.entity.CityQuery;
+import by.epam.project.dao.query.entity.CountryQuery;
+import by.epam.project.dao.query.entity.DescriptionQuery;
+import by.epam.project.dao.query.entity.DirectionCityQuery;
+import by.epam.project.dao.query.entity.DirectionCountryQuery;
+import by.epam.project.dao.query.entity.DirectionQuery;
+import by.epam.project.dao.query.entity.DirectionStayHotelQuery;
+import by.epam.project.dao.query.entity.HotelQuery;
+import by.epam.project.dao.query.entity.SearchQuery;
+import by.epam.project.dao.query.entity.TourQuery;
+import by.epam.project.dao.query.entity.TouristQuery;
 import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;

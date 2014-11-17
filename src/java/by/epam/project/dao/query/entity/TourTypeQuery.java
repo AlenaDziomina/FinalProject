@@ -4,74 +4,67 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.exception.DaoQueryException;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.entity.Role;
+import by.epam.project.entity.TourType;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 /**
  *
  * @author User
  */
-public class RoleQuery implements TypedQuery<Role>{
+public class TourTypeQuery implements TypedQuery<TourType>{
     
-    public static final String DB_ROLE = "role";
-    public static final String DB_ROLE_ID_ROLE = "id_role";
-    public static final String DB_ROLE_NAME_ROLE = "role_name";
+    public static final String DB_TOURTYPE = "tour_type";
+    public static final String DB_TOURTYPE_ID_TOURTYPE = "id_tour_type";
+    public static final String DB_TOURTYPE_NAME = "name_tour_type";
     
-    public static final String DAO_ID_ROLE = "idRole";
-    public static final String DAO_ROLE_NAME = "nameRole";
     
+
     private static final String SAVE_QUERY = 
-            "Insert into " + DB_ROLE + " (" 
-            + DB_ROLE_NAME_ROLE + ") values (?);";
+            "Insert into " + DB_TOURTYPE + " (" + DB_TOURTYPE_NAME
+            + ") values (?);";
     
     private static final String LOAD_QUERY = 
-            "Select * from " + DB_ROLE;
+            "Select * from " + DB_TOURTYPE;
     
     private static final String UPDATE_QUERY = 
-            "Update " + DB_ROLE + " set ";
+            "Update " + DB_TOURTYPE + " set ";
 
-    public static Role createBean(Criteria criteria) {
-        
-        Role bean = new Role();
-        bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));
-        bean.setRoleName(criteria.getParam(DAO_ROLE_NAME).toString());
+    
+    public static TourType createBean(Criteria criteria) {
+        TourType bean = new TourType();
+        bean.setIdTourType((Integer)criteria.getParam(DAO_ID_TOURTYPE));
+        bean.setNameTourType((String)criteria.getParam(DAO_TOURTYPE_NAME));
         return bean;
     }
     
     @Override
-    public List<Integer> save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<TourType> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Role bean) -> {
+            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (TourType bean) -> {
                 Object[] objects = new Object[1];
-                objects[0] = bean.getRoleName();
+                objects[0] = bean.getNameTourType();
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Role not saved.",ex);
+            throw new DaoQueryException("Tour type not saved.", ex);
         }
     }
 
     @Override
-    public List<Role> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<TourType> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
@@ -80,8 +73,8 @@ public class RoleQuery implements TypedQuery<Role>{
             @Override
             public String mapQuery() { 
                 String separator = " and ";
-                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, criteria, paramList, sb, separator);
-                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList, sb, separator);
+                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, criteria, paramList, sb, separator);
+                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -93,17 +86,14 @@ public class RoleQuery implements TypedQuery<Role>{
         }
         
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new RowMapper<Role>() {
-                @Override
-                public Role mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    Role bean = new Role();
-                    bean.setIdRole(rs.getInt(DB_ROLE_ID_ROLE));
-                    bean.setRoleName(rs.getString(DB_ROLE_NAME_ROLE));
-                    return bean;
-                }
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+                TourType bean = new TourType();
+                bean.setIdTourType(rs.getInt(DB_TOURTYPE_ID_TOURTYPE));
+                bean.setNameTourType(rs.getString(DB_TOURTYPE_NAME));
+                return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Role not loaded.", ex);
+             throw new DaoQueryException("Tour type not loaded.", ex);
         }
     }
 
@@ -116,10 +106,10 @@ public class RoleQuery implements TypedQuery<Role>{
             @Override
             public String mapQuery() { 
                 String separator = " , ";
-                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList1, sb, separator);
+                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList1, sb, separator);
                 sb.append(" where ");
                 separator = " and ";
-                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, beans, paramList2, sb, separator);
+                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, beans, paramList2, sb, separator);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -128,7 +118,7 @@ public class RoleQuery implements TypedQuery<Role>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Role not updated.", ex);
+             throw new DaoQueryException("Tour type not updated.", ex);
         }
     }
 
@@ -136,4 +126,8 @@ public class RoleQuery implements TypedQuery<Role>{
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
+    
 }
+

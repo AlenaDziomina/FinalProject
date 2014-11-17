@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action;
 
 /**
- *
- * @author User
+ * The class contains all names of the attributes and variable of jsp-page, 
+ * request and the session
+ * @author Helena.Grouk
  */
 public abstract class JspParamNames {
     
@@ -159,5 +154,4 @@ public abstract class JspParamNames {
     public static final String JSP_TOURIST_LAST_NAME = "lastName";
     public static final String JSP_TOURIST_PASSPORT = "passport";
     public static final String JSP_TOURIST_LIST = "touristList";
-    
 }

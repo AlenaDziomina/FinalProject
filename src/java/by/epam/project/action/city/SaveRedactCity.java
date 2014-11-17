@@ -1,22 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.city;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_NAME;
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_PICTURE;
-import static by.epam.project.dao.entquery.CityQuery.DAO_ID_CITY;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_DESCRIPTION_TEXT;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
 import by.epam.project.entity.ClientType;
@@ -29,18 +16,14 @@ import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.CityLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import by.epam.project.manager.ParamManager;
-import static by.epam.project.manager.ParamManager.checkIntParam;
 import by.epam.project.manager.Validator;
 
-
 /**
- *
- * @author User
+ * Class of command to save redacted or created city object.
+ * @author Helena.Grouk
  */
 public class SaveRedactCity extends CityCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.editcity");
@@ -73,15 +56,19 @@ public class SaveRedactCity extends CityCommand implements ActionCommand {
         
             Integer resIdCity = new CityLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdCity.toString());
-            return new GoShowCity().execute(request); 
+            page = new GoShowCity().execute(request); 
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-            return page;
-        }         
+        }  
+        return page;
     }
 
+    /**
+     * Resave common parameters of edit city page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void resaveParamsSaveCity(SessionRequestContent request) {
         String currCountry = request.getParameter(JSP_CURR_ID_COUNTRY);
         if (currCountry != null && !currCountry.isEmpty()) {
@@ -90,6 +77,11 @@ public class SaveRedactCity extends CityCommand implements ActionCommand {
         createCurrCity(request);
     }
     
+    /**
+     * Create and store in session attributes current city object using 
+     * current input parameters.
+     * @param request parameters and attributes of the request and the session
+     */
     private void createCurrCity(SessionRequestContent request) {
         City currCity = (City) request.getSessionAttribute(JSP_CURRENT_CITY);
         if (currCity == null) {
@@ -104,5 +96,4 @@ public class SaveRedactCity extends CityCommand implements ActionCommand {
         currCity.getDescription().setText(request.getParameter(JSP_DESCRIPTION_TEXT));
         request.setSessionAttribute(JSP_CURRENT_CITY, currCity);
     }
-    
 }

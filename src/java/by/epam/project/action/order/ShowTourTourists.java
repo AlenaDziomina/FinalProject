@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
-import static by.epam.project.action.JspParamNames.JSP_ORDER_LIST;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_TOURIST_LIST;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tourist;
@@ -20,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command of displaying the tourists list of current tour.
+ * @author Helena.Grouk
  */
 public class ShowTourTourists extends OrderCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.tourists");
@@ -35,6 +25,14 @@ public class ShowTourTourists extends OrderCommand implements ActionCommand {
         return page;
     }
 
+    /**
+     * Find the list of tourists and save it as the attribute of session.
+     * Also determine and store in session attributes display options of tour 
+     * status.
+     * @param request parameters and attributes of the request and the session
+     * @throws ServletLogicException if this can not be done due to the 
+     * exceptions of logic layer
+     */
     private void formTouristsList(SessionRequestContent request) {
         List<Order> orders = (List<Order>) request.getSessionAttribute(JSP_ORDER_LIST);
         List<Tourist> tourists = new ArrayList();
@@ -46,6 +44,4 @@ public class ShowTourTourists extends OrderCommand implements ActionCommand {
         }
         request.setSessionAttribute(JSP_TOURIST_LIST, tourists);
     }
-    
-    
 }

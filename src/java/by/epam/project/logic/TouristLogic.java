@@ -7,7 +7,7 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.entquery.TouristQuery.DAO_ID_TOURIST;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.exception.DaoException;
 import java.util.List;

@@ -1,20 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.tour;
 
 import by.epam.project.action.ActionCommand;
-import static by.epam.project.action.JspParamNames.JSP_CURRENT_TOUR;
-import static by.epam.project.action.JspParamNames.JSP_CURR_ARRIVAL_DATE;
-import static by.epam.project.action.JspParamNames.JSP_CURR_DEPART_DATE;
-import static by.epam.project.action.JspParamNames.JSP_PAGE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_DATE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_INVALID_STATUS;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_DATE;
-import static by.epam.project.action.JspParamNames.JSP_TOUR_VALID_STATUS;
+import static by.epam.project.action.JspParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.ServletLogicException;
@@ -24,11 +11,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of tour object editing.
+ * @author Helena.Grouk
  */
 public class GoEditTour extends TourCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.edittour");
@@ -47,8 +33,6 @@ public class GoEditTour extends TourCommand implements ActionCommand {
         Date d2 = c.getTime();
         String ds2 = formatter.format(d2);
         request.setAttribute(JSP_CURR_ARRIVAL_DATE, ds2);
-        
         return page;
     }
-    
 }

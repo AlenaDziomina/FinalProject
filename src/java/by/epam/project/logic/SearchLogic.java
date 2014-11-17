@@ -7,7 +7,7 @@
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;

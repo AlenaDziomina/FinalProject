@@ -6,16 +6,16 @@
 
 package by.epam.project.dao.mysqldao;
 
+import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.UserDao;
-import by.epam.project.dao.entquery.DirectionQuery;
-import by.epam.project.dao.entquery.OrderQuery;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
-import by.epam.project.dao.entquery.TourQuery;
-import by.epam.project.dao.entquery.TouristQuery;
-import by.epam.project.dao.entquery.UserQuery;
 import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.entity.DirectionQuery;
+import by.epam.project.dao.query.entity.OrderQuery;
+import by.epam.project.dao.query.entity.TourQuery;
+import by.epam.project.dao.query.entity.TouristQuery;
+import by.epam.project.dao.query.entity.UserQuery;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
@@ -40,12 +40,12 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
     
     @Override
     public List<Direction> showDirections(Criteria criteria) throws DaoException {
-        Integer status = (Integer) criteria.getParam(DirectionQuery.DAO_DIRECTION_STATUS);
-        Boolean allStatus = (Boolean) criteria.getParam(DirectionQuery.DAO_DIRECTION_ALLSTATUS);
+        Integer status = (Integer) criteria.getParam(DAO_DIRECTION_STATUS);
+        Boolean allStatus = (Boolean) criteria.getParam(DAO_DIRECTION_ALLSTATUS);
         if (allStatus != null && allStatus) {
-            criteria.remuveParam(DirectionQuery.DAO_DIRECTION_STATUS);
+            criteria.remuveParam(DAO_DIRECTION_STATUS);
         } else if (status == null) {
-            criteria.addParam(DirectionQuery.DAO_DIRECTION_STATUS, 1);
+            criteria.addParam(DAO_DIRECTION_STATUS, ACTIVE);
         }
         
         return new DirectionQuery().load(criteria, loadDao, mysqlConn);
@@ -53,16 +53,16 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
     
     @Override
     public List<Tour> showTours(Criteria criteria) throws DaoException {
-        Integer status = (Integer) criteria.getParam(TourQuery.DAO_TOUR_STATUS);
-        Boolean allStatus = (Boolean) criteria.getParam(TourQuery.DAO_TOUR_ALLSTATUS);
+        Integer status = (Integer) criteria.getParam(DAO_TOUR_STATUS);
+        Boolean allStatus = (Boolean) criteria.getParam(DAO_TOUR_ALLSTATUS);
         if (allStatus != null && allStatus) {
-            criteria.remuveParam(TourQuery.DAO_TOUR_STATUS);
+            criteria.remuveParam(DAO_TOUR_STATUS);
         } else if (status == null) {
-            criteria.addParam(TourQuery.DAO_TOUR_STATUS, 1);
+            criteria.addParam(DAO_TOUR_STATUS, ACTIVE);
         }
         Date dateFrom = (Date) criteria.getParam(DAO_TOUR_DATE_FROM);
         Date dateTo = (Date) criteria.getParam(DAO_TOUR_DATE_TO);
-        Boolean allDate = (Boolean) criteria.getParam(TourQuery.DAO_TOUR_ALLDATE);
+        Boolean allDate = (Boolean) criteria.getParam(DAO_TOUR_ALLDATE);
         if (allDate != null && allDate) {
             criteria.remuveParam(DAO_TOUR_DATE_FROM);
             criteria.remuveParam(DAO_TOUR_DATE_TO);

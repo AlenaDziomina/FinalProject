@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.order;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ID_ORDER;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_TOURIST_LIST;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Order;
@@ -28,8 +19,8 @@ import by.epam.project.manager.Validator;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command to save redacted order object.
+ * @author Helena.Grouk
  */
 public class SaveRedactOrder extends OrderCommand implements ActionCommand {
     private static final String MSG_ERR_NULL_ENTITY = "message.errorNullEntity";
@@ -40,7 +31,6 @@ public class SaveRedactOrder extends OrderCommand implements ActionCommand {
         String page = ConfigurationManager.getProperty("path.page.edittourist");
         try {
             resaveParamsSaveOrder(request);
-        
             Criteria criteria = new Criteria();
             Order order = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
             Validator.validateOrder(order);
@@ -63,17 +53,21 @@ public class SaveRedactOrder extends OrderCommand implements ActionCommand {
         
             Integer resIdOrder = new OrderLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdOrder.toString());
-            return new ShowOrder().execute(request);
+            page = new ShowOrder().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-            return page;
         }
+        return page;
     }
 
+    /**
+     * Resave common parameters of edit order page.
+     * @param request parameters and attributes of the request and the session
+     * @throws by.epam.project.exception.TechnicalException
+     */
     private void resaveParamsSaveOrder(SessionRequestContent request) throws TechnicalException {
-        
         Order order = (Order) request.getSessionAttribute(JSP_CURRENT_ORDER);
         if (order == null) {
             throw new TechnicalException(MSG_ERR_NULL_ENTITY);
@@ -102,5 +96,4 @@ public class SaveRedactOrder extends OrderCommand implements ActionCommand {
         }
         request.setSessionAttribute(JSP_CURRENT_ORDER, order);
     }
-    
 }

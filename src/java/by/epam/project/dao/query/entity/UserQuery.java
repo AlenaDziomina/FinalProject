@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ID_ROLE;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -43,16 +40,7 @@ public class UserQuery implements TypedQuery<User>{
     public static final String DB_USER_LANGUAGE = "lang";
     public static final String DB_USER_STATUS = "status";
     
-    public static final String DAO_ID_USER = "idUser";
-    public static final String DAO_USER_LOGIN = "login";
-    public static final String DAO_USER_PASSWORD = "password";
-    public static final String DAO_USER_EMAIL = "email";
-    public static final String DAO_USER_PHONE = "phone";
-    public static final String DAO_USER_LANGUAGE = "language";
-    public static final String DAO_USER_DISCOUNT = "discount";
-    public static final String DAO_USER_BALANCE = "balance";
-    public static final String DAO_USER_STATUS = "status";
-    public static final String DAO_USER_SELECT_FOR_UPDATE = "userSelectForUpdate";
+    
     
     private static final String SAVE_QUERY = 
             "Insert into " + DB_USER + " (" + DB_USER_LOGIN + ", " 

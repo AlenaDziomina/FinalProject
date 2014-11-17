@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.order;
 
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ORDER_STATUS;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.TourQuery.DAO_ID_TOUR;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Order;
@@ -25,23 +16,35 @@ import by.epam.project.tag.ObjList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class {@code OrderCommand} is the parent class of all commands of actions
+ * on the order objects.
+ * Contains custom public methods of actions on the order objects.
+ * @author Helena.Grouk
  */
 public class OrderCommand {
-    
-    protected void resaveParamsShowOrder(SessionRequestContent request) throws ServletLogicException {
+    /**
+     * Resave common parameters of order page.
+     * @param request parameters and attributes of the request and the session
+     */
+    protected void resaveParamsShowOrder(SessionRequestContent request) {
         String validHotelStatus = request.getParameter(JSP_ORDER_VALID_STATUS);
         if(validHotelStatus != null) {
             request.setSessionAttribute(JSP_ORDER_VALID_STATUS, validHotelStatus);
         }
-        
         String invalidHotelStatus = request.getParameter(JSP_ORDER_INVALID_STATUS);
         if(invalidHotelStatus != null) {
             request.setSessionAttribute(JSP_ORDER_INVALID_STATUS, invalidHotelStatus);
         }
     }
     
+    /**
+     * Find the list of orders and save it as the attribute of session.
+     * Also determine and store in session attributes display options of hotel 
+     * status.
+     * @param request parameters and attributes of the request and the session
+     * @throws ServletLogicException if this can not be done due to the 
+     * exceptions of logic layer
+     */
     protected void formOrderList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         User user = (User) request.getSessionAttribute(JSP_USER);
@@ -53,7 +56,7 @@ public class OrderCommand {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
         
-        Integer orderStatus = getOrderStatus(request);
+        Short orderStatus = getOrderStatus(request);
         if (orderStatus != null) {
             criteria.addParam(DAO_ORDER_STATUS, orderStatus);
         }
@@ -74,7 +77,14 @@ public class OrderCommand {
         }
     }
     
-    protected Integer getOrderStatus(SessionRequestContent request) {
+    /**
+     * Determine and store in session attributes display options of order 
+     * status. Default value means 'only valid'.
+     * @param request parameters and attributes of the request and the session
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * if 'only invalid'.
+     */
+    protected Short getOrderStatus(SessionRequestContent request) {
         Boolean validStatus = getBoolParam(request, JSP_ORDER_VALID_STATUS);
         Boolean invalidStatus = getBoolParam(request, JSP_ORDER_INVALID_STATUS);
         if (validStatus == null && invalidStatus == null) {
@@ -95,15 +105,19 @@ public class OrderCommand {
         request.setSessionAttribute(JSP_ORDER_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_ORDER_INVALID_STATUS, invalidStatus);
         
-        Integer status = null;
+        Short status = null;
         if (validStatus && ! invalidStatus) {
-            status = 1;
+            status = ACTIVE;
         } else if ( ! validStatus && invalidStatus) {
-            status = 0;
+            status = DELETED;
         }
         return status;
     }
     
+    /**
+     * Clean session attributes of show order page.
+     * @param request parameters and attributes of the request and the session
+     */
     protected void cleanSessionShowOrder(SessionRequestContent request) {
         //city
         request.deleteSessionAttribute(JSP_CITY_LIST);

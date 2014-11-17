@@ -4,16 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.CountryQuery.DAO_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DescriptionQuery.DAO_ID_DESCRIPTION;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_LIST;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
@@ -44,12 +39,6 @@ public class CityQuery implements TypedQuery<City>{
     public static final String DB_CITY_PICTURE = "picture";
     public static final String DB_CITY_ID_DESCRIPTION = "id_description";
     
-    public static final String DAO_ID_CITY = "idCity";
-    public static final String DAO_CITY_NAME = "nameCity";
-    public static final String DAO_CITY_STATUS = "statusCity";
-    public static final String DAO_CITY_PICTURE = "pictureCity";
-    public static final String DAO_CITY_LIST = "cityList";
-
     private static final String SAVE_QUERY = 
             "Insert into " + DB_CITY + " (" + DB_CITY_ID_COUNTRY + ", "
             + DB_CITY_NAME + ", " + DB_CITY_PICTURE + ", " 
@@ -60,18 +49,6 @@ public class CityQuery implements TypedQuery<City>{
     
     private static final String UPDATE_QUERY = 
             "Update " + DB_CITY + " set ";
-    
-    public static City createBean(Criteria criteria){
-        City bean = new City();
-        bean.setIdCity((Integer) criteria.getParam(DAO_ID_CITY));
-        bean.setName((String) criteria.getParam(DAO_CITY_NAME));
-        bean.setPicture((String) criteria.getParam(DAO_CITY_PICTURE));
-        bean.setStatus((Short) criteria.getParam(DAO_CITY_STATUS));
-        bean.setDescription(DescriptionQuery.createBean(criteria));
-        bean.setHotelCollection((Collection<Hotel>) criteria.getParam(DAO_HOTEL_LIST));
-        bean.setCountry(CountryQuery.createBean(criteria));
-        return bean;
-    }
     
     @Override
     public List<Integer> save(List<City> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -171,4 +148,15 @@ public class CityQuery implements TypedQuery<City>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public static City createBean(Criteria criteria){
+        City bean = new City();
+        bean.setIdCity((Integer) criteria.getParam(DAO_ID_CITY));
+        bean.setName((String) criteria.getParam(DAO_CITY_NAME));
+        bean.setPicture((String) criteria.getParam(DAO_CITY_PICTURE));
+        bean.setStatus((Short) criteria.getParam(DAO_CITY_STATUS));
+        bean.setDescription(DescriptionQuery.createBean(criteria));
+        bean.setHotelCollection((Collection<Hotel>) criteria.getParam(DAO_HOTEL_LIST));
+        bean.setCountry(CountryQuery.createBean(criteria));
+        return bean;
+    }
 }

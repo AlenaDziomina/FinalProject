@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.OrderQuery.DAO_ID_ORDER;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
@@ -41,13 +38,7 @@ public class TouristQuery implements TypedQuery<Tourist>{
     public static final String DB_TOURIST_PASSPORT = "passport";
     public static final String DB_TOURIST_STATUS = "status";
 
-    public static final String DAO_ID_TOURIST = "idTourist";
-    public static final String DAO_TOURIST_FNAME = "firstNameTourist";
-    public static final String DAO_TOURIST_MNAME = "middleNameTourist";
-    public static final String DAO_TOURIST_LNAME = "lastNameTourist";
-    public static final String DAO_TOURIST_BIRTH = "birthDateTourist";
-    public static final String DAO_TOURIST_PASSPORT = "passportTourist";
-    public static final String DAO_TOURIST_STATUS = "statusTourist";
+    
     
     
     private static final String SAVE_QUERY = 

@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.country;
 
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.action.city.CityCommand;
-import static by.epam.project.dao.entquery.CityQuery.DAO_CITY_STATUS;
-import static by.epam.project.dao.entquery.CountryQuery.DAO_COUNTRY_STATUS;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LOGIN;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Country;
@@ -27,11 +18,20 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
- * @author User
+ * Class {@code CountryCommand} is the parent class of all commands of actions
+ * on the country objects.
+ * Contains custom public methods of actions on the country objects.
+ * @author Helena.Grouk
  */
 public class CountryCommand {
-    
+    /**
+     * Find the list of countries and save it as the attribute of session.
+     * Also determine and store in session attributes display options of country 
+     * and city status.
+     * @param request parameters and attributes of the request and the session
+     * @throws ServletLogicException if this can not be done due to the 
+     * exceptions of logic layer
+     */
     public void formCountryList(SessionRequestContent request)throws ServletLogicException {
         Criteria criteria = new Criteria();
         User user = (User) request.getSessionAttribute(JSP_USER);
@@ -43,12 +43,12 @@ public class CountryCommand {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
         
-        Integer countryStatus = getCountryStatus(request);
+        Short countryStatus = getCountryStatus(request);
         if (countryStatus != null) {
             criteria.addParam(DAO_COUNTRY_STATUS, countryStatus);
         }
         
-        Integer cityStatus = new CityCommand().getCityStatus(request);
+        Short cityStatus = new CityCommand().getCityStatus(request);
         if (cityStatus != null) {
             criteria.addParam(DAO_CITY_STATUS, cityStatus);
         }
@@ -60,8 +60,40 @@ public class CountryCommand {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-
-    public Integer getCountryStatus(SessionRequestContent request) {
+    
+    /**
+     * Determine and store in session attributes current country and its id for 
+     * displaying it. It needs list of countries and selected id in request.
+     * @param request parameters and attributes of the request and the session
+     */
+    protected void showSelectedCountry(SessionRequestContent request) {
+        String selected = request.getParameter(JSP_SELECT_ID);
+        Country currCountry = null;
+        if (selected != null) {
+            Integer idCountry = Integer.decode(selected); 
+            if (idCountry != null) {
+                List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
+                Iterator<Country> it = list.iterator();
+                while (it.hasNext() && currCountry == null) {
+                    Country country = it.next();
+                    if (Objects.equals(country.getIdCountry(), idCountry)) {
+                        currCountry = country;
+                        request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
+                    }
+                }
+            }
+        }
+        request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
+    }
+    
+    /**
+     * Determine and store in session attributes display options of country 
+     * status. Default value means 'only valid'.
+     * @param request parameters and attributes of the request and the session
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * if 'only invalid'.
+     */
+    private Short getCountryStatus(SessionRequestContent request) {
         Boolean validStatus = getBoolParam(request, JSP_COUNTRY_VALID_STATUS);
         Boolean invalidStatus = getBoolParam(request, JSP_COUNTRY_INVALID_STATUS);
         if (validStatus == null && invalidStatus == null) {
@@ -82,32 +114,12 @@ public class CountryCommand {
         request.setSessionAttribute(JSP_COUNTRY_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_COUNTRY_INVALID_STATUS, invalidStatus);
         
-        Integer status = null;
+        Short status = null;
         if (validStatus && ! invalidStatus) {
-            status = 1;
+            status = ACTIVE;
         } else if ( ! validStatus && invalidStatus) {
-            status = 0;
+            status = DELETED;
         }
         return status;
-    }
-    
-    public void showSelectedCountry(SessionRequestContent request) {
-        String selected = request.getParameter(JSP_SELECT_ID);
-        Country currCountry = null;
-        if (selected != null) {
-            Integer idCountry = Integer.decode(selected); 
-            if (idCountry != null) {
-                List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
-                Iterator<Country> it = list.iterator();
-                while (it.hasNext() && currCountry == null) {
-                    Country country = it.next();
-                    if (Objects.equals(country.getIdCountry(), idCountry)) {
-                        currCountry = country;
-                        request.setAttribute(JSP_CURR_ID_COUNTRY, idCountry);
-                    }
-                }
-            }
-        }
-        request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
     }
 }

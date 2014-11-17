@@ -4,16 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_ID_DIRECTION;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_FROM;
-import static by.epam.project.dao.entquery.SearchQuery.DAO_TOUR_DATE_TO;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
@@ -44,17 +39,7 @@ public class TourQuery implements TypedQuery<Tour>{
     public static final String DB_TOUR_FREE_SEATS = "free_seats";
     public static final String DB_TOUR_STATUS = "status";
     
-    public static final String DAO_ID_TOUR = "idTour";
-    public static final String DAO_TOUR_DATE = "dateTour";
-    public static final String DAO_TOUR_DAYS = "daysTour";
-    public static final String DAO_TOUR_PRICE = "priceTour";
-    public static final String DAO_TOUR_DISCOUNT = "discountTour";
-    public static final String DAO_TOUR_TOTAL_SEATS = "totalSeatsTour";
-    public static final String DAO_TOUR_FREE_SEATS = "freeSeatsTour";
-    public static final String DAO_TOUR_STATUS = "statusTour";
-    public static final String DAO_TOUR_ALLSTATUS = "allStatusTour";
-    public static final String DAO_TOUR_ALLDATE = "allDateTour";
-    public static final String DAO_TOUR_SELECT_FOR_UPDATE = "tourSelectForUpdate";
+    
     
     private static final String SAVE_QUERY = 
             "Insert into " + DB_TOUR + " (" + DB_TOUR_ID_DIRECTION + ", "

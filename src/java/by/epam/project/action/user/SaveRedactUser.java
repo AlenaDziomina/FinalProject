@@ -8,13 +8,8 @@ package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
 import static by.epam.project.action.JspParamNames.*;
+import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
-import static by.epam.project.dao.entquery.RoleQuery.DAO_ROLE_NAME;
-import static by.epam.project.dao.entquery.UserQuery.DAO_ID_USER;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_EMAIL;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_LANGUAGE;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PASSWORD;
-import static by.epam.project.dao.entquery.UserQuery.DAO_USER_PHONE;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.User;
@@ -24,9 +19,7 @@ import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.UserLogic;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import by.epam.project.manager.Validator;
-import java.util.Locale;
 
 /**
  *

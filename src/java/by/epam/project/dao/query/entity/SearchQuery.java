@@ -4,48 +4,38 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
-import static by.epam.project.dao.entquery.DirectionCityQuery.DAO_DIRCITY_ID_CITY;
-import static by.epam.project.dao.entquery.DirectionCityQuery.DB_DIRCITY;
-import static by.epam.project.dao.entquery.DirectionCityQuery.DB_DIRCITY_ID_CITY;
-import static by.epam.project.dao.entquery.DirectionCityQuery.DB_DIRCITY_ID_DIRECTION;
-import static by.epam.project.dao.entquery.DirectionCountryQuery.DAO_DIRCOUNTRY_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DirectionCountryQuery.DB_DIRCOUNTRY;
-import static by.epam.project.dao.entquery.DirectionCountryQuery.DB_DIRCOUNTRY_ID_COUNTRY;
-import static by.epam.project.dao.entquery.DirectionCountryQuery.DB_DIRCOUNTRY_ID_DIRECTION;
-import static by.epam.project.dao.entquery.DirectionQuery.DAO_DIRECTION_STATUS;
-import static by.epam.project.dao.entquery.DirectionQuery.DB_DIRECTION;
-import static by.epam.project.dao.entquery.DirectionQuery.DB_DIRECTION_ID_DIRECTION;
-import static by.epam.project.dao.entquery.DirectionQuery.DB_DIRECTION_ID_TOURTYPE;
-import static by.epam.project.dao.entquery.DirectionQuery.DB_DIRECTION_ID_TRANSMODE;
-import static by.epam.project.dao.entquery.DirectionQuery.DB_DIRECTION_STATUS;
-import static by.epam.project.dao.entquery.DirectionStayHotelQuery.DAO_DIRSTAY_ID_HOTEL;
-import static by.epam.project.dao.entquery.DirectionStayHotelQuery.DB_DIRSTAY;
-import static by.epam.project.dao.entquery.DirectionStayHotelQuery.DB_DIRSTAY_ID_DIRECTION;
-import static by.epam.project.dao.entquery.DirectionStayHotelQuery.DB_DIRSTAY_ID_HOTEL;
-import static by.epam.project.dao.entquery.HotelQuery.DAO_HOTEL_STARS;
-import static by.epam.project.dao.entquery.HotelQuery.DB_HOTEL;
-import static by.epam.project.dao.entquery.HotelQuery.DB_HOTEL_ID_HOTEL;
-import static by.epam.project.dao.entquery.HotelQuery.DB_HOTEL_STARS;
-import static by.epam.project.dao.entquery.TourQuery.DAO_TOUR_STATUS;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_DATE;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_DAYS_COUNT;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_DISCOUNT;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_FREE_SEATS;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_ID_DIRECTION;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_ID_TOUR;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_PRICE;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_STATUS;
-import static by.epam.project.dao.entquery.TourQuery.DB_TOUR_TOTAL_SEATS;
-import static by.epam.project.dao.entquery.TourTypeQuery.DAO_ID_TOURTYPE;
-import static by.epam.project.dao.entquery.TransModeQuery.DAO_ID_TRANSMODE;
+import static by.epam.project.dao.query.entity.DirectionCityQuery.DB_DIRCITY;
+import static by.epam.project.dao.query.entity.DirectionCityQuery.DB_DIRCITY_ID_CITY;
+import static by.epam.project.dao.query.entity.DirectionCityQuery.DB_DIRCITY_ID_DIRECTION;
+import static by.epam.project.dao.query.entity.DirectionCountryQuery.DB_DIRCOUNTRY;
+import static by.epam.project.dao.query.entity.DirectionCountryQuery.DB_DIRCOUNTRY_ID_COUNTRY;
+import static by.epam.project.dao.query.entity.DirectionCountryQuery.DB_DIRCOUNTRY_ID_DIRECTION;
+import static by.epam.project.dao.query.entity.DirectionQuery.DB_DIRECTION;
+import static by.epam.project.dao.query.entity.DirectionQuery.DB_DIRECTION_ID_DIRECTION;
+import static by.epam.project.dao.query.entity.DirectionQuery.DB_DIRECTION_ID_TOURTYPE;
+import static by.epam.project.dao.query.entity.DirectionQuery.DB_DIRECTION_ID_TRANSMODE;
+import static by.epam.project.dao.query.entity.DirectionQuery.DB_DIRECTION_STATUS;
+import static by.epam.project.dao.query.entity.DirectionStayHotelQuery.DB_DIRSTAY;
+import static by.epam.project.dao.query.entity.DirectionStayHotelQuery.DB_DIRSTAY_ID_DIRECTION;
+import static by.epam.project.dao.query.entity.DirectionStayHotelQuery.DB_DIRSTAY_ID_HOTEL;
+import static by.epam.project.dao.query.entity.HotelQuery.DB_HOTEL;
+import static by.epam.project.dao.query.entity.HotelQuery.DB_HOTEL_ID_HOTEL;
+import static by.epam.project.dao.query.entity.HotelQuery.DB_HOTEL_STARS;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_DATE;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_DAYS_COUNT;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_DISCOUNT;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_FREE_SEATS;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_ID_DIRECTION;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_ID_TOUR;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_PRICE;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_STATUS;
+import static by.epam.project.dao.query.entity.TourQuery.DB_TOUR_TOTAL_SEATS;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import static by.epam.project.dao.query.Params.QueryMapper.appendArr;
@@ -66,14 +56,7 @@ import java.util.List;
 
 public class SearchQuery implements TypedQuery<Tour> {
     
-    public static final String DAO_TOUR_DATE_FROM = "departDateFrom";
-    public static final String DAO_TOUR_DATE_TO = "departDateTo";
-    public static final String DAO_TOUR_DAYS_FROM = "tourDaysFrom";
-    public static final String DAO_TOUR_DAYS_TO = "tourDaysTo";
-    public static final String DAO_TOUR_PRICE_FROM = "tourPriceFrom";
-    public static final String DAO_TOUR_PRICE_TO = "tourPriceTo";
-    public static final String DAO_TOUR_DISCOUNT_FROM = "tourDiscountFrom";
-    public static final String DAO_TOUR_FREE_SEATS_FROM = "tourDiscountTo";
+    
     
     private static final String LOAD_QUERY_TOUR = 
             "select * from " + DB_TOUR + " t ";

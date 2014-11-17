@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.entquery;
+package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
+import static by.epam.project.dao.DaoParamNames.*;
+import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
@@ -32,8 +30,7 @@ public class DescriptionQuery implements TypedQuery<Description>{
     public static final String DB_DESCRIPTION_ID_DESCRIPTION = "id_description";
     public static final String DB_DESCRIPTION_TEXT = "text";
     
-    public static final String DAO_ID_DESCRIPTION = "idDescription";
-    public static final String DAO_DESCRIPTION_TEXT = "textDescription";
+    
 
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DESCRIPTION + " (" + DB_DESCRIPTION_TEXT
