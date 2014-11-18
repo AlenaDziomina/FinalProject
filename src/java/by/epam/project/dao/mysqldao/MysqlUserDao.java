@@ -9,7 +9,6 @@ package by.epam.project.dao.mysqldao;
 import static by.epam.project.action.JspParamNames.*;
 import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.UserDao;
-import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.entity.DirectionQuery;
 import by.epam.project.dao.query.entity.OrderQuery;
@@ -35,7 +34,7 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
     
     @Override
     public List<Integer> updateUser(Criteria bean, Criteria criteria) throws DaoException {
-        return new UserQuery().update(bean, criteria, updateDao, mysqlConn);
+        return new UserQuery().update(bean, criteria, updateGeneric, mysqlConn);
     }
     
     @Override
@@ -48,7 +47,7 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
             criteria.addParam(DAO_DIRECTION_STATUS, ACTIVE);
         }
         
-        return new DirectionQuery().load(criteria, loadDao, mysqlConn);
+        return new DirectionQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
@@ -69,40 +68,40 @@ public class MysqlUserDao extends MysqlGuestDao implements UserDao {
         } else if (dateFrom == null && dateTo == null) {
             criteria.addParam(DAO_TOUR_DATE_FROM, new Date());
         }
-        return new TourQuery().load(criteria, loadDao, mysqlConn);
+        return new TourQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<Integer> createNewOrder(Criteria criteria) throws DaoException {
         List list = new ArrayList<>();
         list.add(OrderQuery.createBean(criteria));
-        return new OrderQuery().save(list, saveDao, mysqlConn);
+        return new OrderQuery().save(list, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateTour(Criteria beans, Criteria criteria) throws DaoException {
-        return new TourQuery().update(beans, criteria, updateDao, mysqlConn);
+        return new TourQuery().update(beans, criteria, updateGeneric, mysqlConn);
     }
     
     @Override
     public List<Integer> updateOrder(Criteria beans, Criteria criteria) throws DaoException {
-        return new OrderQuery().update(beans, criteria, updateDao, mysqlConn);
+        return new OrderQuery().update(beans, criteria, updateGeneric, mysqlConn);
     }
     
     @Override
     public List<Integer> createNewTourist(Criteria criteria) throws DaoException {
         List list = new ArrayList<>();
         list.add(TouristQuery.createBean(criteria));
-        return new TouristQuery().save(list, saveDao, mysqlConn);
+        return new TouristQuery().save(list, saveGeneric, mysqlConn);
     }
     
     @Override
     public List<Order> showOrders(Criteria criteria) throws DaoException {
-        return new OrderQuery().load(criteria, loadDao, mysqlConn);
+        return new OrderQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<Tourist> showTourists(Criteria criteria) throws DaoException {
-        return new TouristQuery().load(criteria, loadDao, mysqlConn);
+        return new TouristQuery().load(criteria, loadGeneric, mysqlConn);
     }
 }

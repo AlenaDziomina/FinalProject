@@ -1,5 +1,9 @@
 package by.epam.project.dao.query.entity;
 
+import by.epam.project.dao.query.generic.GenericDeleteQuery;
+import by.epam.project.dao.query.generic.GenericUpdateQuery;
+import by.epam.project.dao.query.generic.GenericSaveQuery;
+import by.epam.project.dao.query.generic.GenericLoadQuery;
 import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Criteria;

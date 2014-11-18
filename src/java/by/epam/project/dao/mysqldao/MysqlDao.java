@@ -6,15 +6,15 @@
 
 package by.epam.project.dao.mysqldao;
 
+import by.epam.project.dao.mysqldao.querygeneric.MysqlGenericUpdateQuery;
+import by.epam.project.dao.mysqldao.querygeneric.MysqlGenericSaveQuery;
+import by.epam.project.dao.mysqldao.querygeneric.MysqlGenericDeleteQuery;
+import by.epam.project.dao.mysqldao.querygeneric.MysqlGenericLoadQuery;
 import by.epam.project.dao.AbstractDao;
-import by.epam.project.dao.query.GenericDeleteQuery;
-import by.epam.project.dao.query.GenericLoadQuery;
-import by.epam.project.dao.query.GenericSaveQuery;
-import by.epam.project.dao.query.GenericUpdateQuery;
-import by.epam.project.dao.query.mysqlquery.MysqlGenericDeleteQuery;
-import by.epam.project.dao.query.mysqlquery.MysqlGenericLoadQuery;
-import by.epam.project.dao.query.mysqlquery.MysqlGenericSaveQuery;
-import by.epam.project.dao.query.mysqlquery.MysqlGenericUpdateQuery;
+import by.epam.project.dao.query.generic.GenericDeleteQuery;
+import by.epam.project.dao.query.generic.GenericLoadQuery;
+import by.epam.project.dao.query.generic.GenericSaveQuery;
+import by.epam.project.dao.query.generic.GenericUpdateQuery;
 import by.epam.project.exception.DaoConnectException;
 import by.epam.project.exception.DaoException;
 import java.sql.Connection;
@@ -27,10 +27,10 @@ import java.sql.SQLException;
 public class MysqlDao implements AbstractDao {
     
     protected Connection mysqlConn;
-    protected static GenericLoadQuery loadDao = new MysqlGenericLoadQuery();
-    protected static GenericSaveQuery saveDao = new MysqlGenericSaveQuery();
-    protected static GenericUpdateQuery updateDao = new MysqlGenericUpdateQuery();
-    protected static GenericDeleteQuery deleteDao = new MysqlGenericDeleteQuery();
+    protected static GenericLoadQuery loadGeneric = new MysqlGenericLoadQuery();
+    protected static GenericSaveQuery saveGeneric = new MysqlGenericSaveQuery();
+    protected static GenericUpdateQuery updateGeneric = new MysqlGenericUpdateQuery();
+    protected static GenericDeleteQuery deleteGeneric = new MysqlGenericDeleteQuery();
     
     @Override
     public void open() throws DaoException {

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.dao.query;
+package by.epam.project.dao.query.generic;
 
 import by.epam.project.exception.DaoException;
 import java.sql.Connection;
@@ -14,6 +14,7 @@ import java.util.List;
  *
  * @author User
  */
-public interface GenericDeleteQuery {
-    <T> List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;
+public interface GenericUpdateQuery {
+    List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;
+    
 }

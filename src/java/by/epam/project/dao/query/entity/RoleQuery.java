@@ -1,18 +1,19 @@
 package by.epam.project.dao.query.entity;
 
+import by.epam.project.dao.query.generic.GenericDeleteQuery;
+import by.epam.project.dao.query.generic.GenericUpdateQuery;
+import by.epam.project.dao.query.generic.GenericSaveQuery;
+import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
 import by.epam.project.dao.query.Params;
 import static by.epam.project.dao.query.Params.QueryMapper.append;
-import by.epam.project.dao.query.Params.RowMapper;
 import by.epam.project.exception.DaoQueryException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Role;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

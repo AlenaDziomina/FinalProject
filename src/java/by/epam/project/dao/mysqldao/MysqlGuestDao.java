@@ -9,7 +9,6 @@ package by.epam.project.dao.mysqldao;
 import static by.epam.project.action.JspParamNames.*;
 import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.GuestDao;
-import static by.epam.project.dao.mysqldao.MysqlDao.saveDao;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.entity.CityQuery;
 import by.epam.project.dao.query.entity.CountryQuery;
@@ -53,12 +52,12 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
 
     @Override
     public List<Role> showRoles(Criteria criteria) throws DaoException {
-        return new RoleQuery().load(criteria, loadDao, mysqlConn);
+        return new RoleQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<User> showUsers(Criteria criteria) throws DaoException {
-        return new UserQuery().load(criteria, loadDao, mysqlConn);
+        return new UserQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
@@ -66,13 +65,13 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         User user = UserQuery.createBean(criteria);
         List list = new ArrayList<>();
         list.add(user);
-        List<Integer> res = new UserQuery().save(list, saveDao, mysqlConn);
+        List<Integer> res = new UserQuery().save(list, saveGeneric, mysqlConn);
         return res.get(0);
     }
 
     @Override
     public List<Description> showDescriptions(Criteria criteria) throws DaoException {
-        return new DescriptionQuery().load(criteria, loadDao, mysqlConn);
+        return new DescriptionQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
@@ -80,7 +79,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         if (criteria.getParam(DAO_COUNTRY_STATUS) == null) {
             criteria.addParam(DAO_COUNTRY_STATUS, ACTIVE);
         }
-        return new CountryQuery().load(criteria, loadDao, mysqlConn);
+        return new CountryQuery().load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
@@ -88,7 +87,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         if (criteria.getParam(DAO_CITY_STATUS) == null) {
             criteria.addParam(DAO_CITY_STATUS, ACTIVE);
         }
-        return new CityQuery().load(criteria, loadDao, mysqlConn);
+        return new CityQuery().load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
@@ -96,17 +95,17 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         if (criteria.getParam(DAO_HOTEL_STATUS) == null) {
             criteria.addParam(DAO_HOTEL_STATUS, ACTIVE);
         }
-        return new HotelQuery().load(criteria, loadDao, mysqlConn);
+        return new HotelQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<TourType> showTourTypes (Criteria criteria) throws DaoException {
-            return new TourTypeQuery().load(criteria, loadDao, mysqlConn);
+            return new TourTypeQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<TransMode> showTransModes (Criteria criteria) throws DaoException {
-        return new TransModeQuery().load(criteria, loadDao, mysqlConn);
+        return new TransModeQuery().load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
@@ -114,22 +113,22 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         if (criteria.getParam(DAO_DIRECTION_STATUS) == null) {
             criteria.addParam(DAO_DIRECTION_STATUS, ACTIVE);
         }
-        return new DirectionQuery().load(criteria, loadDao, mysqlConn);
+        return new DirectionQuery().load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
     public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException {
-        return new DirectionCountryQuery().load(criteria, loadDao, mysqlConn);
+        return new DirectionCountryQuery().load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException {
-        return new DirectionCityQuery().load(criteria, loadDao, mysqlConn);
+        return new DirectionCityQuery().load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
     public List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException {
-        return new DirectionStayHotelQuery().load(criteria, loadDao, mysqlConn);
+        return new DirectionStayHotelQuery().load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
@@ -140,7 +139,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
         if (criteria.getParam(DAO_TOUR_DATE_FROM) == null && criteria.getParam(DAO_TOUR_DATE_TO) == null) {
             criteria.addParam(DAO_TOUR_DATE_FROM, new Date());
         }
-        return new TourQuery().load(criteria, loadDao, mysqlConn);
+        return new TourQuery().load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
@@ -161,7 +160,7 @@ public class MysqlGuestDao extends MysqlDao implements GuestDao {
             criteria.addParam(DAO_TOUR_DATE_TO, currDate);
         }
         
-        return new SearchQuery().load(criteria, loadDao, mysqlConn);
+        return new SearchQuery().load(criteria, loadGeneric, mysqlConn);
     }
    
 }

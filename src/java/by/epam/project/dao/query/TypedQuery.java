@@ -1,6 +1,10 @@
 
 package by.epam.project.dao.query;
 
+import by.epam.project.dao.query.generic.GenericDeleteQuery;
+import by.epam.project.dao.query.generic.GenericUpdateQuery;
+import by.epam.project.dao.query.generic.GenericSaveQuery;
+import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.util.List;
