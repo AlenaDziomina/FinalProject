@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import java.util.List;
 
 /**
- *
+ * Common interface of DAO for users wirh role ADMIN
  * @author Helena.Grouk
  */
 public interface AdminDao extends AbstractDao {

@@ -28,7 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * Connection pool for connections between MySqlDao and MySQL database
  * @author Helena.Grouk
  */
 class MysqlConnectionPool {

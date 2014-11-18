@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * Class of DAO objects for MySQL database and user with role USER
  * @author Helena.Grouk
  */
 class MysqlUserDao extends MysqlGuestDao implements UserDao {

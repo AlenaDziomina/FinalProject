@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query;
 
 import static by.epam.project.dao.DaoParamNames.*;
@@ -28,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * Creator of lists of entitys from criteria for next use in query.
  * @author Helena.Grouk
  */
 public class BeanListCreator {
@@ -251,7 +245,6 @@ public class BeanListCreator {
         bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));
         return bean;
     }
-
 
     private static User createUser(Criteria criteria) {
         User bean = new User();

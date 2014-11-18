@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query;
 
 import java.sql.ResultSet;
@@ -12,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * Class of list of query parameters.
  * @author Helena.Grouk
  */
 public class Params {
@@ -30,7 +24,6 @@ public class Params {
         return paramsList;
     }
 
-
     public static <T> Params fill(List<T> beans, Mapper<T> mapper) {
         if (beans == null || mapper == null)
             throw new IllegalArgumentException(DATA_OR_MAPPER_IS_NULL_ERROR);
@@ -40,7 +33,6 @@ public class Params {
         });
         return params;
     }
-
 
     public static interface Mapper<T> {
         Object[] map(T bean);

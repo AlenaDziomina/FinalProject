@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
+ * Common interface of all guery formators.
  * @author Helena.Grouk
  * @param <T> тип элементов извлекаемого списка данных
  */

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.mysqldao;
 
 import by.epam.project.dao.AbstractDao;
@@ -12,7 +6,7 @@ import by.epam.project.dao.DaoFactory;
 import by.epam.project.exception.DaoInitException;
 
 /**
- *
+ * Factory of MySqlDao objects according to user role
  * @author Helena.Grouk
  */
 public class MysqlDaoFactory extends DaoFactory {

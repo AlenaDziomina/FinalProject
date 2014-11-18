@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query;
 
 import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * Class of static methods to add a valid criteria parameter to query parameter
+ * list and to append its name to query string.
  * @author Helena.Grouk
  */
 public class Appender {

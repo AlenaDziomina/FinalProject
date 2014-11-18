@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao;
 
 import by.epam.project.dao.query.Criteria;
@@ -23,7 +17,7 @@ import by.epam.project.exception.DaoException;
 import java.util.List;
 
 /**
- *
+ * Common interface of DAO for users wirh role GUEST
  * @author Helena.Grouk
  */
 public interface GuestDao extends AbstractDao {
