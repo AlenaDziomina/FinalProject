@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of tourist query forming.
+ * @author Helena.Grouk
  */
 public class TouristQuery implements TypedQuery<Tourist>{
     private static final String ERR_TOURIST_SAVE = "Tourist not saved.";

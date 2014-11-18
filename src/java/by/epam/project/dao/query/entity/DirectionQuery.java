@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of city direction forming.
+ * @author Helena.Grouk
  */
 public class DirectionQuery implements TypedQuery<Direction>{
     private static final String ERR_DIRECTION_SAVE = "Direction not saved.";

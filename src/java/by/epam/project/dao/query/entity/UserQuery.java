@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of user query forming.
+ * @author Helena.Grouk
  */
 public class UserQuery implements TypedQuery<User>{
     private static final String ERR_USER_SAVE = "User not saved.";

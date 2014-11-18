@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of direction stay hotel query forming.
+ * @author Helena.Grouk
  */
 public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
     private static final String ERR_DIR_STAY_SAVE = "Direction stay hotel not saved.";

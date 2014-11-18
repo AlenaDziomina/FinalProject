@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of user role query forming.
+ * @author Helena.Grouk
  */
 public class RoleQuery implements TypedQuery<Role>{
     private static final String ERR_ROLE_SAVE = "Role not saved.";

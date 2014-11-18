@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of direction link to country query forming.
+ * @author Helena.Grouk
  */
 public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
     private static final String ERR_DIR_COUNTRY_SAVE = "Direction link to country not saved.";

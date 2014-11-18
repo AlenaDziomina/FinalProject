@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of search tour query forming.
+ * @author Helena.Grouk
  */
 public class SearchQuery implements TypedQuery<Tour> {
     private static final String ERR_SEARCH_TOUR_LOAD = "Searching tour result not loaded.";

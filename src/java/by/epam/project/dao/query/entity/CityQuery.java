@@ -20,8 +20,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of city query forming.
+ * @author Helena.Grouk
  */
 public class CityQuery implements TypedQuery<City>{
     private static final String ERR_CITY_SAVE = "City not saved.";

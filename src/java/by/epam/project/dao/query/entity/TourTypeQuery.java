@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of tour type query forming.
+ * @author Helena.Grouk
  */
 public class TourTypeQuery implements TypedQuery<TourType>{
     private static final String ERR_TOURTYPE_SAVE = "Tour type not saved.";

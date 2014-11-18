@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.entity;
 
 import java.util.Collection;
 
 /**
- *
+ * Class of city objects.
  * @author User
  */
-
 public class City {
     
     private Integer idCity;
@@ -27,7 +20,7 @@ public class City {
     }
     
     public City(Integer idCity){
-        setIdCity(idCity);
+        this.idCity = idCity;
     }
 
     public Integer getIdCity() {

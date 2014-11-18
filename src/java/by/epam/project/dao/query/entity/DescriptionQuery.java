@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of description query forming.
+ * @author Helena.Grouk
  */
 public class DescriptionQuery implements TypedQuery<Description>{
     private static final String ERR_DESCRIPTION_SAVE = "Description not saved.";

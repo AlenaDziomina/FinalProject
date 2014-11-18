@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of hotel query forming.
+ * @author Helena.Grouk
  */
 public class HotelQuery implements TypedQuery<Hotel>{
     private static final String ERR_HOTEL_SAVE = "Hotel not saved.";

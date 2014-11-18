@@ -19,8 +19,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of country query forming.
+ * @author Helena.Grouk
  */
 public class CountryQuery implements TypedQuery<Country>{
     private static final String ERR_COUNTRY_SAVE = "Country not saved.";

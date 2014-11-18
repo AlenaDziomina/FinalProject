@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of transportation mode query forming.
+ * @author Helena.Grouk
  */
 public class TransModeQuery implements TypedQuery<TransMode>{
     private static final String ERR_TRANSMODE_SAVE = "Transportation mode not saved.";

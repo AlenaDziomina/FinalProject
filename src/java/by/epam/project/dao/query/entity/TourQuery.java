@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of tour query forming.
+ * @author Helena.Grouk
  */
 public class TourQuery implements TypedQuery<Tour>{
     private static final String ERR_TOUR_SAVE = "Tour not saved.";

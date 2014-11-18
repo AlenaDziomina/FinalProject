@@ -18,8 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of order query forming.
+ * @author Helena.Grouk
  */
 public class OrderQuery implements TypedQuery<Order> {
     private static final String ERR_ORDER_SAVE = "Order not saved.";

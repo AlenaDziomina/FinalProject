@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of direction link to city query forming.
+ * @author Helena.Grouk
  */
 public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
     private static final String ERR_DIR_CITY_SAVE = "Direction link to city not saved.";
