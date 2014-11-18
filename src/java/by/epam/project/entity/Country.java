@@ -7,6 +7,7 @@
 package by.epam.project.entity;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 /**
  * Class of country objects.
@@ -14,7 +15,7 @@ import java.util.Collection;
  */
 
 public class Country {
-    
+
     private Integer idCountry;
     private String name;
     private Short status;
@@ -24,7 +25,7 @@ public class Country {
 
     public Country() {
     }
-    
+
     public Country(Integer idCountry){
         setIdCountry(idCountry);
     }
@@ -77,6 +78,11 @@ public class Country {
         this.cityCollection = cityCollection;
     }
 
-    
-    
+    public static class NameComparator implements Comparator<Country> {
+        @Override
+        public int compare(Country one, Country two) {
+            return one.getName().compareTo(two.getName());
+        }
+    }
+
 }

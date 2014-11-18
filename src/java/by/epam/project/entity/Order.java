@@ -7,6 +7,7 @@
 package by.epam.project.entity;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  * @author User
  */
 public class Order {
-    
+
     private Integer idOrder;
     private Tour tour;
     private User user;
@@ -47,14 +48,14 @@ public class Order {
     public void setTour(Tour tour){
         this.tour = tour;
     }
-    
+
     public User getUser(){
         return this.user;
     }
     public void setUser(User user){
         this.user = user;
     }
-    
+
     public Integer getSeats() {
         return seats;
     }
@@ -110,5 +111,12 @@ public class Order {
 
     public void setStatus(Short status) {
         this.status = status;
+    }
+
+    public static class DateComparator implements Comparator<Order> {
+        @Override
+        public int compare(Order one, Order two) {
+            return one.getOrderDate().compareTo(two.getOrderDate());
+        }
     }
 }

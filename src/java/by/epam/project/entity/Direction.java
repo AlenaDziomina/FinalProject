@@ -7,6 +7,7 @@
 package by.epam.project.entity;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 /**
  * Class of direction objects.
@@ -14,7 +15,7 @@ import java.util.Collection;
  */
 
 public class Direction {
-    
+
     private Integer idDirection;
     private String name;
     private String text;
@@ -27,14 +28,14 @@ public class Direction {
     private Collection<City> cityCollection;
     private Collection<DirectionStayHotel> stayCollection;
     private Collection<Tour> tourCollection;
-    
-   
+
+
     public Direction() {
     }
     public Direction(Integer idDirection) {
         this.idDirection = idDirection;
     }
-    
+
     public Integer getIdDirection() {
         return idDirection;
     }
@@ -55,28 +56,28 @@ public class Direction {
     public void setTourType(TourType tourType) {
         this.tourType = tourType;
     }
-    
+
     public TransMode getTransMode() {
         return transMode;
     }
     public void setTransMode(TransMode transMode) {
         this.transMode = transMode;
     }
-    
+
     public String getText() {
         return text;
     }
     public void setText(String text) {
         this.text = text;
     }
-    
+
     public Description getDescription() {
         return description;
     }
     public void setDescription(Description description) {
         this.description = description;
     }
-    
+
     public String getPicture() {
         return picture;
     }
@@ -97,14 +98,14 @@ public class Direction {
     public void setCountryCollection(Collection<Country> countryCollection) {
         this.countryCollection = countryCollection;
     }
-    
+
     public Collection<City> getCityCollection() {
         return cityCollection;
     }
     public void setCityCollection(Collection<City> cityCollection) {
         this.cityCollection = cityCollection;
     }
-    
+
     public Collection<DirectionStayHotel> getStayCollection() {
         return stayCollection;
     }
@@ -117,6 +118,13 @@ public class Direction {
     }
     public void setTourCollection(Collection<Tour> tourCollection) {
         this.tourCollection = tourCollection;
+    }
+
+    public static class NameComparator implements Comparator<Direction> {
+        @Override
+        public int compare(Direction one, Direction two) {
+            return one.getName().compareTo(two.getName());
+        }
     }
 
 }

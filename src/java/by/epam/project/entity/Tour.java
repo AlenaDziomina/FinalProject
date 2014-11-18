@@ -7,6 +7,7 @@
 package by.epam.project.entity;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
  */
 
 public class Tour {
-    
+
     private Integer idTour;
     private Date departDate;
     private Integer daysCount;
@@ -88,14 +89,14 @@ public class Tour {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
-    
+
     public Short getStatus() {
         return status;
     }
     public void setStatus(Short status) {
         this.status = status;
     }
-    
+
     public Collection<Order> getOrderCollection() {
         return orderCollection;
     }
@@ -103,5 +104,11 @@ public class Tour {
         this.orderCollection = orderCollection;
     }
 
-   
+    public static class DateComparator implements Comparator<Tour> {
+        @Override
+        public int compare(Tour one, Tour two) {
+            return one.getDepartDate().compareTo(two.getDepartDate());
+        }
+    }
+
 }

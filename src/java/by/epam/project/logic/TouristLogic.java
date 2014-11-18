@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
@@ -20,7 +14,7 @@ public class TouristLogic extends AbstractLogic {
 
     @Override
     List getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoException("Not supported.");
     }
 
     @Override
@@ -30,15 +24,15 @@ public class TouristLogic extends AbstractLogic {
             return updateTourist(criteria, dao);
         } else {
             return createTourist(criteria, dao);
-        }  
+        }
     }
 
-    private Integer updateTourist(Criteria criteria, AbstractDao dao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Integer updateTourist(Criteria criteria, AbstractDao dao) throws DaoException {
+        throw new DaoException("Not supported.");
     }
 
-    private Integer createTourist(Criteria criteria, AbstractDao dao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Integer createTourist(Criteria criteria, AbstractDao dao) throws DaoException {
+        throw new DaoException("Not supported.");
     }
 
     @Override
@@ -50,5 +44,5 @@ public class TouristLogic extends AbstractLogic {
     Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         throw new DaoException("Not supported.");
     }
-    
+
 }

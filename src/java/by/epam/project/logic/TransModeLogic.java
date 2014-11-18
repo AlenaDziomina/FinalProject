@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.logic;
 
 import by.epam.project.dao.AbstractDao;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.TransMode;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,16 +12,18 @@ import java.util.List;
  * @author User
  */
 public class TransModeLogic extends AbstractLogic {
-    
+
     @Override
     List<TransMode> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
         List<TransMode> modes = dao.showTransModes(criteria);
-        return modes;   
+        TransMode.NameComparator comparator = new TransMode.NameComparator();
+        Collections.sort(modes, comparator);
+        return modes;
     }
 
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        return null;
+        throw new DaoException("Not supported.");
     }
 
     @Override

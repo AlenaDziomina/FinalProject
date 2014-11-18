@@ -6,6 +6,7 @@
 
 package by.epam.project.entity;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 
 public class Tourist {
-    
+
     private Integer idTourist;
     private Order order;
     private String firstName;
@@ -23,7 +24,7 @@ public class Tourist {
     private Date birthDate;
     private String passport;
     private Short status;
- 
+
     public Tourist() {
     }
     public Tourist(Integer idTourist) {
@@ -82,5 +83,22 @@ public class Tourist {
     }
     public void setStatus(Short status) {
         this.status = status;
+    }
+
+    public static class FioComparator implements Comparator<Tourist> {
+        @Override
+        public int compare(Tourist one, Tourist two) {
+            int first = one.getLastName().compareTo(two.getLastName());
+            if (first == 0) {
+                int second = one.getFirstName().compareTo(two.getFirstName());
+                if (second == 0) {
+                    return one.getMiddleName().compareTo(two.getMiddleName());
+                } else {
+                    return second;
+                }
+            } else {
+                return first;
+            }
+        }
     }
 }

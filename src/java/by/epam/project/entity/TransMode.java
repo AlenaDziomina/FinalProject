@@ -7,6 +7,7 @@
 package by.epam.project.entity;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  *
@@ -14,10 +15,10 @@ import java.io.Serializable;
  */
 
 public class TransMode implements Serializable {
-   
+
     private Integer idMode;
     private String nameMode;
-    
+
     public TransMode() {
     }
 
@@ -41,5 +42,11 @@ public class TransMode implements Serializable {
         this.nameMode = nameMode;
     }
 
-    
+    public static class NameComparator implements Comparator<TransMode> {
+        @Override
+        public int compare(TransMode one, TransMode two) {
+            return one.getNameMode().compareTo(two.getNameMode());
+        }
+    }
+
 }

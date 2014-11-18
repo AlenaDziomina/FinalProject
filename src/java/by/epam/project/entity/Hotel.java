@@ -6,13 +6,15 @@
 
 package by.epam.project.entity;
 
+import java.util.Comparator;
+
 /**
  *
  * @author User
  */
 
 public class Hotel {
-    
+
     private Integer idHotel;
     private String name;
     private Integer stars;
@@ -23,7 +25,7 @@ public class Hotel {
 
     public Hotel() {
     }
-    
+
     public Hotel(Integer idHotel) {
         setIdHotel(idHotel);
     }
@@ -84,5 +86,18 @@ public class Hotel {
         this.description = description;
     }
 
-    
+    public static class NameComparator implements Comparator<Hotel> {
+        @Override
+        public int compare(Hotel one, Hotel two) {
+            return one.getName().compareTo(two.getName());
+        }
+    }
+
+    public static class StarsComparator implements Comparator<Hotel> {
+        @Override
+        public int compare(Hotel one, Hotel two) {
+            return two.getStars().compareTo(one.getStars());
+        }
+    }
+
 }

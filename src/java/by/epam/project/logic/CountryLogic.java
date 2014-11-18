@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.logic;
 
 import static by.epam.project.action.JspParamNames.ACTIVE;
@@ -15,6 +9,7 @@ import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.exception.DaoException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,8 +21,10 @@ public class CountryLogic extends AbstractLogic {
     @Override
     List<Country> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
         List<Country> countries = dao.showCountries(criteria);
+        Country.NameComparator comparator = new Country.NameComparator();
+        Collections.sort(countries, comparator);
         fillCountries(countries, dao, criteria);
-        return countries;   
+        return countries;
     }
 
     @Override
@@ -35,52 +32,9 @@ public class CountryLogic extends AbstractLogic {
         Integer idCountry = (Integer) criteria.getParam(DAO_ID_COUNTRY);
         if (idCountry != null) {
             return updateCountry(criteria, dao);
-        } else {      
+        } else {
             return createCountry(criteria, dao);
-        }  
-    }
-    
-    private static void fillCountries(List<Country> countries, AbstractDao dao, Criteria criteria) throws DaoException {
-        if (countries != null) {
-            Short cityStatus = (Short) criteria.getParam(DAO_CITY_STATUS);
-            for (Country country : countries) {
-                Criteria descCrit = new Criteria();
-                descCrit.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
-                List<Description> desc = dao.showDescriptions(descCrit);
-                if (!desc.isEmpty()) {
-                    country.setDescription(desc.get(0));
-                }
-                
-                Criteria cityCrit = new Criteria();
-                cityCrit.addParam(DAO_ID_COUNTRY, country.getIdCountry());
-                cityCrit.addParam(DAO_CITY_STATUS, cityStatus);
-                List<City> cities = dao.showCities(cityCrit);
-                country.setCityCollection(cities);
-            }
         }
-    }
-    
-    private static Integer createCountry(Criteria criteria, AbstractDao dao) throws DaoException {    
-        Integer idDescription = dao.createNewDescription(criteria).get(0);
-        criteria.remuveParam(DAO_ID_DESCRIPTION);
-        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
-        return dao.createNewCountry(criteria).get(0);   
-    }
-    
-    private static Integer updateCountry(Criteria criteria, AbstractDao dao) throws DaoException {
-        Integer idDescription = (Integer) criteria.getParam(DAO_ID_DESCRIPTION);
-        if (idDescription != null) {
-            Criteria beans = new Criteria();
-            beans.addParam(DAO_ID_DESCRIPTION, idDescription);
-            dao.updateDescription(beans, criteria);
-        }
-        Integer idCountry = (Integer) criteria.getParam(DAO_ID_COUNTRY);
-        if (idCountry != null) {
-            Criteria beans = new Criteria();
-            beans.addParam(DAO_ID_COUNTRY, idCountry);
-            dao.updateCountry(beans, criteria);
-        }
-        return idCountry;
     }
 
     @Override
@@ -104,5 +58,50 @@ public class CountryLogic extends AbstractLogic {
         criteria.addParam(DAO_COUNTRY_STATUS, ACTIVE);
         Integer res = updateCountry(criteria, dao);
         return res;
+    }
+
+    private void fillCountries(List<Country> countries, AbstractDao dao, Criteria criteria) throws DaoException {
+        if (countries != null) {
+            Short cityStatus = (Short) criteria.getParam(DAO_CITY_STATUS);
+            for (Country country : countries) {
+                Criteria descCrit = new Criteria();
+                descCrit.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
+                List<Description> desc = dao.showDescriptions(descCrit);
+                if (!desc.isEmpty()) {
+                    country.setDescription(desc.get(0));
+                }
+
+                Criteria cityCrit = new Criteria();
+                cityCrit.addParam(DAO_ID_COUNTRY, country.getIdCountry());
+                cityCrit.addParam(DAO_CITY_STATUS, cityStatus);
+                List<City> cities = dao.showCities(cityCrit);
+                City.NameComparator comparator = new City.NameComparator();
+                Collections.sort(cities, comparator);
+                country.setCityCollection(cities);
+            }
+        }
+    }
+
+    private Integer createCountry(Criteria criteria, AbstractDao dao) throws DaoException {
+        Integer idDescription = dao.createNewDescription(criteria).get(0);
+        criteria.remuveParam(DAO_ID_DESCRIPTION);
+        criteria.addParam(DAO_ID_DESCRIPTION, idDescription);
+        return dao.createNewCountry(criteria).get(0);
+    }
+
+    private Integer updateCountry(Criteria criteria, AbstractDao dao) throws DaoException {
+        Integer idDescription = (Integer) criteria.getParam(DAO_ID_DESCRIPTION);
+        if (idDescription != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_DESCRIPTION, idDescription);
+            dao.updateDescription(beans, criteria);
+        }
+        Integer idCountry = (Integer) criteria.getParam(DAO_ID_COUNTRY);
+        if (idCountry != null) {
+            Criteria beans = new Criteria();
+            beans.addParam(DAO_ID_COUNTRY, idCountry);
+            dao.updateCountry(beans, criteria);
+        }
+        return idCountry;
     }
 }

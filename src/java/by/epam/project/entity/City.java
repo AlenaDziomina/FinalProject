@@ -1,13 +1,14 @@
 package by.epam.project.entity;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 /**
  * Class of city objects.
  * @author Helena.Grouk
  */
 public class City {
-    
+
     private Integer idCity;
     private String name;
     private Short status;
@@ -18,7 +19,7 @@ public class City {
 
     public City() {
     }
-    
+
     public City(Integer idCity){
         this.idCity = idCity;
     }
@@ -79,6 +80,10 @@ public class City {
         this.hotelCollection = hotelCollection;
     }
 
-    
-    
+    public static class NameComparator implements Comparator<City> {
+        @Override
+        public int compare(City one, City two) {
+            return one.getName().compareTo(two.getName());
+        }
+    }
 }

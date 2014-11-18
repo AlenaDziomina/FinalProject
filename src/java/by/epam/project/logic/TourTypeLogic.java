@@ -10,6 +10,7 @@ import by.epam.project.dao.AbstractDao;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.TourType;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,16 +18,18 @@ import java.util.List;
  * @author User
  */
 public class TourTypeLogic extends AbstractLogic {
-    
+
     @Override
     List<TourType> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
         List<TourType> types = dao.showTourTypes(criteria);
-        return types;   
+        TourType.NameComparator comparator = new TourType.NameComparator();
+        Collections.sort(types, comparator);
+        return types;
     }
 
     @Override
     Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        return null;
+        throw new DaoException("Not supported.");
     }
 
     @Override

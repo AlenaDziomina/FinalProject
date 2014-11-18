@@ -6,13 +6,15 @@
 
 package by.epam.project.entity;
 
+import java.util.Comparator;
+
 /**
  *
  * @author User
  */
 
 public class TourType {
-    
+
     private Integer idTourType;
     private String nameTourType;
 
@@ -37,6 +39,13 @@ public class TourType {
 
     public void setNameTourType(String nameTourType) {
         this.nameTourType = nameTourType;
+    }
+
+    public static class NameComparator implements Comparator<TourType> {
+        @Override
+        public int compare(TourType one, TourType two) {
+            return one.getNameTourType().compareTo(two.getNameTourType());
+        }
     }
 
 }
