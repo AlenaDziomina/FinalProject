@@ -30,6 +30,8 @@ public class DirectionLogic extends AbstractLogic {
     @Override
     List<Direction> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
         List<Direction> directions = dao.showDirections(criteria);
+        Direction.NameComparator comparator = new Direction.NameComparator();
+        Collections.sort(directions, comparator);
         fillDirections(directions, dao);
         getTourCollection(directions, dao, criteria);
         return directions;
