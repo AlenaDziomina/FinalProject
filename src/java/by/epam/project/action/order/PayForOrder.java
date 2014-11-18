@@ -11,8 +11,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.OrderLogic;
-import by.epam.project.logic.UserLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
@@ -37,8 +38,10 @@ public class PayForOrder extends OrderCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            Integer resIdOrder = new OrderLogic().doRedactEntity(criteria);
-            List<User> users = new UserLogic().doGetEntity(criteria);
+            AbstractLogic orderLogic = LogicFactory.getInctance(LogicType.ORDERLOGIC);
+            Integer resIdOrder = orderLogic.doRedactEntity(criteria);
+            AbstractLogic userLogic = LogicFactory.getInctance(LogicType.USERLOGIC);
+            List<User> users = userLogic.doGetEntity(criteria);
             if (users != null) {
                 request.setSessionAttribute(JSP_USER, users.get(0));
             }
@@ -48,10 +51,10 @@ public class PayForOrder extends OrderCommand implements ActionCommand {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorSaveData", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }       
+        }
         return page;
     }
-    
+
     /**
      * Put order parameters in criteria.
      * @param criteria in witch put parameters

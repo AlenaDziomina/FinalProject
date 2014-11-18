@@ -24,7 +24,7 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         }
         return page;
     }
-    
+
     /**
      * Resave common parameters of show city page.
      * @param request parameters and attributes of the request and the session
@@ -34,23 +34,23 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         if(validCityStatus != null) {
             request.setSessionAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
         }
-        
+
         String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
         if(invalidCityStatus != null) {
             request.setSessionAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
         }
-        
+
         String validHotelStatus = request.getParameter(JSP_HOTEL_VALID_STATUS);
         if(validHotelStatus != null) {
             request.setSessionAttribute(JSP_HOTEL_VALID_STATUS, validHotelStatus);
         }
-        
+
         String invalidHotelStatus = request.getParameter(JSP_HOTEL_INVALID_STATUS);
         if(invalidHotelStatus != null) {
             request.setSessionAttribute(JSP_HOTEL_INVALID_STATUS, invalidHotelStatus);
         }
     }
-    
+
     /**
      * Clean session attributes of show city page.
      * @param request parameters and attributes of the request and the session
@@ -60,11 +60,11 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         //request.deleteSessionAttribute(JSP_CITY_LIST);
         //request.deleteSessionAttribute(JSP_CURR_CITY_LIST);
         //request.deleteSessionAttribute(JSP_CURRENT_CITY);
-        
+
         //country
         request.deleteSessionAttribute(JSP_COUNTRY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
-        
+
         //direction
         request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
         request.deleteSessionAttribute(JSP_CITY_TAG_LIST);
@@ -75,16 +75,16 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
         request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        
+
         //hotel
         request.deleteSessionAttribute(JSP_HOTEL_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
-        
+
         //order
         request.deleteSessionAttribute(JSP_CURRENT_TOUR);
         request.deleteSessionAttribute(JSP_CURRENT_ORDER);
         request.deleteSessionAttribute(JSP_ORDER_LIST);
-        
+
         //tour
         request.deleteSessionAttribute(JSP_TOUR_VALID_STATUS);
         request.deleteSessionAttribute(JSP_TOUR_INVALID_STATUS);
@@ -114,9 +114,9 @@ public class GoShowCity extends CityCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_FROM);
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_TO);
         request.deleteSessionAttribute(JSP_CURR_DISCOUNT_FROM);
-        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);    
+        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);
         request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
-        
+
         //user
         request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);

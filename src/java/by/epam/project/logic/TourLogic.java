@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author User
  */
-public class TourLogic extends AbstractLogic {
+class TourLogic extends AbstractLogic {
 
     @Override
     List<Tour> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {

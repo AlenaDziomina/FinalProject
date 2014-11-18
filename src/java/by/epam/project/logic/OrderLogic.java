@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author User
  */
-public class OrderLogic extends AbstractLogic {
+class OrderLogic extends AbstractLogic {
 
     @Override
     List getEntity(Criteria criteria, AbstractDao dao) throws DaoException {

@@ -10,7 +10,9 @@ import by.epam.project.entity.Country;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -19,6 +21,7 @@ import by.epam.project.manager.ConfigurationManager;
  * @author Helena.Grouk
  */
 public class RestoreCountry extends CountryCommand implements ActionCommand {
+
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");
@@ -36,7 +39,8 @@ public class RestoreCountry extends CountryCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            new CountryLogic().doRestoreEntity(criteria);
+            AbstractLogic logic = LogicFactory.getInctance(LogicType.COUNTRYLOGIC);
+            logic.doRestoreEntity(criteria);
             page = new GoShowCountry().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorRestoreReason", ex.getMessage());

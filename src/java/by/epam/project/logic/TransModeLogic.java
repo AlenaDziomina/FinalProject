@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author User
  */
-public class TransModeLogic extends AbstractLogic {
+class TransModeLogic extends AbstractLogic {
 
     @Override
     List<TransMode> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {

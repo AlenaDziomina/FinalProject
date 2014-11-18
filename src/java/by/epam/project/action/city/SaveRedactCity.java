@@ -13,7 +13,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CityLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.ParamManager;
@@ -53,15 +55,15 @@ public class SaveRedactCity extends CityCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-        
-            Integer resIdCity = new CityLogic().doRedactEntity(criteria);
+            AbstractLogic cityLogic = LogicFactory.getInctance(LogicType.CITYLOGIC);
+            Integer resIdCity = cityLogic.doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdCity.toString());
-            page = new GoShowCity().execute(request); 
+            page = new GoShowCity().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }  
+        }
         return page;
     }
 
@@ -76,9 +78,9 @@ public class SaveRedactCity extends CityCommand implements ActionCommand {
         }
         createCurrCity(request);
     }
-    
+
     /**
-     * Create and store in session attributes current city object using 
+     * Create and store in session attributes current city object using
      * current input parameters.
      * @param request parameters and attributes of the request and the session
      */

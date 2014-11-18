@@ -11,7 +11,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.HotelLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.Validator;
@@ -45,7 +47,7 @@ public class SaveRedactHotel extends HotelCommand implements ActionCommand {
             criteria.addParam(DAO_HOTEL_PICTURE, hotel.getPicture());
             criteria.addParam(DAO_DESCRIPTION_TEXT, hotel.getDescription().getText());
             criteria.addParam(DAO_ID_CITY, hotel.getCity().getIdCity());
-        
+
             User user = (User) request.getSessionAttribute(JSP_USER);
             if (user != null) {
                 criteria.addParam(DAO_USER_LOGIN, user.getLogin());
@@ -54,15 +56,16 @@ public class SaveRedactHotel extends HotelCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-        
-            Integer resIdHotel = new HotelLogic().doRedactEntity(criteria);
+
+            AbstractLogic hotelLogic = LogicFactory.getInctance(LogicType.HOTELLOGIC);
+            Integer resIdHotel = hotelLogic.doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdHotel.toString());
             page = new GoShowHotel().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }   
+        }
         return page;
     }
 }

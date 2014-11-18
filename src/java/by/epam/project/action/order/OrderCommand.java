@@ -9,7 +9,9 @@ import by.epam.project.entity.Order;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.OrderLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import by.epam.project.tag.ObjList;
@@ -36,13 +38,13 @@ public class OrderCommand {
             request.setSessionAttribute(JSP_ORDER_INVALID_STATUS, invalidHotelStatus);
         }
     }
-    
+
     /**
      * Find the list of orders and save it as the attribute of session.
-     * Also determine and store in session attributes display options of hotel 
+     * Also determine and store in session attributes display options of hotel
      * status.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     protected void formOrderList(SessionRequestContent request) throws ServletLogicException {
@@ -55,7 +57,7 @@ public class OrderCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         Short orderStatus = getOrderStatus(request);
         if (orderStatus != null) {
             criteria.addParam(DAO_ORDER_STATUS, orderStatus);
@@ -66,9 +68,10 @@ public class OrderCommand {
             criteria.addParam(DAO_ID_TOUR, idTour);
             request.setAttribute(JSP_CURR_ID_TOUR, idTour);
         }
-        
+
         try {
-            List<Order> orders = new OrderLogic().doGetEntity(criteria);
+            AbstractLogic orderLogic = LogicFactory.getInctance(LogicType.ORDERLOGIC);
+            List<Order> orders = orderLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_ORDER_LIST, orders);
             ObjList<Order> list = new ObjList<>(orders);
             request.setSessionAttribute(JSP_PAGE_LIST, list);
@@ -76,12 +79,12 @@ public class OrderCommand {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
-     * Determine and store in session attributes display options of order 
+     * Determine and store in session attributes display options of order
      * status. Default value means 'only valid'.
      * @param request parameters and attributes of the request and the session
-     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0
      * if 'only invalid'.
      */
     protected Short getOrderStatus(SessionRequestContent request) {
@@ -104,7 +107,7 @@ public class OrderCommand {
         }
         request.setSessionAttribute(JSP_ORDER_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_ORDER_INVALID_STATUS, invalidStatus);
-        
+
         Short status = null;
         if (validStatus && ! invalidStatus) {
             status = ACTIVE;
@@ -113,7 +116,7 @@ public class OrderCommand {
         }
         return status;
     }
-    
+
     /**
      * Clean session attributes of show order page.
      * @param request parameters and attributes of the request and the session
@@ -125,13 +128,13 @@ public class OrderCommand {
         request.deleteSessionAttribute(JSP_CURRENT_CITY);
         request.deleteSessionAttribute(JSP_CITY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_CITY_INVALID_STATUS);
-        
+
         //country
         request.deleteSessionAttribute(JSP_COUNTRY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
         request.deleteSessionAttribute(JSP_COUNTRY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_COUNTRY_INVALID_STATUS);
-        
+
         //direction
         request.deleteSessionAttribute(JSP_DIRECTION_LIST);
         request.deleteSessionAttribute(JSP_DIRECTION_VALID_STATUS);
@@ -139,19 +142,19 @@ public class OrderCommand {
         request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
         request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        
+
         //hotel
         request.deleteSessionAttribute(JSP_HOTEL_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         request.deleteSessionAttribute(JSP_HOTEL_VALID_STATUS);
         request.deleteSessionAttribute(JSP_HOTEL_INVALID_STATUS);
-        
+
         //order
         request.deleteSessionAttribute(JSP_CURRENT_TOUR);
         //request.deleteSessionAttribute(JSP_CURRENT_ORDER);
         //request.deleteSessionAttribute(JSP_ORDER_LIST);
         //request.deleteSessionAttribute(JSP_PAGE_LIST);
-        
+
         //tour
         request.deleteSessionAttribute(JSP_TOUR_VALID_STATUS);
         request.deleteSessionAttribute(JSP_TOUR_INVALID_STATUS);
@@ -183,12 +186,12 @@ public class OrderCommand {
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_FROM);
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_TO);
         request.deleteSessionAttribute(JSP_CURR_DISCOUNT_FROM);
-        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);    
+        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);
         request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
-        
+
         //user
         request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);
-        
+
     }
 }

@@ -10,7 +10,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.UserLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.Validator;
@@ -34,7 +36,7 @@ public class SaveRedactUser implements ActionCommand {
             String password = request.getParameter(JSP_USER_PASSWORD);
             Validator.validatePassword(password);
             criteria.addParam(DAO_USER_PASSWORD, password.hashCode());
-        
+
             User user = (User) request.getSessionAttribute(JSP_USER);
             if (user != null) {
                 ClientType type = ClientTypeManager.clientTypeOf(user.getRole().getRoleName());
@@ -42,15 +44,16 @@ public class SaveRedactUser implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-        
-            Integer resUser = new UserLogic().doRedactEntity(criteria);
+
+            AbstractLogic userLogic = LogicFactory.getInctance(LogicType.USERLOGIC);
+            Integer resUser = userLogic.doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resUser.toString());
             page = new ShowUser().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }   
+        }
         return page;
     }
 

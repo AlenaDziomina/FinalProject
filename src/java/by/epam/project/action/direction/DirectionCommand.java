@@ -14,10 +14,9 @@ import by.epam.project.entity.TransMode;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.DirectionLogic;
-import by.epam.project.logic.HotelLogic;
-import by.epam.project.logic.TourTypeLogic;
-import by.epam.project.logic.TransModeLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import by.epam.project.tag.ObjList;
@@ -33,6 +32,7 @@ import java.util.List;
  * @author Helena.Grouk
  */
 public class DirectionCommand {
+
     /**
      * Resave common parameters of direction page.
      * @param request parameters and attributes of the request and the session
@@ -43,43 +43,43 @@ public class DirectionCommand {
         if (currCountry != null && !currCountry.isEmpty()) {
             request.setAttribute(JSP_CURR_ID_COUNTRY, currCountry);
         }
- 
+
         String currCity = request.getParameter(JSP_CURR_ID_CITY);
         if (currCity != null && !currCity.isEmpty()) {
             request.setAttribute(JSP_CURR_ID_CITY, currCity);
         }
-        
+
         String currHotel = request.getParameter(JSP_CURR_ID_HOTEL);
         if (currHotel != null && !currHotel.isEmpty()) {
             request.setAttribute(JSP_CURR_ID_HOTEL, currHotel);
         }
-        
+
         String[] currCoutryTags = request.getAllParameters(JSP_CURR_COUNTRY_TAGS);
         if (currCoutryTags != null) {
             request.setAttribute(JSP_CURR_COUNTRY_TAGS, currCoutryTags);
         }
-        
+
         String[] currCityTags = request.getAllParameters(JSP_CURR_CITY_TAGS);
         if (currCityTags != null) {
             request.setAttribute(JSP_CURR_CITY_TAGS, currCityTags);
         }
-        
+
         String currTourType = request.getParameter(JSP_CURR_TOUR_TYPE);
         if (currTourType != null) {
             request.setAttribute(JSP_CURR_TOUR_TYPE, currTourType);
         }
-        
+
         String currTransMode = request.getParameter(JSP_CURR_TRANS_MODE);
         if (currTransMode != null) {
             request.setAttribute(JSP_CURR_TRANS_MODE, currTransMode);
         }
-        
+
         createCurrHotelTag(request);
         createCurrDirection(request);
     }
-    
+
     /**
-     * Create and store in request attributes current list of hotel tags using 
+     * Create and store in request attributes current list of hotel tags using
      * current input parameters.
      * @param request parameters and attributes of the request and the session
      * @throws by.epam.project.exception.ServletLogicException
@@ -102,7 +102,8 @@ public class DirectionCommand {
                     }
                     criteria.addParam(DAO_ID_HOTEL, idHotel);
                     try {
-                        List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);
+                        AbstractLogic hotelLogic = LogicFactory.getInctance(LogicType.HOTELLOGIC);
+                        List<Hotel> hotels = hotelLogic.doGetEntity(criteria);
                         hotelTagList.addAll(hotels);
                     } catch (TechnicalException ex) {
                         throw new ServletLogicException(ex.getMessage(), ex);
@@ -112,11 +113,11 @@ public class DirectionCommand {
             request.setAttribute(JSP_HOTEL_TAG_LIST, hotelTagList);
         }
     }
-    
+
     /**
      * Find the list of tour types and save it as the attribute of session.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     public void formTourTypeList(SessionRequestContent request) throws ServletLogicException {
@@ -129,19 +130,20 @@ public class DirectionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         try {
-            List<TourType> types = new TourTypeLogic().doGetEntity(criteria);
+            AbstractLogic tourTypeLogic = LogicFactory.getInctance(LogicType.TOURTYPELOGIC);
+            List<TourType> types = tourTypeLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_TOUR_TYPE_LIST, types);
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Find the list of transport modes and save it as the attribute of session.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     public void formTransModeList(SessionRequestContent request) throws ServletLogicException {
@@ -154,21 +156,22 @@ public class DirectionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         try {
-            List<TransMode> modes = new TransModeLogic().doGetEntity(criteria);
+            AbstractLogic transModeLogic = LogicFactory.getInctance(LogicType.TRANSMODELOGIC);
+            List<TransMode> modes = transModeLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_TRANS_MODE_LIST, modes);
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Find the list of directions and save it as the attribute of session.
-     * Also determine and store in session attributes display options of 
+     * Also determine and store in session attributes display options of
      * direction and tour status.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     protected void formDirectionList(SessionRequestContent request) throws ServletLogicException {
@@ -182,12 +185,12 @@ public class DirectionCommand {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
         criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
-        
+
         Short directionStatus = getDirectionStatus(request);
         if (directionStatus != null) {
             criteria.addParam(DAO_DIRECTION_STATUS, directionStatus);
         }
-        
+
         Short tourStatus = new TourCommand().getTourStatus(request);
         if (tourStatus != null) {
             criteria.addParam(DAO_TOUR_STATUS, tourStatus);
@@ -202,9 +205,10 @@ public class DirectionCommand {
                 criteria.addParam(DAO_TOUR_DATE_TO, date);
             }
         }
-        
+
         try {
-            List<Direction> directions = new DirectionLogic().doGetEntity(criteria);
+            AbstractLogic directionLogic = LogicFactory.getInctance(LogicType.DIRECTIONLOGIC);
+            List<Direction> directions = directionLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_DIRECTION_LIST, directions);
             ObjList<Direction> list = new ObjList<>(directions);
             request.setSessionAttribute(JSP_PAGE_LIST, list);
@@ -212,12 +216,12 @@ public class DirectionCommand {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
- 
+
     /**
-     * Determine and store in session attributes display options of direction 
+     * Determine and store in session attributes display options of direction
      * status. Default value means 'only valid'.
      * @param request parameters and attributes of the request and the session
-     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0
      * if 'only invalid'.
      */
     private Short getDirectionStatus(SessionRequestContent request) {
@@ -240,7 +244,7 @@ public class DirectionCommand {
         }
         request.setSessionAttribute(JSP_DIRECTION_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_DIRECTION_INVALID_STATUS, invalidStatus);
-        
+
         Short status = null;
         if (validStatus && ! invalidStatus) {
             status = ACTIVE;
@@ -251,7 +255,7 @@ public class DirectionCommand {
     }
 
     /**
-     * Create and store in session attributes current direction object using 
+     * Create and store in session attributes current direction object using
      * current input parameters.
      * @param request parameters and attributes of the request and the session
      */

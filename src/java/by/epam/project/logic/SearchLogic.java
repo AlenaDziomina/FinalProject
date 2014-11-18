@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author User
  */
-public class SearchLogic extends AbstractLogic {
+class SearchLogic extends AbstractLogic {
 
     @Override
     List<Tour> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {

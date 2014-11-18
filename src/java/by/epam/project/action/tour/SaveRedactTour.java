@@ -12,7 +12,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.TourLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.ParamManager.getDateDiff;
@@ -43,7 +45,7 @@ public class SaveRedactTour extends TourCommand implements ActionCommand {
             criteria.addParam(DAO_TOUR_TOTAL_SEATS, tour.getTotalSeats());
             criteria.addParam(DAO_TOUR_FREE_SEATS, tour.getFreeSeats());
             criteria.addParam(DAO_ID_DIRECTION, tour.getDirection().getIdDirection());
-            
+
             User user = (User) request.getSessionAttribute(JSP_USER);
             if (user != null) {
                 criteria.addParam(DAO_USER_LOGIN, user.getLogin());
@@ -52,14 +54,15 @@ public class SaveRedactTour extends TourCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            Integer resIdTour = new TourLogic().doRedactEntity(criteria);
+            AbstractLogic tourLogic = LogicFactory.getInctance(LogicType.TOURLOGIC);
+            Integer resIdTour = tourLogic.doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdTour.toString());
             page = new ShowTour().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }   
+        }
         return page;
     }
 
@@ -76,16 +79,16 @@ public class SaveRedactTour extends TourCommand implements ActionCommand {
         if (currDepartDate != null) {
             request.setAttribute(JSP_CURR_DEPART_DATE, currDepartDate);
         }
-        
+
         String currArrivalDate = request.getParameter("arrivalDate");
         if (currDepartDate != null) {
             request.setAttribute(JSP_CURR_ARRIVAL_DATE, currArrivalDate);
         }
         createCurrTour(request);
     }
-    
+
     /**
-     * Create and store in session attributes current tour object using 
+     * Create and store in session attributes current tour object using
      * current input parameters.
      * @param request parameters and attributes of the request and the session
      */

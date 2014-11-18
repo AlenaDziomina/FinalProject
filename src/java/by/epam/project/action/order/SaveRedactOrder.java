@@ -12,7 +12,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.OrderLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.Validator;
@@ -41,7 +43,7 @@ public class SaveRedactOrder extends OrderCommand implements ActionCommand {
                 }
                 criteria.addParam(DAO_ORDER_TOURIST_LIST, order.getTouristCollection());
             }
-        
+
             User user = (User) request.getSessionAttribute(JSP_USER);
             if (user != null) {
                 criteria.addParam(DAO_USER_LOGIN, user.getLogin());
@@ -50,8 +52,9 @@ public class SaveRedactOrder extends OrderCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-        
-            Integer resIdOrder = new OrderLogic().doRedactEntity(criteria);
+
+            AbstractLogic orderLogic = LogicFactory.getInctance(LogicType.ORDERLOGIC);
+            Integer resIdOrder = orderLogic.doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdOrder.toString());
             page = new ShowOrder().execute(request);
         } catch (TechnicalException | LogicException ex) {
@@ -78,14 +81,14 @@ public class SaveRedactOrder extends OrderCommand implements ActionCommand {
         String[] middleName = request.getAllParameters(JSP_TOURIST_MIDDLE_NAME);
         String[] lastName = request.getAllParameters(JSP_TOURIST_LAST_NAME);
         String[] passport = request.getAllParameters(JSP_TOURIST_PASSPORT);
-                
+
         if (touristList.size() != seats || firstName == null || firstName.length < seats
-                || middleName == null || middleName.length < seats 
+                || middleName == null || middleName.length < seats
                 || lastName == null || lastName.length < seats
                 || passport == null || passport.length < seats) {
             throw new TechnicalException(MSG_ERR_TOURIST_ENTITY);
         }
-                        
+
         for (int i = 0; i < seats; i++) {
             Tourist tourist = touristList.get(i);
             tourist.setFirstName(firstName[i]);

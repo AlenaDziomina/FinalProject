@@ -9,7 +9,9 @@ import by.epam.project.dao.ClientType;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.UserLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -36,7 +38,8 @@ public class RestoreUser implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            Integer resIdUser = new UserLogic().doRestoreEntity(criteria);
+            AbstractLogic userLogic = LogicFactory.getInctance(LogicType.USERLOGIC);
+            Integer resIdUser = userLogic.doRestoreEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdUser.toString());
             currUser.setStatus(DELETED);
             page = new ShowUser().execute(request);

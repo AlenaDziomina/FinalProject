@@ -10,7 +10,9 @@ import by.epam.project.entity.Country;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import java.util.Iterator;
@@ -24,12 +26,13 @@ import java.util.Objects;
  * @author Helena.Grouk
  */
 public class CountryCommand {
+
     /**
      * Find the list of countries and save it as the attribute of session.
-     * Also determine and store in session attributes display options of country 
+     * Also determine and store in session attributes display options of country
      * and city status.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     public void formCountryList(SessionRequestContent request)throws ServletLogicException {
@@ -42,27 +45,28 @@ public class CountryCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         Short countryStatus = getCountryStatus(request);
         if (countryStatus != null) {
             criteria.addParam(DAO_COUNTRY_STATUS, countryStatus);
         }
-        
+
         Short cityStatus = new CityCommand().getCityStatus(request);
         if (cityStatus != null) {
             criteria.addParam(DAO_CITY_STATUS, cityStatus);
         }
-        
+
         try {
-            List<Country> countrys = new CountryLogic().doGetEntity(criteria);
+            AbstractLogic countryLogic = LogicFactory.getInctance(LogicType.COUNTRYLOGIC);
+            List<Country> countrys = countryLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_COUNTRY_LIST, countrys);
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
-     * Determine and store in session attributes current country and its id for 
+     * Determine and store in session attributes current country and its id for
      * displaying it. It needs list of countries and selected id in request.
      * @param request parameters and attributes of the request and the session
      */
@@ -70,7 +74,7 @@ public class CountryCommand {
         String selected = request.getParameter(JSP_SELECT_ID);
         Country currCountry = null;
         if (selected != null) {
-            Integer idCountry = Integer.decode(selected); 
+            Integer idCountry = Integer.decode(selected);
             if (idCountry != null) {
                 List<Country> list = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
                 Iterator<Country> it = list.iterator();
@@ -85,12 +89,12 @@ public class CountryCommand {
         }
         request.setSessionAttribute(JSP_CURRENT_COUNTRY, currCountry);
     }
-    
+
     /**
-     * Determine and store in session attributes display options of country 
+     * Determine and store in session attributes display options of country
      * status. Default value means 'only valid'.
      * @param request parameters and attributes of the request and the session
-     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0
      * if 'only invalid'.
      */
     private Short getCountryStatus(SessionRequestContent request) {
@@ -113,7 +117,7 @@ public class CountryCommand {
         }
         request.setSessionAttribute(JSP_COUNTRY_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_COUNTRY_INVALID_STATUS, invalidStatus);
-        
+
         Short status = null;
         if (validStatus && ! invalidStatus) {
             status = ACTIVE;

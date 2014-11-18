@@ -20,7 +20,7 @@ public class IfCitySelected extends CityCommand implements ActionCommand {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
         resaveParamsCitySelected(request);
         request.setAttribute(JSP_CURR_ID_HOTEL, "0");
-        
+
         String currCity = request.getParameter(JSP_CURR_ID_CITY);
         if (currCity != null && !currCity.isEmpty()){
             Integer idCity = Integer.decode(currCity);
@@ -48,5 +48,5 @@ public class IfCitySelected extends CityCommand implements ActionCommand {
                 new TourCommand().resaveParamsSearchTour(request);
             }
         }
-    }    
+    }
 }

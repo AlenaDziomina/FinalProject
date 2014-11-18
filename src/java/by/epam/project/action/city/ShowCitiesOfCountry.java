@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.city;
 
 
@@ -21,15 +15,14 @@ import java.util.Objects;
  * @author User
  */
 public class ShowCitiesOfCountry extends CityCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
-       
+
         List<Country> countryList = (List<Country>) request.getSessionAttribute(JSP_COUNTRY_LIST);
         List<City> cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
         Integer idCountry = Integer.decode(request.getParameter(JSP_SELECT_ID));
-       
+
         for (Country c: countryList) {
             if (Objects.equals(c.getIdCountry(), idCountry)) {
                 request.setSessionAttribute(JSP_CURR_CITY_LIST, c.getCityCollection());
@@ -40,5 +33,5 @@ public class ShowCitiesOfCountry extends CityCommand implements ActionCommand {
         request.setSessionAttribute(JSP_CURR_CITY_LIST, cityList);
         return page;
     }
-    
+
 }

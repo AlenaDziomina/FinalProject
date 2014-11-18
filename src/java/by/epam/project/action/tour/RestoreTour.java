@@ -10,7 +10,9 @@ import by.epam.project.entity.Tour;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.TourLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -36,7 +38,8 @@ public class RestoreTour extends TourCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            new TourLogic().doRestoreEntity(criteria);
+            AbstractLogic tourLogic = LogicFactory.getInctance(LogicType.TOURLOGIC);
+            tourLogic.doRestoreEntity(criteria);
             page = new ShowTour().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorRestoreReason", ex.getMessage());

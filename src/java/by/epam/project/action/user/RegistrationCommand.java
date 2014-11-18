@@ -10,7 +10,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.UserLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.Validator;
 import java.util.Locale;
@@ -38,8 +40,9 @@ public class RegistrationCommand implements ActionCommand {
             String password = request.getParameter(JSP_USER_PASSWORD);
             Validator.validatePassword(password);
             criteria.addParam(DAO_USER_PASSWORD, password.hashCode());
-        
-            Integer res = new UserLogic().doRedactEntity(criteria);
+
+            AbstractLogic userLogic = LogicFactory.getInctance(LogicType.USERLOGIC);
+            Integer res = userLogic.doRedactEntity(criteria);
             if (res == null) {
                 request.setAttribute("errorLoginPassMessage", "message.errorLoginExist");
             } else {
@@ -49,10 +52,10 @@ public class RegistrationCommand implements ActionCommand {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }   
+        }
         return page;
     }
-    
+
     /**
      * Resave common parameters of registration page.
      * @param request parameters and attributes of the request and the session

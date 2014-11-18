@@ -24,9 +24,9 @@ public class ShowDirection extends DirectionCommand implements ActionCommand {
         showSelectedDirection(request);
         return page;
     }
-    
+
     /**
-     * Determine and store in session attributes current direction for 
+     * Determine and store in session attributes current direction for
      * displaying it. It needs selected id in request.
      * @param request parameters and attributes of the request and the session
      */
@@ -53,7 +53,7 @@ public class ShowDirection extends DirectionCommand implements ActionCommand {
             direction.setTourCollection(list);
         }
     }
-    
+
     /**
      * Resave common parameters of direction page.
      * @param request parameters and attributes of the request and the session
@@ -63,17 +63,17 @@ public class ShowDirection extends DirectionCommand implements ActionCommand {
         if(validTourStatus != null) {
             request.setAttribute(JSP_TOUR_VALID_STATUS, validTourStatus);
         }
-        
+
         String invalidTourStatus = request.getParameter(JSP_TOUR_INVALID_STATUS);
         if(invalidTourStatus != null) {
             request.setAttribute(JSP_TOUR_INVALID_STATUS, invalidTourStatus);
         }
-        
+
         String validTourDate = request.getParameter(JSP_TOUR_VALID_DATE);
         if(validTourDate != null) {
             request.setAttribute(JSP_TOUR_VALID_DATE, validTourDate);
         }
-        
+
         String invalidTourDate = request.getParameter(JSP_TOUR_INVALID_DATE);
         if(invalidTourDate != null) {
             request.setAttribute(JSP_TOUR_INVALID_DATE, invalidTourDate);

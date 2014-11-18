@@ -10,7 +10,9 @@ import by.epam.project.entity.Order;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.OrderLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.tag.ObjList;
@@ -36,10 +38,10 @@ public class GoShowUserOrder extends OrderCommand implements ActionCommand {
 
     /**
      * Find the list of user orders and save it as the attribute of session.
-     * Also determine and store in session attributes display options of order 
+     * Also determine and store in session attributes display options of order
      * status.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     private void formUserOrderList(SessionRequestContent request) throws ServletLogicException {
@@ -53,14 +55,15 @@ public class GoShowUserOrder extends OrderCommand implements ActionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         Short orderStatus = getOrderStatus(request);
         if (orderStatus != null) {
             criteria.addParam(DAO_ORDER_STATUS, orderStatus);
         }
-        
+
         try {
-            List<Order> orders = new OrderLogic().doGetEntity(criteria);
+            AbstractLogic orderLogic = LogicFactory.getInctance(LogicType.ORDERLOGIC);
+            List<Order> orders = orderLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_ORDER_LIST, orders);
             ObjList<Order> list = new ObjList<>(orders);
             request.setSessionAttribute(JSP_PAGE_LIST, list);

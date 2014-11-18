@@ -12,7 +12,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.Validator;
@@ -52,15 +54,15 @@ public class SaveRedactCountry extends CountryCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-        
-            Integer resIdCountry = new CountryLogic().doRedactEntity(criteria);
+            AbstractLogic countryLogic = LogicFactory.getInctance(LogicType.COUNTRYLOGIC);
+            Integer resIdCountry = countryLogic.doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdCountry.toString());
-            page = new GoShowCountry().execute(request);     
+            page = new GoShowCountry().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }       
+        }
         return page;
     }
 

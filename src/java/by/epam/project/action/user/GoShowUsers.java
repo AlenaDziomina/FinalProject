@@ -9,7 +9,9 @@ import by.epam.project.dao.ClientType;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.UserLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
@@ -34,7 +36,7 @@ public class GoShowUsers implements ActionCommand {
     /**
      * Find the list of users and save it as the attribute of session.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     private void formUserList(SessionRequestContent request) throws ServletLogicException {
@@ -46,9 +48,10 @@ public class GoShowUsers implements ActionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         try {
-            List<User> users = new UserLogic().doGetEntity(criteria);
+            AbstractLogic userLogic = LogicFactory.getInctance(LogicType.USERLOGIC);
+            List<User> users = userLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_USER_LIST, users);
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
@@ -66,13 +69,13 @@ public class GoShowUsers implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURRENT_CITY);
         request.deleteSessionAttribute(JSP_CITY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_CITY_INVALID_STATUS);
-        
+
         //country
         request.deleteSessionAttribute(JSP_COUNTRY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
         request.deleteSessionAttribute(JSP_COUNTRY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_COUNTRY_INVALID_STATUS);
-        
+
         //direction
         request.deleteSessionAttribute(JSP_DIRECTION_LIST);
         request.deleteSessionAttribute(JSP_PAGE_LIST);
@@ -81,17 +84,17 @@ public class GoShowUsers implements ActionCommand {
         request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
         request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        
+
         //hotel
         request.deleteSessionAttribute(JSP_HOTEL_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         request.deleteSessionAttribute(JSP_HOTEL_VALID_STATUS);
         request.deleteSessionAttribute(JSP_HOTEL_INVALID_STATUS);
-        
+
         //order
         request.deleteSessionAttribute(JSP_CURRENT_ORDER);
         request.deleteSessionAttribute(JSP_ORDER_LIST);
-        
+
         //tour
         request.deleteSessionAttribute(JSP_TOUR_VALID_STATUS);
         request.deleteSessionAttribute(JSP_TOUR_INVALID_STATUS);
@@ -124,12 +127,12 @@ public class GoShowUsers implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_FROM);
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_TO);
         request.deleteSessionAttribute(JSP_CURR_DISCOUNT_FROM);
-        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);    
+        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);
         request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
-        
+
         //user
         //request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);
-        
+
     }
 }

@@ -10,7 +10,9 @@ import by.epam.project.entity.User;
 import by.epam.project.action.direction.DirectionCommand;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.TourLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
 import java.util.Calendar;
@@ -26,16 +28,16 @@ import java.util.List;
 public class TourCommand {
     /**
      * Find the list of tours and save it as the attribute of session.
-     * Also determine and store in session attributes display options of tour 
+     * Also determine and store in session attributes display options of tour
      * status.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     public void formTourList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         criteria.addParam(DAO_ID_DIRECTION, request.getAttribute(JSP_ID_DIRECTION));
-        
+
         User user = (User) request.getSessionAttribute(JSP_USER);
         if (user != null) {
             criteria.addParam(DAO_USER_LOGIN, user.getLogin());
@@ -44,7 +46,7 @@ public class TourCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         Short tourStatus = getTourStatus(request);
         if (tourStatus != null) {
             criteria.addParam(DAO_TOUR_STATUS, tourStatus);
@@ -59,15 +61,16 @@ public class TourCommand {
                 criteria.addParam(DAO_TOUR_DATE_TO, date);
             }
         }
-        
-        try { 
-            List<Tour> tours = new TourLogic().doGetEntity(criteria);
+
+        try {
+            AbstractLogic tourLogic = LogicFactory.getInctance(LogicType.TOURLOGIC);
+            List<Tour> tours = tourLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_TOUR_LIST, tours);
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Resave common parameters of tour searching page.
      * @param request parameters and attributes of the request and the session
@@ -166,10 +169,10 @@ public class TourCommand {
     }
 
     /**
-     * Determine and store in session attributes display options of tour 
+     * Determine and store in session attributes display options of tour
      * status. Default value means 'only valid'.
      * @param request parameters and attributes of the request and the session
-     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0
      * if 'only invalid'.
      */
     public Short getTourStatus(SessionRequestContent request) {
@@ -192,7 +195,7 @@ public class TourCommand {
         }
         request.setSessionAttribute(JSP_TOUR_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_TOUR_INVALID_STATUS, invalidStatus);
-        
+
         Short status = null;
         if (validStatus && ! invalidStatus) {
             status = ACTIVE;
@@ -203,10 +206,10 @@ public class TourCommand {
     }
 
     /**
-     * Determine and store in session attributes display options of tour 
+     * Determine and store in session attributes display options of tour
      * date status. Default value means 'only valid date'.
      * @param request parameters and attributes of the request and the session
-     * @return {@code ACTIVE} == 1 if 'only valid date'; {@code DELETED} == 0 
+     * @return {@code ACTIVE} == 1 if 'only valid date'; {@code DELETED} == 0
      * if 'only invalid date'.
      */
     public Short getTourDateStatus(SessionRequestContent request) {
@@ -229,7 +232,7 @@ public class TourCommand {
         }
         request.setSessionAttribute(JSP_TOUR_VALID_DATE, validStatus);
         request.setSessionAttribute(JSP_TOUR_INVALID_DATE, invalidStatus);
-        
+
         Short status = null;
         if (validStatus && ! invalidStatus) {
             status = ACTIVE;

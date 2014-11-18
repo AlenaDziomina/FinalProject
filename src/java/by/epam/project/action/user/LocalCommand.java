@@ -8,7 +8,9 @@ import by.epam.project.dao.query.Criteria;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.UserLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.LocaleManager;
 import java.util.Locale;
@@ -40,12 +42,13 @@ public class LocalCommand implements ActionCommand {
         criteria.addParam(DAO_ID_USER, idUser);
         criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         try {
-            new UserLogic().doRedactEntity(criteria);           
+            AbstractLogic userLogic = LogicFactory.getInctance(LogicType.USERLOGIC);
+            userLogic.doRedactEntity(criteria);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorReason", ex.getMessage());
             request.setAttribute("errorSaveData", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }  
+        }
         return page;
     }
 }

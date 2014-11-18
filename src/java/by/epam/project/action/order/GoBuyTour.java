@@ -13,7 +13,9 @@ import by.epam.project.entity.Tourist;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.TourLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import static by.epam.project.manager.ClientTypeManager.clientTypeOf;
 import by.epam.project.manager.ConfigurationManager;
@@ -41,11 +43,11 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         cleanSessionBuyTour(request);
         return page;
     }
-    
+
     /**
      * Find and save in session attributes tour by selected tour id.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     private void findTour(SessionRequestContent request) throws ServletLogicException {
@@ -60,8 +62,9 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        try { 
-            List<Tour> tours = new TourLogic().doGetEntity(criteria);
+        try {
+            AbstractLogic tourLogic = LogicFactory.getInctance(LogicType.TOURLOGIC);
+            List<Tour> tours = tourLogic.doGetEntity(criteria);
             if (tours != null && !tours.isEmpty()) {
                 Tour tour = tours.get(0);
                 request.setSessionAttribute(JSP_CURRENT_TOUR, tour);
@@ -70,9 +73,9 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
-     * Create and store in session attributes current order object using 
+     * Create and store in session attributes current order object using
      * current input parameters.
      * @param request parameters and attributes of the request and the session
      */
@@ -100,13 +103,13 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURRENT_CITY);
         request.deleteSessionAttribute(JSP_CITY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_CITY_INVALID_STATUS);
-        
+
         //country
         request.deleteSessionAttribute(JSP_COUNTRY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
         request.deleteSessionAttribute(JSP_COUNTRY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_COUNTRY_INVALID_STATUS);
-        
+
         //direction
         request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
         request.deleteSessionAttribute(JSP_CITY_TAG_LIST);
@@ -117,17 +120,17 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
         request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        
+
         //hotel
         request.deleteSessionAttribute(JSP_HOTEL_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         request.deleteSessionAttribute(JSP_HOTEL_VALID_STATUS);
         request.deleteSessionAttribute(JSP_HOTEL_INVALID_STATUS);
-        
+
         //order
         //request.deleteSessionAttribute(JSP_CURRENT_TOUR);
         //request.deleteSessionAttribute(JSP_CURRENT_ORDER);
-        
+
         //tour
         request.deleteSessionAttribute(JSP_TOUR_VALID_STATUS);
         request.deleteSessionAttribute(JSP_TOUR_INVALID_STATUS);
@@ -157,12 +160,12 @@ public class GoBuyTour extends OrderCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_FROM);
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_TO);
         request.deleteSessionAttribute(JSP_CURR_DISCOUNT_FROM);
-        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);    
+        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);
         request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
-        
+
         //user
         request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);
-        
+
     }
 }

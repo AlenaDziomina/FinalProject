@@ -14,7 +14,9 @@ import by.epam.project.entity.Tour;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.SearchLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.tag.ObjList;
@@ -39,13 +41,13 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         setDefaultParameters(request);
         return page;
     }
-    
+
     /**
      * Find the full list of tours and save it as the attribute of session.
-     * Also determine and store in session attributes display options of tour 
+     * Also determine and store in session attributes display options of tour
      * status.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     private void formTourSearchList(SessionRequestContent request) throws ServletLogicException {
@@ -59,9 +61,10 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         try {
-            List<Tour> tours = new SearchLogic().doGetEntity(criteria);
+            AbstractLogic searchLogic = LogicFactory.getInctance(LogicType.SEARCHLOGIC);
+            List<Tour> tours = searchLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_TOUR_LIST, tours);
             ObjList<Tour> list = new ObjList<>(tours);
             request.setSessionAttribute(JSP_PAGE_LIST, list);
@@ -87,7 +90,7 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         request.setSessionAttribute(JSP_BOX_ALL_HOTELS, true);
         request.setSessionAttribute(JSP_IS_HIDDEN, true);
     }
-    
+
     /**
      * Clean session attributes of show tour page.
      * @param request parameters and attributes of the request and the session
@@ -98,28 +101,28 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURRENT_CITY);
         request.deleteSessionAttribute(JSP_CITY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_CITY_INVALID_STATUS);
-        
+
         //country
         request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
         request.deleteSessionAttribute(JSP_COUNTRY_VALID_STATUS);
         request.deleteSessionAttribute(JSP_COUNTRY_INVALID_STATUS);
-        
+
         //direction
         request.deleteSessionAttribute(JSP_DIRECTION_LIST);
         request.deleteSessionAttribute(JSP_DIRECTION_VALID_STATUS);
         request.deleteSessionAttribute(JSP_DIRECTION_INVALID_STATUS);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        
+
         //hotel
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
         request.deleteSessionAttribute(JSP_HOTEL_VALID_STATUS);
         request.deleteSessionAttribute(JSP_HOTEL_INVALID_STATUS);
-        
+
         //order
         request.deleteSessionAttribute(JSP_CURRENT_TOUR);
         request.deleteSessionAttribute(JSP_CURRENT_ORDER);
         request.deleteSessionAttribute(JSP_ORDER_LIST);
-        
+
         //tour
         //request.deleteSessionAttribute(JSP_TOUR_VALID_STATUS);
         //request.deleteSessionAttribute(JSP_TOUR_INVALID_STATUS);
@@ -138,7 +141,7 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         //request.deleteSessionAttribute(JSP_BOX_ALL_CITIES);
         //request.deleteSessionAttribute(JSP_BOX_ALL_HOTELS);
         //request.deleteSessionAttribute(JSP_IS_HIDDEN);
-        
+
         request.deleteSessionAttribute(JSP_CURRENT_TOUR);
         request.deleteSessionAttribute(JSP_CURR_TOUR_TYPE);
         request.deleteSessionAttribute(JSP_CURR_TRANS_MODE);
@@ -154,9 +157,9 @@ public class GoShowTour extends TourCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_FROM);
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_TO);
         request.deleteSessionAttribute(JSP_CURR_DISCOUNT_FROM);
-        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);    
+        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);
         request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
-        
+
         //user
         request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);

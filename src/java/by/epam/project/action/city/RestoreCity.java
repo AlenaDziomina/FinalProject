@@ -10,7 +10,9 @@ import by.epam.project.dao.ClientType;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CityLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -36,7 +38,8 @@ public class RestoreCity extends CityCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            new CityLogic().doRestoreEntity(criteria);
+            AbstractLogic cityLogic = LogicFactory.getInctance(LogicType.CITYLOGIC);
+            cityLogic.doRestoreEntity(criteria);
             page = new GoShowCity().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorRestoreReason", ex.getMessage());

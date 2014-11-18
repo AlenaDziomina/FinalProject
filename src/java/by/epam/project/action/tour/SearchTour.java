@@ -11,7 +11,9 @@ import by.epam.project.entity.Tour;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.SearchLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.ParamManager;
@@ -31,7 +33,7 @@ public class SearchTour extends TourCommand implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.tours");
         resaveParamsSearchTour(request);
-        
+
         Criteria criteria = new Criteria();
         if ( ! ParamManager.getBoolParam(request, JSP_BOX_ALL_DEPART_DATE)) {
             ParamManager.checkDatParam(request, criteria, JSP_CURR_DEPART_DATE_FROM, DAO_TOUR_DATE_FROM);
@@ -60,7 +62,7 @@ public class SearchTour extends TourCommand implements ActionCommand {
         checkIntParam(request, criteria, JSP_CURR_HOTEL_STARS, DAO_HOTEL_STARS);
         checkIntParam(request, criteria, JSP_CURR_TOUR_TYPE, DAO_ID_TOURTYPE);
         checkIntParam(request, criteria, JSP_CURR_TRANS_MODE, DAO_ID_TRANSMODE);
-        
+
         User user = (User) request.getSessionAttribute(JSP_USER);
         if (user != null) {
             criteria.addParam(DAO_USER_LOGIN, user.getLogin());
@@ -69,7 +71,7 @@ public class SearchTour extends TourCommand implements ActionCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         if ( ! ParamManager.getBoolParam(request, JSP_BOX_ALL_COUNTRIES)) {
             checkArrParam(request, criteria, JSP_CURR_COUNTRY_TAGS, DAO_ID_COUNTRY);
         }
@@ -80,7 +82,8 @@ public class SearchTour extends TourCommand implements ActionCommand {
             checkArrParam(request, criteria, JSP_CURR_HOTEL_TAGS, DAO_ID_HOTEL);
         }
         try {
-            List<Tour> tours = new SearchLogic().doGetEntity(criteria);
+            AbstractLogic searchLogic = LogicFactory.getInctance(LogicType.SEARCHLOGIC);
+            List<Tour> tours = searchLogic.doGetEntity(criteria);
             if (tours.isEmpty()) {
                 request.deleteSessionAttribute(JSP_TOUR_LIST);
                 request.setAttribute("emptysearch", "message.emptySearch");
@@ -96,5 +99,5 @@ public class SearchTour extends TourCommand implements ActionCommand {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
         return page;
-    }   
+    }
 }

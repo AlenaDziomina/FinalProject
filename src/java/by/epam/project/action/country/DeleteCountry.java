@@ -10,7 +10,9 @@ import by.epam.project.entity.Country;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.CountryLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -36,7 +38,8 @@ public class DeleteCountry extends CountryCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            new CountryLogic().doDeleteEntity(criteria);
+            AbstractLogic countryLogic = LogicFactory.getInctance(LogicType.COUNTRYLOGIC);
+            countryLogic.doDeleteEntity(criteria);
             page = new GoShowCountry().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorDeleteReason", ex.getMessage());

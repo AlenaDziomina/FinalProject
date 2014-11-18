@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author User
  */
-public class HotelLogic extends AbstractLogic {
+class HotelLogic extends AbstractLogic {
 
     @Override
     List<Hotel> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {

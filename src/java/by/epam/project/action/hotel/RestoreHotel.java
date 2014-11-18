@@ -10,7 +10,9 @@ import by.epam.project.entity.Hotel;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.HotelLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -36,7 +38,8 @@ public class RestoreHotel extends HotelCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            new HotelLogic().doRestoreEntity(criteria);
+            AbstractLogic hotelLogic = LogicFactory.getInctance(LogicType.HOTELLOGIC);
+            hotelLogic.doRestoreEntity(criteria);
             page = new GoShowHotel().execute(request);
         } catch (TechnicalException ex) {
             request.setAttribute("errorRestoreReason", ex.getMessage());

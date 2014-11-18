@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author User
  */
-public class DirectionLogic extends AbstractLogic {
+class DirectionLogic extends AbstractLogic {
 
     @Override
     List<Direction> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {

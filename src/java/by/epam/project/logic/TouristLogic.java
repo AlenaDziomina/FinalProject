@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author User
  */
-public class TouristLogic extends AbstractLogic {
+class TouristLogic extends AbstractLogic {
 
     @Override
     List getEntity(Criteria criteria, AbstractDao dao) throws DaoException {

@@ -19,7 +19,7 @@ public class GoCreateNewDirection extends DirectionCommand implements ActionComm
         String page = ConfigurationManager.getProperty("path.page.editdirection");
         request.setSessionAttribute(JSP_PAGE, page);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        
+
         new CountryCommand().formCountryList(request);
         new CityCommand().formCityList(request);
         new HotelCommand().formHotelList(request);

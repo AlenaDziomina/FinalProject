@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.mysqldao;
 
 import by.epam.project.exception.DaoConnectException;
@@ -45,7 +39,10 @@ class MysqlConnectionPool {
     private static final  String DB_DRIVER;
     private static final  Integer DB_MAX_CONNECTIONS;
     private static final Integer DB_ISVALID_TIMEOUT;
-    
+    private static MysqlConnectionPool pool;
+    private static BlockingQueue<ProxyConnection> queue;
+    private static final Lock LOCK = new ReentrantLock();
+
     static {
         DB_USER_NAME = ConfigurationManager.getProperty("db.username");
         DB_PASSWORD = ConfigurationManager.getProperty("db.password");
@@ -54,22 +51,19 @@ class MysqlConnectionPool {
         DB_MAX_CONNECTIONS = Integer.decode(ConfigurationManager.getProperty("db.maxconnect"));
         DB_ISVALID_TIMEOUT = Integer.decode(ConfigurationManager.getProperty("db.timeout.isvalid"));
     }
-    
-    private static MysqlConnectionPool pool;
-    private static BlockingQueue<ProxyConnection> queue;
-    private static final Lock LOCK = new ReentrantLock();
+
 
     private MysqlConnectionPool() throws DaoConnectException{
         if (DB_MAX_CONNECTIONS == null || DB_MAX_CONNECTIONS <= 0) {
             throw new DaoConnectException("Error configuration db.maxconnect.");
         }
-        
+
         queue = new ArrayBlockingQueue<>(DB_MAX_CONNECTIONS);
         for (int i = 0; i < DB_MAX_CONNECTIONS; i++) {
             queue.offer(createNewConnection());
         }
     }
-    
+
     private ProxyConnection createNewConnection() throws DaoConnectException{
         ProxyConnection conn = null;
         try {
@@ -82,7 +76,7 @@ class MysqlConnectionPool {
         }
         return conn;
     }
-    
+
     private static void checkPool() throws DaoConnectException {
         if (pool == null) {
             LOCK.lock();
@@ -95,10 +89,10 @@ class MysqlConnectionPool {
             }
         }
     }
-    
+
     static Connection getConnection() throws DaoConnectException {
         checkPool();
-        
+
         Connection conn = null;
         try {
             conn = queue.take();
@@ -114,7 +108,7 @@ class MysqlConnectionPool {
         }
         return conn;
     }
-    
+
     static void returnConnection(Connection conn) throws DaoConnectException {
         try {
             if (conn == null || !conn.isValid(DB_ISVALID_TIMEOUT)) {
@@ -123,14 +117,14 @@ class MysqlConnectionPool {
         } catch (SQLException ex) {
             throw new DaoConnectException("Error in check valid connection.", ex);
         }
-        
+
         try {
             queue.offer((ProxyConnection) conn);
         } catch (Exception ex) {
             throw new DaoConnectException("Can't return unknown connection.", ex);
         }
     }
-    
+
     static void destroy() {
         while (! queue.isEmpty()) {
             try {
@@ -143,11 +137,11 @@ class MysqlConnectionPool {
             }
         }
     }
-    
+
     private static class ProxyConnection implements Connection {
-    
+
     private final Connection connection;
-    
+
     ProxyConnection(Connection connection) { // только в пакете
         this.connection = connection;
     }
@@ -155,7 +149,7 @@ class MysqlConnectionPool {
     private void reallyClose() throws SQLException{
         connection.close();
     }
-    
+
     @Override
     public Statement createStatement() throws SQLException {
         return connection.createStatement();

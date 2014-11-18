@@ -11,7 +11,9 @@ import by.epam.project.entity.Hotel;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.HotelLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ParamManager;
 import static by.epam.project.manager.ParamManager.getBoolParam;
@@ -28,10 +30,10 @@ import java.util.Objects;
 public class HotelCommand {
     /**
      * Find the list of hotels and save it as the attribute of session.
-     * Also determine and store in session attributes display options of hotel 
+     * Also determine and store in session attributes display options of hotel
      * status.
      * @param request parameters and attributes of the request and the session
-     * @throws ServletLogicException if this can not be done due to the 
+     * @throws ServletLogicException if this can not be done due to the
      * exceptions of logic layer
      */
     public void formHotelList(SessionRequestContent request) throws ServletLogicException {
@@ -45,25 +47,26 @@ public class HotelCommand {
         } else {
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
         }
-        
+
         Short hotelStatus = getHotelStatus(request);
         if (hotelStatus != null) {
             criteria.addParam(DAO_HOTEL_STATUS, hotelStatus);
         }
-        
+
         try {
-            List<Hotel> hotels = new HotelLogic().doGetEntity(criteria);
+            AbstractLogic hotelLogic = LogicFactory.getInctance(LogicType.HOTELLOGIC);
+            List<Hotel> hotels = hotelLogic.doGetEntity(criteria);
             request.setSessionAttribute(JSP_HOTEL_LIST, hotels);
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
-     * Determine and store in session attributes display options of hotel 
+     * Determine and store in session attributes display options of hotel
      * status. Default value means 'only valid'.
      * @param request parameters and attributes of the request and the session
-     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0 
+     * @return {@code ACTIVE} == 1 if 'only valid'; {@code DELETED} == 0
      * if 'only invalid'.
      */
     public Short getHotelStatus(SessionRequestContent request) {
@@ -86,7 +89,7 @@ public class HotelCommand {
         }
         request.setSessionAttribute(JSP_HOTEL_VALID_STATUS, validStatus);
         request.setSessionAttribute(JSP_HOTEL_INVALID_STATUS, invalidStatus);
-        
+
         Short status = null;
         if (validStatus && ! invalidStatus) {
             status = ACTIVE;
@@ -95,7 +98,7 @@ public class HotelCommand {
         }
         return status;
     }
-    
+
     /**
      * Resave common parameters of hotel page.
      * @param request parameters and attributes of the request and the session
@@ -111,9 +114,9 @@ public class HotelCommand {
         }
         createCurrHotel(request);
     }
-    
+
     /**
-     * Determine and store in session attributes current hotel and its id for 
+     * Determine and store in session attributes current hotel and its id for
      * displaying it. It needs list of hotels and selected id in request.
      * @param request parameters and attributes of the request and the session
      */
@@ -121,7 +124,7 @@ public class HotelCommand {
         String selected = request.getParameter(JSP_SELECT_ID);
         Hotel currHotel = null;
         if (selected != null) {
-            Integer idHotel = Integer.decode(selected); 
+            Integer idHotel = Integer.decode(selected);
             if (idHotel != null) {
                 List<Hotel> list = (List<Hotel>) request.getSessionAttribute(JSP_HOTEL_LIST);
                 Iterator<Hotel> it = list.iterator();
@@ -136,7 +139,7 @@ public class HotelCommand {
         }
         request.setSessionAttribute(JSP_CURRENT_HOTEL, currHotel);
     }
-    
+
     /**
      * Create and store in session attributes current hotel object using current
      * input parameters.

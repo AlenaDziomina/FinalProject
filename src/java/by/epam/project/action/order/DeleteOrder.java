@@ -10,7 +10,9 @@ import by.epam.project.entity.Order;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.OrderLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 
@@ -39,7 +41,8 @@ public class DeleteOrder extends OrderCommand implements ActionCommand {
             } else {
                 criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             }
-            Integer resIdOrder = new OrderLogic().doDeleteEntity(criteria);
+            AbstractLogic orderLogic = LogicFactory.getInctance(LogicType.ORDERLOGIC);
+            Integer resIdOrder = orderLogic.doDeleteEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdOrder.toString());
             order.setStatus(DELETED);
             page = new ShowOrder().execute(request);
@@ -49,5 +52,5 @@ public class DeleteOrder extends OrderCommand implements ActionCommand {
             request.setSessionAttribute(JSP_PAGE, page);
         }
         return page;
-    }   
+    }
 }

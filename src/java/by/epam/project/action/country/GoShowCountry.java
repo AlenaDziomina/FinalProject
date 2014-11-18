@@ -11,12 +11,13 @@ import by.epam.project.manager.ConfigurationManager;
  * @author Helena.Grouk
  */
 public class GoShowCountry extends CountryCommand implements ActionCommand {
+
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");
         String prevPage = (String) request.getSessionAttribute(JSP_PAGE);
         resaveParamsShowCountry(request);
-        
+
         formCountryList(request);
         showSelectedCountry(request);
         if (page == null ? prevPage != null : !page.equals(prevPage)) {
@@ -24,8 +25,8 @@ public class GoShowCountry extends CountryCommand implements ActionCommand {
             cleanSessionShowCountry(request);
         }
         return page;
-    }   
-    
+    }
+
     /**
      * Resave common parameters of show country page.
      * @param request parameters and attributes of the request and the session
@@ -35,23 +36,23 @@ public class GoShowCountry extends CountryCommand implements ActionCommand {
         if(validCountryStatus != null) {
             request.setSessionAttribute(JSP_COUNTRY_VALID_STATUS, validCountryStatus);
         }
-        
+
         String invalidCountryStatus = request.getParameter(JSP_COUNTRY_INVALID_STATUS);
         if(invalidCountryStatus != null) {
             request.setSessionAttribute(JSP_COUNTRY_INVALID_STATUS, invalidCountryStatus);
         }
-        
+
         String validCityStatus = request.getParameter(JSP_CITY_VALID_STATUS);
         if(validCityStatus != null) {
             request.setSessionAttribute(JSP_CITY_VALID_STATUS, validCityStatus);
         }
-        
+
         String invalidCityStatus = request.getParameter(JSP_CITY_INVALID_STATUS);
         if(invalidCityStatus != null) {
             request.setSessionAttribute(JSP_CITY_INVALID_STATUS, invalidCityStatus);
         }
     }
-    
+
     /**
      * Clean session attributes of show country page.
      * @param request parameters and attributes of the request and the session
@@ -61,11 +62,11 @@ public class GoShowCountry extends CountryCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CITY_LIST);
         request.deleteSessionAttribute(JSP_CURR_CITY_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_CITY);
-        
+
         //country
         //request.deleteSessionAttribute(JSP_COUNTRY_LIST);
         //request.deleteSessionAttribute(JSP_CURRENT_COUNTRY);
-        
+
         //direction
         request.deleteSessionAttribute(JSP_COUNTRY_TAG_LIST);
         request.deleteSessionAttribute(JSP_CITY_TAG_LIST);
@@ -76,15 +77,15 @@ public class GoShowCountry extends CountryCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_TOUR_TYPE_LIST);
         request.deleteSessionAttribute(JSP_TRANS_MODE_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_DIRECTION);
-        
+
         //hotel
         request.deleteSessionAttribute(JSP_HOTEL_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_HOTEL);
-        
+
         //order
         request.deleteSessionAttribute(JSP_CURRENT_ORDER);
         request.deleteSessionAttribute(JSP_ORDER_LIST);
-        
+
         //tour
         request.deleteSessionAttribute(JSP_TOUR_VALID_STATUS);
         request.deleteSessionAttribute(JSP_TOUR_INVALID_STATUS);
@@ -115,12 +116,12 @@ public class GoShowCountry extends CountryCommand implements ActionCommand {
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_FROM);
         request.deleteSessionAttribute(JSP_CURR_DAYS_COUNT_TO);
         request.deleteSessionAttribute(JSP_CURR_DISCOUNT_FROM);
-        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);    
+        request.deleteSessionAttribute(JSP_CURR_HOTEL_STARS);
         request.deleteSessionAttribute(JSP_HOTEL_TAG_LIST);
-        
+
         //user
         request.deleteSessionAttribute(JSP_USER_LIST);
         request.deleteSessionAttribute(JSP_CURRENT_USER);
-        
+
     }
 }

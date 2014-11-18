@@ -22,16 +22,16 @@ public class GoEditDirection extends DirectionCommand implements ActionCommand {
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.editdirection");
         request.setSessionAttribute(JSP_PAGE, page);
-        
+
         new CountryCommand().formCountryList(request);
         new CityCommand().formCityList(request);
         new HotelCommand().formHotelList(request);
         formTourTypeList(request);
         formTransModeList(request);
-        
+
         request.setSessionAttribute(JSP_COUNTRY_TAG_LIST, request.getSessionAttribute(JSP_COUNTRY_LIST));
         request.setSessionAttribute(JSP_CITY_TAG_LIST, request.getSessionAttribute(JSP_CITY_LIST));
-        
+
         Direction dir = (Direction) request.getSessionAttribute(JSP_CURRENT_DIRECTION);
         request.setAttribute(JSP_CURR_ID_COUNTRY, 0);
         request.setAttribute(JSP_CURR_ID_CITY, 0);
@@ -50,7 +50,7 @@ public class GoEditDirection extends DirectionCommand implements ActionCommand {
             stays.add(s.getHotel());
         });
         request.setAttribute(JSP_HOTEL_TAG_LIST, stays);
-        
+
         return page;
     }
 }

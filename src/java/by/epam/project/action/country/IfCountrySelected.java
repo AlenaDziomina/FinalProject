@@ -20,6 +20,7 @@ import java.util.List;
  * @author Helena.Grouk
  */
 public class IfCountrySelected extends CountryCommand implements ActionCommand {
+
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = (String) request.getSessionAttribute(JSP_PAGE);
@@ -35,7 +36,7 @@ public class IfCountrySelected extends CountryCommand implements ActionCommand {
             new CityCommand().formCityList(request);
             List<City> cityList = (List<City>) request.getSessionAttribute(JSP_CITY_LIST);
             request.setSessionAttribute(JSP_CURR_CITY_LIST, cityList);
-            
+
             List<Hotel> commonHotelList = new ArrayList();
             for (City c : cityList) {
                 request.setAttribute(JSP_ID_CITY, c.getIdCity());

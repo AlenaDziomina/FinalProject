@@ -11,7 +11,9 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.LogicException;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.DirectionLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.ParamManager.checkArrParam;
@@ -62,17 +64,17 @@ public class SaveRedactDirection extends DirectionCommand implements ActionComma
             checkArrParam(request, criteria, JSP_CURR_COUNTRY_TAGS, DAO_ID_COUNTRY);
             checkArrParam(request, criteria, JSP_CURR_CITY_TAGS, DAO_ID_CITY);
             checkArrParam(request, criteria, JSP_CURR_HOTEL_TAGS, DAO_ID_HOTEL);
-        
-            Integer resIdDirection = new DirectionLogic().doRedactEntity(criteria);
+
+            AbstractLogic directionLogic = LogicFactory.getInctance(LogicType.DIRECTIONLOGIC);
+            Integer resIdDirection = directionLogic.doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resIdDirection.toString());
             page = new ShowDirection().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
             request.setSessionAttribute(JSP_PAGE, page);
-        }  
+        }
         return page;
     }
 }
 
-        

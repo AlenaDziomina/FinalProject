@@ -9,7 +9,9 @@ import by.epam.project.dao.ClientType;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
-import by.epam.project.logic.UserLogic;
+import by.epam.project.logic.AbstractLogic;
+import by.epam.project.logic.LogicFactory;
+import by.epam.project.logic.LogicType;
 import by.epam.project.manager.ClientTypeManager;
 import by.epam.project.manager.ConfigurationManager;
 import static by.epam.project.manager.LocaleManager.getLocale;
@@ -35,8 +37,9 @@ public class LoginCommand implements ActionCommand{
             criteria.addParam(DAO_USER_PASSWORD, password.hashCode());
             criteria.addParam(DAO_ROLE_NAME, request.getSessionAttribute(JSP_ROLE_TYPE));
             criteria.addParam(DAO_USER_STATUS, ACTIVE);
-        
-            List<User> users = new UserLogic().doGetEntity(criteria);
+
+            AbstractLogic userLogic = LogicFactory.getInctance(LogicType.USERLOGIC);
+            List<User> users = userLogic.doGetEntity(criteria);
             if (users != null && ! users.isEmpty()) {
                 User user = users.get(0);
                 String role = user.getRole().getRoleName();
