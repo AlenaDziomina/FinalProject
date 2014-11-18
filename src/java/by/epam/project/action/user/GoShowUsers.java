@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
@@ -21,12 +15,10 @@ import by.epam.project.manager.ConfigurationManager;
 import java.util.List;
 
 /**
- *
- * @author User
+ * Class of command of displaying the page of user list
+ * @author Helena.Grouk
  */
 public class GoShowUsers implements ActionCommand {
-    
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.users");
@@ -39,6 +31,12 @@ public class GoShowUsers implements ActionCommand {
         return page;
     }
 
+    /**
+     * Find the list of users and save it as the attribute of session.
+     * @param request parameters and attributes of the request and the session
+     * @throws ServletLogicException if this can not be done due to the 
+     * exceptions of logic layer
+     */
     private void formUserList(SessionRequestContent request) throws ServletLogicException {
         Criteria criteria = new Criteria();
         User user = (User) request.getSessionAttribute(JSP_USER);
@@ -57,6 +55,10 @@ public class GoShowUsers implements ActionCommand {
         }
     }
 
+    /**
+     * Clean session attributes of show users page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void cleanSessionShowUsers(SessionRequestContent request) {
         //city
         request.deleteSessionAttribute(JSP_CITY_LIST);

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
@@ -25,31 +19,23 @@ import java.util.List;
  * @author User
  */
 public class DescriptionQuery implements TypedQuery<Description>{
-    
-    public static final String DB_DESCRIPTION = "description";
-    public static final String DB_DESCRIPTION_ID_DESCRIPTION = "id_description";
-    public static final String DB_DESCRIPTION_TEXT = "text";
-    
-    
-
+    private static final String ERR_DESCRIPTION_SAVE = "Description not saved.";
+    private static final String ERR_DESCRIPTION_LOAD = "Description not loaded.";
+    private static final String ERR_DESCRIPTION_UPDATE = "Description not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_DESCRIPTION = "description";
+    private static final String DB_DESCRIPTION_ID_DESCRIPTION = "id_description";
+    private static final String DB_DESCRIPTION_TEXT = "text";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DESCRIPTION + " (" + DB_DESCRIPTION_TEXT
             + ") values (?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_DESCRIPTION;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_DESCRIPTION + " set ";
-    
-    
-    public static Description createBean(Criteria criteria){
-        Description bean = new Description();
-        bean.setIdDescription((Integer) criteria.getParam(DAO_ID_DESCRIPTION));
-        bean.setText((String) criteria.getParam(DAO_DESCRIPTION_TEXT));
-        return bean;
-    }
-    
        
     @Override
     public List<Integer> save(List<Description> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -60,7 +46,7 @@ public class DescriptionQuery implements TypedQuery<Description>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Description not saved.", ex);
+            throw new DaoQueryException(ERR_DESCRIPTION_SAVE, ex);
         }
     }
     
@@ -68,22 +54,19 @@ public class DescriptionQuery implements TypedQuery<Description>{
     public List<Description> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
         int pageSize = 10; 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, criteria, paramList, sb, separator);
-                append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -93,7 +76,7 @@ public class DescriptionQuery implements TypedQuery<Description>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Decription not loaded.", ex);
+             throw new DaoQueryException(ERR_DESCRIPTION_LOAD, ex);
         }
     }
 
@@ -105,11 +88,9 @@ public class DescriptionQuery implements TypedQuery<Description>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, beans, paramList2, sb, separator);
+                append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -118,13 +99,19 @@ public class DescriptionQuery implements TypedQuery<Description>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Description not updated.", ex);
+             throw new DaoQueryException(ERR_DESCRIPTION_UPDATE, ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
+    public static Description createBean(Criteria criteria){
+        Description bean = new Description();
+        bean.setIdDescription((Integer) criteria.getParam(DAO_ID_DESCRIPTION));
+        bean.setText((String) criteria.getParam(DAO_DESCRIPTION_TEXT));
+        return bean;
+    }
 }

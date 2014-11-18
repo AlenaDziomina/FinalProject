@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
@@ -22,11 +16,10 @@ import by.epam.project.manager.Validator;
 import java.util.Locale;
 
 /**
- *
- * @author User
+ * Class of command of user registrating.
+ * @author Helena.Grouk
  */
 public class RegistrationCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException{
         String page = ConfigurationManager.getProperty("path.page.registration");
@@ -50,7 +43,7 @@ public class RegistrationCommand implements ActionCommand {
             if (res == null) {
                 request.setAttribute("errorLoginPassMessage", "message.errorLoginExist");
             } else {
-                return null;
+                page = null;
             }
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
@@ -60,6 +53,10 @@ public class RegistrationCommand implements ActionCommand {
         return page;
     }
     
+    /**
+     * Resave common parameters of registration page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void resaveParamsRegistrUser(SessionRequestContent request) {
         User currUser = (User) request.getSessionAttribute(JSP_CURRENT_USER);
         if (currUser == null) {

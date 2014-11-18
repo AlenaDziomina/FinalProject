@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
@@ -27,42 +21,30 @@ import java.util.List;
  * @author User
  */
 public class HotelQuery implements TypedQuery<Hotel>{
-    
-    public static final String DB_HOTEL = "hotel";
-    public static final String DB_HOTEL_ID_HOTEL = "id_hotel";
-    public static final String DB_HOTEL_ID_CITY = "id_city";
-    public static final String DB_HOTEL_NAME = "name";
-    public static final String DB_HOTEL_STARS = "stars";
-    public static final String DB_HOTEL_STATUS = "status";
-    public static final String DB_HOTEL_PICTURE = "picture";
-    public static final String DB_HOTEL_ID_DESCRIPTION = "id_description";
-    
-    
-
+    private static final String ERR_HOTEL_SAVE = "Hotel not saved.";
+    private static final String ERR_HOTEL_LOAD = "Hotel not loaded.";
+    private static final String ERR_HOTEL_UPDATE = "Hotel not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_HOTEL = "hotel";
+    private static final String DB_HOTEL_ID_HOTEL = "id_hotel";
+    private static final String DB_HOTEL_ID_CITY = "id_city";
+    private static final String DB_HOTEL_NAME = "name";
+    private static final String DB_HOTEL_STARS = "stars";
+    private static final String DB_HOTEL_STATUS = "status";
+    private static final String DB_HOTEL_PICTURE = "picture";
+    private static final String DB_HOTEL_ID_DESCRIPTION = "id_description";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_HOTEL + " (" + DB_HOTEL_ID_CITY + ", "
             + DB_HOTEL_NAME + ", " + DB_HOTEL_STARS + ", " 
             + DB_HOTEL_PICTURE + ", " + DB_HOTEL_ID_DESCRIPTION
             + ") values (?, ?, ?, ?, ?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_HOTEL;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_HOTEL + " set ";
-    
-    
-    public static Hotel createBean(Criteria criteria){
-        Hotel bean = new Hotel();
-        bean.setIdHotel((Integer) criteria.getParam(DAO_ID_HOTEL));
-        bean.setName((String) criteria.getParam(DAO_HOTEL_NAME));
-        bean.setPicture((String) criteria.getParam(DAO_HOTEL_PICTURE));
-        bean.setStatus((Short) criteria.getParam(DAO_HOTEL_STATUS));
-        bean.setStars((Integer) criteria.getParam(DAO_HOTEL_STARS));
-        bean.setDescription(DescriptionQuery.createBean(criteria));
-        bean.setCity(CityQuery.createBean(criteria));
-        return bean;
-    }
     
     @Override
     public List<Integer> save(List<Hotel> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -77,7 +59,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Hotel not saved.", ex);
+            throw new DaoQueryException(ERR_HOTEL_SAVE, ex);
         }
     }
 
@@ -86,27 +68,24 @@ public class HotelQuery implements TypedQuery<Hotel>{
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, criteria, paramList, sb, separator);
-                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList, sb, separator);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList, sb, separator);
-                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList, sb, separator);
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList, sb, separator);
-                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, criteria, paramList, sb, AND);
+                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList, sb, AND);
+                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList, sb, AND);
+                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList, sb, AND);
+                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList, sb, AND);
+                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList, sb, AND);
+                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -121,7 +100,7 @@ public class HotelQuery implements TypedQuery<Hotel>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Hotel not loaded.", ex);
+             throw new DaoQueryException(ERR_HOTEL_LOAD, ex);
         }
     }
 
@@ -133,23 +112,21 @@ public class HotelQuery implements TypedQuery<Hotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList1, sb, separator);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, separator);
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList1, sb, separator);
-                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList1, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList1, sb, separator);
-                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList1, sb, separator);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, beans, paramList2, sb, separator);
-                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, beans, paramList2, sb, separator);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, beans, paramList2, sb, separator);
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, beans, paramList2, sb, separator);
-                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, beans, paramList2, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, beans, paramList2, sb, separator);
-                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, beans, paramList2, sb, separator);
+                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList1, sb, COMMA);
+                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, COMMA);
+                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList1, sb, COMMA);
+                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList1, sb, COMMA);
+                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
+                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList1, sb, COMMA);
+                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, beans, paramList2, sb, AND);
+                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, beans, paramList2, sb, AND);
+                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, beans, paramList2, sb, AND);
+                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, beans, paramList2, sb, AND);
+                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, beans, paramList2, sb, AND);
+                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, beans, paramList2, sb, AND);
+                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -158,14 +135,24 @@ public class HotelQuery implements TypedQuery<Hotel>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Hotel not updated.", ex);
+             throw new DaoQueryException(ERR_HOTEL_UPDATE, ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    
+    public static Hotel createBean(Criteria criteria){
+        Hotel bean = new Hotel();
+        bean.setIdHotel((Integer) criteria.getParam(DAO_ID_HOTEL));
+        bean.setName((String) criteria.getParam(DAO_HOTEL_NAME));
+        bean.setPicture((String) criteria.getParam(DAO_HOTEL_PICTURE));
+        bean.setStatus((Short) criteria.getParam(DAO_HOTEL_STATUS));
+        bean.setStars((Integer) criteria.getParam(DAO_HOTEL_STARS));
+        bean.setDescription(DescriptionQuery.createBean(criteria));
+        bean.setCity(CityQuery.createBean(criteria));
+        return bean;
+    }
 }

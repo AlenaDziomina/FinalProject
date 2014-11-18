@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.exception.DaoException;
@@ -25,30 +19,24 @@ import java.util.List;
  * @author User
  */
 public class TransModeQuery implements TypedQuery<TransMode>{
-    
-    public static final String DB_TRANSMODE = "transportation_mode";
-    public static final String DB_TRANSMODE_ID_MODE = "id_mode";
-    public static final String DB_TRANSMODE_NAME = "name_mode";
-    
-    
-    
+    private static final String ERR_TRANSMODE_SAVE = "Transportation mode not saved.";
+    private static final String ERR_TRANSMODE_LOAD = "Transportation mode not loaded.";
+    private static final String ERR_TRANSMODE_UPDATE = "Transportation mode not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_TRANSMODE = "transportation_mode";
+    private static final String DB_TRANSMODE_ID_MODE = "id_mode";
+    private static final String DB_TRANSMODE_NAME = "name_mode";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_TRANSMODE + " ("
             + DB_TRANSMODE_NAME + ") values (?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_TRANSMODE;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_TRANSMODE + " set ";
 
-    public static TransMode createBean(Criteria criteria) {
-        TransMode bean = new TransMode();
-        bean.setIdMode((Integer)criteria.getParam(DAO_ID_TRANSMODE));
-        bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));
-        return bean;
-    }
-    
     @Override
     public List<Integer> save(List<TransMode> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
@@ -58,7 +46,7 @@ public class TransModeQuery implements TypedQuery<TransMode>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Transportation mode not saved.", ex);
+            throw new DaoQueryException(ERR_TRANSMODE_SAVE, ex);
         }
     }
     
@@ -67,22 +55,20 @@ public class TransModeQuery implements TypedQuery<TransMode>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, criteria, paramList, sb, separator);
-                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, criteria, paramList, sb, AND);
+                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
+       
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -92,11 +78,9 @@ public class TransModeQuery implements TypedQuery<TransMode>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Transportation mode not loaded.", ex);
+             throw new DaoQueryException(ERR_TRANSMODE_LOAD, ex);
         }
     }
-
-    
 
     @Override
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
@@ -106,11 +90,9 @@ public class TransModeQuery implements TypedQuery<TransMode>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, beans, paramList2, sb, separator);
+                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -119,13 +101,19 @@ public class TransModeQuery implements TypedQuery<TransMode>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Transportation mode not updated." ,ex);
+             throw new DaoQueryException(ERR_TRANSMODE_UPDATE ,ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
+    public static TransMode createBean(Criteria criteria) {
+        TransMode bean = new TransMode();
+        bean.setIdMode((Integer)criteria.getParam(DAO_ID_TRANSMODE));
+        bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));
+        return bean;
+    }
 }

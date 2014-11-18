@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import static by.epam.project.dao.DaoParamNames.*;
@@ -30,23 +24,26 @@ import java.util.List;
  * @author User
  */
 public class CityQuery implements TypedQuery<City>{
-
-    public static final String DB_CITY = "city";
-    public static final String DB_CITY_ID_CITY = "id_city";
-    public static final String DB_CITY_ID_COUNTRY = "id_country";
-    public static final String DB_CITY_NAME = "name";
-    public static final String DB_CITY_STATUS = "status";
-    public static final String DB_CITY_PICTURE = "picture";
-    public static final String DB_CITY_ID_DESCRIPTION = "id_description";
-    
+    private static final String ERR_CITY_SAVE = "City not saved.";
+    private static final String ERR_CITY_LOAD = "City not loaded.";
+    private static final String ERR_CITY_UPDATE = "City not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_CITY = "city";
+    private static final String DB_CITY_ID_CITY = "id_city";
+    private static final String DB_CITY_ID_COUNTRY = "id_country";
+    private static final String DB_CITY_NAME = "name";
+    private static final String DB_CITY_STATUS = "status";
+    private static final String DB_CITY_PICTURE = "picture";
+    private static final String DB_CITY_ID_DESCRIPTION = "id_description";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_CITY + " (" + DB_CITY_ID_COUNTRY + ", "
             + DB_CITY_NAME + ", " + DB_CITY_PICTURE + ", " 
             + DB_CITY_ID_DESCRIPTION + ") values (?, ?, ?, ?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_CITY;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_CITY + " set ";
     
@@ -62,7 +59,7 @@ public class CityQuery implements TypedQuery<City>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("City not saved.", ex);
+            throw new DaoQueryException(ERR_CITY_SAVE, ex);
         }
     }
 
@@ -71,27 +68,23 @@ public class CityQuery implements TypedQuery<City>{
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_CITY, DB_CITY_ID_CITY, criteria, paramList, sb, separator);
-                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList, sb, separator);
-                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList, sb, separator);
-                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList, sb, separator);
-                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList, sb, separator);
-                
-                return sb.toString();
+                append(DAO_ID_CITY, DB_CITY_ID_CITY, criteria, paramList, sb, AND);
+                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList, sb, AND);
+                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList, sb, AND);
+                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList, sb, AND);
+                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList, sb, AND);
+                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -105,7 +98,7 @@ public class CityQuery implements TypedQuery<City>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("City not loaded.", ex);
+             throw new DaoQueryException(ERR_CITY_LOAD, ex);
         }
     }
 
@@ -117,20 +110,18 @@ public class CityQuery implements TypedQuery<City>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList1, sb, separator);
-                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList1, sb, separator);
-                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList1, sb, separator);
-                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList1, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_CITY, DB_CITY_ID_CITY, beans, paramList2, sb, separator);
-                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, beans, paramList2, sb, separator);
-                append(DAO_CITY_NAME, DB_CITY_NAME, beans, paramList2, sb, separator);
-                append(DAO_CITY_STATUS, DB_CITY_STATUS, beans, paramList2, sb, separator);
-                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, beans, paramList2, sb, separator);
-                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, beans, paramList2, sb, separator);
+                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList1, sb, COMMA);
+                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList1, sb, COMMA);
+                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList1, sb, COMMA);
+                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList1, sb, COMMA);
+                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_CITY, DB_CITY_ID_CITY, beans, paramList2, sb, AND);
+                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, beans, paramList2, sb, AND);
+                append(DAO_CITY_NAME, DB_CITY_NAME, beans, paramList2, sb, AND);
+                append(DAO_CITY_STATUS, DB_CITY_STATUS, beans, paramList2, sb, AND);
+                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, beans, paramList2, sb, AND);
+                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -139,13 +130,13 @@ public class CityQuery implements TypedQuery<City>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("City not updated.", ex);
+             throw new DaoQueryException(ERR_CITY_UPDATE, ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
     public static City createBean(Criteria criteria){

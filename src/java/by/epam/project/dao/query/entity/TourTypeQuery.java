@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.exception.DaoException;
@@ -25,31 +19,24 @@ import java.util.List;
  * @author User
  */
 public class TourTypeQuery implements TypedQuery<TourType>{
-    
-    public static final String DB_TOURTYPE = "tour_type";
-    public static final String DB_TOURTYPE_ID_TOURTYPE = "id_tour_type";
-    public static final String DB_TOURTYPE_NAME = "name_tour_type";
-    
-    
-
+    private static final String ERR_TOURTYPE_SAVE = "Tour type not saved.";
+    private static final String ERR_TOURTYPE_LOAD = "Tour type not loaded.";
+    private static final String ERR_TOURTYPE_UPDATE = "Tour type not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_TOURTYPE = "tour_type";
+    private static final String DB_TOURTYPE_ID_TOURTYPE = "id_tour_type";
+    private static final String DB_TOURTYPE_NAME = "name_tour_type";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_TOURTYPE + " (" + DB_TOURTYPE_NAME
             + ") values (?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_TOURTYPE;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_TOURTYPE + " set ";
 
-    
-    public static TourType createBean(Criteria criteria) {
-        TourType bean = new TourType();
-        bean.setIdTourType((Integer)criteria.getParam(DAO_ID_TOURTYPE));
-        bean.setNameTourType((String)criteria.getParam(DAO_TOURTYPE_NAME));
-        return bean;
-    }
-    
     @Override
     public List<Integer> save(List<TourType> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
@@ -59,7 +46,7 @@ public class TourTypeQuery implements TypedQuery<TourType>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Tour type not saved.", ex);
+            throw new DaoQueryException(ERR_TOURTYPE_SAVE, ex);
         }
     }
 
@@ -68,22 +55,19 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, criteria, paramList, sb, separator);
-                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, criteria, paramList, sb, AND);
+                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -93,7 +77,7 @@ public class TourTypeQuery implements TypedQuery<TourType>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Tour type not loaded.", ex);
+             throw new DaoQueryException(ERR_TOURTYPE_LOAD, ex);
         }
     }
 
@@ -105,11 +89,9 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, beans, paramList2, sb, separator);
+                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -118,16 +100,20 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Tour type not updated.", ex);
+             throw new DaoQueryException(ERR_TOURTYPE_UPDATE, ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
 
-    
-    
+    public static TourType createBean(Criteria criteria) {
+        TourType bean = new TourType();
+        bean.setIdTourType((Integer)criteria.getParam(DAO_ID_TOURTYPE));
+        bean.setNameTourType((String)criteria.getParam(DAO_TOURTYPE_NAME));
+        return bean;
+    }
 }
 

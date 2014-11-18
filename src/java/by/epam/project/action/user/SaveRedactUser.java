@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
@@ -22,11 +16,10 @@ import by.epam.project.manager.ConfigurationManager;
 import by.epam.project.manager.Validator;
 
 /**
- *
- * @author User
+ * Class of command to save redacted user object.
+ * @author Helena.Grouk
  */
 public class SaveRedactUser implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException{
         String page = ConfigurationManager.getProperty("path.page.edituser");
@@ -52,7 +45,7 @@ public class SaveRedactUser implements ActionCommand {
         
             Integer resUser = new UserLogic().doRedactEntity(criteria);
             request.setParameter(JSP_SELECT_ID, resUser.toString());
-            return new ShowUser().execute(request);
+            page = new ShowUser().execute(request);
         } catch (TechnicalException | LogicException ex) {
             request.setAttribute("errorSaveReason", ex.getMessage());
             request.setAttribute("errorSave", "message.errorSaveData");
@@ -61,10 +54,13 @@ public class SaveRedactUser implements ActionCommand {
         return page;
     }
 
+    /**
+     * Resave common parameters of edit user page.
+     * @param request parameters and attributes of the request and the session
+     */
     private void resaveParamsSaveUser(SessionRequestContent request) {
         User currUser = (User) request.getSessionAttribute(JSP_CURRENT_USER);
         currUser.setPhone(request.getParameter(JSP_USER_PHONE));
         currUser.setEmail(request.getParameter(JSP_USER_EMAIL));
     }
-  
 }

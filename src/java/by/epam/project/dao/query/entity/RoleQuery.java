@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.exception.DaoException;
@@ -22,37 +16,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  *
  * @author User
  */
 public class RoleQuery implements TypedQuery<Role>{
-    
-    public static final String DB_ROLE = "role";
-    public static final String DB_ROLE_ID_ROLE = "id_role";
-    public static final String DB_ROLE_NAME_ROLE = "role_name";
-    
-    
-    
+    private static final String ERR_ROLE_SAVE = "Role not saved.";
+    private static final String ERR_ROLE_LOAD = "Role not loaded.";
+    private static final String ERR_ROLE_UPDATE = "Role not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_ROLE = "role";
+    private static final String DB_ROLE_ID_ROLE = "id_role";
+    private static final String DB_ROLE_NAME_ROLE = "role_name";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_ROLE + " (" 
             + DB_ROLE_NAME_ROLE + ") values (?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_ROLE;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_ROLE + " set ";
-
-    public static Role createBean(Criteria criteria) {
-        
-        Role bean = new Role();
-        bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));
-        bean.setRoleName(criteria.getParam(DAO_ROLE_NAME).toString());
-        return bean;
-    }
     
     @Override
     public List<Integer> save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -63,7 +48,7 @@ public class RoleQuery implements TypedQuery<Role>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Role not saved.",ex);
+            throw new DaoQueryException(ERR_ROLE_SAVE, ex);
         }
     }
 
@@ -72,35 +57,29 @@ public class RoleQuery implements TypedQuery<Role>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, criteria, paramList, sb, separator);
-                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, criteria, paramList, sb, AND);
+                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
         
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
-        
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, new RowMapper<Role>() {
-                @Override
-                public Role mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    Role bean = new Role();
-                    bean.setIdRole(rs.getInt(DB_ROLE_ID_ROLE));
-                    bean.setRoleName(rs.getString(DB_ROLE_NAME_ROLE));
-                    return bean;
-                }
+            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+                Role bean = new Role();
+                bean.setIdRole(rs.getInt(DB_ROLE_ID_ROLE));
+                bean.setRoleName(rs.getString(DB_ROLE_NAME_ROLE));
+                return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Role not loaded.", ex);
+             throw new DaoQueryException(ERR_ROLE_LOAD, ex);
         }
     }
 
@@ -112,11 +91,9 @@ public class RoleQuery implements TypedQuery<Role>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, beans, paramList2, sb, separator);
+                append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -125,12 +102,19 @@ public class RoleQuery implements TypedQuery<Role>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Role not updated.", ex);
+             throw new DaoQueryException(ERR_ROLE_UPDATE, ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
+    }
+    
+    public static Role createBean(Criteria criteria) {
+        Role bean = new Role();
+        bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));
+        bean.setRoleName(criteria.getParam(DAO_ROLE_NAME).toString());
+        return bean;
     }
 }

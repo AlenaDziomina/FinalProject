@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
@@ -25,26 +19,25 @@ import java.util.List;
  * @author User
  */
 public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
-    
-    public static final String DB_DIRCITY = "direction_cities";
-    public static final String DB_DIRCITY_ID_CITY = "id_city";
-    public static final String DB_DIRCITY_ID_DIRECTION = "id_direction";
-    
-   
-
+    private static final String ERR_DIR_CITY_SAVE = "Direction link to city not saved.";
+    private static final String ERR_DIR_CITY_LOAD = "Direction link to city not loaded.";
+    private static final String ERR_DIR_CITY_UPDATE = "Direction link to city not updated.";
+    private static final String ERR_DIR_CITY_DELETE = "Direction link to city not deleted.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_DIRCITY = "direction_cities";
+    private static final String DB_DIRCITY_ID_CITY = "id_city";
+    private static final String DB_DIRCITY_ID_DIRECTION = "id_direction";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRCITY + " (" + DB_DIRCITY_ID_DIRECTION + ", "
             + DB_DIRCITY_ID_CITY + ") values (?, ?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_DIRCITY;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_DIRCITY + " set ";
-    
     private static final String DELETE_QUERY = 
-            "Delete from " + DB_DIRCITY + " where ";
-
+            "Delete from " + DB_DIRCITY + WHERE;
 
     @Override
     public List<Integer> save(List<LinkDirectionCity> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -56,7 +49,7 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Direction link to city not saved.", ex);
+            throw new DaoQueryException(ERR_DIR_CITY_SAVE, ex);
         }
     }
 
@@ -65,22 +58,19 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, criteria, paramList, sb, separator);
-                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, criteria, paramList, sb, AND);
+                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -90,7 +80,7 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction link to city not loaded.", ex);
+             throw new DaoQueryException(ERR_DIR_CITY_LOAD, ex);
         }
     }
 
@@ -102,11 +92,9 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, beans, paramList2, sb, separator);
+                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -115,7 +103,7 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction link to city not updated.", ex);
+             throw new DaoQueryException(ERR_DIR_CITY_UPDATE, ex);
         }
     }
 
@@ -126,9 +114,8 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, criteria, paramList, sb, separator);
-                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList, sb, separator);
+                append(DAO_ID_DIRECTION, DB_DIRCITY_ID_DIRECTION, criteria, paramList, sb, AND);
+                append(DAO_ID_CITY, DB_DIRCITY_ID_CITY, criteria, paramList, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -136,9 +123,8 @@ public class DirectionCityQuery implements TypedQuery<LinkDirectionCity>{
         try {
             return deleteDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction link to city not deleted.", ex);
+             throw new DaoQueryException(ERR_DIR_CITY_DELETE, ex);
         }
-        
     }
 }
 

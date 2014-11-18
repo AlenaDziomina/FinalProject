@@ -27,7 +27,6 @@ import org.apache.log4j.Logger;
  * @author User
  */
 public abstract class AbstractLogic {
-    
     private static final String MSG_ERR_DAO_ACCESS = "message.errorDaoAccess";
     private static final String MSG_ERR_DAO_CONNECT = "message.errorDaoConnect";
     private static final String MSG_ERR_DAO_QUERY = "message.errorDaoQuery";

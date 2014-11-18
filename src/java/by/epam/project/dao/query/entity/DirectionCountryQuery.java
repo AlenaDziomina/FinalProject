@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
@@ -25,25 +19,25 @@ import java.util.List;
  * @author User
  */
 public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
-
-    public static final String DB_DIRCOUNTRY = "direction_countries";
-    public static final String DB_DIRCOUNTRY_ID_COUNTRY = "id_country";
-    public static final String DB_DIRCOUNTRY_ID_DIRECTION = "id_direction";
-    
-    
-
+    private static final String ERR_DIR_COUNTRY_SAVE = "Direction link to country not saved.";
+    private static final String ERR_DIR_COUNTRY_LOAD = "Direction link to country not loaded.";
+    private static final String ERR_DIR_COUNTRY_UPDATE = "Direction link to country not updated.";
+    private static final String ERR_DIR_COUNTRY_DELETE = "Direction link to country not deleted.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_DIRCOUNTRY = "direction_countries";
+    private static final String DB_DIRCOUNTRY_ID_COUNTRY = "id_country";
+    private static final String DB_DIRCOUNTRY_ID_DIRECTION = "id_direction";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRCOUNTRY + " (" + DB_DIRCOUNTRY_ID_DIRECTION + ", "
             + DB_DIRCOUNTRY_ID_COUNTRY + ") values (?, ?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_DIRCOUNTRY;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_DIRCOUNTRY + " set ";
-    
     private static final String DELETE_QUERY = 
-            "Delete from " + DB_DIRCOUNTRY + " where ";
+            "Delete from " + DB_DIRCOUNTRY + WHERE;
 
     @Override
     public List<Integer> save(List<LinkDirectionCountry> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -55,7 +49,7 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Direction link to country not saved.", ex);
+            throw new DaoQueryException(ERR_DIR_COUNTRY_SAVE, ex);
         }
     }
 
@@ -64,22 +58,19 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
         int pageSize = 10;
         
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_DIRECTION, DB_DIRCOUNTRY_ID_DIRECTION, criteria, paramList, sb, separator);
-                append(DAO_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_DIRECTION, DB_DIRCOUNTRY_ID_DIRECTION, criteria, paramList, sb, AND);
+                append(DAO_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -89,7 +80,7 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction link to country not loaded.", ex);
+             throw new DaoQueryException(ERR_DIR_COUNTRY_LOAD, ex);
         }
     }
 
@@ -101,11 +92,9 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_DIRECTION, DB_DIRCOUNTRY_ID_DIRECTION, beans, paramList2, sb, separator);
+                append(DAO_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_DIRECTION, DB_DIRCOUNTRY_ID_DIRECTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -114,7 +103,7 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction link to country not updated.",ex);
+             throw new DaoQueryException(ERR_DIR_COUNTRY_UPDATE, ex);
         }
     }
 
@@ -125,9 +114,8 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_DIRECTION, DB_DIRCOUNTRY_ID_DIRECTION, criteria, paramList, sb, separator);
-                append(DAO_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, criteria, paramList, sb, separator);
+                append(DAO_ID_DIRECTION, DB_DIRCOUNTRY_ID_DIRECTION, criteria, paramList, sb, AND);
+                append(DAO_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, criteria, paramList, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -135,9 +123,8 @@ public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
         try {
             return deleteDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction link to country not deleted.", ex);
+             throw new DaoQueryException(ERR_DIR_COUNTRY_DELETE, ex);
         }
-        
     }
 }
 

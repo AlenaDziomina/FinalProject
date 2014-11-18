@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action.user;
 
 import by.epam.project.action.ActionCommand;
@@ -24,11 +18,10 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- *
- * @author User
+ * Class of command of user logining.
+ * @author Helena.Grouk
  */
 public class LoginCommand implements ActionCommand{
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException{
         String page;
@@ -60,10 +53,9 @@ public class LoginCommand implements ActionCommand{
                 page = ConfigurationManager.getProperty("path.page.login");
             }
             request.setSessionAttribute(JSP_PAGE, page);
-            return page;
         } catch (TechnicalException ex) {
             throw new ServletLogicException(ex.getMessage(), ex);
         }
+        return page;
     }
-    
 }

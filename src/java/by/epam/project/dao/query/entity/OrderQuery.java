@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
@@ -28,50 +22,36 @@ import java.util.List;
  * @author User
  */
 public class OrderQuery implements TypedQuery<Order> {
-    
-    public static final String DB_ORDER = "orders";
-    public static final String DB_ORDER_ID_ORDER = "id_order";
-    public static final String DB_ORDER_ID_USER = "id_user";
-    public static final String DB_ORDER_ID_TOUR = "id_tour";
-    public static final String DB_ORDER_SEATS = "seats";
-    public static final String DB_ORDER_CURR_PRICE = "current_price";
-    public static final String DB_ORDER_CURR_DISCOUNT = "current_discount";
-    public static final String DB_ORDER_USER_DISCOUNT = "current_user_discount";
-    public static final String DB_ORDER_FINAL_PRICE = "final_price";
-    public static final String DB_ORDER_DATE = "orderDate";
-    public static final String DB_ORDER_STATUS = "status";
-    
-    
-    
+    private static final String ERR_ORDER_SAVE = "Order not saved.";
+    private static final String ERR_ORDER_LOAD = "Order not loaded.";
+    private static final String ERR_ORDER_UPDATE = "Order not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_ORDER = "orders";
+    private static final String DB_ORDER_ID_ORDER = "id_order";
+    private static final String DB_ORDER_ID_USER = "id_user";
+    private static final String DB_ORDER_ID_TOUR = "id_tour";
+    private static final String DB_ORDER_SEATS = "seats";
+    private static final String DB_ORDER_CURR_PRICE = "current_price";
+    private static final String DB_ORDER_CURR_DISCOUNT = "current_discount";
+    private static final String DB_ORDER_USER_DISCOUNT = "current_user_discount";
+    private static final String DB_ORDER_FINAL_PRICE = "final_price";
+    private static final String DB_ORDER_DATE = "orderDate";
+    private static final String DB_ORDER_STATUS = "status";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_ORDER + " (" + DB_ORDER_ID_USER + ", "
             + DB_ORDER_ID_TOUR + ", " + DB_ORDER_SEATS + ", " 
             + DB_ORDER_CURR_PRICE + ", " + DB_ORDER_CURR_DISCOUNT + ", "
             + DB_ORDER_USER_DISCOUNT + ", " + DB_ORDER_FINAL_PRICE + ", "
             + DB_ORDER_DATE + ") values (?, ?, ?, ?, ?, ?, ?, ?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_ORDER;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_ORDER + " set ";
-
-    public static Order createBean(Criteria criteria) {
-        Order bean = new Order();
-        bean.setIdOrder((Integer)criteria.getParam(DAO_ID_ORDER));
-        bean.setOrderDate((Date)criteria.getParam(DAO_ORDER_DATE));
-        bean.setSeats((Integer)criteria.getParam(DAO_ORDER_SEATS));
-        bean.setCurrentPrice((Float)criteria.getParam(DAO_ORDER_CURR_PRICE));
-        bean.setCurrentDiscount((Integer)criteria.getParam(DAO_ORDER_CURR_DISCOUNT));
-        bean.setCurrentUserDiscount((Integer)criteria.getParam(DAO_ORDER_USER_DISCOUNT));
-        bean.setFinalPrice((Float)criteria.getParam(DAO_ORDER_FINAL_PRICE));
-        bean.setTour(TourQuery.createBean(criteria));
-        bean.setUser(UserQuery.createBean(criteria));
-        bean.setStatus((Short)criteria.getParam(DAO_ORDER_STATUS));
-        return bean;
-    }
     
-     @Override
+    @Override
     public List<Integer> save(List<Order> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
         try {
             return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Order bean) -> {
@@ -87,7 +67,7 @@ public class OrderQuery implements TypedQuery<Order> {
                 return obj;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Order not saved.", ex);
+            throw new DaoQueryException(ERR_ORDER_SAVE, ex);
         }
     }
     
@@ -96,30 +76,27 @@ public class OrderQuery implements TypedQuery<Order> {
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, criteria, paramList, sb, separator);
-                append(DAO_ID_USER, DB_ORDER_ID_USER, criteria, paramList, sb, separator);
-                append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, criteria, paramList, sb, separator);
-                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList, sb, separator);
-                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList, sb, separator);
-                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList, sb, separator);
-                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList, sb, separator);
-                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList, sb, separator);
-                append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList, sb, separator);
-                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, criteria, paramList, sb, AND);
+                append(DAO_ID_USER, DB_ORDER_ID_USER, criteria, paramList, sb, AND);
+                append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, criteria, paramList, sb, AND);
+                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList, sb, AND);
+                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList, sb, AND);
+                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList, sb, AND);
+                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList, sb, AND);
+                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList, sb, AND);
+                append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList, sb, AND);
+                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -137,11 +114,9 @@ public class OrderQuery implements TypedQuery<Order> {
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Order not loaded.", ex);
+             throw new DaoQueryException(ERR_ORDER_LOAD, ex);
         }
     }
-
-   
 
     @Override
     public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
@@ -151,26 +126,24 @@ public class OrderQuery implements TypedQuery<Order> {
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList1, sb, separator);
-                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList1, sb, separator);
-                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList1, sb, separator);
-                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList1, sb, separator);
-                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList1, sb, separator);
-                append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList1, sb, separator);
-                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, beans, paramList2, sb, separator);
-                append(DAO_ID_USER, DB_ORDER_ID_USER, beans, paramList2, sb, separator);
-                append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, beans, paramList2, sb, separator);
-                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, beans, paramList2, sb, separator);
-                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, beans, paramList2, sb, separator);
-                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, beans, paramList2, sb, separator);
-                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, beans, paramList2, sb, separator);
-                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, beans, paramList2, sb, separator);
-                append(DAO_ORDER_DATE, DB_ORDER_DATE, beans, paramList2, sb, separator);
-                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, beans, paramList2, sb, separator);
+                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList1, sb, COMMA);
+                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList1, sb, COMMA);
+                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList1, sb, COMMA);
+                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList1, sb, COMMA);
+                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList1, sb, COMMA);
+                append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList1, sb, COMMA);
+                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, beans, paramList2, sb, AND);
+                append(DAO_ID_USER, DB_ORDER_ID_USER, beans, paramList2, sb, AND);
+                append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, beans, paramList2, sb, AND);
+                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, beans, paramList2, sb, AND);
+                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, beans, paramList2, sb, AND);
+                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, beans, paramList2, sb, AND);
+                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, beans, paramList2, sb, AND);
+                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, beans, paramList2, sb, AND);
+                append(DAO_ORDER_DATE, DB_ORDER_DATE, beans, paramList2, sb, AND);
+                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -179,13 +152,27 @@ public class OrderQuery implements TypedQuery<Order> {
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Order not updated.", ex);
+             throw new DaoQueryException(ERR_ORDER_UPDATE, ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
+    public static Order createBean(Criteria criteria) {
+        Order bean = new Order();
+        bean.setIdOrder((Integer)criteria.getParam(DAO_ID_ORDER));
+        bean.setOrderDate((Date)criteria.getParam(DAO_ORDER_DATE));
+        bean.setSeats((Integer)criteria.getParam(DAO_ORDER_SEATS));
+        bean.setCurrentPrice((Float)criteria.getParam(DAO_ORDER_CURR_PRICE));
+        bean.setCurrentDiscount((Integer)criteria.getParam(DAO_ORDER_CURR_DISCOUNT));
+        bean.setCurrentUserDiscount((Integer)criteria.getParam(DAO_ORDER_USER_DISCOUNT));
+        bean.setFinalPrice((Float)criteria.getParam(DAO_ORDER_FINAL_PRICE));
+        bean.setTour(TourQuery.createBean(criteria));
+        bean.setUser(UserQuery.createBean(criteria));
+        bean.setStatus((Short)criteria.getParam(DAO_ORDER_STATUS));
+        return bean;
+    }
 }

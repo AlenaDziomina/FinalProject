@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
@@ -27,29 +21,29 @@ import java.util.List;
  * @author User
  */
 public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
-    
-    public static final String DB_DIRSTAY = "direction_stay_hotels";
-    public static final String DB_DIRSTAY_ID_STAY = "id_stay";
-    public static final String DB_DIRSTAY_STAY_NO = "stay_no";
-    public static final String DB_DIRSTAY_ID_HOTEL = "id_hotel";
-    public static final String DB_DIRSTAY_ID_DIRECTION = "id_direction";
-    public static final String DB_DIRSTAY_STATUS = "status";
-    
-    
-           
+    private static final String ERR_DIR_STAY_SAVE = "Direction stay hotel not saved.";
+    private static final String ERR_DIR_STAY_LOAD = "Direction stay hotel not loaded.";
+    private static final String ERR_DIR_STAY_UPDATE = "Direction stay hotel not updated.";
+    private static final String ERR_DIR_STAY_DELETE = "Direction stay hotel not deleted.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_DIRSTAY = "direction_stay_hotels";
+    private static final String DB_DIRSTAY_ID_STAY = "id_stay";
+    private static final String DB_DIRSTAY_STAY_NO = "stay_no";
+    private static final String DB_DIRSTAY_ID_HOTEL = "id_hotel";
+    private static final String DB_DIRSTAY_ID_DIRECTION = "id_direction";
+    private static final String DB_DIRSTAY_STATUS = "status";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_DIRSTAY + " (" + DB_DIRSTAY_STAY_NO + ", "
             + DB_DIRSTAY_ID_DIRECTION + ", " + DB_DIRSTAY_ID_HOTEL 
             + ") values (?, ?, ?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_DIRSTAY;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_DIRSTAY + " set ";
-    
     private static final String DELETE_QUERY = 
-            "Delete from " + DB_DIRSTAY + " where ";
+            "Delete from " + DB_DIRSTAY + WHERE;
 
     @Override
     public List<Integer> save(List<DirectionStayHotel> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -62,7 +56,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 return objects;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Direction stay hotel not saved.", ex);
+            throw new DaoQueryException(ERR_DIR_STAY_SAVE, ex);
         }
     }
 
@@ -71,25 +65,22 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, separator);
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, separator);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, separator);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, separator);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
+                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
+                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
+                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, AND);
+                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -102,7 +93,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction stay hotel not loaded.", ex);
+             throw new DaoQueryException(ERR_DIR_STAY_LOAD, ex);
         }
     }
 
@@ -114,18 +105,16 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList1, sb, separator);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList1, sb, separator);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList1, sb, separator);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, beans, paramList2, sb, separator);
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, beans, paramList2, sb, separator);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, beans, paramList2, sb, separator);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, beans, paramList2, sb, separator);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, beans, paramList2, sb, separator);
+                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList1, sb, COMMA);
+                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList1, sb, COMMA);
+                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList1, sb, COMMA);
+                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, beans, paramList2, sb, AND);
+                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, beans, paramList2, sb, AND);
+                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, beans, paramList2, sb, AND);
+                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, beans, paramList2, sb, AND);
+                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -134,7 +123,7 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction stay hotel not updated.", ex);
+             throw new DaoQueryException(ERR_DIR_STAY_UPDATE, ex);
         }
     }
 
@@ -145,12 +134,11 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, separator);
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, separator);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, separator);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, separator);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, separator);
+                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
+                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
+                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
+                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, AND);
+                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -158,9 +146,8 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         try {
             return deleteDao.query(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Direction stay hotel not deleted.", ex);
+             throw new DaoQueryException(ERR_DIR_STAY_DELETE, ex);
         }
-        
     }
 }
 

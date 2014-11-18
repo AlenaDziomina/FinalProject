@@ -7,6 +7,7 @@ import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.ClientType;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.User;
+import by.epam.project.action.direction.DirectionCommand;
 import by.epam.project.exception.ServletLogicException;
 import by.epam.project.exception.TechnicalException;
 import by.epam.project.logic.TourLogic;
@@ -101,9 +102,7 @@ public class TourCommand {
         if (currCityTags != null) {
             request.setSessionAttribute(JSP_CURR_CITY_TAGS, currCityTags);
         }
-        
-        createCurrHotelTag(request);
-        
+        new DirectionCommand().createCurrHotelTag(request);
         String currPriceFrom = request.getParameter(JSP_CURR_PRICE_FROM);
         if (currPriceFrom != null) {
             request.setSessionAttribute(JSP_CURR_PRICE_FROM, currPriceFrom);

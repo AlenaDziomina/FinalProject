@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.dao.query.entity;
 
 import by.epam.project.dao.query.Criteria;
@@ -27,45 +21,31 @@ import java.util.List;
  * @author User
  */
 public class TouristQuery implements TypedQuery<Tourist>{
-    
-    public static final String DB_TOURIST = "tourist";
-    public static final String DB_TOURIST_ID_TOURIST = "id_tourist";
-    public static final String DB_TOURIST_ID_ORDER = "id_order";
-    public static final String DB_TOURIST_FNAME = "first_name";
-    public static final String DB_TOURIST_MNAME = "middle_name";
-    public static final String DB_TOURIST_LNAME = "last_name";
-    public static final String DB_TOURIST_BIRTH = "birth_date";
-    public static final String DB_TOURIST_PASSPORT = "passport";
-    public static final String DB_TOURIST_STATUS = "status";
-
-    
-    
-    
+    private static final String ERR_TOURIST_SAVE = "Tourist not saved.";
+    private static final String ERR_TOURIST_LOAD = "Tourist not loaded.";
+    private static final String ERR_TOURIST_UPDATE = "Tourist not updated.";
+    private static final String ERR_NOT_SUPPORTED = "Not supported.";
+    private static final String WHERE = " where ";
+    private static final String AND = " and ";
+    private static final String COMMA = " , ";
+    private static final String DB_TOURIST = "tourist";
+    private static final String DB_TOURIST_ID_TOURIST = "id_tourist";
+    private static final String DB_TOURIST_ID_ORDER = "id_order";
+    private static final String DB_TOURIST_FNAME = "first_name";
+    private static final String DB_TOURIST_MNAME = "middle_name";
+    private static final String DB_TOURIST_LNAME = "last_name";
+    private static final String DB_TOURIST_BIRTH = "birth_date";
+    private static final String DB_TOURIST_PASSPORT = "passport";
+    private static final String DB_TOURIST_STATUS = "status";
     private static final String SAVE_QUERY = 
             "Insert into " + DB_TOURIST + " (" + DB_TOURIST_ID_ORDER + ", "
             + DB_TOURIST_FNAME + ", " + DB_TOURIST_MNAME + ", " 
             + DB_TOURIST_LNAME + ", " + DB_TOURIST_BIRTH + ", "
             + DB_TOURIST_PASSPORT + ") values (?, ?, ?, ?, ?, ?);";
-    
     private static final String LOAD_QUERY = 
             "Select * from " + DB_TOURIST;
-    
     private static final String UPDATE_QUERY = 
             "Update " + DB_TOURIST + " set ";
-
-    public static Object createBean(Criteria criteria) {
-        Tourist bean = new Tourist();
-        bean.setIdTourist((Integer) criteria.getParam(DAO_ID_TOURIST));
-        bean.setOrder(new Order((Integer) criteria.getParam(DAO_ID_ORDER)));
-        bean.setFirstName((String) criteria.getParam(DAO_TOURIST_FNAME));
-        bean.setMiddleName((String) criteria.getParam(DAO_TOURIST_MNAME));
-        bean.setLastName((String) criteria.getParam(DAO_TOURIST_LNAME));
-        bean.setBirthDate((Date) criteria.getParam(DAO_TOURIST_BIRTH));
-        bean.setPassport((String) criteria.getParam(DAO_TOURIST_PASSPORT));
-        return bean;
-    }
-
-    
 
     @Override
     public List<Integer> save(List<Tourist> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
@@ -81,7 +61,7 @@ public class TouristQuery implements TypedQuery<Tourist>{
                 return obj;
             }));
         } catch (DaoException ex) {
-            throw new DaoQueryException("Tourist not saved.", ex);
+            throw new DaoQueryException(ERR_TOURIST_SAVE, ex);
         }
     }
     
@@ -90,28 +70,25 @@ public class TouristQuery implements TypedQuery<Tourist>{
         int pageSize = 50;
                 
         List paramList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder(" where ");
+        StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " and ";
-                append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, criteria, paramList, sb, separator);
-                append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, criteria, paramList, sb, separator);
-                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList, sb, separator);
-                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList, sb, separator);
-                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList, sb, separator);
-                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList, sb, separator);
-                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList, sb, separator);
-                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList, sb, separator);
-                return sb.toString();
+                append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, criteria, paramList, sb, AND);
+                append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, criteria, paramList, sb, AND);
+                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList, sb, AND);
+                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList, sb, AND);
+                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList, sb, AND);
+                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList, sb, AND);
+                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList, sb, AND);
+                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList, sb, AND);
+                if (paramList.isEmpty()) {
+                    return LOAD_QUERY;
+                } else {
+                    return sb.insert(0, LOAD_QUERY).toString();
+                }
             }  
         }.mapQuery();
-        
-        if (paramList.isEmpty()) {
-            queryStr = LOAD_QUERY;
-        } else {
-            queryStr = LOAD_QUERY + queryStr;
-        }
         
         try {
             return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
@@ -127,7 +104,7 @@ public class TouristQuery implements TypedQuery<Tourist>{
                 return bean;
             });
         } catch (DaoException ex) {
-             throw new DaoQueryException("Tourist not loaded.", ex);
+             throw new DaoQueryException(ERR_TOURIST_LOAD, ex);
         }
     }
 
@@ -139,23 +116,21 @@ public class TouristQuery implements TypedQuery<Tourist>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                String separator = " , ";
-                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList1, sb, separator);
-                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList1, sb, separator);
-                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList1, sb, separator);
-                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList1, sb, separator);
-                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList1, sb, separator);
-                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList1, sb, separator);
-                sb.append(" where ");
-                separator = " and ";
-                append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, beans, paramList2, sb, separator);
-                append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, beans, paramList2, sb, separator);
-                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, beans, paramList2, sb, separator);
-                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, beans, paramList2, sb, separator);
-                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, beans, paramList2, sb, separator);
-                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, beans, paramList2, sb, separator);
-                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, beans, paramList2, sb, separator);
-                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, beans, paramList2, sb, separator);
+                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList1, sb, COMMA);
+                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList1, sb, COMMA);
+                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList1, sb, COMMA);
+                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList1, sb, COMMA);
+                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList1, sb, COMMA);
+                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList1, sb, COMMA);
+                sb.append(WHERE);
+                append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, beans, paramList2, sb, AND);
+                append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, beans, paramList2, sb, AND);
+                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, beans, paramList2, sb, AND);
+                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, beans, paramList2, sb, AND);
+                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, beans, paramList2, sb, AND);
+                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, beans, paramList2, sb, AND);
+                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, beans, paramList2, sb, AND);
+                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -164,13 +139,24 @@ public class TouristQuery implements TypedQuery<Tourist>{
         try {
             return updateDao.query(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
-             throw new DaoQueryException("Tourist not updated.", ex);
+             throw new DaoQueryException(ERR_TOURIST_UPDATE, ex);
         }
     }
 
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
+    public static Object createBean(Criteria criteria) {
+        Tourist bean = new Tourist();
+        bean.setIdTourist((Integer) criteria.getParam(DAO_ID_TOURIST));
+        bean.setOrder(new Order((Integer) criteria.getParam(DAO_ID_ORDER)));
+        bean.setFirstName((String) criteria.getParam(DAO_TOURIST_FNAME));
+        bean.setMiddleName((String) criteria.getParam(DAO_TOURIST_MNAME));
+        bean.setLastName((String) criteria.getParam(DAO_TOURIST_LNAME));
+        bean.setBirthDate((Date) criteria.getParam(DAO_TOURIST_BIRTH));
+        bean.setPassport((String) criteria.getParam(DAO_TOURIST_PASSPORT));
+        return bean;
+    }
 }
