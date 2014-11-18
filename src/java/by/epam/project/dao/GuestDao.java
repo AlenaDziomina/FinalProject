@@ -23,31 +23,31 @@ import java.util.List;
 public interface GuestDao extends AbstractDao {
 
     @Override
-    List<Role> showRoles(Criteria criteria) throws DaoException;
+    List<Role> findRoles(Criteria criteria) throws DaoException;
     @Override
-    List<User> showUsers(Criteria criteria) throws DaoException;
+    List<User> findUsers(Criteria criteria) throws DaoException;
     @Override
     Integer createNewUser(Criteria criteria) throws DaoException;
     @Override
-    List<Direction> showDirections(Criteria criteria) throws DaoException;
+    List<Direction> findDirections(Criteria criteria) throws DaoException;
     @Override
-    List<Country> showCountries(Criteria criteria) throws DaoException;
+    List<Country> findCountries(Criteria criteria) throws DaoException;
     @Override
-    List<City> showCities(Criteria criteria) throws DaoException;
+    List<City> findCities(Criteria criteria) throws DaoException;
     @Override
-    List<Hotel> showHotels(Criteria criteria) throws DaoException;
+    List<Hotel> findHotels(Criteria criteria) throws DaoException;
     @Override
-    List<TourType> showTourTypes (Criteria criteria) throws DaoException;
+    List<TourType> findTourTypes (Criteria criteria) throws DaoException;
     @Override
-    List<TransMode> showTransModes (Criteria criteria) throws DaoException;
+    List<TransMode> findTransModes (Criteria criteria) throws DaoException;
     @Override
-    List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException;
+    List<LinkDirectionCountry> findLinkDirectionCountry(Criteria criteria) throws DaoException;
     @Override
-    List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException;
+    List<LinkDirectionCity> findLinkDirectionCity(Criteria criteria) throws DaoException;
     @Override
-    List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException;
+    List<DirectionStayHotel> findDirectionStayHotel(Criteria criteria) throws DaoException;
     @Override
-    List<Tour> showTours(Criteria criteria) throws DaoException;
+    List<Tour> findTours(Criteria criteria) throws DaoException;
     @Override
     List<Tour> searchTours(Criteria criteria) throws DaoException;
 

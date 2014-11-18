@@ -23,7 +23,7 @@ public interface UserDao extends AbstractDao {
     @Override
     List<Integer> createNewTourist(Criteria criteria) throws DaoException;
     @Override
-    List<Order> showOrders(Criteria criteria) throws DaoException;
+    List<Order> findOrders(Criteria criteria) throws DaoException;
     @Override
-    List<Tourist> showTourists(Criteria criteria) throws DaoException;
+    List<Tourist> findTourists(Criteria criteria) throws DaoException;
 }

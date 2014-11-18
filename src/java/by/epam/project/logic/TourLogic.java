@@ -21,7 +21,7 @@ class TourLogic extends AbstractLogic {
 
     @Override
     List<Tour> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        List<Tour> tours = dao.showTours(criteria);
+        List<Tour> tours = dao.findTours(criteria);
         fillTours(tours, dao);
         Tour.DateComparator comparator = new Tour.DateComparator();
         Collections.sort(tours, comparator);
@@ -57,17 +57,17 @@ class TourLogic extends AbstractLogic {
             for (Tour tour : tours) {
                 Criteria directCrit = new Criteria();
                 directCrit.addParam(DAO_ID_DIRECTION, tour.getDirection().getIdDirection());
-                List<Direction> dir = dao.showDirections(directCrit);
+                List<Direction> dir = dao.findDirections(directCrit);
                 tour.setDirection(dir.get(0));
 
                 Criteria typeCrit = new Criteria();
                 typeCrit.addParam(DAO_ID_TOURTYPE, tour.getDirection().getTourType().getIdTourType());
-                List<TourType> types = dao.showTourTypes(typeCrit);
+                List<TourType> types = dao.findTourTypes(typeCrit);
                 tour.getDirection().setTourType(types.get(0));
 
                 Criteria moteCrit = new Criteria();
                 moteCrit.addParam(DAO_ID_TRANSMODE, tour.getDirection().getTransMode().getIdMode());
-                List<TransMode> modes = dao.showTransModes(moteCrit);
+                List<TransMode> modes = dao.findTransModes(moteCrit);
                 tour.getDirection().setTransMode(modes.get(0));
             }
         }

@@ -29,7 +29,7 @@ class DirectionLogic extends AbstractLogic {
 
     @Override
     List<Direction> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        List<Direction> directions = dao.showDirections(criteria);
+        List<Direction> directions = dao.findDirections(criteria);
         Direction.NameComparator comparator = new Direction.NameComparator();
         Collections.sort(directions, comparator);
         fillDirections(directions, dao);
@@ -121,7 +121,7 @@ class DirectionLogic extends AbstractLogic {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_TRANSMODE, dir.getTransMode().getIdMode());
-            List<TransMode> mode = dao.showTransModes(crit);
+            List<TransMode> mode = dao.findTransModes(crit);
             dir.setTransMode(mode.get(0));
         }
     }
@@ -130,7 +130,7 @@ class DirectionLogic extends AbstractLogic {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_TOURTYPE, dir.getTourType().getIdTourType());
-            List<TourType> type = dao.showTourTypes(crit);
+            List<TourType> type = dao.findTourTypes(crit);
             dir.setTourType(type.get(0));
         }
     }
@@ -139,7 +139,7 @@ class DirectionLogic extends AbstractLogic {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_DESCRIPTION, dir.getDescription().getIdDescription());
-            List<Description> desc = dao.showDescriptions(crit);
+            List<Description> desc = dao.findDescriptions(crit);
             dir.setDescription(desc.get(0));
         }
     }
@@ -148,7 +148,7 @@ class DirectionLogic extends AbstractLogic {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
-            List<DirectionStayHotel> stays = dao.showDirectionStayHotel(crit);
+            List<DirectionStayHotel> stays = dao.findDirectionStayHotel(crit);
             dir.setStayCollection(getHotelInfo(dao, stays));
         }
     }
@@ -157,11 +157,11 @@ class DirectionLogic extends AbstractLogic {
         for (DirectionStayHotel st : stays) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_HOTEL, st.getHotel().getIdHotel());
-            List<Hotel> hotels = dao.showHotels(crit);
+            List<Hotel> hotels = dao.findHotels(crit);
             if (hotels != null && !hotels.isEmpty()) {
                 st.setHotel(hotels.get(0));
                 crit.addParam(DAO_ID_CITY, st.getHotel().getCity().getIdCity());
-                List<City> cities = dao.showCities(crit);
+                List<City> cities = dao.findCities(crit);
                 if (cities != null && !cities.isEmpty()) {
                     st.getHotel().setCity(cities.get(0));
                 }
@@ -176,7 +176,7 @@ class DirectionLogic extends AbstractLogic {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
-            List<LinkDirectionCity> links = dao.showLinkDirectionCity(crit);
+            List<LinkDirectionCity> links = dao.findLinkDirectionCity(crit);
             dir.setCityCollection(getCityInfo(dao, links));
         }
     }
@@ -186,7 +186,7 @@ class DirectionLogic extends AbstractLogic {
         for (LinkDirectionCity link : links) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_CITY, link.getIdCity());
-            List<City> cities = dao.showCities(crit);
+            List<City> cities = dao.findCities(crit);
             if (cities != null) {
                 list.addAll(cities);
             }
@@ -200,7 +200,7 @@ class DirectionLogic extends AbstractLogic {
         for (Direction dir : directions) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_DIRECTION, dir.getIdDirection());
-            List<LinkDirectionCountry> links = dao.showLinkDirectionCountry(crit);
+            List<LinkDirectionCountry> links = dao.findLinkDirectionCountry(crit);
             dir.setCountryCollection(getCountryInfo(dao, links));
         }
     }
@@ -210,7 +210,7 @@ class DirectionLogic extends AbstractLogic {
         for (LinkDirectionCountry link : links) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_COUNTRY, link.getIdCountry());
-            List<Country> countries = dao.showCountries(crit);
+            List<Country> countries = dao.findCountries(crit);
             if (countries != null) {
                 list.addAll(countries);
             }
@@ -227,7 +227,7 @@ class DirectionLogic extends AbstractLogic {
             crit.addParam(DAO_TOUR_STATUS, criteria.getParam(DAO_TOUR_STATUS));
             crit.addParam(DAO_TOUR_DATE_FROM, criteria.getParam(DAO_TOUR_DATE_FROM));
             crit.addParam(DAO_TOUR_DATE_TO, criteria.getParam(DAO_TOUR_DATE_TO));
-            List<Tour> list = dao.showTours(crit);
+            List<Tour> list = dao.findTours(crit);
             Tour.DateComparator comparator = new Tour.DateComparator();
             Collections.sort(list, comparator);
             dir.setTourCollection(list);

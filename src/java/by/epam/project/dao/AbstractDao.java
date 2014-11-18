@@ -34,11 +34,11 @@ public interface AbstractDao {
     void commit() throws DaoException;
 
     //guest
-    default List<Role> showRoles(Criteria criteria) throws DaoException {
+    default List<Role> findRoles(Criteria criteria) throws DaoException {
         throw new DaoAccessException("Method showRoles. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<User> showUsers(Criteria criteria) throws DaoException {
+    default List<User> findUsers(Criteria criteria) throws DaoException {
         throw new DaoAccessException("Method showUsers. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
@@ -46,47 +46,47 @@ public interface AbstractDao {
         throw new DaoAccessException("Method createNewUser. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<Description> showDescriptions(Criteria criteria) throws DaoException{
+    default List<Description> findDescriptions(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showDescription. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<Country> showCountries(Criteria criteria) throws DaoException{
+    default List<Country> findCountries(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showCountries. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<City> showCities(Criteria criteria) throws DaoException{
+    default List<City> findCities(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showCities. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<Hotel> showHotels(Criteria criteria) throws DaoException{
+    default List<Hotel> findHotels(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showHotels. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<Direction> showDirections(Criteria criteria) throws DaoException{
+    default List<Direction> findDirections(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showDirections. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<TourType> showTourTypes (Criteria criteria) throws DaoException{
+    default List<TourType> findTourTypes (Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showTourTypes. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<TransMode> showTransModes (Criteria criteria) throws DaoException{
+    default List<TransMode> findTransModes (Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showTransMode. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException{
+    default List<LinkDirectionCountry> findLinkDirectionCountry(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showLinkDirectionCountry. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException{
+    default List<LinkDirectionCity> findLinkDirectionCity(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showLinkDirectionCity. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException{
+    default List<DirectionStayHotel> findDirectionStayHotel(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showDirectionStayHotels. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<Tour> showTours(Criteria criteria) throws DaoException{
+    default List<Tour> findTours(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showTours. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
@@ -117,11 +117,11 @@ public interface AbstractDao {
         throw new DaoAccessException("Method createNewTourist. Current role: "
                + criteria.getParam(DAO_ROLE_NAME).toString());
     };
-    default List<Order> showOrders(Criteria criteria) throws DaoException{
+    default List<Order> findOrders(Criteria criteria) throws DaoException{
         throw new DaoAccessException("Method showOrders. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }
-    default List<Tourist> showTourists(Criteria criteria) throws DaoException {
+    default List<Tourist> findTourists(Criteria criteria) throws DaoException {
         throw new DaoAccessException("Method showOrders. Current role: "
                 + criteria.getParam(DAO_ROLE_NAME).toString());
     }

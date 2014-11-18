@@ -18,7 +18,7 @@ class UserLogic extends AbstractLogic {
 
     @Override
     List getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        List<User> users = dao.showUsers(criteria);
+        List<User> users = dao.findUsers(criteria);
         fillUsers(users, dao);
         User.LoginComparator comparator = new User.LoginComparator();
         Collections.sort(users, comparator);
@@ -54,11 +54,11 @@ class UserLogic extends AbstractLogic {
         emailCrit.addParam(DAO_USER_EMAIL, criteria.getParam(DAO_USER_EMAIL));
         Criteria roleCrit = new Criteria();
         roleCrit.addParam(DAO_ROLE_NAME, "user");
-        Integer idRole = dao.showRoles(roleCrit).get(0).getIdRole();
+        Integer idRole = dao.findRoles(roleCrit).get(0).getIdRole();
         criteria.addParam(DAO_ID_ROLE, idRole);
         criteria.addParam(DAO_USER_BALANCE, 0f);
         criteria.addParam(DAO_USER_DISCOUNT, 0);
-        if (dao.showUsers(loginCrit).isEmpty() && dao.showUsers(emailCrit).isEmpty()) {
+        if (dao.findUsers(loginCrit).isEmpty() && dao.findUsers(emailCrit).isEmpty()) {
             return dao.createNewUser(criteria);
         }
         return null;
@@ -76,7 +76,7 @@ class UserLogic extends AbstractLogic {
         for (User u : users) {
             Criteria crit = new Criteria();
             crit.addParam(DAO_ID_ROLE, u.getRole().getIdRole());
-            u.setRole(dao.showRoles(crit).get(0));
+            u.setRole(dao.findRoles(crit).get(0));
         }
     }
 }

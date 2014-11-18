@@ -15,7 +15,7 @@ class TransModeLogic extends AbstractLogic {
 
     @Override
     List<TransMode> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
-        List<TransMode> modes = dao.showTransModes(criteria);
+        List<TransMode> modes = dao.findTransModes(criteria);
         TransMode.NameComparator comparator = new TransMode.NameComparator();
         Collections.sort(modes, comparator);
         return modes;

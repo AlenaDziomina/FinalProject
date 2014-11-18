@@ -20,7 +20,7 @@ class CountryLogic extends AbstractLogic {
 
     @Override
     List<Country> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
-        List<Country> countries = dao.showCountries(criteria);
+        List<Country> countries = dao.findCountries(criteria);
         Country.NameComparator comparator = new Country.NameComparator();
         Collections.sort(countries, comparator);
         fillCountries(countries, dao, criteria);
@@ -66,7 +66,7 @@ class CountryLogic extends AbstractLogic {
             for (Country country : countries) {
                 Criteria descCrit = new Criteria();
                 descCrit.addParam(DAO_ID_DESCRIPTION, country.getDescription().getIdDescription());
-                List<Description> desc = dao.showDescriptions(descCrit);
+                List<Description> desc = dao.findDescriptions(descCrit);
                 if (!desc.isEmpty()) {
                     country.setDescription(desc.get(0));
                 }
@@ -74,7 +74,7 @@ class CountryLogic extends AbstractLogic {
                 Criteria cityCrit = new Criteria();
                 cityCrit.addParam(DAO_ID_COUNTRY, country.getIdCountry());
                 cityCrit.addParam(DAO_CITY_STATUS, cityStatus);
-                List<City> cities = dao.showCities(cityCrit);
+                List<City> cities = dao.findCities(cityCrit);
                 City.NameComparator comparator = new City.NameComparator();
                 Collections.sort(cities, comparator);
                 country.setCityCollection(cities);

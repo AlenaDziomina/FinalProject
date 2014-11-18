@@ -34,13 +34,13 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
     protected MysqlGuestDao(){}
 
     @Override
-    public List<Role> showRoles(Criteria criteria) throws DaoException {
+    public List<Role> findRoles(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.ROLEQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<User> showUsers(Criteria criteria) throws DaoException {
+    public List<User> findUsers(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.USERQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
@@ -54,13 +54,13 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<Description> showDescriptions(Criteria criteria) throws DaoException {
+    public List<Description> findDescriptions(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DESCRIPTIONQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<Country> showCountries(Criteria criteria) throws DaoException {
+    public List<Country> findCountries(Criteria criteria) throws DaoException {
         if (criteria.getParam(DAO_COUNTRY_STATUS) == null) {
             criteria.addParam(DAO_COUNTRY_STATUS, ACTIVE);
         }
@@ -69,7 +69,7 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<City> showCities(Criteria criteria) throws DaoException {
+    public List<City> findCities(Criteria criteria) throws DaoException {
         if (criteria.getParam(DAO_CITY_STATUS) == null) {
             criteria.addParam(DAO_CITY_STATUS, ACTIVE);
         }
@@ -78,7 +78,7 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<Hotel> showHotels(Criteria criteria) throws DaoException {
+    public List<Hotel> findHotels(Criteria criteria) throws DaoException {
         if (criteria.getParam(DAO_HOTEL_STATUS) == null) {
             criteria.addParam(DAO_HOTEL_STATUS, ACTIVE);
         }
@@ -87,19 +87,19 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<TourType> showTourTypes (Criteria criteria) throws DaoException {
+    public List<TourType> findTourTypes (Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURTYPEQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<TransMode> showTransModes (Criteria criteria) throws DaoException {
+    public List<TransMode> findTransModes (Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TRANSMODEQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<Direction> showDirections(Criteria criteria) throws DaoException {
+    public List<Direction> findDirections(Criteria criteria) throws DaoException {
         if (criteria.getParam(DAO_DIRECTION_STATUS) == null) {
             criteria.addParam(DAO_DIRECTION_STATUS, ACTIVE);
         }
@@ -108,25 +108,25 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
     }
 
     @Override
-    public List<LinkDirectionCountry> showLinkDirectionCountry(Criteria criteria) throws DaoException {
+    public List<LinkDirectionCountry> findLinkDirectionCountry(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCOUNTRYQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException {
+    public List<LinkDirectionCity> findLinkDirectionCity(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCITYQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<DirectionStayHotel> showDirectionStayHotel(Criteria criteria) throws DaoException {
+    public List<DirectionStayHotel> findDirectionStayHotel(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONSTAYHOTELQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<Tour> showTours(Criteria criteria) throws DaoException {
+    public List<Tour> findTours(Criteria criteria) throws DaoException {
         if (criteria.getParam(DAO_TOUR_STATUS) == null) {
             criteria.addParam(DAO_TOUR_STATUS, ACTIVE);
         }

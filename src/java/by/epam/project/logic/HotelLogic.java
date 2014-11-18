@@ -20,7 +20,7 @@ class HotelLogic extends AbstractLogic {
 
     @Override
     List<Hotel> getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        List<Hotel> hotels = dao.showHotels(criteria);
+        List<Hotel> hotels = dao.findHotels(criteria);
         fillHotels(hotels, dao);
         Hotel.NameComparator comparator = new Hotel.NameComparator();
         Collections.sort(hotels, comparator);
@@ -56,14 +56,14 @@ class HotelLogic extends AbstractLogic {
             for (Hotel hotel : hotels) {
                 Criteria descCrit = new Criteria();
                 descCrit.addParam(DAO_ID_DESCRIPTION, hotel.getDescription().getIdDescription());
-                List<Description> desc = dao.showDescriptions(descCrit);
+                List<Description> desc = dao.findDescriptions(descCrit);
                 if (!desc.isEmpty()) {
                     hotel.setDescription(desc.get(0));
                 }
 
                 Criteria cityCrit = new Criteria();
                 cityCrit.addParam(DAO_ID_CITY, hotel.getCity().getIdCity());
-                List<City> cities = dao.showCities(cityCrit);
+                List<City> cities = dao.findCities(cityCrit);
                 if (! cities.isEmpty()) {
                     hotel.setCity(cities.get(0));
                 }

@@ -31,7 +31,7 @@ class MysqlUserDao extends MysqlGuestDao implements UserDao {
     }
 
     @Override
-    public List<Direction> showDirections(Criteria criteria) throws DaoException {
+    public List<Direction> findDirections(Criteria criteria) throws DaoException {
         Short status = (Short) criteria.getParam(DAO_DIRECTION_STATUS);
         Boolean allStatus = (Boolean) criteria.getParam(DAO_DIRECTION_ALLSTATUS);
         if (allStatus != null && allStatus) {
@@ -44,7 +44,7 @@ class MysqlUserDao extends MysqlGuestDao implements UserDao {
     }
 
     @Override
-    public List<Tour> showTours(Criteria criteria) throws DaoException {
+    public List<Tour> findTours(Criteria criteria) throws DaoException {
         Short status = (Short) criteria.getParam(DAO_TOUR_STATUS);
         Boolean allStatus = (Boolean) criteria.getParam(DAO_TOUR_ALLSTATUS);
         if (allStatus != null && allStatus) {
@@ -92,13 +92,13 @@ class MysqlUserDao extends MysqlGuestDao implements UserDao {
     }
 
     @Override
-    public List<Order> showOrders(Criteria criteria) throws DaoException {
+    public List<Order> findOrders(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.ORDERQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<Tourist> showTourists(Criteria criteria) throws DaoException {
+    public List<Tourist> findTourists(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURISTQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }

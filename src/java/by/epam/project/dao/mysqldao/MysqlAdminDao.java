@@ -23,31 +23,31 @@ class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     protected MysqlAdminDao(){}
 
     @Override
-    public List<Country> showCountries(Criteria criteria) throws DaoException {
+    public List<Country> findCountries(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.COUNTRYQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<City> showCities(Criteria criteria) throws DaoException {
+    public List<City> findCities(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.CITYQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<Hotel> showHotels(Criteria criteria) throws DaoException {
+    public List<Hotel> findHotels(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.HOTELQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<Direction> showDirections(Criteria criteria) throws DaoException {
+    public List<Direction> findDirections(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
-    public List<Tour> showTours(Criteria criteria) throws DaoException {
+    public List<Tour> findTours(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }

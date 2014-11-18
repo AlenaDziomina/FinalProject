@@ -45,7 +45,7 @@ class SearchLogic extends AbstractLogic {
             for (Tour tour : tours) {
                 Criteria directCrit = new Criteria();
                 directCrit.addParam(DAO_ID_DIRECTION, tour.getDirection().getIdDirection());
-                List<Direction> dir = dao.showDirections(directCrit);
+                List<Direction> dir = dao.findDirections(directCrit);
                 if (!dir.isEmpty()) {
                     new DirectionLogic().fillDirections(dir, dao);
                     tour.setDirection(dir.get(0));

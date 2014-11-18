@@ -21,7 +21,7 @@ class TourTypeLogic extends AbstractLogic {
 
     @Override
     List<TourType> getEntity (Criteria criteria, AbstractDao dao) throws DaoException {
-        List<TourType> types = dao.showTourTypes(criteria);
+        List<TourType> types = dao.findTourTypes(criteria);
         TourType.NameComparator comparator = new TourType.NameComparator();
         Collections.sort(types, comparator);
         return types;

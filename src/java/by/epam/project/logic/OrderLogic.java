@@ -24,7 +24,7 @@ class OrderLogic extends AbstractLogic {
 
     @Override
     List getEntity(Criteria criteria, AbstractDao dao) throws DaoException {
-        List<Order> orders = dao.showOrders(criteria);
+        List<Order> orders = dao.findOrders(criteria);
         fillOrders(orders, dao);
         Order.DateComparator comparator = new Order.DateComparator();
         Collections.sort(orders, comparator);
@@ -66,14 +66,14 @@ class OrderLogic extends AbstractLogic {
                 tourCrit.addParam(DAO_ID_TOUR, order.getTour().getIdTour());
                 tourCrit.addParam(DAO_TOUR_ALLDATE, true);
                 tourCrit.addParam(DAO_TOUR_ALLSTATUS, true);
-                List<Tour> tours = dao.showTours(tourCrit);
+                List<Tour> tours = dao.findTours(tourCrit);
                 if (!tours.isEmpty()) {
                     Tour tour = tours.get(0);
                     order.setTour(tour);
                     Criteria directCrit = new Criteria();
                     directCrit.addParam(DAO_ID_DIRECTION, tour.getDirection().getIdDirection());
                     directCrit.addParam(DAO_DIRECTION_ALLSTATUS, true);
-                    List<Direction> dirs = dao.showDirections(directCrit);
+                    List<Direction> dirs = dao.findDirections(directCrit);
                     if (!dirs.isEmpty()) {
                         new DirectionLogic().fillDirections(dirs, dao);
                         tour.setDirection(dirs.get(0));
@@ -82,14 +82,14 @@ class OrderLogic extends AbstractLogic {
 
                 Criteria userCrit = new Criteria();
                 userCrit.addParam(DAO_ID_USER, order.getUser().getIdUser());
-                List<User> users = dao.showUsers(userCrit);
+                List<User> users = dao.findUsers(userCrit);
                 if (! users.isEmpty()) {
                     order.setUser(users.get(0));
                 }
 
                 Criteria touristCrit = new Criteria();
                 touristCrit.addParam(DAO_ID_ORDER, order.getIdOrder());
-                List<Tourist> tourists = dao.showTourists(touristCrit);
+                List<Tourist> tourists = dao.findTourists(touristCrit);
                 Tourist.FioComparator comparator = new Tourist.FioComparator();
                 Collections.sort(tourists, comparator);
                 order.setTouristCollection(tourists);
@@ -114,7 +114,7 @@ class OrderLogic extends AbstractLogic {
         Criteria[] crit = new Criteria[]{new Criteria(), new Criteria()};
         crit[0].addParam(DAO_ID_USER, criteria.getParam(DAO_ID_USER));
         crit[0].addParam(DAO_USER_SELECT_FOR_UPDATE, true);
-        List<User> users = dao.showUsers(crit[0]);
+        List<User> users = dao.findUsers(crit[0]);
         if (users.isEmpty()) {
             throw new DaoException("User not found.");
         }
@@ -134,7 +134,7 @@ class OrderLogic extends AbstractLogic {
         Criteria[] crit = new Criteria[]{new Criteria(), new Criteria()};
         crit[0].addParam(DAO_ID_TOUR, criteria.getParam(DAO_ID_TOUR));
         crit[0].addParam(DAO_TOUR_SELECT_FOR_UPDATE, true);
-        List<Tour> tours = dao.showTours(crit[0]);
+        List<Tour> tours = dao.findTours(crit[0]);
         if (tours.isEmpty()) {
             throw new DaoException("Tour not found.");
         }
@@ -152,7 +152,7 @@ class OrderLogic extends AbstractLogic {
         Criteria[] crit = new Criteria[]{new Criteria(), new Criteria()};
         crit[0].addParam(DAO_ID_USER, idCompany);
         crit[0].addParam(DAO_USER_SELECT_FOR_UPDATE, true);
-        List<User> companys = dao.showUsers(crit[0]);
+        List<User> companys = dao.findUsers(crit[0]);
         if (companys.isEmpty()) {
             throw new DaoException("Company not found.");
         }
@@ -185,7 +185,7 @@ class OrderLogic extends AbstractLogic {
         Criteria bean = new Criteria();
         bean.addParam(DAO_ID_USER, criteria.getParam(DAO_ID_USER));
         bean.addParam(DAO_USER_SELECT_FOR_UPDATE, true);
-        List<User> users = dao.showUsers(bean);
+        List<User> users = dao.findUsers(bean);
         if (users.isEmpty()) {
             throw new DaoException("User not found.");
         }
