@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  *
  * @author User
  */
-public class MysqlGenericLoadQuery implements GenericLoadQuery {
+class MysqlGenericLoadQuery implements GenericLoadQuery {
     private static final Logger LOGGER = Logger.getLogger(MysqlGenericLoadQuery.class);
     private static final String PARAMS_IS_NULL_ERROR = "Query params should not be null";
     private static final String CLOSE_ERROR = "Error in close connection.";

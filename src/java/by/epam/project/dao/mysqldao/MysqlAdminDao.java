@@ -7,180 +7,183 @@
 package by.epam.project.dao.mysqldao;
 
 import by.epam.project.dao.AdminDao;
-import by.epam.project.dao.query.entity.CityQuery;
-import by.epam.project.dao.query.entity.CountryQuery;
-import by.epam.project.dao.query.entity.DescriptionQuery;
-import by.epam.project.dao.query.entity.DirectionCityQuery;
-import by.epam.project.dao.query.entity.DirectionCountryQuery;
-import by.epam.project.dao.query.entity.DirectionQuery;
-import by.epam.project.dao.query.entity.DirectionStayHotelQuery;
-import by.epam.project.dao.query.entity.HotelQuery;
-import by.epam.project.dao.query.entity.SearchQuery;
-import by.epam.project.dao.query.entity.TourQuery;
-import by.epam.project.dao.query.entity.TouristQuery;
+import by.epam.project.dao.query.BeanListCreator;
 import by.epam.project.dao.query.Criteria;
+import by.epam.project.dao.query.QueryType;
+import by.epam.project.dao.query.TypedQuery;
+import by.epam.project.dao.query.entity.TypedQueryFactory;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Direction;
-import by.epam.project.entity.DirectionStayHotel;
 import by.epam.project.entity.Hotel;
-import by.epam.project.entity.LinkDirectionCity;
-import by.epam.project.entity.LinkDirectionCountry;
-import by.epam.project.entity.LinkDirectionFactory;
 import by.epam.project.entity.Tour;
 import by.epam.project.exception.DaoException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author User
  */
-public class MysqlAdminDao extends MysqlUserDao implements AdminDao {
+class MysqlAdminDao extends MysqlUserDao implements AdminDao {
     
     protected MysqlAdminDao(){}
     
     @Override
     public List<Country> showCountries(Criteria criteria) throws DaoException {
-        return new CountryQuery().load(criteria, loadGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.COUNTRYQUERY);
+        return query.load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<City> showCities(Criteria criteria) throws DaoException {
-        return new CityQuery().load(criteria, loadGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.CITYQUERY);
+        return query.load(criteria, loadGeneric, mysqlConn);
     }
 
     @Override
     public List<Hotel> showHotels(Criteria criteria) throws DaoException {
-        return new HotelQuery().load(criteria, loadGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.HOTELQUERY);
+        return query.load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<Direction> showDirections(Criteria criteria) throws DaoException {
-        return new DirectionQuery().load(criteria, loadGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONQUERY);
+        return query.load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<Tour> showTours(Criteria criteria) throws DaoException {
-        return new TourQuery().load(criteria, loadGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURQUERY);
+        return query.load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<Tour> searchTours(Criteria criteria) throws DaoException {
-        return new SearchQuery().load(criteria, loadGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.SEARCHQUERY);
+        return query.load(criteria, loadGeneric, mysqlConn);
     }
     
     @Override
     public List<Integer> createNewDescription(Criteria criteria) throws DaoException {
-        List list = new ArrayList<>();
-        list.add(DescriptionQuery.createBean(criteria));
-        return new DescriptionQuery().save(list, saveGeneric, mysqlConn);
+        List list = BeanListCreator.getDescriptionInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DESCRIPTIONQUERY);
+        return query.save(list, saveGeneric, mysqlConn);
     }
     @Override
     public List<Integer> updateDescription(Criteria beans, Criteria crit) throws DaoException {
-        return new DescriptionQuery().update(beans, crit, updateGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DESCRIPTIONQUERY);
+        return query.update(beans, crit, updateGeneric, mysqlConn);
     }
     
     @Override
     public List createNewCountry(Criteria criteria)throws DaoException {
-        List list = new ArrayList<>();
-        list.add(CountryQuery.createBean(criteria));
-        return new CountryQuery().save(list, saveGeneric, mysqlConn);
+        List list = BeanListCreator.getCountryInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.COUNTRYQUERY);
+        return query.save(list, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateCountry(Criteria beans, Criteria crit) throws DaoException {
-        return new CountryQuery().update(beans, crit, updateGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.COUNTRYQUERY);
+        return query.update(beans, crit, updateGeneric, mysqlConn);
     }
 
     @Override
     public List createNewCity(Criteria criteria) throws DaoException {
-            List list = new ArrayList<>();
-            list.add(CityQuery.createBean(criteria));
-            return new CityQuery().save(list, saveGeneric, mysqlConn);
+        List list = BeanListCreator.getCityInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.CITYQUERY);
+        return query.save(list, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateCity(Criteria beans, Criteria crit) throws DaoException {
-        return new CityQuery().update(beans, crit, updateGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.CITYQUERY);
+        return query.update(beans, crit, updateGeneric, mysqlConn);
     }
 
     @Override
     public List createNewHotel(Criteria criteria) throws DaoException {
-        List list = new ArrayList<>();
-        list.add(HotelQuery.createBean(criteria));
-        return new HotelQuery().save(list, saveGeneric, mysqlConn);
+        List list = BeanListCreator.getHotelInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.HOTELQUERY);
+        return query.save(list, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateHotel(Criteria beans, Criteria crit) throws DaoException {
-        return new HotelQuery().update(beans, crit, updateGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.HOTELQUERY);
+        return query.update(beans, crit, updateGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> createNewDirection(Criteria criteria) throws DaoException {
-        List list = new ArrayList<>();
-        list.add(DirectionQuery.createBean(criteria));
-        return new DirectionQuery().save(list, saveGeneric, mysqlConn);
+        List list = BeanListCreator.getDirectionInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONQUERY);
+        return query.save(list, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> createNewDirectionCountryLinks(Criteria criteria) throws DaoException {
-        List<LinkDirectionCountry> linkList = LinkDirectionFactory.getLinkCountryInstances(criteria);
-        return new DirectionCountryQuery().save(linkList, saveGeneric, mysqlConn);
+        List linkList = BeanListCreator.getLinkCountryInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCOUNTRYQUERY);
+        return query.save(linkList, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> createNewDirectionCityLinks(Criteria criteria) throws DaoException {
-        List<LinkDirectionCity> linkList = LinkDirectionFactory.getLinkCityInstances(criteria);
-        return new DirectionCityQuery().save(linkList, saveGeneric, mysqlConn);
+        List linkList = BeanListCreator.getLinkCityInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCITYQUERY);
+        return query.save(linkList, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> createNewDirectionStayHotels(Criteria criteria) throws DaoException {
-        List<DirectionStayHotel> linkList = LinkDirectionFactory.getStayHotelInstances(criteria);
-        return new DirectionStayHotelQuery().save(linkList, saveGeneric, mysqlConn);
+        List linkList = BeanListCreator.getStayHotelInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONSTAYHOTELQUERY);
+        return query.save(linkList, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateDirection(Criteria beans, Criteria criteria) throws DaoException {
-        return new DirectionQuery().update(beans, criteria, updateGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONQUERY);
+        return query.update(beans, criteria, updateGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateDirectionCountryLinks(Criteria beans, Criteria criteria) throws DaoException {
-        DirectionCountryQuery qu = new DirectionCountryQuery();
-        qu.delete(beans, deleteGeneric, mysqlConn);
-        List<LinkDirectionCountry> linkList = LinkDirectionFactory.getLinkCountryInstances(criteria);
-        return qu.save(linkList, saveGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCOUNTRYQUERY);
+        query.delete(beans, deleteGeneric, mysqlConn);
+        List linkList = BeanListCreator.getLinkCountryInstances(criteria);
+        return query.save(linkList, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateDirectionCityLinks(Criteria beans, Criteria criteria) throws DaoException {
-        DirectionCityQuery qu = new DirectionCityQuery();
-        qu.delete(beans, deleteGeneric, mysqlConn);
-        List<LinkDirectionCity> linkList = LinkDirectionFactory.getLinkCityInstances(criteria);
-        return qu.save(linkList, saveGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCITYQUERY);
+        query.delete(beans, deleteGeneric, mysqlConn);
+        List linkList = BeanListCreator.getLinkCityInstances(criteria);
+        return query.save(linkList, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateDirectionStayHotels(Criteria beans, Criteria criteria) throws DaoException {
-        DirectionStayHotelQuery qu = new DirectionStayHotelQuery();
-        qu.delete(beans, deleteGeneric, mysqlConn);
-        List<DirectionStayHotel> linkList = LinkDirectionFactory.getStayHotelInstances(criteria);
-        return qu.save(linkList, saveGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONSTAYHOTELQUERY);
+        query.delete(beans, deleteGeneric, mysqlConn);
+        List linkList = BeanListCreator.getStayHotelInstances(criteria);
+        return query.save(linkList, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> createNewTour(Criteria criteria) throws DaoException {
-        List list = new ArrayList<>();
-        list.add(TourQuery.createBean(criteria));
-        return new TourQuery().save(list, saveGeneric, mysqlConn);
+        List list = BeanListCreator.getTourInstances(criteria);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURQUERY);
+        return query.save(list, saveGeneric, mysqlConn);
     }
 
     @Override
     public List<Integer> updateTourist(Criteria beans, Criteria criteria) throws DaoException {
-        return new TouristQuery().update(beans, criteria, updateGeneric, mysqlConn);
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURISTQUERY);
+        return query.update(beans, criteria, updateGeneric, mysqlConn);
     }
 
 }

@@ -23,7 +23,7 @@ import java.util.List;
  * Class of hotel query forming.
  * @author Helena.Grouk
  */
-public class HotelQuery implements TypedQuery<Hotel>{
+class HotelQuery implements TypedQuery<Hotel>{
     private static final String ERR_HOTEL_SAVE = "Hotel not saved.";
     private static final String ERR_HOTEL_LOAD = "Hotel not loaded.";
     private static final String ERR_HOTEL_UPDATE = "Hotel not updated.";
@@ -147,15 +147,5 @@ public class HotelQuery implements TypedQuery<Hotel>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static Hotel createBean(Criteria criteria){
-        Hotel bean = new Hotel();
-        bean.setIdHotel((Integer) criteria.getParam(DAO_ID_HOTEL));
-        bean.setName((String) criteria.getParam(DAO_HOTEL_NAME));
-        bean.setPicture((String) criteria.getParam(DAO_HOTEL_PICTURE));
-        bean.setStatus((Short) criteria.getParam(DAO_HOTEL_STATUS));
-        bean.setStars((Integer) criteria.getParam(DAO_HOTEL_STARS));
-        bean.setDescription(DescriptionQuery.createBean(criteria));
-        bean.setCity(CityQuery.createBean(criteria));
-        return bean;
-    }
+    
 }

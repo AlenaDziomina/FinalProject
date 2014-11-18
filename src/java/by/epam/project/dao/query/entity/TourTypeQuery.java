@@ -21,7 +21,7 @@ import java.util.List;
  * Class of tour type query forming.
  * @author Helena.Grouk
  */
-public class TourTypeQuery implements TypedQuery<TourType>{
+class TourTypeQuery implements TypedQuery<TourType>{
     private static final String ERR_TOURTYPE_SAVE = "Tour type not saved.";
     private static final String ERR_TOURTYPE_LOAD = "Tour type not loaded.";
     private static final String ERR_TOURTYPE_UPDATE = "Tour type not updated.";
@@ -112,11 +112,6 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
 
-    public static TourType createBean(Criteria criteria) {
-        TourType bean = new TourType();
-        bean.setIdTourType((Integer)criteria.getParam(DAO_ID_TOURTYPE));
-        bean.setNameTourType((String)criteria.getParam(DAO_TOURTYPE_NAME));
-        return bean;
-    }
+    
 }
 

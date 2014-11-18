@@ -25,7 +25,7 @@ import java.util.List;
  * Class of city direction forming.
  * @author Helena.Grouk
  */
-public class DirectionQuery implements TypedQuery<Direction>{
+class DirectionQuery implements TypedQuery<Direction>{
     private static final String ERR_DIRECTION_SAVE = "Direction not saved.";
     private static final String ERR_DIRECTION_LOAD = "Direction not loaded.";
     private static final String ERR_DIRECTION_UPDATE = "Direction not updated.";
@@ -154,16 +154,5 @@ public class DirectionQuery implements TypedQuery<Direction>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static Direction createBean(Criteria criteria) {
-        Direction bean = new Direction();
-        bean.setIdDirection((Integer) criteria.getParam(DAO_ID_DIRECTION));
-        bean.setName((String) criteria.getParam(DAO_DIRECTION_NAME));
-        bean.setPicture((String) criteria.getParam(DAO_DIRECTION_PICTURE));
-        bean.setStatus((Short) criteria.getParam(DAO_DIRECTION_STATUS));
-        bean.setText((String) criteria.getParam(DAO_DIRECTION_TEXT));
-        bean.setDescription(DescriptionQuery.createBean(criteria));
-        bean.setTourType(TourTypeQuery.createBean(criteria));
-        bean.setTransMode(TransModeQuery.createBean(criteria));
-        return bean;
-    }
+    
 }

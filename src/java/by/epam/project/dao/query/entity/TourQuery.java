@@ -16,14 +16,13 @@ import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Class of tour query forming.
  * @author Helena.Grouk
  */
-public class TourQuery implements TypedQuery<Tour>{
+class TourQuery implements TypedQuery<Tour>{
     private static final String ERR_TOUR_SAVE = "Tour not saved.";
     private static final String ERR_TOUR_LOAD = "Tour not loaded.";
     private static final String ERR_TOUR_UPDATE = "Tour not updated.";
@@ -170,17 +169,5 @@ public class TourQuery implements TypedQuery<Tour>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static Tour createBean(Criteria criteria) {
-        Tour bean = new Tour();
-        bean.setIdTour((Integer)criteria.getParam(DAO_ID_TOUR));
-        bean.setDepartDate((Date)criteria.getParam(DAO_TOUR_DATE));
-        bean.setDaysCount((Integer)criteria.getParam(DAO_TOUR_DAYS));
-        bean.setPrice((Float)criteria.getParam(DAO_TOUR_PRICE));
-        bean.setDiscount((Integer)criteria.getParam(DAO_TOUR_DISCOUNT));
-        bean.setTotalSeats((Integer)criteria.getParam(DAO_TOUR_TOTAL_SEATS));
-        bean.setFreeSeats((Integer)criteria.getParam(DAO_TOUR_FREE_SEATS));
-        bean.setDirection(DirectionQuery.createBean(criteria));
-        bean.setStatus((Short)criteria.getParam(DAO_TOUR_STATUS));
-        return bean;
-    }
+    
 }

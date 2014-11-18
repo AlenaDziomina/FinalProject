@@ -21,7 +21,7 @@ import java.util.List;
  * Class of direction link to country query forming.
  * @author Helena.Grouk
  */
-public class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
+class DirectionCountryQuery implements TypedQuery<LinkDirectionCountry>{
     private static final String ERR_DIR_COUNTRY_SAVE = "Direction link to country not saved.";
     private static final String ERR_DIR_COUNTRY_LOAD = "Direction link to country not loaded.";
     private static final String ERR_DIR_COUNTRY_UPDATE = "Direction link to country not updated.";

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 /**
  * Class of city objects.
- * @author User
+ * @author Helena.Grouk
  */
 public class City {
     
@@ -79,5 +79,6 @@ public class City {
         this.hotelCollection = hotelCollection;
     }
 
+    
     
 }

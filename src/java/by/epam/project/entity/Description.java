@@ -7,8 +7,8 @@
 package by.epam.project.entity;
 
 /**
- *
- * @author User
+ * Class of description objects.
+ * @author Helena.Grouk
  */
 
 public class Description {

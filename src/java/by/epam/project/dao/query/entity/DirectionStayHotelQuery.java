@@ -23,7 +23,7 @@ import java.util.List;
  * Class of direction stay hotel query forming.
  * @author Helena.Grouk
  */
-public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
+class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
     private static final String ERR_DIR_STAY_SAVE = "Direction stay hotel not saved.";
     private static final String ERR_DIR_STAY_LOAD = "Direction stay hotel not loaded.";
     private static final String ERR_DIR_STAY_UPDATE = "Direction stay hotel not updated.";

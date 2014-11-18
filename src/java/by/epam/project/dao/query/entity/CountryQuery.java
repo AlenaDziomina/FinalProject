@@ -10,7 +10,6 @@ import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.exception.DaoException;
@@ -18,14 +17,13 @@ import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * Class of country query forming.
  * @author Helena.Grouk
  */
-public class CountryQuery implements TypedQuery<Country>{
+class CountryQuery implements TypedQuery<Country>{
     private static final String ERR_COUNTRY_SAVE = "Country not saved.";
     private static final String ERR_COUNTRY_LOAD = "Country not loaded.";
     private static final String ERR_COUNTRY_UPDATE = "Country not updated.";
@@ -135,14 +133,5 @@ public class CountryQuery implements TypedQuery<Country>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static Country createBean(Criteria criteria){
-        Country bean = new Country();
-        bean.setIdCountry((Integer) criteria.getParam(DAO_ID_COUNTRY));
-        bean.setName((String) criteria.getParam(DAO_COUNTRY_NAME));
-        bean.setPicture((String) criteria.getParam(DAO_COUNTRY_PICTURE));
-        bean.setStatus((Short) criteria.getParam(DAO_COUNTRY_STATUS));
-        bean.setDescription(DescriptionQuery.createBean(criteria));
-        bean.setCityCollection((Collection<City>) criteria.getParam(DAO_CITY_LIST));
-        return bean;
-    }
+
 }

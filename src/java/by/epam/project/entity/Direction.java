@@ -9,8 +9,8 @@ package by.epam.project.entity;
 import java.util.Collection;
 
 /**
- *
- * @author User
+ * Class of direction objects.
+ * @author Helena.Grouk
  */
 
 public class Direction {

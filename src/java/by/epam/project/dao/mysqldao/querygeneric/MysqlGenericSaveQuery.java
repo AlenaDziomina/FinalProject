@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  *
  * @author User
  */
-public class MysqlGenericSaveQuery implements GenericSaveQuery {
+class MysqlGenericSaveQuery implements GenericSaveQuery {
     private static final Logger LOGGER = Logger.getLogger(MysqlGenericSaveQuery.class);
     private static final String PARAMS_IS_NULL_ERROR = "Query params should not be null";
     private static final String CLOSE_ERROR = "Error in close connection.";

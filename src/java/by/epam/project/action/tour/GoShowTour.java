@@ -9,7 +9,7 @@ import by.epam.project.action.country.CountryCommand;
 import by.epam.project.action.direction.DirectionCommand;
 import by.epam.project.action.hotel.HotelCommand;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.ClientType;
+import by.epam.project.dao.ClientType;
 import by.epam.project.entity.Tour;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ServletLogicException;

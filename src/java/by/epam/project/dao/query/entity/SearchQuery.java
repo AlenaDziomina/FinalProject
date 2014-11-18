@@ -22,7 +22,7 @@ import java.util.List;
  * Class of search tour query forming.
  * @author Helena.Grouk
  */
-public class SearchQuery implements TypedQuery<Tour> {
+class SearchQuery implements TypedQuery<Tour> {
     private static final String ERR_SEARCH_TOUR_LOAD = "Searching tour result not loaded.";
     private static final String ERR_NOT_SUPPORTED = "Not supported.";
     private static final String WHERE = " where ";

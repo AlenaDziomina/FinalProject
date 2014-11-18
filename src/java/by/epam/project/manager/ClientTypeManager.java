@@ -6,7 +6,7 @@
 
 package by.epam.project.manager;
 
-import by.epam.project.entity.ClientType;
+import by.epam.project.dao.ClientType;
 
 /**
  *

@@ -21,7 +21,7 @@ import java.util.List;
  * Class of transportation mode query forming.
  * @author Helena.Grouk
  */
-public class TransModeQuery implements TypedQuery<TransMode>{
+class TransModeQuery implements TypedQuery<TransMode>{
     private static final String ERR_TRANSMODE_SAVE = "Transportation mode not saved.";
     private static final String ERR_TRANSMODE_LOAD = "Transportation mode not loaded.";
     private static final String ERR_TRANSMODE_UPDATE = "Transportation mode not updated.";
@@ -113,10 +113,5 @@ public class TransModeQuery implements TypedQuery<TransMode>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static TransMode createBean(Criteria criteria) {
-        TransMode bean = new TransMode();
-        bean.setIdMode((Integer)criteria.getParam(DAO_ID_TRANSMODE));
-        bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));
-        return bean;
-    }
+    
 }

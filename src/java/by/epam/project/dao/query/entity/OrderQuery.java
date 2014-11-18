@@ -17,14 +17,13 @@ import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Class of order query forming.
  * @author Helena.Grouk
  */
-public class OrderQuery implements TypedQuery<Order> {
+class OrderQuery implements TypedQuery<Order> {
     private static final String ERR_ORDER_SAVE = "Order not saved.";
     private static final String ERR_ORDER_LOAD = "Order not loaded.";
     private static final String ERR_ORDER_UPDATE = "Order not updated.";
@@ -164,18 +163,5 @@ public class OrderQuery implements TypedQuery<Order> {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static Order createBean(Criteria criteria) {
-        Order bean = new Order();
-        bean.setIdOrder((Integer)criteria.getParam(DAO_ID_ORDER));
-        bean.setOrderDate((Date)criteria.getParam(DAO_ORDER_DATE));
-        bean.setSeats((Integer)criteria.getParam(DAO_ORDER_SEATS));
-        bean.setCurrentPrice((Float)criteria.getParam(DAO_ORDER_CURR_PRICE));
-        bean.setCurrentDiscount((Integer)criteria.getParam(DAO_ORDER_CURR_DISCOUNT));
-        bean.setCurrentUserDiscount((Integer)criteria.getParam(DAO_ORDER_USER_DISCOUNT));
-        bean.setFinalPrice((Float)criteria.getParam(DAO_ORDER_FINAL_PRICE));
-        bean.setTour(TourQuery.createBean(criteria));
-        bean.setUser(UserQuery.createBean(criteria));
-        bean.setStatus((Short)criteria.getParam(DAO_ORDER_STATUS));
-        return bean;
-    }
+    
 }

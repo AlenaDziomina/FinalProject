@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package by.epam.project.entity;
+package by.epam.project.dao;
 
 /**
- *
- * @author User
+ * Enumeration of user types.
+ * @author Helena.Grouk
  */
 public enum ClientType {
     GUEST, USER, ADMIN

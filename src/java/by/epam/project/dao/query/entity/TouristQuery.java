@@ -16,14 +16,13 @@ import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Class of tourist query forming.
  * @author Helena.Grouk
  */
-public class TouristQuery implements TypedQuery<Tourist>{
+class TouristQuery implements TypedQuery<Tourist>{
     private static final String ERR_TOURIST_SAVE = "Tourist not saved.";
     private static final String ERR_TOURIST_LOAD = "Tourist not loaded.";
     private static final String ERR_TOURIST_UPDATE = "Tourist not updated.";
@@ -151,15 +150,5 @@ public class TouristQuery implements TypedQuery<Tourist>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static Object createBean(Criteria criteria) {
-        Tourist bean = new Tourist();
-        bean.setIdTourist((Integer) criteria.getParam(DAO_ID_TOURIST));
-        bean.setOrder(new Order((Integer) criteria.getParam(DAO_ID_ORDER)));
-        bean.setFirstName((String) criteria.getParam(DAO_TOURIST_FNAME));
-        bean.setMiddleName((String) criteria.getParam(DAO_TOURIST_MNAME));
-        bean.setLastName((String) criteria.getParam(DAO_TOURIST_LNAME));
-        bean.setBirthDate((Date) criteria.getParam(DAO_TOURIST_BIRTH));
-        bean.setPassport((String) criteria.getParam(DAO_TOURIST_PASSPORT));
-        return bean;
-    }
+    
 }

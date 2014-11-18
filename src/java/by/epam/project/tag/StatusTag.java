@@ -7,7 +7,7 @@
 package by.epam.project.tag;
 
 import static by.epam.project.action.JspParamNames.JSP_USER;
-import by.epam.project.entity.ClientType;
+import by.epam.project.dao.ClientType;
 import by.epam.project.entity.User;
 import by.epam.project.manager.ClientTypeManager;
 import java.io.IOException;

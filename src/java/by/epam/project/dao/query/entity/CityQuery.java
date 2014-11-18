@@ -13,20 +13,18 @@ import by.epam.project.dao.query.generic.GenericUpdateQuery;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
-import by.epam.project.entity.Hotel;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoQueryException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * Class of city query forming.
  * @author Helena.Grouk
  */
-public class CityQuery implements TypedQuery<City>{
+class CityQuery implements TypedQuery<City>{
     private static final String ERR_CITY_SAVE = "City not saved.";
     private static final String ERR_CITY_LOAD = "City not loaded.";
     private static final String ERR_CITY_UPDATE = "City not updated.";
@@ -142,15 +140,5 @@ public class CityQuery implements TypedQuery<City>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static City createBean(Criteria criteria){
-        City bean = new City();
-        bean.setIdCity((Integer) criteria.getParam(DAO_ID_CITY));
-        bean.setName((String) criteria.getParam(DAO_CITY_NAME));
-        bean.setPicture((String) criteria.getParam(DAO_CITY_PICTURE));
-        bean.setStatus((Short) criteria.getParam(DAO_CITY_STATUS));
-        bean.setDescription(DescriptionQuery.createBean(criteria));
-        bean.setHotelCollection((Collection<Hotel>) criteria.getParam(DAO_HOTEL_LIST));
-        bean.setCountry(CountryQuery.createBean(criteria));
-        return bean;
-    }
+    
 }

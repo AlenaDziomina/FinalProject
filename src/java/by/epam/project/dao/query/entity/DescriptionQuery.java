@@ -21,7 +21,7 @@ import java.util.List;
  * Class of description query forming.
  * @author Helena.Grouk
  */
-public class DescriptionQuery implements TypedQuery<Description>{
+class DescriptionQuery implements TypedQuery<Description>{
     private static final String ERR_DESCRIPTION_SAVE = "Description not saved.";
     private static final String ERR_DESCRIPTION_LOAD = "Description not loaded.";
     private static final String ERR_DESCRIPTION_UPDATE = "Description not updated.";
@@ -109,12 +109,5 @@ public class DescriptionQuery implements TypedQuery<Description>{
     @Override
     public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
-    }
-    
-    public static Description createBean(Criteria criteria){
-        Description bean = new Description();
-        bean.setIdDescription((Integer) criteria.getParam(DAO_ID_DESCRIPTION));
-        bean.setText((String) criteria.getParam(DAO_DESCRIPTION_TEXT));
-        return bean;
     }
 }

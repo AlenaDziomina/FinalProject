@@ -6,7 +6,6 @@
 
 package by.epam.project.dao;
 
-import by.epam.project.entity.ClientType;
 import by.epam.project.dao.mysqldao.MysqlDaoFactory;
 import by.epam.project.exception.DaoInitException;
 import by.epam.project.manager.ConfigurationManager;

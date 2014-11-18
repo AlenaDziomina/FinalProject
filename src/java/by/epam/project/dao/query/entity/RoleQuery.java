@@ -21,7 +21,7 @@ import java.util.List;
  * Class of user role query forming.
  * @author Helena.Grouk
  */
-public class RoleQuery implements TypedQuery<Role>{
+class RoleQuery implements TypedQuery<Role>{
     private static final String ERR_ROLE_SAVE = "Role not saved.";
     private static final String ERR_ROLE_LOAD = "Role not loaded.";
     private static final String ERR_ROLE_UPDATE = "Role not updated.";
@@ -112,10 +112,5 @@ public class RoleQuery implements TypedQuery<Role>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static Role createBean(Criteria criteria) {
-        Role bean = new Role();
-        bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));
-        bean.setRoleName(criteria.getParam(DAO_ROLE_NAME).toString());
-        return bean;
-    }
+    
 }

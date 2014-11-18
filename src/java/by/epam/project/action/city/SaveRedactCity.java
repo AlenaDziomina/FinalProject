@@ -6,7 +6,7 @@ import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.action.SessionRequestContent;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.entity.City;
-import by.epam.project.entity.ClientType;
+import by.epam.project.dao.ClientType;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.User;

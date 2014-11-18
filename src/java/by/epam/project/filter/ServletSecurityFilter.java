@@ -9,7 +9,7 @@ package by.epam.project.filter;
 
 
 import static by.epam.project.action.JspParamNames.JSP_ROLE_TYPE;
-import by.epam.project.entity.ClientType;
+import by.epam.project.dao.ClientType;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

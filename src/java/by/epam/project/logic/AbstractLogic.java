@@ -10,7 +10,7 @@ import by.epam.project.dao.AbstractDao;
 import by.epam.project.dao.DaoFactory;
 import static by.epam.project.dao.DaoParamNames.DAO_ROLE_NAME;
 import by.epam.project.dao.query.Criteria;
-import by.epam.project.entity.ClientType;
+import by.epam.project.dao.ClientType;
 import by.epam.project.exception.DaoAccessException;
 import by.epam.project.exception.DaoConnectException;
 import by.epam.project.exception.DaoException;

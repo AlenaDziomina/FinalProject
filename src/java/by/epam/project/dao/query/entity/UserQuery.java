@@ -23,7 +23,7 @@ import java.util.List;
  * Class of user query forming.
  * @author Helena.Grouk
  */
-public class UserQuery implements TypedQuery<User>{
+class UserQuery implements TypedQuery<User>{
     private static final String ERR_USER_SAVE = "User not saved.";
     private static final String ERR_USER_LOAD = "User not loaded.";
     private static final String ERR_USER_UPDATE = "User not updated.";
@@ -170,20 +170,6 @@ public class UserQuery implements TypedQuery<User>{
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
     
-    public static User createBean(Criteria criteria) {
-        User bean = new User();
-        bean.setIdUser((Integer) criteria.getParam(DAO_ID_USER));
-        bean.setLogin((String) criteria.getParam(DAO_USER_LOGIN));
-        bean.setPassword((Integer) criteria.getParam(DAO_USER_PASSWORD));
-        bean.setEmail((String) criteria.getParam(DAO_USER_EMAIL));
-        bean.setRole(RoleQuery.createBean(criteria));
-        bean.setPhone((String) criteria.getParam(DAO_USER_PHONE));
-        bean.setLanguage((String) criteria.getParam(DAO_USER_LANGUAGE));
-        bean.setDiscount((Integer) criteria.getParam(DAO_USER_DISCOUNT));
-        bean.setBalance((Float) criteria.getParam(DAO_USER_BALANCE));
-        bean.setStatus((Short) criteria.getParam(DAO_USER_STATUS));
-        return bean;
-    }
 }
 
     
