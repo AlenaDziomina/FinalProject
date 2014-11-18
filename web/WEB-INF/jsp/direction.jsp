@@ -1,7 +1,7 @@
 <%-- 
     Document   : direction.jsp
     Created on : 01.10.2014, 21:15:02
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

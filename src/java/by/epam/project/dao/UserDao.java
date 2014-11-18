@@ -14,10 +14,10 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public interface UserDao extends AbstractDao {
-    
+
     @Override
     List<Integer> updateUser(Criteria bean, Criteria criteria) throws DaoException;
     @Override

@@ -1,17 +1,9 @@
 package by.epam.project.controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import by.epam.project.action.ActionCommand;
 import by.epam.project.action.CommandFactory;
 import by.epam.project.action.SessionRequestContent;
-import by.epam.project.exception.ServletLogicException;
 import by.epam.project.manager.ConfigurationManager;
-import by.epam.project.manager.MessageManager;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -26,35 +18,25 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class Controller extends HttpServlet {
-
     private static final Logger LOGGER = Logger.getLogger(Controller.class);
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        
         ServletContext sc = config.getServletContext();
         String log4jLocation = config.getInitParameter("log4j-properties-location");
-        if (log4jLocation == null) {
-            sc.log("No log4j-properties-location init param");
-            throw new ServletLogicException("No log4j-properties-location init param");
-        }
-        String realPath = sc.getRealPath("/");
-        String log4jProp = realPath + log4jLocation;
-        File propFile = new File(log4jProp);
+        File propFile = new File(sc.getRealPath("/") + log4jLocation);
         if (propFile.exists()) {
-            PropertyConfigurator.configure(log4jProp);
-            LOGGER.info("Initializing log4j with: " + log4jProp);
+            PropertyConfigurator.configure(sc.getRealPath("/") + log4jLocation);
+            LOGGER.info("Initializing log4j.");
         } else {
-            sc.log("Init log4j-properties-file not found");
-            throw new ServletLogicException("Init log4j-properties-file not found");
+            throw new RuntimeException("Init log4j-properties-file not found");
         }
         super.init(config);
     }
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -66,12 +48,12 @@ public class Controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         SessionRequestContent req = new SessionRequestContent(request);
         ActionCommand command = CommandFactory.defineCommand(req);
         String page = command.execute(req);
         req.insertAttributes(request);
-        
+
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
@@ -120,5 +102,4 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

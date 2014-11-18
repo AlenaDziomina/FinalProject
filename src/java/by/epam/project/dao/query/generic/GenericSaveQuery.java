@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public interface GenericSaveQuery {
     <T> List<Integer> query(String query, Connection conn, Params params) throws DaoException;

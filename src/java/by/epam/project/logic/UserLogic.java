@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class UserLogic extends AbstractLogic {
 

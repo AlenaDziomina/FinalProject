@@ -11,26 +11,26 @@ import java.math.BigDecimal;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class PriceDiscountManager {
-    
+
     public static Float getFinalPrice(float price, int discount) {
         Float finalPrice = price * (100 - discount) / 100;
         return round(finalPrice, 2);
     }
-    
+
     public static Float getFinalPrice(float price, int discount, int userDiscount) {
         Float finalPrice = price * (100 - discount) * (100 - userDiscount) / 10000;
         return round(finalPrice, 2);
     }
-    
+
     public static Float getFinalPrice(float price, int discount, int userDiscount, int count) {
         Float finalPrice = price * (100 - discount) * (100 - userDiscount) / 10000;
         finalPrice = round(finalPrice, 2) * count;
         return finalPrice;
     }
-    
+
     public static Float getFinalPrice(Order order) {
         Float price = order.getCurrentPrice();
         Integer discount = order.getCurrentDiscount();
@@ -41,7 +41,7 @@ public class PriceDiscountManager {
     }
 
     public static Integer getDiscountForOrder(Integer discount, Float finalPrice) {
-        
+
         int coef = Math.floorDiv(Math.round(finalPrice), 1000);
         if (coef <= 0) {
             coef = 1;
@@ -63,7 +63,7 @@ public class PriceDiscountManager {
             return discount - discountForDeleteOrder;
         }
     }
-    
+
     private static float round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);

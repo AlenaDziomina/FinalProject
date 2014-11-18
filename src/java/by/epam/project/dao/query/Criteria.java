@@ -12,30 +12,30 @@ import java.util.Map;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  * @param <T>
  */
 public class Criteria<T> {
-    
+
     private Map<String, T> params = new HashMap<>();
-    
+
     public Criteria() {
     }
-    
+
     public void addParam(String name, T value) {
         params.put(name, value);
     }
-    
+
     public T getParam(String name){
         return params.get(name);
     }
 
-    public Collection<T> getAll(){        
+    public Collection<T> getAll(){
         return params.values();
     }
-    
+
     public void remuveParam(String name){
         params.remove(name);
     }
-   
+
 }

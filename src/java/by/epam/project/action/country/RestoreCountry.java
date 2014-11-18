@@ -21,7 +21,6 @@ import by.epam.project.manager.ConfigurationManager;
  * @author Helena.Grouk
  */
 public class RestoreCountry extends CountryCommand implements ActionCommand {
-
     @Override
     public String execute(SessionRequestContent request) throws ServletLogicException {
         String page = ConfigurationManager.getProperty("path.page.countries");

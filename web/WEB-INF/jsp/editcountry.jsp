@@ -1,7 +1,7 @@
 <%-- 
     Document   : newcountry
     Created on : 25.09.2014, 15:29:29
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

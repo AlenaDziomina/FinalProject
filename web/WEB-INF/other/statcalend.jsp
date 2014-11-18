@@ -1,7 +1,7 @@
 <%-- 
     Document   : statcalend
     Created on : 22.10.2014, 10:10:48
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>

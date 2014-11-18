@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 08.09.2014, 22:23:07
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

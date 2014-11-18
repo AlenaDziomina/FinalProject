@@ -1,7 +1,7 @@
 <%-- 
     Document   : errorDao
     Created on : 19.09.2014, 23:50:20
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 

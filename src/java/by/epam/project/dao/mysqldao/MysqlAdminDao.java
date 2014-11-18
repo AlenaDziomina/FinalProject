@@ -22,18 +22,18 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class MysqlAdminDao extends MysqlUserDao implements AdminDao {
-    
+
     protected MysqlAdminDao(){}
-    
+
     @Override
     public List<Country> showCountries(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.COUNTRYQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<City> showCities(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.CITYQUERY);
@@ -45,25 +45,25 @@ class MysqlAdminDao extends MysqlUserDao implements AdminDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.HOTELQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<Direction> showDirections(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<Tour> showTours(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<Tour> searchTours(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.SEARCHQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<Integer> createNewDescription(Criteria criteria) throws DaoException {
         List list = BeanListCreator.getDescriptionInstances(criteria);
@@ -75,7 +75,7 @@ class MysqlAdminDao extends MysqlUserDao implements AdminDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DESCRIPTIONQUERY);
         return query.update(beans, crit, updateGeneric, mysqlConn);
     }
-    
+
     @Override
     public List createNewCountry(Criteria criteria)throws DaoException {
         List list = BeanListCreator.getCountryInstances(criteria);

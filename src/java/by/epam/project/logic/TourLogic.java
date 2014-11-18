@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class TourLogic extends AbstractLogic {
 

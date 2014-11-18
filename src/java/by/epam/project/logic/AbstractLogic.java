@@ -24,20 +24,20 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public abstract class AbstractLogic {
     private static final String MSG_ERR_DAO_ACCESS = "message.errorDaoAccess";
     private static final String MSG_ERR_DAO_CONNECT = "message.errorDaoConnect";
     private static final String MSG_ERR_DAO_QUERY = "message.errorDaoQuery";
     private static final String MSG_ERR_DAO = "message.daoError";
-    
+
     private static final Logger LOGGER = Logger.getLogger(AbstractLogic.class);
     abstract List getEntity(Criteria criteria, AbstractDao dao) throws DaoException;
     abstract Integer redactEntity(Criteria criteria, AbstractDao dao) throws DaoException;
     abstract Integer deleteEntity(Criteria criteria, AbstractDao dao) throws DaoException;
     abstract Integer restoreEntity(Criteria criteria, AbstractDao dao) throws DaoException;
-    
+
     public List doGetEntity(Criteria criteria) throws TechnicalException {
         AbstractDao dao = null;
         try {
@@ -46,7 +46,7 @@ public abstract class AbstractLogic {
             dao.open();
             List res = getEntity(criteria, dao);
             dao.commit();
-            return res;   
+            return res;
         } catch (DaoAccessException ex) {
             throw new TechnicalException(MSG_ERR_DAO_ACCESS, ex);
         } catch (DaoConnectException | DaoInitException ex) {
@@ -79,12 +79,12 @@ public abstract class AbstractLogic {
             }
         }
     }
-    
+
     public Integer doRedactEntity(Criteria criteria) throws TechnicalException, LogicException {
         AbstractDao dao = null;
         try {
             ClientType role = (ClientType) criteria.getParam(DAO_ROLE_NAME);
-            dao = DaoFactory.getInstance(role); 
+            dao = DaoFactory.getInstance(role);
             dao.open();
             Integer res = redactEntity(criteria, dao);
             dao.commit();
@@ -130,7 +130,7 @@ public abstract class AbstractLogic {
             }
         }
     }
-    
+
     public Integer doDeleteEntity(Criteria criteria) throws TechnicalException {
         AbstractDao dao = null;
         try {
@@ -139,7 +139,7 @@ public abstract class AbstractLogic {
             dao.open();
             Integer res = deleteEntity(criteria, dao);
             dao.commit();
-            return res;   
+            return res;
         } catch (DaoAccessException ex) {
             throw new TechnicalException(MSG_ERR_DAO_ACCESS, ex);
         } catch (DaoConnectException | DaoInitException ex) {
@@ -172,7 +172,7 @@ public abstract class AbstractLogic {
             }
         }
     }
-    
+
     public Integer doRestoreEntity(Criteria criteria) throws TechnicalException {
         AbstractDao dao = null;
         try {
@@ -181,7 +181,7 @@ public abstract class AbstractLogic {
             dao.open();
             Integer res = restoreEntity(criteria, dao);
             dao.commit();
-            return res;   
+            return res;
         } catch (DaoAccessException ex) {
             throw new TechnicalException(MSG_ERR_DAO_ACCESS, ex);
         } catch (DaoConnectException | DaoInitException ex) {

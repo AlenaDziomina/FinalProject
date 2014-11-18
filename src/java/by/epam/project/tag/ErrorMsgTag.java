@@ -16,7 +16,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class ErrorMsgTag extends TagSupport {
     private String msg;
@@ -26,7 +26,7 @@ public class ErrorMsgTag extends TagSupport {
      * Called by the container to invoke this tag. The implementation of this
      * method is provided by the tag library developer, and handles all tag
      * processing, body iteration, etc.
-     * @return 
+     * @return
      * @throws javax.servlet.jsp.JspException
      */
     @Override
@@ -42,7 +42,7 @@ public class ErrorMsgTag extends TagSupport {
         }
         return SKIP_BODY;
     }
-    
+
     @Override
     public int doEndTag() throws JspTagException {
         try {
@@ -59,9 +59,9 @@ public class ErrorMsgTag extends TagSupport {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-    
+
     public void setClassErr(String classErr) {
         this.classErr = classErr;
     }
-    
+
 }

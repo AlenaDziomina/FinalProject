@@ -16,26 +16,26 @@ import java.sql.SQLException;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class MysqlDao implements AbstractDao {
-    
+
     protected Connection mysqlConn;
     protected static GenericLoadQuery loadGeneric = MysqlGenericFactory.getLoadInstance();
     protected static GenericSaveQuery saveGeneric = MysqlGenericFactory.getSaveInstance();
     protected static GenericUpdateQuery updateGeneric = MysqlGenericFactory.getUpdateInstance();
     protected static GenericDeleteQuery deleteGeneric = MysqlGenericFactory.getDeleteInstance();
-    
+
     @Override
     public void open() throws DaoException {
         mysqlConn = MysqlConnectionPool.getConnection();
     }
-    
+
     @Override
     public void close() throws DaoException {
         MysqlConnectionPool.returnConnection(mysqlConn);
     }
-    
+
     @Override
     public void rollback() throws DaoException {
         try {
@@ -44,7 +44,7 @@ class MysqlDao implements AbstractDao {
             throw new DaoConnectException("Rollback failed.");
         }
     }
-    
+
     @Override
     public void commit() throws DaoException {
         try {
@@ -53,5 +53,5 @@ class MysqlDao implements AbstractDao {
             throw new DaoConnectException("Error in commit connection in pool.");
         }
     }
-    
+
 }

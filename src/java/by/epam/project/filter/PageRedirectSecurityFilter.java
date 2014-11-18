@@ -18,12 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class PageRedirectSecurityFilter implements Filter {
-    
+
     private String indexPath;
-    
+
     /**
      *
      * @param request The servlet request we are processing
@@ -37,7 +37,7 @@ public class PageRedirectSecurityFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         // переход на заданную страницу
@@ -49,7 +49,7 @@ public class PageRedirectSecurityFilter implements Filter {
      * Destroy method for this filter
      */
     @Override
-    public void destroy() {        
+    public void destroy() {
     }
 
     /**
@@ -57,9 +57,9 @@ public class PageRedirectSecurityFilter implements Filter {
      * @param filterConfig
      */
     @Override
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         indexPath = filterConfig.getInitParameter("INDEX_PATH");
     }
 
-   
+
 }

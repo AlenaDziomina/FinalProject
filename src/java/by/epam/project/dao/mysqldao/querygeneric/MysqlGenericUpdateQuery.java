@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class MysqlGenericUpdateQuery implements GenericUpdateQuery {
     private static final Logger LOGGER = Logger.getLogger(MysqlGenericUpdateQuery.class);
@@ -40,7 +40,7 @@ class MysqlGenericUpdateQuery implements GenericUpdateQuery {
             ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             for (int i = 0; i < params.length; i++) {
                 ps.setObject(i + 1, params[i]);
-            }            
+            }
 
             if(ps.executeUpdate()>0){
                 rs = ps.getGeneratedKeys();
@@ -59,7 +59,7 @@ class MysqlGenericUpdateQuery implements GenericUpdateQuery {
                 if (ps != null && !ps.isClosed()){
                     ps.close();
                 }
-               
+
             } catch (SQLException ex) {
                 LOGGER.info(CLOSE_ERROR);
             }

@@ -14,7 +14,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class InfoTimeTag extends SimpleTagSupport {
 
@@ -30,12 +30,12 @@ public class InfoTimeTag extends SimpleTagSupport {
         GregorianCalendar gc = new GregorianCalendar();
         String time = "<hr/>Time : <b> " + gc.getTime() + " </b><hr/>";
         String locale = "Locale : <b> " + Locale.getDefault() + " </b><hr/> ";
-        
+
         try {
             out.write(time + locale);
         } catch (java.io.IOException ex) {
             throw new JspException("Error in InfoTimeTag tag", ex);
         }
     }
-    
+
 }

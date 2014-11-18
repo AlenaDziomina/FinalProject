@@ -16,7 +16,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class OptionTag extends TagSupport {
     private Short status;
@@ -30,7 +30,7 @@ public class OptionTag extends TagSupport {
      * Called by the container to invoke this tag. The implementation of this
      * method is provided by the tag library developer, and handles all tag
      * processing, body iteration, etc.
-     * @return 
+     * @return
      * @throws javax.servlet.jsp.JspException
      */
     @Override
@@ -39,7 +39,7 @@ public class OptionTag extends TagSupport {
             JspWriter out = pageContext.getOut();
             if (status == 0) {
                 out.write("<option class='" + invalClass + "' value='" + value + "'>");
-                
+
             } else if(status == 1) {
                 if (date != null) {
                     Date currDate = new Date();
@@ -57,7 +57,7 @@ public class OptionTag extends TagSupport {
         }
         return EVAL_BODY_INCLUDE;
     }
-    
+
     @Override
     public int doEndTag() throws JspTagException {
         try {
@@ -84,13 +84,13 @@ public class OptionTag extends TagSupport {
     public void setValue(Integer value) {
         this.value = value;
     }
-    
+
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
     public void setInvalDateClass(String invalDateClass) {
         this.invalDateClass = invalDateClass;
     }
-    
+
 }

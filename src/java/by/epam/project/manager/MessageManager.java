@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class MessageManager {
     private final static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("resource.messages");

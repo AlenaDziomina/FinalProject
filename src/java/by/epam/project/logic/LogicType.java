@@ -2,7 +2,7 @@ package by.epam.project.logic;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public enum LogicType {
     CITYLOGIC, COUNTRYLOGIC, DIRECTIONLOGIC, HOTELLOGIC, ORDERLOGIC,

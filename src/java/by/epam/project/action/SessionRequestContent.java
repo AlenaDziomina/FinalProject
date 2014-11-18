@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package by.epam.project.action;
 
 import java.util.ArrayList;
@@ -21,19 +15,19 @@ import javax.servlet.http.HttpSession;
  * @author Helena.Grouk
  */
 public class SessionRequestContent {
-    
+
     private HashMap<String, Object> requestAttributes = new HashMap();
     private HashMap<String, String[]> requestParameters = new HashMap();
     private HashMap<String, Object> sessionAttributes = new HashMap();
     private List<String> deletedSessionAttributes = new ArrayList();
     private Locale locale;
-    
+
     /**
      * Allocates a new {@code SessionRequestContent} object.
      */
     public SessionRequestContent(){
     }
-    
+
     /**
      * Allocates a new {@code SessionRequestContent} object.
      * @param request parameter based on which the object is formed
@@ -41,10 +35,10 @@ public class SessionRequestContent {
     public SessionRequestContent(HttpServletRequest request){
         extractValues(request);
     }
-    
+
     /**
      * Extract information from the request
-     * @param request 
+     * @param request
      */
     private void extractValues(HttpServletRequest request) {
         for (Enumeration<String> e = request.getAttributeNames(); e.hasMoreElements();) {
@@ -57,7 +51,7 @@ public class SessionRequestContent {
             this.sessionAttributes.put(attrName, request.getSession().getAttribute(attrName));
         }
     }
-    
+
     /**
      * Get parameter of request
      * @param name name of parameter(case-sensitive)
@@ -71,9 +65,9 @@ public class SessionRequestContent {
             return null;
         }
     }
-    
+
     /**
-     * Set parameter. If parameter is olready exists - replace old parameter 
+     * Set parameter. If parameter is olready exists - replace old parameter
      * by new value.
      * @param paramName name of setting parameter
      * @param param string representation of the parameter
@@ -89,7 +83,7 @@ public class SessionRequestContent {
             requestParameters.put(paramName, prms);
         }
     }
-    
+
     /**
      * Get array of parameters.
      * @param name name of parameter
@@ -103,7 +97,7 @@ public class SessionRequestContent {
             return null;
         }
     }
-    
+
     /**
      * Get attribute of request
      * @param attrName attribute name
@@ -112,9 +106,9 @@ public class SessionRequestContent {
     public Object getAttribute(String attrName) {
         return this.requestAttributes.get(attrName);
     }
-    
+
     /**
-     * Set attribute. If attribute is olready exists - replace old attribute 
+     * Set attribute. If attribute is olready exists - replace old attribute
      * by new value.
      * @param attrName attribute name
      * @param attr attribute object
@@ -126,7 +120,7 @@ public class SessionRequestContent {
             this.requestAttributes.put(attrName, attr);
         }
     }
-    
+
     /**
      * Get session attribute.
      * @param attrName attribute name
@@ -135,9 +129,9 @@ public class SessionRequestContent {
     public Object getSessionAttribute(String attrName) {
         return this.sessionAttributes.get(attrName);
     }
-    
+
     /**
-     * Set session attribute. If attribute is olready exists - replace old 
+     * Set session attribute. If attribute is olready exists - replace old
      * attribute by new value.
      * @param attrName attribute name
      * @param attr attribute object
@@ -158,7 +152,7 @@ public class SessionRequestContent {
         this.sessionAttributes.remove(attrName);
         this.deletedSessionAttributes.add(attrName);
     }
-      
+
     /**
      * Cleaning of all parameters except the session locale.
      */
@@ -166,10 +160,10 @@ public class SessionRequestContent {
         locale = (Locale) getSessionAttribute("locale");
         this.sessionAttributes.clear();
     }
-    
+
    /**
-    * Reload parameters and attributes from {@code SessionRequestContent} 
-    * to {@code HttpServletRequest} request for subsequent transmission 
+    * Reload parameters and attributes from {@code SessionRequestContent}
+    * to {@code HttpServletRequest} request for subsequent transmission
     * to the jsp page.
     * If list of session attributes is empty - session of request invaledated
     * and set only old session locale.

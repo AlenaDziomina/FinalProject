@@ -8,7 +8,7 @@ package by.epam.project.exception;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class DaoLogicException extends DaoException {
 
@@ -22,9 +22,9 @@ public class DaoLogicException extends DaoException {
     public DaoLogicException(Throwable exception) {
         super(exception);
     }
-    
+
     public DaoLogicException(String message) {
         super(message);
     }
-    
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class Appender {
     public static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){

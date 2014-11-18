@@ -11,10 +11,10 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public interface AdminDao extends AbstractDao {
-    
+
     @Override
     List<Integer> createNewDescription(Criteria criteria) throws DaoException;
     @Override

@@ -17,11 +17,10 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.TechnicalException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jdk.nashorn.internal.runtime.regexp.RegExp;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class Validator {
     private static final String MSG_ERR_NULL_ENTITY = "message.errorNullEntity";
@@ -112,7 +111,7 @@ public class Validator {
         if ( ! isSelectedElem(direction.getTransMode().getIdMode())) {
             throw new TechnicalException(SELECT_TRANSMODE_ERROR_MSG);
         }
-        
+
     }
 
     public static void validateHotel(Hotel hotel) throws TechnicalException {
@@ -132,7 +131,7 @@ public class Validator {
             throw new TechnicalException(SELECT_STARS_ERROR_MSG);
         }
     }
-    
+
     private static boolean isValidStars(Integer stars) {
         return stars <= STARS_MAX && stars >= STARS_MIN;
     }
@@ -146,7 +145,7 @@ public class Validator {
     private static boolean isSeatsValid(Integer seats) {
         return seats != null && seats >= SEATS_MIN && seats <= SEATS_MAX;
     }
-    
+
     public static void validateTourist(Tourist tourist) throws TechnicalException {
         if (tourist == null) {
             throw new TechnicalException(MSG_ERR_NULL_ENTITY);
@@ -156,7 +155,7 @@ public class Validator {
         validateFIO(tourist.getLastName());
         validatePassport(tourist.getPassport());
     }
-    
+
     private static void validatePassport(String passport) throws TechnicalException {
         if (passport == null || passport.isEmpty() || passport.length() > PASSPORT_SIZE) {
             throw new TechnicalException(PASSPORT_ERROR_MSG);
@@ -168,7 +167,7 @@ public class Validator {
             throw new TechnicalException(PASSPORT_ERROR_MSG);
         }
     }
-     
+
     private static void validateFIO(String name) throws TechnicalException {
         if (name == null || name.isEmpty() || name.length() > FIO_SIZE) {
             throw new TechnicalException(FIO_ERROR_MSG);
@@ -198,7 +197,7 @@ public class Validator {
             throw new TechnicalException(PRICE_ERROR_MSG);
         }
     }
-    
+
     private static boolean isValidPrice(Float price) {
         return price != null && price >= PRICE_MIN && price <= PRICE_MAX;
     }
@@ -206,15 +205,15 @@ public class Validator {
     private static boolean isValidFreeSeats(Integer totalSeats, Integer freeSeats) {
         return freeSeats != null && freeSeats >= FREESEATS_MIN && freeSeats <= totalSeats;
     }
-    
+
     private static boolean isValidTotalSeats(Integer totalSeats) {
         return totalSeats != null && totalSeats >= TOTALSEATS_MIN && totalSeats <= TOTALSEATS_MAX;
     }
-    
+
     private static boolean isValidDiscount(Integer discount) {
         return discount != null && discount >= DISCOUNT_MIN && discount <= DISCOUNT_MAX;
     }
-    
+
     public static void validateLogin(String login) throws TechnicalException {
         if (login == null || login.isEmpty() || login.length() > LOGIN_SIZE) {
             throw new TechnicalException(LOGIN_ERROR_MSG);
@@ -279,19 +278,19 @@ public class Validator {
         return id != null && id != 0;
     }
 
-   
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
+
+
+
+
+
+
+
+
 }

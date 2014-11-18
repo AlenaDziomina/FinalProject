@@ -1,7 +1,7 @@
 <%-- 
     Document   : searching
     Created on : 28.10.2014, 1:04:33
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

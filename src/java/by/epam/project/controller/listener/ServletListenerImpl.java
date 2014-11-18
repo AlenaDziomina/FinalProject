@@ -14,10 +14,10 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class ServletListenerImpl implements ServletContextListener {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ServletListenerImpl.class);
     @Override
     public void contextInitialized(ServletContextEvent ev) {

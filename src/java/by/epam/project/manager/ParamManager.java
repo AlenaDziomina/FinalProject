@@ -18,7 +18,7 @@ import java.util.TimeZone;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class ParamManager {
     public static Integer getIntParam(SessionRequestContent request, String name){
@@ -29,7 +29,7 @@ public class ParamManager {
         }
         return null;
     }
-    
+
     public static Date getDateParam(SessionRequestContent request, String name){
         String param = (String) request.getParameter(name);
         if (param != null && !param.isEmpty()) {
@@ -43,7 +43,7 @@ public class ParamManager {
         }
         return null;
     }
-    
+
     public static Boolean getBoolParam(SessionRequestContent request, String name) {
         String param = (String) request.getParameter(name);
         if (param != null && !param.isEmpty()) {
@@ -52,7 +52,7 @@ public class ParamManager {
         }
         return null;
     }
-    
+
     public static Float getFltParam(SessionRequestContent request, String name){
         String param = (String) request.getParameter(name);
         if (param != null && !param.isEmpty()) {
@@ -61,9 +61,9 @@ public class ParamManager {
         }
         return null;
     }
-    
+
     public static void checkIntParam(SessionRequestContent request, Criteria criteria, String reqName, String critName){
-        
+
         String param = (String) request.getParameter(reqName);
         if (param != null && !param.isEmpty()) {
             Integer currParam = Integer.decode(param);
@@ -72,9 +72,9 @@ public class ParamManager {
             }
         }
     }
-    
+
     public static void checkFltParam(SessionRequestContent request, Criteria criteria, String reqName, String critName){
-        
+
         String param = (String) request.getParameter(reqName);
         if (param != null && !param.isEmpty()) {
             Float currParam = Float.parseFloat(param);
@@ -83,9 +83,9 @@ public class ParamManager {
             }
         }
     }
-    
+
     public static void checkDatParam(SessionRequestContent request, Criteria criteria, String reqName, String critName){
-        
+
         String param = (String) request.getParameter(reqName);
         if (param != null && !param.isEmpty()) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -95,7 +95,7 @@ public class ParamManager {
             } catch (ParseException ex) {}
         }
     }
-    
+
     public static void checkArrParam(SessionRequestContent request, Criteria criteria, String reqName, String critName){
         String[] arr = (String[]) request.getAllParameters(reqName);
         Collection<Integer> set = new HashSet();
@@ -111,12 +111,12 @@ public class ParamManager {
         }
         criteria.addParam(critName, set);
     }
-    
+
     public static Integer getDateDiff(Date d1, Date d2) {
         Date diff = new Date(d2.getTime() - d1.getTime());
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTime(diff);
-        return calendar.get(Calendar.DAY_OF_YEAR);        
+        return calendar.get(Calendar.DAY_OF_YEAR);
     }
-    
+
 }

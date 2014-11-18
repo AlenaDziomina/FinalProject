@@ -14,7 +14,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class ImgTag extends TagSupport {
     private String idImg;
@@ -47,5 +47,5 @@ public class ImgTag extends TagSupport {
     public void setNameImg(String nameImg) {
         this.nameImg = nameImg;
     }
-    
+
 }

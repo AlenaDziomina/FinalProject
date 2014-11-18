@@ -15,7 +15,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class RoleTag extends TagSupport {
 
@@ -23,7 +23,7 @@ public class RoleTag extends TagSupport {
      * Called by the container to invoke this tag. The implementation of this
      * method is provided by the tag library developer, and handles all tag
      * processing, body iteration, etc.
-     * @return 
+     * @return
      * @throws javax.servlet.jsp.JspException
      */
     @Override

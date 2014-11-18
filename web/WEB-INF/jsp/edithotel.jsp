@@ -1,7 +1,7 @@
 <%-- 
     Document   : edithotel
     Created on : 27.09.2014, 22:04:21
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

@@ -29,7 +29,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class MysqlConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(MysqlConnectionPool.class);

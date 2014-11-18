@@ -1,7 +1,7 @@
 <%-- 
     Document   : hotels
     Created on : 27.09.2014, 16:19:30
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

@@ -13,7 +13,7 @@ import by.epam.project.exception.DaoInitException;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class MysqlDaoFactory extends DaoFactory {
 
@@ -25,9 +25,9 @@ public class MysqlDaoFactory extends DaoFactory {
             default: throw new DaoInitException(type.toString());
         }
     }
-    
+
     public static void closeConnections() {
         MysqlConnectionPool.destroy();
     }
-    
+
 }

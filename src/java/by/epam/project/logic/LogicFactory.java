@@ -4,7 +4,7 @@ import by.epam.project.exception.TechnicalException;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class LogicFactory {
     public static AbstractLogic getInctance(LogicType type) throws TechnicalException {

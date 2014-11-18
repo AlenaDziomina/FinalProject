@@ -8,13 +8,13 @@ package by.epam.project.exception;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class TechnicalException extends Exception {
-    
+
     public TechnicalException(){
     }
-    
+
     public TechnicalException(String message, Throwable exception) {
         super(message, exception);
     }
@@ -22,9 +22,9 @@ public class TechnicalException extends Exception {
     public TechnicalException(Throwable exception) {
         super(exception);
     }
-    
+
     public TechnicalException(String message) {
         super(message);
     }
-    
+
 }

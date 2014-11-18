@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class BeanListCreator {
     public static List<LinkDirectionCountry> getLinkCountryInstances(Criteria criteria) {
@@ -62,79 +62,79 @@ public class BeanListCreator {
         });
         return list;
     }
-    
+
     public static List<City> getCityInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createCity(criteria));
         return list;
     }
-    
+
     public static List<Country> getCountryInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createCountry(criteria));
         return list;
     }
-    
+
     public static List<Description> getDescriptionInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createDescription(criteria));
         return list;
     }
-    
+
     public static List<Direction> getDirectionInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createDirection(criteria));
         return list;
     }
-    
+
     public static List<Hotel> getHotelInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createHotel(criteria));
         return list;
     }
-    
+
     public static List<Order> getOrderInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createOrder(criteria));
         return list;
     }
-    
+
     public static List<Role> getRoleInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createRole(criteria));
         return list;
     }
-    
+
     public static List<Tour> getTourInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createTour(criteria));
         return list;
     }
-    
+
     public static List<TourType> getTourTypeInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createTourType(criteria));
         return list;
     }
-    
+
     public static List<Tourist> getTouristInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createTourist(criteria));
         return list;
     }
-    
+
     public static List<TransMode> getTourTransModeInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createTransMode(criteria));
         return list;
     }
-    
+
     public static List<User> getUserInstances(Criteria criteria) {
         List list = new ArrayList();
         list.add(createUser(criteria));
         return list;
     }
-    
+
     private static City createCity(Criteria criteria){
         City bean = new City();
         bean.setIdCity((Integer) criteria.getParam(DAO_ID_CITY));
@@ -146,7 +146,7 @@ public class BeanListCreator {
         bean.setCountry(createCountry(criteria));
         return bean;
     }
-    
+
     private static Country createCountry(Criteria criteria){
         Country bean = new Country();
         bean.setIdCountry((Integer) criteria.getParam(DAO_ID_COUNTRY));
@@ -157,14 +157,14 @@ public class BeanListCreator {
         bean.setCityCollection((Collection<City>) criteria.getParam(DAO_CITY_LIST));
         return bean;
     }
-    
+
     private static Description createDescription(Criteria criteria){
         Description bean = new Description();
         bean.setIdDescription((Integer) criteria.getParam(DAO_ID_DESCRIPTION));
         bean.setText((String) criteria.getParam(DAO_DESCRIPTION_TEXT));
         return bean;
     }
-    
+
     private static Direction createDirection(Criteria criteria) {
         Direction bean = new Direction();
         bean.setIdDirection((Integer) criteria.getParam(DAO_ID_DIRECTION));
@@ -177,7 +177,7 @@ public class BeanListCreator {
         bean.setTransMode(createTransMode(criteria));
         return bean;
     }
-    
+
     private static Hotel createHotel(Criteria criteria){
         Hotel bean = new Hotel();
         bean.setIdHotel((Integer) criteria.getParam(DAO_ID_HOTEL));
@@ -189,7 +189,7 @@ public class BeanListCreator {
         bean.setCity(createCity(criteria));
         return bean;
     }
-    
+
     private static Order createOrder(Criteria criteria) {
         Order bean = new Order();
         bean.setIdOrder((Integer)criteria.getParam(DAO_ID_ORDER));
@@ -204,14 +204,14 @@ public class BeanListCreator {
         bean.setStatus((Short)criteria.getParam(DAO_ORDER_STATUS));
         return bean;
     }
-    
+
     private static Role createRole(Criteria criteria) {
         Role bean = new Role();
         bean.setIdRole((Integer)criteria.getParam(DAO_ID_ROLE));
         bean.setRoleName(criteria.getParam(DAO_ROLE_NAME).toString());
         return bean;
     }
-    
+
     private static Tour createTour(Criteria criteria) {
         Tour bean = new Tour();
         bean.setIdTour((Integer)criteria.getParam(DAO_ID_TOUR));
@@ -225,14 +225,14 @@ public class BeanListCreator {
         bean.setStatus((Short)criteria.getParam(DAO_TOUR_STATUS));
         return bean;
     }
-    
+
     private static TourType createTourType(Criteria criteria) {
         TourType bean = new TourType();
         bean.setIdTourType((Integer)criteria.getParam(DAO_ID_TOURTYPE));
         bean.setNameTourType((String)criteria.getParam(DAO_TOURTYPE_NAME));
         return bean;
     }
-    
+
     private static Object createTourist(Criteria criteria) {
         Tourist bean = new Tourist();
         bean.setIdTourist((Integer) criteria.getParam(DAO_ID_TOURIST));
@@ -244,15 +244,15 @@ public class BeanListCreator {
         bean.setPassport((String) criteria.getParam(DAO_TOURIST_PASSPORT));
         return bean;
     }
-    
+
     private static TransMode createTransMode(Criteria criteria) {
         TransMode bean = new TransMode();
         bean.setIdMode((Integer)criteria.getParam(DAO_ID_TRANSMODE));
         bean.setNameMode((String)criteria.getParam(DAO_TRANSMODE_NAME));
         return bean;
     }
-    
-    
+
+
     private static User createUser(Criteria criteria) {
         User bean = new User();
         bean.setIdUser((Integer) criteria.getParam(DAO_ID_USER));

@@ -27,10 +27,10 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class MysqlGuestDao extends MysqlDao implements GuestDao {
-    
+
     protected MysqlGuestDao(){}
 
     @Override
@@ -38,13 +38,13 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.ROLEQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<User> showUsers(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.USERQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public Integer createNewUser(Criteria criteria) throws DaoException {
         List list = BeanListCreator.getUserInstances(criteria);
@@ -58,7 +58,7 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DESCRIPTIONQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<Country> showCountries(Criteria criteria) throws DaoException {
         if (criteria.getParam(DAO_COUNTRY_STATUS) == null) {
@@ -85,13 +85,13 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.HOTELQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<TourType> showTourTypes (Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURTYPEQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<TransMode> showTransModes (Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TRANSMODEQUERY);
@@ -112,7 +112,7 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCOUNTRYQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-    
+
     @Override
     public List<LinkDirectionCity> showLinkDirectionCity(Criteria criteria) throws DaoException {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.DIRECTIONCITYQUERY);
@@ -157,5 +157,5 @@ class MysqlGuestDao extends MysqlDao implements GuestDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.SEARCHQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
-   
+
 }

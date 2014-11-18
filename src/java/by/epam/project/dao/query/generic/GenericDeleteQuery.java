@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public interface GenericDeleteQuery {
     <T> List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;

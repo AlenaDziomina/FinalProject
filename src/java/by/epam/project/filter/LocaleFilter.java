@@ -21,12 +21,12 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class LocaleFilter implements Filter {
-    
+
     private static Locale defLocale;
-    
+
     /**
      *
      * @param request The servlet request we are processing
@@ -40,7 +40,7 @@ public class LocaleFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         HttpSession session = ((HttpServletRequest)request).getSession(true);
         Locale locale = (Locale) session.getAttribute(JSP_LOCALE);
         if (locale == null) {
@@ -51,16 +51,16 @@ public class LocaleFilter implements Filter {
                 session.setAttribute(JSP_LOCALE, response.getLocale());
             }
         }
-        
+
         chain.doFilter(request, response);
     }
 
-    
+
     /**
      * Destroy method for this filter
      */
     @Override
-    public void destroy() {        
+    public void destroy() {
     }
 
     /**
@@ -68,12 +68,12 @@ public class LocaleFilter implements Filter {
      * @param filterConfig
      */
     @Override
-    public void init(FilterConfig filterConfig) {  
+    public void init(FilterConfig filterConfig) {
         String defCountry = filterConfig.getInitParameter("DEF_COUNTRY");
         String defLanguage = filterConfig.getInitParameter("DEF_LANGUAGE");
-        
+
         defLocale = LocaleManager.getLocale(defLanguage, defCountry);
-        
+
     }
-    
+
 }

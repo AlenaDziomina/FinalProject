@@ -1,7 +1,7 @@
 <%-- 
     Document   : registration
     Created on : 20.09.2014, 2:34:31
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

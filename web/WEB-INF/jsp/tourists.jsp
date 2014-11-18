@@ -1,7 +1,7 @@
 <%-- 
     Document   : tourists
     Created on : 17.11.2014, 15:42:06
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

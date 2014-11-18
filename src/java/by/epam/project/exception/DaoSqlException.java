@@ -8,15 +8,15 @@ package by.epam.project.exception;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class DaoSqlException extends DaoException {
-    
+
     private static final String ERROR_STR = "Error in MySQL query: ";
-    
+
     public DaoSqlException(){
     }
-    
+
     public DaoSqlException(String message, Throwable exception) {
         super(ERROR_STR + message, exception);
     }
@@ -24,9 +24,9 @@ public class DaoSqlException extends DaoException {
     public DaoSqlException(Throwable exception) {
         super(exception);
     }
-    
+
     public DaoSqlException(String message) {
         super(ERROR_STR + message);
     }
-    
+
 }

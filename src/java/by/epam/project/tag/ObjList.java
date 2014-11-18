@@ -13,13 +13,13 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  * @param <T>
  */
 public class ObjList<T> {
     List<T> list = new ArrayList();
     private T same;
-    private Iterator it; 
+    private Iterator it;
     private Integer pages;
     private static final Integer PAGE_STEP;
     static {
@@ -27,23 +27,23 @@ public class ObjList<T> {
     }
     private Integer currPageNo;
     List<T> currPageList;
-    
+
     public ObjList(List list) {
         this.list = list;
         pages = (list.size() + (PAGE_STEP - 1)) / PAGE_STEP;
         currPageNo = 1;
         setCurrPageList();
     }
-    
+
     public int getCurrPageNo(){
         return currPageNo;
     }
-    
+
     public void setCurrPageNo(Integer no){
         currPageNo = no;
         setCurrPageList();
     }
-    
+
     private void setCurrPageList() {
         currPageList = new ArrayList<>();
         int first = (currPageNo - 1) * PAGE_STEP;
@@ -53,19 +53,19 @@ public class ObjList<T> {
         }
         currPageList = list.subList(first , last);
         it = currPageList.iterator();
-    }    
+    }
     public List<T> getCurrPageList(int no) {
         return currPageList;
     }
-    
+
     public int getSize() {
         return currPageList.size();
     }
-    
+
     public T getSame() {
         return same;
     }
-    
+
     public T getNext(){
         if (it.hasNext()) {
             same = (T) it.next();
@@ -74,10 +74,10 @@ public class ObjList<T> {
             return null;
         }
     }
-    
+
     public int getPages(){
         return pages;
     }
-    
-    
+
+
 }

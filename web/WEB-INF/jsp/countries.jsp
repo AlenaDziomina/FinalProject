@@ -1,7 +1,7 @@
 <%-- 
     Document   : countries
     Created on : 25.09.2014, 0:41:29
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

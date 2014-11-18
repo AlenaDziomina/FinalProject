@@ -9,18 +9,14 @@ package by.epam.project.tag;
 import by.epam.project.manager.PriceDiscountManager;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.JspFragment;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import static javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE;
-import static javax.servlet.jsp.tagext.Tag.EVAL_PAGE;
 import static javax.servlet.jsp.tagext.Tag.SKIP_BODY;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class tourTag extends TagSupport {
     private float price;
@@ -31,7 +27,7 @@ public class tourTag extends TagSupport {
      * Called by the container to invoke this tag. The implementation of this
      * method is provided by the tag library developer, and handles all tag
      * processing, body iteration, etc.
-     * @return 
+     * @return
      * @throws javax.servlet.jsp.JspException
      */
     @Override
@@ -59,5 +55,5 @@ public class tourTag extends TagSupport {
     public void setUserDiscount(int userDiscount) {
         this.userDiscount = userDiscount;
     }
-    
+
 }

@@ -4,7 +4,7 @@ import by.epam.project.dao.ClientType;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public abstract class ClientTypeManager {
     public static ClientType clientTypeOf(String role) {

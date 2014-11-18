@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class SearchLogic extends AbstractLogic {
 

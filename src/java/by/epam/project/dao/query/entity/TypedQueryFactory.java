@@ -6,8 +6,7 @@ import by.epam.project.exception.DaoInitException;
 
 /**
  *
- * @author User
- * @param <T>
+ * @author Helena.Grouk
  */
 public class TypedQueryFactory {
     public static TypedQuery getInctance(QueryType type) throws DaoInitException {

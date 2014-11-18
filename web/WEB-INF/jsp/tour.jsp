@@ -1,7 +1,7 @@
 <%-- 
     Document   : tour
     Created on : 09.10.2014, 0:37:32
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

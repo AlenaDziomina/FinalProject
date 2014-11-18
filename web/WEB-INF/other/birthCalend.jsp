@@ -1,7 +1,7 @@
 <%-- 
     Document   : birthCalend
     Created on : 10.11.2014, 15:02:39
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>

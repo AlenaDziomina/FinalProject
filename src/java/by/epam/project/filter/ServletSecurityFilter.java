@@ -22,10 +22,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class ServletSecurityFilter implements Filter {
-    
+
     private String guestPath;
 
     /**
@@ -41,7 +41,7 @@ public class ServletSecurityFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
         ClientType type = (ClientType)session.getAttribute(JSP_ROLE_TYPE);
@@ -49,17 +49,17 @@ public class ServletSecurityFilter implements Filter {
             type = ClientType.GUEST;
         }
         session.setAttribute(JSP_ROLE_TYPE, type);
-        
-        
+
+
         chain.doFilter(request, response);
-        
+
     }
 
     /**
      * Destroy method for this filter
      */
     @Override
-    public void destroy() {        
+    public void destroy() {
     }
 
     /**
@@ -67,10 +67,10 @@ public class ServletSecurityFilter implements Filter {
      * @param filterConfig
      */
     @Override
-    public void init(FilterConfig filterConfig) {      
+    public void init(FilterConfig filterConfig) {
         guestPath = filterConfig.getInitParameter("GUEST_PATH");
-        
+
     }
 
-    
+
 }

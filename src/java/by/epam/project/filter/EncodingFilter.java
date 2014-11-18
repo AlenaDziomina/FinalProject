@@ -16,13 +16,13 @@ import javax.servlet.ServletResponse;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 
 public class EncodingFilter implements Filter {
-    
+
     private String code;
-    
+
     /**
      *
      * @param request The servlet request we are processing
@@ -36,7 +36,7 @@ public class EncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         String codeRequest = request.getCharacterEncoding();
         // установка кодировки из параметров фильтра, если не установлена
         if (code != null && !code.equalsIgnoreCase(codeRequest)) {
@@ -50,7 +50,7 @@ public class EncodingFilter implements Filter {
      * Destroy method for this filter
      */
     @Override
-    public void destroy() {      
+    public void destroy() {
         code = null;
     }
 
@@ -59,7 +59,7 @@ public class EncodingFilter implements Filter {
      * @param filterConfig
      */
     @Override
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         code = filterConfig.getInitParameter("encoding");
     }
 

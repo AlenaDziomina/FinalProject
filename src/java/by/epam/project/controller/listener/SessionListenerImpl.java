@@ -12,12 +12,12 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class SessionListenerImpl implements HttpSessionAttributeListener {
-    
+
     private static final Logger LOGGER = Logger.getLogger(SessionListenerImpl.class);
-    
+
     /**
      *
      * @param ev
@@ -25,7 +25,7 @@ public class SessionListenerImpl implements HttpSessionAttributeListener {
     @Override
     public void attributeRemoved(HttpSessionBindingEvent ev) {
     }
-    
+
     /**
      *
      * @param ev

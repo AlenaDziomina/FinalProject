@@ -14,15 +14,13 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.JspFragment;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import static javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE;
 import static javax.servlet.jsp.tagext.Tag.SKIP_BODY;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class StatusTag extends TagSupport {
     private Short status;
@@ -35,7 +33,7 @@ public class StatusTag extends TagSupport {
      * Called by the container to invoke this tag. The implementation of this
      * method is provided by the tag library developer, and handles all tag
      * processing, body iteration, etc.
-     * @return 
+     * @return
      * @throws javax.servlet.jsp.JspException
      */
     @Override
@@ -75,14 +73,14 @@ public class StatusTag extends TagSupport {
         }
         return EVAL_BODY_INCLUDE;
     }
-    
+
     private void writeHref(JspWriter out) throws IOException {
         if (href != null && !href.isEmpty()) {
             out.write("href='" + href + "' ");
         }
         out.write(">");
     }
-    
+
     @Override
     public int doEndTag() throws JspTagException {
         try {
@@ -114,7 +112,7 @@ public class StatusTag extends TagSupport {
     public void setIfInvalid(String ifInvalid) {
         this.ifInvalid = ifInvalid;
     }
-    
+
     public void setHref(String href) {
         this.href = href;
     }
@@ -122,6 +120,6 @@ public class StatusTag extends TagSupport {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    
+
+
 }

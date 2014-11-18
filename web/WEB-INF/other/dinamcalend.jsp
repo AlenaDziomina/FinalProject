@@ -1,7 +1,7 @@
 <%-- 
     Document   : newjsp
     Created on : 22.10.2014, 9:40:52
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : edittourist
     Created on : 10.11.2014, 17:39:42
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

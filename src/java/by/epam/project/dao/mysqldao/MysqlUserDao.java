@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class MysqlUserDao extends MysqlGuestDao implements UserDao {
 

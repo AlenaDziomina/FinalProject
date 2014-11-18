@@ -24,16 +24,16 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public interface GuestDao extends AbstractDao {
-    
+
     @Override
     List<Role> showRoles(Criteria criteria) throws DaoException;
     @Override
     List<User> showUsers(Criteria criteria) throws DaoException;
     @Override
-    Integer createNewUser(Criteria criteria) throws DaoException;   
+    Integer createNewUser(Criteria criteria) throws DaoException;
     @Override
     List<Direction> showDirections(Criteria criteria) throws DaoException;
     @Override
@@ -56,6 +56,6 @@ public interface GuestDao extends AbstractDao {
     List<Tour> showTours(Criteria criteria) throws DaoException;
     @Override
     List<Tour> searchTours(Criteria criteria) throws DaoException;
-    
-    
+
+
 }

@@ -10,15 +10,15 @@ import java.util.Locale;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public abstract class LocaleManager {
-    
+
     public static Locale getLocale(String language) {
         if (language == null || language.isEmpty()) {
             return null;
         }
-        return getLocale(language, language);       
+        return getLocale(language, language);
     }
 
     public static Locale getLocale(String language, String country) {
@@ -28,6 +28,6 @@ public abstract class LocaleManager {
             return null;
         }
     }
-    
-    
+
+
 }

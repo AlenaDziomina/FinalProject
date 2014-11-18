@@ -13,14 +13,14 @@ import by.epam.project.dao.query.generic.GenericUpdateQuery;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class MysqlGenericFactory {
-    
+
     public static GenericLoadQuery getLoadInstance() {
         return new MysqlGenericLoadQuery();
     }
-    
+
     public static GenericSaveQuery getSaveInstance() {
         return new MysqlGenericSaveQuery();
     }
@@ -28,9 +28,9 @@ public class MysqlGenericFactory {
     public static GenericUpdateQuery getUpdateInstance() {
         return new MysqlGenericUpdateQuery();
     }
-    
+
     public static GenericDeleteQuery getDeleteInstance() {
         return new MysqlGenericDeleteQuery();
     }
-    
+
 }

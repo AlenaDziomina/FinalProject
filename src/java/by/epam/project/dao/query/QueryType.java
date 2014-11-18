@@ -8,7 +8,7 @@ package by.epam.project.dao.query;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public enum QueryType {
     CITYQUERY, COUNTRYQUERY, DESCRIPTIONQUERY, DIRECTIONCITYQUERY,

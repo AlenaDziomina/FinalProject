@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : 13.09.2014, 13:44:31
-    Author     : User
+    Author     : Helena.Grouk
 --%>
 
 <div id="main">

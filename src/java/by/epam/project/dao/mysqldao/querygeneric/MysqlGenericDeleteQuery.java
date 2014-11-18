@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 class MysqlGenericDeleteQuery implements GenericDeleteQuery{
     private static final Logger LOGGER = Logger.getLogger(MysqlGenericDeleteQuery.class);
@@ -37,7 +37,7 @@ class MysqlGenericDeleteQuery implements GenericDeleteQuery{
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);    
+            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             for (int i = 0; i < params.length; i++) {
                 ps.setObject(i + 1, params[i]);
             }
@@ -47,7 +47,7 @@ class MysqlGenericDeleteQuery implements GenericDeleteQuery{
                     resultList.add(rs.getInt(1));
                 }
             }
-            ps.clearParameters();                            
+            ps.clearParameters();
             return resultList;
         }
         catch (SQLException ex) {
@@ -60,7 +60,7 @@ class MysqlGenericDeleteQuery implements GenericDeleteQuery{
                 if (ps != null && !ps.isClosed()){
                     ps.close();
                 }
-                
+
             } catch (SQLException ex) {
                 LOGGER.info(CLOSE_ERROR);
             }

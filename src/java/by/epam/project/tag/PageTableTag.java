@@ -17,7 +17,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author User
+ * @author Helena.Grouk
  */
 public class PageTableTag extends TagSupport {
     private String head;
@@ -36,17 +36,17 @@ public class PageTableTag extends TagSupport {
     public void setPageNo(int pageNo) {
         this.pageNo = pageNo;
     }
-    
+
     public void setPages(int pages) {
         this.pages = pages;
     }
- 
+
     @Override
     public int doStartTag() throws JspTagException {
         if (pages <= 0) {
             return SKIP_BODY;
         }
-        
+
         try {
             JspWriter out = pageContext.getOut();
             out.write("<table class='parameterRowB' border='1'><colgroup span='2' title='title' />");
@@ -70,7 +70,7 @@ public class PageTableTag extends TagSupport {
         }
         return EVAL_BODY_INCLUDE;
     }
-    
+
     @Override
     public int doAfterBody() throws JspTagException {
         if (rows-- > 1) {
@@ -84,7 +84,7 @@ public class PageTableTag extends TagSupport {
             return SKIP_BODY;
         }
     }
-    
+
     @Override
     public int doEndTag() throws JspTagException {
         try {
