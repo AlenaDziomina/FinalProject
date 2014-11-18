@@ -6,9 +6,8 @@ import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tour;
@@ -84,16 +83,16 @@ public class OrderQuery implements TypedQuery<Order> {
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, criteria, paramList, sb, AND);
-                append(DAO_ID_USER, DB_ORDER_ID_USER, criteria, paramList, sb, AND);
-                append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, criteria, paramList, sb, AND);
-                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList, sb, AND);
-                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList, sb, AND);
-                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList, sb, AND);
-                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList, sb, AND);
-                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList, sb, AND);
-                append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList, sb, AND);
-                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_USER, DB_ORDER_ID_USER, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, criteria, paramList, sb, AND);
+                Appender.append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList, sb, AND);
+                Appender.append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList, sb, AND);
+                Appender.append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList, sb, AND);
+                Appender.append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList, sb, AND);
+                Appender.append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList, sb, AND);
+                Appender.append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList, sb, AND);
+                Appender.append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -130,24 +129,24 @@ public class OrderQuery implements TypedQuery<Order> {
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList1, sb, COMMA);
-                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList1, sb, COMMA);
-                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList1, sb, COMMA);
-                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList1, sb, COMMA);
-                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList1, sb, COMMA);
-                append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList1, sb, COMMA);
-                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ORDER_DATE, DB_ORDER_DATE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ORDER_STATUS, DB_ORDER_STATUS, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, beans, paramList2, sb, AND);
-                append(DAO_ID_USER, DB_ORDER_ID_USER, beans, paramList2, sb, AND);
-                append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, beans, paramList2, sb, AND);
-                append(DAO_ORDER_SEATS, DB_ORDER_SEATS, beans, paramList2, sb, AND);
-                append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, beans, paramList2, sb, AND);
-                append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, beans, paramList2, sb, AND);
-                append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, beans, paramList2, sb, AND);
-                append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, beans, paramList2, sb, AND);
-                append(DAO_ORDER_DATE, DB_ORDER_DATE, beans, paramList2, sb, AND);
-                append(DAO_ORDER_STATUS, DB_ORDER_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_USER, DB_ORDER_ID_USER, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, beans, paramList2, sb, AND);
+                Appender.append(DAO_ORDER_SEATS, DB_ORDER_SEATS, beans, paramList2, sb, AND);
+                Appender.append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, beans, paramList2, sb, AND);
+                Appender.append(DAO_ORDER_USER_DISCOUNT, DB_ORDER_USER_DISCOUNT, beans, paramList2, sb, AND);
+                Appender.append(DAO_ORDER_FINAL_PRICE, DB_ORDER_FINAL_PRICE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ORDER_DATE, DB_ORDER_DATE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ORDER_STATUS, DB_ORDER_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

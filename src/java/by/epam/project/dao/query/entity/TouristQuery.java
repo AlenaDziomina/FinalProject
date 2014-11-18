@@ -6,9 +6,8 @@ import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Tourist;
@@ -78,14 +77,14 @@ public class TouristQuery implements TypedQuery<Tourist>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, criteria, paramList, sb, AND);
-                append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, criteria, paramList, sb, AND);
-                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList, sb, AND);
-                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList, sb, AND);
-                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList, sb, AND);
-                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList, sb, AND);
-                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList, sb, AND);
-                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, criteria, paramList, sb, AND);
+                Appender.append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList, sb, AND);
+                Appender.append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList, sb, AND);
+                Appender.append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -120,21 +119,21 @@ public class TouristQuery implements TypedQuery<Tourist>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList1, sb, COMMA);
-                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList1, sb, COMMA);
-                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList1, sb, COMMA);
-                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList1, sb, COMMA);
-                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList1, sb, COMMA);
-                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, beans, paramList2, sb, AND);
-                append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, beans, paramList2, sb, AND);
-                append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, beans, paramList2, sb, AND);
-                append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, beans, paramList2, sb, AND);
-                append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, beans, paramList2, sb, AND);
-                append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, beans, paramList2, sb, AND);
-                append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, beans, paramList2, sb, AND);
-                append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, beans, paramList2, sb, AND);
+                Appender.append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, beans, paramList2, sb, AND);
+                Appender.append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, beans, paramList2, sb, AND);
+                Appender.append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, beans, paramList2, sb, AND);
+                Appender.append(DAO_TOURIST_BIRTH, DB_TOURIST_BIRTH, beans, paramList2, sb, AND);
+                Appender.append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, beans, paramList2, sb, AND);
+                Appender.append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

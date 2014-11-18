@@ -7,9 +7,8 @@ import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.exception.DaoQueryException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.TourType;
@@ -63,8 +62,8 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, criteria, paramList, sb, AND);
-                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, criteria, paramList, sb, AND);
+                Appender.append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -93,9 +92,9 @@ public class TourTypeQuery implements TypedQuery<TourType>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

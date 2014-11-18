@@ -1,16 +1,15 @@
 package by.epam.project.dao.query.entity;
 
-import by.epam.project.dao.query.generic.GenericDeleteQuery;
-import by.epam.project.dao.query.generic.GenericUpdateQuery;
-import by.epam.project.dao.query.generic.GenericSaveQuery;
-import by.epam.project.dao.query.generic.GenericLoadQuery;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
+import by.epam.project.dao.query.generic.GenericDeleteQuery;
+import by.epam.project.dao.query.generic.GenericLoadQuery;
+import by.epam.project.dao.query.generic.GenericSaveQuery;
+import by.epam.project.dao.query.generic.GenericUpdateQuery;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
@@ -76,12 +75,12 @@ public class CityQuery implements TypedQuery<City>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_CITY, DB_CITY_ID_CITY, criteria, paramList, sb, AND);
-                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList, sb, AND);
-                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList, sb, AND);
-                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList, sb, AND);
-                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_CITY, DB_CITY_ID_CITY, criteria, paramList, sb, AND);
+                Appender.append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -114,18 +113,18 @@ public class CityQuery implements TypedQuery<City>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList1, sb, COMMA);
-                append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList1, sb, COMMA);
-                append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList1, sb, COMMA);
-                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_CITY_PICTURE, DB_CITY_PICTURE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_CITY, DB_CITY_ID_CITY, beans, paramList2, sb, AND);
-                append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, beans, paramList2, sb, AND);
-                append(DAO_CITY_NAME, DB_CITY_NAME, beans, paramList2, sb, AND);
-                append(DAO_CITY_STATUS, DB_CITY_STATUS, beans, paramList2, sb, AND);
-                append(DAO_CITY_PICTURE, DB_CITY_PICTURE, beans, paramList2, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_CITY, DB_CITY_ID_CITY, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, beans, paramList2, sb, AND);
+                Appender.append(DAO_CITY_NAME, DB_CITY_NAME, beans, paramList2, sb, AND);
+                Appender.append(DAO_CITY_STATUS, DB_CITY_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_CITY_PICTURE, DB_CITY_PICTURE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

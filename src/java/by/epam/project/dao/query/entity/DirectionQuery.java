@@ -6,10 +6,9 @@ import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Description;
 import by.epam.project.entity.Direction;
@@ -80,14 +79,14 @@ public class DirectionQuery implements TypedQuery<Direction>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, criteria, paramList, sb, AND);
-                append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, criteria, paramList, sb, AND);
-                append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, criteria, paramList, sb, AND);
-                append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, criteria, paramList, sb, AND);
-                append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, criteria, paramList, sb, AND);
-                append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, criteria, paramList, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, criteria, paramList, sb, AND);
-                append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -122,22 +121,22 @@ public class DirectionQuery implements TypedQuery<Direction>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, criteria, paramList1, sb, COMMA);
-                append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, criteria, paramList1, sb, COMMA);
-                append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, criteria, paramList1, sb, COMMA);
-                append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, beans, paramList2, sb, AND);
-                append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, beans, paramList2, sb, AND);
-                append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, beans, paramList2, sb, AND);
-                append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, beans, paramList2, sb, AND);
-                append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, beans, paramList2, sb, AND);
-                append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, beans, paramList2, sb, AND);
-                append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, beans, paramList2, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DIRECTION, DB_DIRECTION_ID_DIRECTION, beans, paramList2, sb, AND);
+                Appender.append(DAO_DIRECTION_NAME, DB_DIRECTION_NAME, beans, paramList2, sb, AND);
+                Appender.append(DAO_DIRECTION_STATUS, DB_DIRECTION_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_DIRECTION_PICTURE, DB_DIRECTION_PICTURE, beans, paramList2, sb, AND);
+                Appender.append(DAO_DIRECTION_TEXT, DB_DIRECTION_TEXT, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_DIRECTION_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

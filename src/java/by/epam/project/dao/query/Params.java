@@ -52,50 +52,6 @@ public class Params {
     }
     
     public static interface QueryMapper { 
-        
         String mapQuery();
-        
-        static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
-            
-            Object obj = criteria.getParam(daoName);
-            if (obj != null){
-                if (!list.isEmpty()) {
-                    sb.append(separator);
-                }
-                sb.append(dbName);
-                sb.append(" = ? ");
-                list.add(obj);
-            }
-        }
-        
-        static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator, String operator){
-            
-            Object obj = criteria.getParam(daoName);
-            if (obj != null){
-                if (!list.isEmpty()) {
-                    sb.append(separator);
-                }
-                sb.append(dbName);
-                sb.append(operator);
-                sb.append("? ");
-                list.add(obj);
-            }
-        }
-        
-        static void appendArr(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
-            
-            Collection objArr = (Collection) criteria.getParam(daoName);
-            if (objArr != null){
-                objArr.stream().forEach((obj) -> {
-                    if (!list.isEmpty()) {
-                        sb.append(separator);
-                    }
-                    sb.append(dbName);
-                    sb.append(" = ? ");
-                    list.add(obj);
-                });
-            }
-        }
     }
-  
 }

@@ -5,11 +5,10 @@ import by.epam.project.dao.query.generic.GenericUpdateQuery;
 import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.generic.GenericLoadQuery;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
@@ -73,11 +72,11 @@ public class CountryQuery implements TypedQuery<Country>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, criteria, paramList, sb, AND);
-                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList, sb, AND);
-                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList, sb, AND);
-                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, criteria, paramList, sb, AND);
+                Appender.append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -109,16 +108,16 @@ public class CountryQuery implements TypedQuery<Country>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList1, sb, COMMA);
-                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList1, sb, COMMA);
-                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, beans, paramList2, sb, AND);
-                append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, beans, paramList2, sb, AND);
-                append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, beans, paramList2, sb, AND);
-                append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, beans, paramList2, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, beans, paramList2, sb, AND);
+                Appender.append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, beans, paramList2, sb, AND);
+                Appender.append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

@@ -6,10 +6,9 @@ import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
 import by.epam.project.dao.query.Params.QueryMapper;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
@@ -85,16 +84,16 @@ public class UserQuery implements TypedQuery<User>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_USER, DB_USER_ID_USER, criteria, paramList, sb, AND);
-                append(DAO_USER_LOGIN, DB_USER_LOGIN, criteria, paramList, sb, AND);
-                append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList, sb, AND);
-                append(DAO_USER_EMAIL, DB_USER_EMAIL, criteria, paramList, sb, AND);
-                append(DAO_ID_ROLE, DB_USER_ID_ROLE, criteria, paramList, sb, AND);
-                append(DAO_USER_PHONE, DB_USER_PHONE, criteria, paramList, sb, AND);
-                append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList, sb, AND);
-                append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList, sb, AND);
-                append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList, sb, AND);
-                append(DAO_USER_STATUS, DB_USER_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_USER, DB_USER_ID_USER, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_LOGIN, DB_USER_LOGIN, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_EMAIL, DB_USER_EMAIL, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_ROLE, DB_USER_ID_ROLE, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_PHONE, DB_USER_PHONE, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList, sb, AND);
+                Appender.append(DAO_USER_STATUS, DB_USER_STATUS, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -135,25 +134,25 @@ public class UserQuery implements TypedQuery<User>{
         String queryStr = new QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList1, sb, COMMA);
-                append(DAO_USER_EMAIL, DB_USER_EMAIL, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_ROLE, DB_USER_ID_ROLE, criteria, paramList1, sb, COMMA);
-                append(DAO_USER_PHONE, DB_USER_PHONE, criteria, paramList1, sb, COMMA);
-                append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList1, sb, COMMA);
-                append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList1, sb, COMMA);
-                append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList1, sb, COMMA);
-                append(DAO_USER_STATUS, DB_USER_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_USER_EMAIL, DB_USER_EMAIL, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_ROLE, DB_USER_ID_ROLE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_USER_PHONE, DB_USER_PHONE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_USER_BALANCE, DB_USER_BALANCE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_USER_STATUS, DB_USER_STATUS, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_USER, DB_USER_ID_USER, beans, paramList2, sb, AND);
-                append(DAO_USER_LOGIN, DB_USER_LOGIN, beans, paramList2, sb, AND);
-                append(DAO_USER_PASSWORD, DB_USER_PASSWORD, beans, paramList2, sb, AND);
-                append(DAO_USER_EMAIL, DB_USER_EMAIL, beans, paramList2, sb, AND);
-                append(DAO_ID_ROLE, DB_USER_ID_ROLE, beans, paramList2, sb, AND);
-                append(DAO_USER_PHONE, DB_USER_PHONE, beans, paramList2, sb, AND);
-                append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, beans, paramList2, sb, AND);
-                append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, beans, paramList2, sb, AND);
-                append(DAO_USER_BALANCE, DB_USER_BALANCE, beans, paramList2, sb, AND);
-                append(DAO_USER_STATUS, DB_USER_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_USER, DB_USER_ID_USER, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_LOGIN, DB_USER_LOGIN, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_PASSWORD, DB_USER_PASSWORD, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_EMAIL, DB_USER_EMAIL, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_ROLE, DB_USER_ID_ROLE, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_PHONE, DB_USER_PHONE, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_LANGUAGE, DB_USER_LANGUAGE, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_DISCOUNT, DB_USER_DISCOUNT, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_BALANCE, DB_USER_BALANCE, beans, paramList2, sb, AND);
+                Appender.append(DAO_USER_STATUS, DB_USER_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

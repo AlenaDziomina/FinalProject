@@ -6,10 +6,8 @@ import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
-import static by.epam.project.dao.query.Params.QueryMapper.appendArr;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.Tour;
@@ -134,15 +132,15 @@ public class SearchQuery implements TypedQuery<Tour> {
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_TOUR_DATE_FROM, DB_TOUR_DATE, crit, list, str, AND, FROM);
-                append(DAO_TOUR_DATE_TO, DB_TOUR_DATE, crit, list, str, AND, TO);
-                append(DAO_TOUR_DAYS_FROM, DB_TOUR_DAYS_COUNT, crit, list, str, AND, FROM);
-                append(DAO_TOUR_DAYS_TO, DB_TOUR_DAYS_COUNT, crit, list, str, AND, TO);
-                append(DAO_TOUR_PRICE_FROM, DB_TOUR_PRICE, crit, list, str, AND, FROM);
-                append(DAO_TOUR_PRICE_TO, DB_TOUR_PRICE, crit, list, str, AND, TO);
-                append(DAO_TOUR_DISCOUNT_FROM, DB_TOUR_DISCOUNT, crit, list, str, AND, FROM);
-                append(DAO_TOUR_FREE_SEATS_FROM, DB_TOUR_FREE_SEATS, crit, list, str, AND, FROM);
-                append(DAO_TOUR_STATUS, "t." + DB_TOUR_STATUS, crit, list, str, AND);
+                Appender.append(DAO_TOUR_DATE_FROM, DB_TOUR_DATE, crit, list, str, AND, FROM);
+                Appender.append(DAO_TOUR_DATE_TO, DB_TOUR_DATE, crit, list, str, AND, TO);
+                Appender.append(DAO_TOUR_DAYS_FROM, DB_TOUR_DAYS_COUNT, crit, list, str, AND, FROM);
+                Appender.append(DAO_TOUR_DAYS_TO, DB_TOUR_DAYS_COUNT, crit, list, str, AND, TO);
+                Appender.append(DAO_TOUR_PRICE_FROM, DB_TOUR_PRICE, crit, list, str, AND, FROM);
+                Appender.append(DAO_TOUR_PRICE_TO, DB_TOUR_PRICE, crit, list, str, AND, TO);
+                Appender.append(DAO_TOUR_DISCOUNT_FROM, DB_TOUR_DISCOUNT, crit, list, str, AND, FROM);
+                Appender.append(DAO_TOUR_FREE_SEATS_FROM, DB_TOUR_FREE_SEATS, crit, list, str, AND, FROM);
+                Appender.append(DAO_TOUR_STATUS, "t." + DB_TOUR_STATUS, crit, list, str, AND);
                 return str.toString();
             }  
         }.mapQuery();
@@ -163,9 +161,9 @@ public class SearchQuery implements TypedQuery<Tour> {
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, crit, list, str, AND);
-                append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, crit, list, str, AND);
-                append(DAO_DIRECTION_STATUS, "d." + DB_DIRECTION_STATUS, crit, list, str, AND);
+                Appender.append(DAO_ID_TOURTYPE, DB_DIRECTION_ID_TOURTYPE, crit, list, str, AND);
+                Appender.append(DAO_ID_TRANSMODE, DB_DIRECTION_ID_TRANSMODE, crit, list, str, AND);
+                Appender.append(DAO_DIRECTION_STATUS, "d." + DB_DIRECTION_STATUS, crit, list, str, AND);
                 return str.toString();
             }  
         }.mapQuery();
@@ -189,7 +187,7 @@ public class SearchQuery implements TypedQuery<Tour> {
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                appendArr(DAO_DIRCOUNTRY_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, crit, list, str, OR);
+                Appender.appendArr(DAO_DIRCOUNTRY_ID_COUNTRY, DB_DIRCOUNTRY_ID_COUNTRY, crit, list, str, OR);
                 return str.toString() + " ) ";
             }  
         }.mapQuery();
@@ -216,7 +214,7 @@ public class SearchQuery implements TypedQuery<Tour> {
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                appendArr(DAO_DIRCITY_ID_CITY, DB_DIRCITY_ID_CITY, crit, list, str, OR);
+                Appender.appendArr(DAO_DIRCITY_ID_CITY, DB_DIRCITY_ID_CITY, crit, list, str, OR);
                 return str.toString() + " ) ";
             }  
         }.mapQuery();
@@ -243,7 +241,7 @@ public class SearchQuery implements TypedQuery<Tour> {
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                appendArr(DAO_DIRSTAY_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, crit, list, str, OR);
+                Appender.appendArr(DAO_DIRSTAY_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, crit, list, str, OR);
                 return str.toString() + " ) ";
             }  
         }.mapQuery();
@@ -270,7 +268,7 @@ public class SearchQuery implements TypedQuery<Tour> {
         String qu = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, crit, list, str, OR);
+                Appender.append(DAO_HOTEL_STARS, DB_HOTEL_STARS, crit, list, str, OR);
                 return str.toString() + " ) ";
             }  
         }.mapQuery();

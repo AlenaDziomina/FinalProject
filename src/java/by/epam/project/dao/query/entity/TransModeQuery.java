@@ -7,9 +7,8 @@ import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.exception.DaoException;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.exception.DaoQueryException;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.TransMode;
@@ -63,8 +62,8 @@ public class TransModeQuery implements TypedQuery<TransMode>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, criteria, paramList, sb, AND);
-                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, criteria, paramList, sb, AND);
+                Appender.append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -94,9 +93,9 @@ public class TransModeQuery implements TypedQuery<TransMode>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_TRANSMODE_NAME, DB_TRANSMODE_NAME, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_TRANSMODE, DB_TRANSMODE_ID_MODE, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

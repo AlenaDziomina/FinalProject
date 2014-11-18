@@ -6,9 +6,8 @@ import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Direction;
 import by.epam.project.entity.DirectionStayHotel;
@@ -73,11 +72,11 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, AND);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -109,16 +108,16 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList1, sb, COMMA);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, beans, paramList2, sb, AND);
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, beans, paramList2, sb, AND);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, beans, paramList2, sb, AND);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, beans, paramList2, sb, AND);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, beans, paramList2, sb, AND);
+                Appender.append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, beans, paramList2, sb, AND);
+                Appender.append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
@@ -138,11 +137,11 @@ public class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
-                append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
-                append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
-                append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, AND);
-                append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
+                Appender.append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

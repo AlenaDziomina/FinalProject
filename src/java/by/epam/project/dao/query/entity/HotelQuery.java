@@ -6,9 +6,8 @@ import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Description;
@@ -76,13 +75,13 @@ public class HotelQuery implements TypedQuery<Hotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, criteria, paramList, sb, AND);
-                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList, sb, AND);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList, sb, AND);
-                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList, sb, AND);
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList, sb, AND);
-                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, criteria, paramList, sb, AND);
+                Appender.append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList, sb, AND);
+                Appender.append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList, sb, AND);
+                Appender.append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList, sb, AND);
+                Appender.append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -116,21 +115,21 @@ public class HotelQuery implements TypedQuery<Hotel>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList1, sb, COMMA);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, COMMA);
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList1, sb, COMMA);
-                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
-                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList1, sb, COMMA);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_HOTEL_NAME, DB_HOTEL_NAME, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_HOTEL_STARS, DB_HOTEL_STARS, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_ID_CITY, DB_HOTEL_ID_CITY, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, beans, paramList2, sb, AND);
-                append(DAO_HOTEL_NAME, DB_HOTEL_NAME, beans, paramList2, sb, AND);
-                append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, beans, paramList2, sb, AND);
-                append(DAO_HOTEL_STARS, DB_HOTEL_STARS, beans, paramList2, sb, AND);
-                append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, beans, paramList2, sb, AND);
-                append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, beans, paramList2, sb, AND);
-                append(DAO_ID_CITY, DB_HOTEL_ID_CITY, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_HOTEL, DB_HOTEL_ID_HOTEL, beans, paramList2, sb, AND);
+                Appender.append(DAO_HOTEL_NAME, DB_HOTEL_NAME, beans, paramList2, sb, AND);
+                Appender.append(DAO_HOTEL_STATUS, DB_HOTEL_STATUS, beans, paramList2, sb, AND);
+                Appender.append(DAO_HOTEL_STARS, DB_HOTEL_STARS, beans, paramList2, sb, AND);
+                Appender.append(DAO_HOTEL_PICTURE, DB_HOTEL_PICTURE, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_HOTEL_ID_DESCRIPTION, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_CITY, DB_HOTEL_ID_CITY, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();

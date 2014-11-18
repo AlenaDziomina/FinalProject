@@ -6,9 +6,8 @@ import by.epam.project.dao.query.generic.GenericSaveQuery;
 import by.epam.project.dao.query.generic.GenericLoadQuery;
 import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
-import by.epam.project.dao.query.*;
+import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import static by.epam.project.dao.query.Params.QueryMapper.append;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Description;
 import by.epam.project.exception.DaoException;
@@ -62,8 +61,8 @@ public class DescriptionQuery implements TypedQuery<Description>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, criteria, paramList, sb, AND);
-                append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, criteria, paramList, sb, AND);
+                Appender.append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
                     return LOAD_QUERY;
                 } else {
@@ -92,9 +91,9 @@ public class DescriptionQuery implements TypedQuery<Description>{
         String queryStr = new Params.QueryMapper() {
             @Override
             public String mapQuery() { 
-                append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList1, sb, COMMA);
+                Appender.append(DAO_DESCRIPTION_TEXT, DB_DESCRIPTION_TEXT, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
-                append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, beans, paramList2, sb, AND);
+                Appender.append(DAO_ID_DESCRIPTION, DB_DESCRIPTION_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
             }  
         }.mapQuery();
