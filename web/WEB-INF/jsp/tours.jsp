@@ -7,10 +7,9 @@
 
 <div id="main">
     
-    
     <jsp:include page="/WEB-INF/other/searching.jsp" />
     <div class="parameterRow">
-        <div id="erNote" class="centrale">${emptysearch}</div>
+        <ctg:ErrorMsgTag classErr="erNote" msg="${emptysearch}"><fmt:message key="${emptysearch}" bundle="${ rb }" /></ctg:ErrorMsgTag>
     </div>
     
     <ctg:PageTableTag rows="${ pageList.size }" pageNo="${pageList.currPageNo}" pages="${pageList.pages}">
