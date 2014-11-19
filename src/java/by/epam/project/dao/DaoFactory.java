@@ -22,7 +22,6 @@ public abstract class DaoFactory {
         String dbType = ConfigurationManager.getProperty("db.type").toUpperCase();
         switch (dbType) {
             case "MYSQL": MysqlDaoFactory.closeConnections();
-
         }
     }
 }
