@@ -22,7 +22,7 @@ class MysqlGenericUpdateQuery implements GenericUpdateQuery {
     private static final String CLOSE_ERROR = "Error in close connection.";
 
     @Override
-    public List<Integer> query(String query, Object[] params, Connection conn) throws DaoException {
+    public <T> List<Integer> sendQuery(String query, Object[] params, Connection conn) throws DaoException {
         if (params == null) {
             throw new DaoException(PARAMS_IS_NULL_ERROR);
         }

@@ -1,6 +1,6 @@
 package by.epam.project.dao.query.generic;
 
-import by.epam.project.dao.query.Params;
+import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.exception.DaoException;
 import java.sql.Connection;
 import java.util.List;
@@ -10,6 +10,5 @@ import java.util.List;
  * @author Helena.Grouk
  */
 public interface GenericLoadQuery {
-    <T> List<T> query(String query, Object[] params, int pageSize, Connection conn, Params.RowMapper<T> mapper) throws DaoException;
-
+    <T> List<T> sendQuery(String query, Object[] params, int pageSize, Connection conn, TypedQuery.RowMapper<T> mapper) throws DaoException;
 }

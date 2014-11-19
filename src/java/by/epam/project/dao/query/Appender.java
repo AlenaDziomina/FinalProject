@@ -9,6 +9,11 @@ import java.util.List;
  * @author Helena.Grouk
  */
 public class Appender {
+
+
+
+
+
     public static void append(String daoName, String dbName, Criteria criteria, List<Object> list, StringBuilder sb, String separator){
         Object obj = criteria.getParam(daoName);
         if (obj != null){

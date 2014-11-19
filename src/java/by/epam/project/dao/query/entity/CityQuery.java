@@ -4,12 +4,8 @@ import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.Params;
-import by.epam.project.dao.query.Params.QueryMapper;
 import by.epam.project.dao.query.TypedQuery;
-import by.epam.project.dao.query.generic.GenericDeleteQuery;
-import by.epam.project.dao.query.generic.GenericLoadQuery;
-import by.epam.project.dao.query.generic.GenericSaveQuery;
-import by.epam.project.dao.query.generic.GenericUpdateQuery;
+import by.epam.project.dao.query.generic.*;
 import by.epam.project.entity.City;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
@@ -39,19 +35,19 @@ class CityQuery implements TypedQuery<City>{
     private static final String DB_CITY_STATUS = "status";
     private static final String DB_CITY_PICTURE = "picture";
     private static final String DB_CITY_ID_DESCRIPTION = "id_description";
-    private static final String SAVE_QUERY = 
+    private static final String SAVE_QUERY =
             "Insert into " + DB_CITY + " (" + DB_CITY_ID_COUNTRY + ", "
-            + DB_CITY_NAME + ", " + DB_CITY_PICTURE + ", " 
+            + DB_CITY_NAME + ", " + DB_CITY_PICTURE + ", "
             + DB_CITY_ID_DESCRIPTION + ") values (?, ?, ?, ?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_CITY;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_CITY + " set ";
-    
+
     @Override
-    public List<Integer> save(List<City> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<City> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (City bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (City bean) -> {
                 Object[] objects = new Object[4];
                 objects[0] = bean.getCountry().getIdCountry();
                 objects[1] = bean.getName();
@@ -65,14 +61,14 @@ class CityQuery implements TypedQuery<City>{
     }
 
     @Override
-    public List<City> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<City> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 50;
-                
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_CITY, DB_CITY_ID_CITY, criteria, paramList, sb, AND);
                 Appender.append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList, sb, AND);
                 Appender.append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList, sb, AND);
@@ -84,11 +80,11 @@ class CityQuery implements TypedQuery<City>{
                 } else {
                     return sb.insert(0, LOAD_QUERY).toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 City bean = new City();
                 bean.setIdCity(rs.getInt(DB_CITY_ID_CITY));
                 bean.setCountry(new Country(rs.getInt(DB_CITY_ID_COUNTRY)));
@@ -104,13 +100,13 @@ class CityQuery implements TypedQuery<City>{
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_COUNTRY, DB_CITY_ID_COUNTRY, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_CITY_NAME, DB_CITY_NAME, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_CITY_STATUS, DB_CITY_STATUS, criteria, paramList1, sb, COMMA);
@@ -124,21 +120,21 @@ class CityQuery implements TypedQuery<City>{
                 Appender.append(DAO_CITY_PICTURE, DB_CITY_PICTURE, beans, paramList2, sb, AND);
                 Appender.append(DAO_ID_DESCRIPTION, DB_CITY_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_CITY_UPDATE, ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
-    
-    
+
+
 }

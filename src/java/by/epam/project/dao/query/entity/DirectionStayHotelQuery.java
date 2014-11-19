@@ -37,21 +37,21 @@ class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
     private static final String DB_DIRSTAY_ID_HOTEL = "id_hotel";
     private static final String DB_DIRSTAY_ID_DIRECTION = "id_direction";
     private static final String DB_DIRSTAY_STATUS = "status";
-    private static final String SAVE_QUERY = 
+    private static final String SAVE_QUERY =
             "Insert into " + DB_DIRSTAY + " (" + DB_DIRSTAY_STAY_NO + ", "
-            + DB_DIRSTAY_ID_DIRECTION + ", " + DB_DIRSTAY_ID_HOTEL 
+            + DB_DIRSTAY_ID_DIRECTION + ", " + DB_DIRSTAY_ID_HOTEL
             + ") values (?, ?, ?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_DIRSTAY;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_DIRSTAY + " set ";
-    private static final String DELETE_QUERY = 
+    private static final String DELETE_QUERY =
             "Delete from " + DB_DIRSTAY + WHERE;
 
     @Override
-    public List<Integer> save(List<DirectionStayHotel> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<DirectionStayHotel> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (DirectionStayHotel bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (DirectionStayHotel bean) -> {
                 Object[] objects = new Object[3];
                 objects[0] = bean.getStayNo();
                 objects[1] = bean.getDirection().getIdDirection();
@@ -64,14 +64,14 @@ class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
     }
 
     @Override
-    public List<DirectionStayHotel> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<DirectionStayHotel> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 50;
-                
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
                 Appender.append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
                 Appender.append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
@@ -82,11 +82,11 @@ class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 } else {
                     return sb.insert(0, LOAD_QUERY).toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 DirectionStayHotel bean = new DirectionStayHotel();
                 bean.setIdStay(rs.getInt(DB_DIRSTAY_ID_STAY));
                 bean.setStayNo(rs.getInt(DB_DIRSTAY_STAY_NO));
@@ -101,13 +101,13 @@ class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList1, sb, COMMA);
@@ -119,35 +119,35 @@ class DirectionStayHotelQuery implements TypedQuery<DirectionStayHotel>{
                 Appender.append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, beans, paramList2, sb, AND);
                 Appender.append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_DIR_STAY_UPDATE, ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(DELETE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_DIRSTAY, DB_DIRSTAY_ID_STAY, criteria, paramList, sb, AND);
                 Appender.append(DAO_DIRSTAY_NO, DB_DIRSTAY_STAY_NO, criteria, paramList, sb, AND);
                 Appender.append(DAO_DIRSTAY_STATUS, DB_DIRSTAY_STATUS, criteria, paramList, sb, AND);
                 Appender.append(DAO_ID_DIRECTION, DB_DIRSTAY_ID_DIRECTION, criteria, paramList, sb, AND);
                 Appender.append(DAO_ID_HOTEL, DB_DIRSTAY_ID_HOTEL, criteria, paramList, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return deleteDao.query(queryStr, paramList.toArray(), conn);
+            return deleteGeneric.sendQuery(queryStr, paramList.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_DIR_STAY_DELETE, ex);
         }

@@ -1,7 +1,7 @@
 package by.epam.project.dao.mysqldao.querygeneric;
 
 import by.epam.project.dao.query.generic.GenericLoadQuery;
-import by.epam.project.dao.query.Params.RowMapper;
+import by.epam.project.dao.query.TypedQuery.RowMapper;
 import by.epam.project.exception.DaoException;
 import by.epam.project.exception.DaoSqlException;
 import java.sql.Connection;
@@ -22,7 +22,7 @@ class MysqlGenericLoadQuery implements GenericLoadQuery {
     private static final String CLOSE_ERROR = "Error in close connection.";
 
     @Override
-    public <T> List<T> query(String query, Object[] params, int pageSize, Connection conn, RowMapper<T> mapper) throws DaoException {
+    public <T> List<T> sendQuery(String query, Object[] params, int pageSize, Connection conn, RowMapper<T> mapper) throws DaoException {
         if (params == null) {
             throw new DaoException(PARAMS_IS_NULL_ERROR);
         }

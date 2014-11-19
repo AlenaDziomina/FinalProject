@@ -32,18 +32,18 @@ class RoleQuery implements TypedQuery<Role>{
     private static final String DB_ROLE = "role";
     private static final String DB_ROLE_ID_ROLE = "id_role";
     private static final String DB_ROLE_NAME_ROLE = "role_name";
-    private static final String SAVE_QUERY = 
-            "Insert into " + DB_ROLE + " (" 
+    private static final String SAVE_QUERY =
+            "Insert into " + DB_ROLE + " ("
             + DB_ROLE_NAME_ROLE + ") values (?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_ROLE;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_ROLE + " set ";
-    
+
     @Override
-    public List<Integer> save(List<Role> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<Role> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Role bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (Role bean) -> {
                 Object[] objects = new Object[1];
                 objects[0] = bean.getRoleName();
                 return objects;
@@ -54,14 +54,14 @@ class RoleQuery implements TypedQuery<Role>{
     }
 
     @Override
-    public List<Role> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<Role> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 10;
-        
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, criteria, paramList, sb, AND);
                 Appender.append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
@@ -69,11 +69,11 @@ class RoleQuery implements TypedQuery<Role>{
                 } else {
                     return sb.insert(0, LOAD_QUERY).toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 Role bean = new Role();
                 bean.setIdRole(rs.getInt(DB_ROLE_ID_ROLE));
                 bean.setRoleName(rs.getString(DB_ROLE_NAME_ROLE));
@@ -85,32 +85,32 @@ class RoleQuery implements TypedQuery<Role>{
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {        
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ROLE_NAME, DB_ROLE_NAME_ROLE, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
                 Appender.append(DAO_ID_ROLE, DB_ROLE_ID_ROLE, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_ROLE_UPDATE, ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
-    
-    
+
+
 }

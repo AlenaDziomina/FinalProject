@@ -32,18 +32,18 @@ class TourTypeQuery implements TypedQuery<TourType>{
     private static final String DB_TOURTYPE = "tour_type";
     private static final String DB_TOURTYPE_ID_TOURTYPE = "id_tour_type";
     private static final String DB_TOURTYPE_NAME = "name_tour_type";
-    private static final String SAVE_QUERY = 
+    private static final String SAVE_QUERY =
             "Insert into " + DB_TOURTYPE + " (" + DB_TOURTYPE_NAME
             + ") values (?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_TOURTYPE;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_TOURTYPE + " set ";
 
     @Override
-    public List<Integer> save(List<TourType> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<TourType> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (TourType bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (TourType bean) -> {
                 Object[] objects = new Object[1];
                 objects[0] = bean.getNameTourType();
                 return objects;
@@ -54,14 +54,14 @@ class TourTypeQuery implements TypedQuery<TourType>{
     }
 
     @Override
-    public List<TourType> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<TourType> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 10;
-        
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, criteria, paramList, sb, AND);
                 Appender.append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList, sb, AND);
                 if (paramList.isEmpty()) {
@@ -69,11 +69,11 @@ class TourTypeQuery implements TypedQuery<TourType>{
                 } else {
                     return sb.insert(0, LOAD_QUERY).toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 TourType bean = new TourType();
                 bean.setIdTourType(rs.getInt(DB_TOURTYPE_ID_TOURTYPE));
                 bean.setNameTourType(rs.getString(DB_TOURTYPE_NAME));
@@ -85,33 +85,33 @@ class TourTypeQuery implements TypedQuery<TourType>{
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {        
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_TOURTYPE_NAME, DB_TOURTYPE_NAME, criteria, paramList1, sb, COMMA);
                 sb.append(WHERE);
                 Appender.append(DAO_ID_TOURTYPE, DB_TOURTYPE_ID_TOURTYPE, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_TOURTYPE_UPDATE, ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
 
-    
+
 }
 

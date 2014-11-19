@@ -39,20 +39,20 @@ class TouristQuery implements TypedQuery<Tourist>{
     private static final String DB_TOURIST_BIRTH = "birth_date";
     private static final String DB_TOURIST_PASSPORT = "passport";
     private static final String DB_TOURIST_STATUS = "status";
-    private static final String SAVE_QUERY = 
+    private static final String SAVE_QUERY =
             "Insert into " + DB_TOURIST + " (" + DB_TOURIST_ID_ORDER + ", "
-            + DB_TOURIST_FNAME + ", " + DB_TOURIST_MNAME + ", " 
+            + DB_TOURIST_FNAME + ", " + DB_TOURIST_MNAME + ", "
             + DB_TOURIST_LNAME + ", " + DB_TOURIST_BIRTH + ", "
             + DB_TOURIST_PASSPORT + ") values (?, ?, ?, ?, ?, ?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_TOURIST;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_TOURIST + " set ";
 
     @Override
-    public List<Integer> save(List<Tourist> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<Tourist> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Tourist bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (Tourist bean) -> {
                 Object[] obj = new Object[6];
                 obj[0] = bean.getOrder().getIdOrder();
                 obj[1] = bean.getFirstName();
@@ -66,16 +66,16 @@ class TouristQuery implements TypedQuery<Tourist>{
             throw new DaoQueryException(ERR_TOURIST_SAVE, ex);
         }
     }
-    
+
     @Override
-    public List<Tourist> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<Tourist> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 50;
-                
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_TOURIST, DB_TOURIST_ID_TOURIST, criteria, paramList, sb, AND);
                 Appender.append(DAO_ID_ORDER, DB_TOURIST_ID_ORDER, criteria, paramList, sb, AND);
                 Appender.append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList, sb, AND);
@@ -89,11 +89,11 @@ class TouristQuery implements TypedQuery<Tourist>{
                 } else {
                     return sb.insert(0, LOAD_QUERY).toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 Tourist bean = new Tourist();
                 bean.setIdTourist(rs.getInt(DB_TOURIST_ID_TOURIST));
                 bean.setOrder(new Order(rs.getInt(DB_TOURIST_ID_ORDER)));
@@ -111,13 +111,13 @@ class TouristQuery implements TypedQuery<Tourist>{
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_TOURIST_FNAME, DB_TOURIST_FNAME, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_TOURIST_MNAME, DB_TOURIST_MNAME, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_TOURIST_LNAME, DB_TOURIST_LNAME, criteria, paramList1, sb, COMMA);
@@ -134,21 +134,21 @@ class TouristQuery implements TypedQuery<Tourist>{
                 Appender.append(DAO_TOURIST_PASSPORT, DB_TOURIST_PASSPORT, beans, paramList2, sb, AND);
                 Appender.append(DAO_TOURIST_STATUS, DB_TOURIST_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_TOURIST_UPDATE, ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
-    
-    
+
+
 }

@@ -9,5 +9,5 @@ import java.util.List;
  * @author Helena.Grouk
  */
 public interface GenericDeleteQuery {
-    <T> List<Integer> query(String query, Object[] params, Connection conn) throws DaoException;
+    <T> List<Integer> sendQuery(String query, Object[] params, Connection conn) throws DaoException;
 }

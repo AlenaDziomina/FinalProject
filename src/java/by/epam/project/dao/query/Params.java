@@ -1,7 +1,5 @@
 package by.epam.project.dao.query;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,11 +14,9 @@ public class Params {
 
     private List<Object[]> paramsList = new LinkedList<>();
 
-    private Params() {
-        super();
-    }
+    private Params() {}
 
-    public List<Object[]> params() {
+    public List<Object[]> getParamsList() {
         return paramsList;
     }
 
@@ -34,15 +30,13 @@ public class Params {
         return params;
     }
 
+    /**
+     * Functional interface of processing entity in query
+     * @param <T> type of entity
+     */
     public static interface Mapper<T> {
         Object[] map(T bean);
     }
 
-    public static interface RowMapper<T> {
-        T mapRow(ResultSet rs, int rowNum) throws SQLException;
-    }
 
-    public static interface QueryMapper {
-        String mapQuery();
-    }
 }

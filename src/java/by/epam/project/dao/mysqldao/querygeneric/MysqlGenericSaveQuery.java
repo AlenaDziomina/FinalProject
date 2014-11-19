@@ -23,7 +23,7 @@ class MysqlGenericSaveQuery implements GenericSaveQuery {
     private static final String CLOSE_ERROR = "Error in close connection.";
 
     @Override
-    public  <T> List<Integer> query(String query, Connection conn, Params params) throws DaoException {
+    public  <T> List<Integer> sendQuery(String query, Connection conn, Params params) throws DaoException {
         if (params == null) {
             throw new DaoException(PARAMS_IS_NULL_ERROR);
         }
@@ -33,7 +33,7 @@ class MysqlGenericSaveQuery implements GenericSaveQuery {
         ResultSet rs = null;
         try {
             ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            for (Object[] paramarray : params.params()) {
+            for (Object[] paramarray : params.getParamsList()) {
                 for (int i = 0; i < paramarray.length; i++) {
                     ps.setObject(i + 1, paramarray[i]);
                 }

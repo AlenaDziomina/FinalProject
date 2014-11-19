@@ -8,7 +8,6 @@ import by.epam.project.dao.query.Criteria;
 import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Params;
-import by.epam.project.dao.query.Params.QueryMapper;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Role;
 import by.epam.project.entity.User;
@@ -42,23 +41,23 @@ class UserQuery implements TypedQuery<User>{
     private static final String DB_USER_BALANCE = "balance";
     private static final String DB_USER_LANGUAGE = "lang";
     private static final String DB_USER_STATUS = "status";
-    private static final String SAVE_QUERY = 
-            "Insert into " + DB_USER + " (" + DB_USER_LOGIN + ", " 
-            + DB_USER_PASSWORD + ", " + DB_USER_EMAIL + ", " 
+    private static final String SAVE_QUERY =
+            "Insert into " + DB_USER + " (" + DB_USER_LOGIN + ", "
+            + DB_USER_PASSWORD + ", " + DB_USER_EMAIL + ", "
             + DB_USER_PHONE + ", " + DB_USER_ID_ROLE + ", "
             + DB_USER_LANGUAGE + ", " + DB_USER_DISCOUNT + ", "
             + DB_USER_BALANCE + ") values (?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_USER;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_USER + " set ";
-    private static final String LOCK_QUERY = 
+    private static final String LOCK_QUERY =
             " for update";
-    
+
     @Override
-    public List<Integer> save(List<User> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<User> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (User bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (User bean) -> {
                 Object[] obj = new Object[8];
                 obj[0] = bean.getLogin();
                 obj[1] = bean.getPassword();
@@ -67,23 +66,23 @@ class UserQuery implements TypedQuery<User>{
                 obj[4] = bean.getRole().getIdRole();
                 obj[5] = bean.getLanguage();
                 obj[6] = bean.getDiscount();
-                obj[7] = bean.getBalance();              
+                obj[7] = bean.getBalance();
                 return obj;
             }));
         } catch (DaoException ex) {
             throw new DaoQueryException(ERR_USER_SAVE, ex);
-        }  
+        }
     }
 
     @Override
-    public List<User> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
-        
-        int pageSize = 10;              
+    public List<User> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
+
+        int pageSize = 10;
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_USER, DB_USER_ID_USER, criteria, paramList, sb, AND);
                 Appender.append(DAO_USER_LOGIN, DB_USER_LOGIN, criteria, paramList, sb, AND);
                 Appender.append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList, sb, AND);
@@ -104,11 +103,11 @@ class UserQuery implements TypedQuery<User>{
                     }
                     return sb.toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 User bean = new User();
                 bean.setIdUser(rs.getInt(DB_USER_ID_USER));
                 bean.setLogin(rs.getString(DB_USER_LOGIN));
@@ -125,15 +124,15 @@ class UserQuery implements TypedQuery<User>{
              throw new DaoQueryException(ERR_USER_LOAD, ex);
         }
     }
-    
+
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
         String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_USER_PASSWORD, DB_USER_PASSWORD, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_USER_EMAIL, DB_USER_EMAIL, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_ID_ROLE, DB_USER_ID_ROLE, criteria, paramList1, sb, COMMA);
@@ -154,24 +153,24 @@ class UserQuery implements TypedQuery<User>{
                 Appender.append(DAO_USER_BALANCE, DB_USER_BALANCE, beans, paramList2, sb, AND);
                 Appender.append(DAO_USER_STATUS, DB_USER_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_USER_UPDATE, ex);
-        }       
-    }      
+        }
+    }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
-    
+
 }
 
-    
-    
+
+
 

@@ -8,7 +8,6 @@ import static by.epam.project.dao.DaoParamNames.*;
 import by.epam.project.dao.query.Appender;
 import by.epam.project.dao.query.Criteria;
 import by.epam.project.dao.query.Params;
-import by.epam.project.dao.query.Params.QueryMapper;
 import by.epam.project.dao.query.TypedQuery;
 import by.epam.project.entity.Country;
 import by.epam.project.entity.Description;
@@ -37,19 +36,19 @@ class CountryQuery implements TypedQuery<Country>{
     private static final String DB_COUNTRY_STATUS = "status";
     private static final String DB_COUNTRY_PICTURE = "picture";
     private static final String DB_COUNTRY_ID_DESCRIPTION = "id_description";
-    private static final String SAVE_QUERY = 
+    private static final String SAVE_QUERY =
             "Insert into " + DB_COUNTRY + " (" + DB_COUNTRY_NAME + ", "
-            + DB_COUNTRY_PICTURE + ", " + DB_COUNTRY_ID_DESCRIPTION 
+            + DB_COUNTRY_PICTURE + ", " + DB_COUNTRY_ID_DESCRIPTION
             + ") values (?, ?, ?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_COUNTRY;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_COUNTRY + " set ";
 
     @Override
-    public List<Integer> save(List<Country> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<Country> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Country bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (Country bean) -> {
                 Object[] objects = new Object[3];
                 objects[0] = bean.getName();
                 objects[1] = bean.getPicture();
@@ -62,14 +61,14 @@ class CountryQuery implements TypedQuery<Country>{
     }
 
     @Override
-    public List<Country> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<Country> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 50;
-                
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
         String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_COUNTRY, DB_COUNTRY_ID_COUNTRY, criteria, paramList, sb, AND);
                 Appender.append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList, sb, AND);
                 Appender.append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList, sb, AND);
@@ -80,11 +79,11 @@ class CountryQuery implements TypedQuery<Country>{
                 } else {
                     return sb.insert(0, LOAD_QUERY).toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 Country bean = new Country();
                 bean.setIdCountry(rs.getInt(DB_COUNTRY_ID_COUNTRY));
                 bean.setName(rs.getString(DB_COUNTRY_NAME));
@@ -99,13 +98,13 @@ class CountryQuery implements TypedQuery<Country>{
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_COUNTRY_NAME, DB_COUNTRY_NAME, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_COUNTRY_STATUS, DB_COUNTRY_STATUS, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, criteria, paramList1, sb, COMMA);
@@ -117,21 +116,21 @@ class CountryQuery implements TypedQuery<Country>{
                 Appender.append(DAO_COUNTRY_PICTURE, DB_COUNTRY_PICTURE, beans, paramList2, sb, AND);
                 Appender.append(DAO_ID_DESCRIPTION, DB_COUNTRY_ID_DESCRIPTION, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_COUNTRY_UPDATE, ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
-    
+
 
 }

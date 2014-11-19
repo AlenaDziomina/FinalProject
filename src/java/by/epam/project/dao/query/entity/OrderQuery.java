@@ -42,21 +42,21 @@ class OrderQuery implements TypedQuery<Order> {
     private static final String DB_ORDER_FINAL_PRICE = "final_price";
     private static final String DB_ORDER_DATE = "orderDate";
     private static final String DB_ORDER_STATUS = "status";
-    private static final String SAVE_QUERY = 
+    private static final String SAVE_QUERY =
             "Insert into " + DB_ORDER + " (" + DB_ORDER_ID_USER + ", "
-            + DB_ORDER_ID_TOUR + ", " + DB_ORDER_SEATS + ", " 
+            + DB_ORDER_ID_TOUR + ", " + DB_ORDER_SEATS + ", "
             + DB_ORDER_CURR_PRICE + ", " + DB_ORDER_CURR_DISCOUNT + ", "
             + DB_ORDER_USER_DISCOUNT + ", " + DB_ORDER_FINAL_PRICE + ", "
             + DB_ORDER_DATE + ") values (?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_ORDER;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_ORDER + " set ";
-    
+
     @Override
-    public List<Integer> save(List<Order> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<Order> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Order bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (Order bean) -> {
                 Object[] obj = new Object[8];
                 obj[0] = bean.getUser().getIdUser();
                 obj[1] = bean.getTour().getIdTour();
@@ -72,16 +72,16 @@ class OrderQuery implements TypedQuery<Order> {
             throw new DaoQueryException(ERR_ORDER_SAVE, ex);
         }
     }
-    
+
     @Override
-    public List<Order> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<Order> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 50;
-                
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_ORDER, DB_ORDER_ID_ORDER, criteria, paramList, sb, AND);
                 Appender.append(DAO_ID_USER, DB_ORDER_ID_USER, criteria, paramList, sb, AND);
                 Appender.append(DAO_ID_TOUR, DB_ORDER_ID_TOUR, criteria, paramList, sb, AND);
@@ -97,11 +97,11 @@ class OrderQuery implements TypedQuery<Order> {
                 } else {
                     return sb.insert(0, LOAD_QUERY).toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 Order bean = new Order();
                 bean.setIdOrder(rs.getInt(DB_ORDER_ID_ORDER));
                 bean.setUser(new User(rs.getInt(DB_ORDER_ID_USER)));
@@ -121,13 +121,13 @@ class OrderQuery implements TypedQuery<Order> {
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ORDER_SEATS, DB_ORDER_SEATS, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_ORDER_CURR_PRICE, DB_ORDER_CURR_PRICE, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_ORDER_CURR_DISCOUNT, DB_ORDER_CURR_DISCOUNT, criteria, paramList1, sb, COMMA);
@@ -147,21 +147,21 @@ class OrderQuery implements TypedQuery<Order> {
                 Appender.append(DAO_ORDER_DATE, DB_ORDER_DATE, beans, paramList2, sb, AND);
                 Appender.append(DAO_ORDER_STATUS, DB_ORDER_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_ORDER_UPDATE, ex);
         }
     }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
-    
-    
+
+
 }

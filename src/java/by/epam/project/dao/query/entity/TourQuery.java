@@ -42,23 +42,23 @@ class TourQuery implements TypedQuery<Tour>{
     private static final String DB_TOUR_TOTAL_SEATS = "total_seats";
     private static final String DB_TOUR_FREE_SEATS = "free_seats";
     private static final String DB_TOUR_STATUS = "status";
-    private static final String SAVE_QUERY = 
+    private static final String SAVE_QUERY =
             "Insert into " + DB_TOUR + " (" + DB_TOUR_ID_DIRECTION + ", "
             + DB_TOUR_DATE + ", " + DB_TOUR_DAYS_COUNT + ", "
             + DB_TOUR_PRICE + ", " + DB_TOUR_DISCOUNT + ", "
-            + DB_TOUR_TOTAL_SEATS + ", " + DB_TOUR_FREE_SEATS 
+            + DB_TOUR_TOTAL_SEATS + ", " + DB_TOUR_FREE_SEATS
             + ") values (?,?,?,?,?,?,?);";
-    private static final String LOAD_QUERY = 
+    private static final String LOAD_QUERY =
             "Select * from " + DB_TOUR;
-    private static final String UPDATE_QUERY = 
+    private static final String UPDATE_QUERY =
             "Update " + DB_TOUR + " set ";
-    private static final String LOCK_QUERY = 
+    private static final String LOCK_QUERY =
             " for update";
-    
+
     @Override
-    public List<Integer> save(List<Tour> beans, GenericSaveQuery saveDao, Connection conn) throws DaoQueryException {
+    public List<Integer> save(List<Tour> beans, GenericSaveQuery saveGeneric, Connection conn) throws DaoQueryException {
         try {
-            return saveDao.query(SAVE_QUERY, conn, Params.fill(beans, (Tour bean) -> {
+            return saveGeneric.sendQuery(SAVE_QUERY, conn, Params.fill(beans, (Tour bean) -> {
                 Object[] objects = new Object[7];
                 objects[0] = bean.getDirection().getIdDirection();
                 objects[1] = bean.getDepartDate();
@@ -75,14 +75,14 @@ class TourQuery implements TypedQuery<Tour>{
     }
 
     @Override
-    public List<Tour> load(Criteria criteria, GenericLoadQuery loadDao, Connection conn) throws DaoQueryException {
+    public List<Tour> load(Criteria criteria, GenericLoadQuery loadGeneric, Connection conn) throws DaoQueryException {
         int pageSize = 10;
-        
+
         List paramList = new ArrayList<>();
         StringBuilder sb = new StringBuilder(WHERE);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_TOUR, DB_TOUR_ID_TOUR, criteria, paramList, sb, AND);
                 Appender.append(DAO_ID_DIRECTION, DB_TOUR_ID_DIRECTION, criteria, paramList, sb, AND);
                 Appender.append(DAO_TOUR_DATE, DB_TOUR_DATE, criteria, paramList, sb, AND);
@@ -104,11 +104,11 @@ class TourQuery implements TypedQuery<Tour>{
                     }
                     return sb.toString();
                 }
-            }  
+            }
         }.mapQuery();
-        
+
         try {
-            return loadDao.query(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
+            return loadGeneric.sendQuery(queryStr, paramList.toArray(), pageSize, conn, (ResultSet rs, int rowNum) -> {
                 Tour bean = new Tour();
                 bean.setIdTour(rs.getInt(DB_TOUR_ID_TOUR));
                 bean.setDepartDate(rs.getDate(DB_TOUR_DATE));
@@ -127,13 +127,13 @@ class TourQuery implements TypedQuery<Tour>{
     }
 
     @Override
-    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateDao, Connection conn) throws DaoQueryException {        
+    public List<Integer> update(Criteria beans, Criteria criteria, GenericUpdateQuery updateGeneric, Connection conn) throws DaoQueryException {
         List paramList1 = new ArrayList<>();
         List paramList2 = new ArrayList<>();
         StringBuilder sb = new StringBuilder(UPDATE_QUERY);
-        String queryStr = new Params.QueryMapper() {
+        String queryStr = new QueryMapper() {
             @Override
-            public String mapQuery() { 
+            public String mapQuery() {
                 Appender.append(DAO_ID_DIRECTION, DB_TOUR_ID_DIRECTION, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_TOUR_DATE, DB_TOUR_DATE, criteria, paramList1, sb, COMMA);
                 Appender.append(DAO_TOUR_DAYS, DB_TOUR_DAYS_COUNT, criteria, paramList1, sb, COMMA);
@@ -153,21 +153,21 @@ class TourQuery implements TypedQuery<Tour>{
                 Appender.append(DAO_TOUR_FREE_SEATS, DB_TOUR_FREE_SEATS, beans, paramList2, sb, AND);
                 Appender.append(DAO_TOUR_STATUS, DB_TOUR_STATUS, beans, paramList2, sb, AND);
                 return sb.toString();
-            }  
+            }
         }.mapQuery();
         paramList1.addAll(paramList2);
-        
+
         try {
-            return updateDao.query(queryStr, paramList1.toArray(), conn);
+            return updateGeneric.sendQuery(queryStr, paramList1.toArray(), conn);
         } catch (DaoException ex) {
              throw new DaoQueryException(ERR_TOUR_UPDATE, ex);
         }
-    } 
+    }
 
     @Override
-    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteDao, Connection conn) throws DaoQueryException {
+    public List<Integer> delete(Criteria criteria, GenericDeleteQuery deleteGeneric, Connection conn) throws DaoQueryException {
         throw new DaoQueryException(ERR_NOT_SUPPORTED);
     }
-    
-    
+
+
 }
