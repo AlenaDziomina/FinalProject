@@ -174,10 +174,6 @@ class MysqlAdminDao extends MysqlUserDao implements AdminDao {
         return query.save(list, saveGeneric, mysqlConn);
     }
 
-    @Override
-    public List<Integer> updateTourist(Criteria beans, Criteria criteria) throws DaoException {
-        TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURISTQUERY);
-        return query.update(beans, criteria, updateGeneric, mysqlConn);
-    }
+    
 
 }

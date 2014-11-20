@@ -81,7 +81,7 @@
                 <tbody>
                     <c:forEach var="tourist" items="${currOrder.touristCollection}">
                         <tr>
-                            <td class="border fio">${tourist.firstName} ${tourist.middleName} ${tourist.lastName}</td>
+                            <td class="border fio">${tourist.lastName} ${tourist.firstName} ${tourist.middleName} </td>
                             <td class="border passport">${tourist.passport}</td>
                         </tr>
                     </c:forEach>

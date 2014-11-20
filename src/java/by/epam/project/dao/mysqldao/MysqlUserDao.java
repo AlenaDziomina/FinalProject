@@ -102,4 +102,10 @@ class MysqlUserDao extends MysqlGuestDao implements UserDao {
         TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURISTQUERY);
         return query.load(criteria, loadGeneric, mysqlConn);
     }
+    
+    @Override
+    public List<Integer> updateTourist(Criteria beans, Criteria criteria) throws DaoException {
+        TypedQuery query = TypedQueryFactory.getInctance(QueryType.TOURISTQUERY);
+        return query.update(beans, criteria, updateGeneric, mysqlConn);
+    }
 }

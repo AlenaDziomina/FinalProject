@@ -94,9 +94,9 @@ function funcAddTourist(currSeats){
 //create new row on tourist table
 function createRow(){
     var tr = document.createElement('tr');
+    tr.appendChild(createCell('lastName'));
     tr.appendChild(createCell('firstName'));
     tr.appendChild(createCell('middleName'));
-    tr.appendChild(createCell('lastName'));
     tr.appendChild(createCell('passport'));
     
     return tr;

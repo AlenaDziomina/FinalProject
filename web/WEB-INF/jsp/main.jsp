@@ -4,26 +4,10 @@
     Author     : Helena.Grouk
 --%>
 
-<body>
-    REFERER: ${referer}</br>
-        Role: ${role}<br/>
-        Balance: ${balance}</br>
-        Language: ${language}</br>
-    
-    <h3>Welcome</h3>
-    <hr/>${user.login}, hello!<hr/>
-    <a href="controller?command=logout">Logout</a>
-    
-    <form action="controller" method="GET">
-        <input type="hidden" name="command" value="localization" />
-        <input type="submit" value="EN" name="leng" />
-        <input type="submit" value="RU" name="leng" />
-    </form>
-
-    <form action="controller" method="GET">
-        <input type="hidden" name="command" value="gologin" />
-        <input type="submit" value="Login"/>
-    </form>
-    <br/>
-    
-</body>
+<div id="main">
+    <div class="inner">
+        <h1 class="cntr labelH"><fmt:message key="welcome" bundle="${ rb }"/>, ${user.login} !</h1>
+        <p class="banner"><ctg:ImgTag classImg="gifBanner" idImg="banner" nameImg="/gif/animationFinalProject.gif"/></p>
+        <h1 class="cntr labelH"><fmt:message key="welcomeTitle" bundle="${ rb }"/></h1> 
+    </div>
+</div>

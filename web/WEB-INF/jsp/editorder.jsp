@@ -73,16 +73,16 @@
                 <div class="parameterRow">
                     <table class="padB" id="currTourists">
                         <colgroup>
+                            <col class="lastName" />
                             <col class="firstName"/>
                             <col class="middleName"/>
-                            <col class="lastName" />
                             <col class="passport" />
                         </colgroup>
                         <thead>
                             <tr>
+                                <th scope="col"><fmt:message key="lastName" bundle="${ rb }" /></th>
                                 <th scope="col"><fmt:message key="firstName" bundle="${ rb }" /></th>
                                 <th scope="col"><fmt:message key="middleName" bundle="${ rb }" /></th>
-                                <th scope="col"><fmt:message key="lastName" bundle="${ rb }" /></th>
                                 <th scope="col"><fmt:message key="passport" bundle="${ rb }" /></th>
                             </tr>
                         </thead>
@@ -90,9 +90,9 @@
                             
                             <c:forEach var="tourist" items="${currOrder.touristCollection}">
                                 <tr>
+                                    <td><input name="lastName" class="lastName" type="text" value="${tourist.lastName}" /></td>
                                     <td><input name="firstName" class="firstName" type="text" value="${tourist.firstName}" /></td>
                                     <td><input name="middleName" class="middleName" type="text" value="${tourist.middleName}" /></td>
-                                    <td><input name="lastName" class="lastName" type="text" value="${tourist.lastName}" /></td>
                                     <td><input name="passport" class="passport" type="text" value="${tourist.passport}" /></td>
                                 </tr>
                             </c:forEach>

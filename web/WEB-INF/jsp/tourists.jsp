@@ -44,13 +44,13 @@
                         <c:choose>
                             <c:when test="${tourist.status == 1}">
                                 <tr>
-                                    <td class="border fio">${tourist.firstName} ${tourist.middleName} ${tourist.lastName}</td>
+                                    <td class="border fio">${tourist.lastName} ${tourist.firstName} ${tourist.middleName} </td>
                                     <td class="border passport">${tourist.passport}</td>
                                 </tr>
                             </c:when>
                             <c:otherwise>
                                 <tr class="greyBG">
-                                    <td class="border fio">${tourist.firstName} ${tourist.middleName} ${tourist.lastName}</td>
+                                    <td class="border fio">${tourist.lastName} ${tourist.firstName} ${tourist.middleName} </td>
                                     <td class="border passport">${tourist.passport}</td>
                                 </tr>
                             </c:otherwise>
