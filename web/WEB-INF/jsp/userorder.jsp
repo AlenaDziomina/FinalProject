@@ -13,7 +13,7 @@
         boxChecking('validOrderStatus', ${validOrderStatus});
         boxChecking('invalidOrderStatus', ${invalidOrderStatus});
     </script>
-        
+    <input type="hidden" id='currIdTour' value="${currIdTour}" />    
     <ctg:PageTableTag rows="${ pageList.size }" pageNo="${pageList.currPageNo}" pages="${pageList.pages}">
         <ctg:ImgTag classImg="smallimg" idImg="images" nameImg="${pageList.next.tour.direction.picture}"/>
 

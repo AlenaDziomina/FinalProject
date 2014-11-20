@@ -111,7 +111,10 @@ public class DirectionStayHotel {
     public static class NameHotelComparator implements Comparator<DirectionStayHotel> {
         @Override
         public int compare(DirectionStayHotel one, DirectionStayHotel two) {
-            return one.getHotel().getName().compareTo(two.getHotel().getName());
+            if (one.getHotel() != null && one.getHotel().getName() != null && two.getHotel() != null && two.getHotel().getName() != null) {
+                return one.getHotel().getName().compareTo(two.getHotel().getName());
+            }
+            return 0;
         }
     }
 }
