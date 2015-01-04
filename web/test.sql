@@ -298,6 +298,8 @@
 
 --alter table tourist add column status TINYINT default 1;
 
+
+
 -- select id_tour from tour t
 --     left join direction d on t.id_direction = d.id_direction
 --     left join direction_countries dc on d.id_direction = dc.id_direction
