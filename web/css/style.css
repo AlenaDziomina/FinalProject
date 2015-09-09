@@ -1,0 +1,685 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24.09.2014, 14:50:52
+    Author     : Helena.Grouk
+*/
+
+html {
+    padding-top: 25px;
+    background-image: url("../images/fon4.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+body {
+    width: 80%;
+    min-width: 1000px;
+    height: 90%;
+    padding: 20px;
+    margin: 0 auto;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+    background: url("../images/fon42.jpeg") ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+li {
+    list-style-position: inside;
+}
+
+
+
+#header {
+    text-align: center;
+    height: 70px;
+}
+
+#footer {
+    clear: both;
+    height: 20px;
+    clear: left;
+    margin-bottom: 10px;
+}
+#footerText{
+    float: right;
+    font-family: 'American Typewriter', Courier, monospace;   
+    font-size: 15px;
+    color: #666666;
+}
+
+#main { 
+    float: left;
+    background-color: #edf8f7;
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+}
+
+#logoText {
+    float: left;
+    /* font styles apply to text within img alt attribute */
+    font-family: 'American Typewriter', Courier, monospace;
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 4px 4px 3px #666;
+    color: red
+}
+
+#erNote {
+    font-size: 15px;
+    color:rgb(255,62,62);
+}
+
+#erAdminNote {
+    font-size: 15px;
+    color: darkmagenta;
+}
+
+#h_r_container {
+    height: 20px;
+    float: right;
+    color: initial;
+}
+
+#leng_container {
+    width: 100px;
+}
+
+#login_container {
+    width: 240px;
+}
+
+#menu {
+    border: 2px solid lightskyblue;
+    height: 30px;
+    background-color: powderblue;
+    padding: 15px;
+    
+}
+
+#menuText {
+    height: 50px;
+    color: blue;
+    border: 2px outset navy;
+    border-radius: .5em;
+    padding: 5px 10px 5px 10px;
+    margin-right: 10px;
+    background-color: paleturquoise;
+}
+
+.menuHref {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 4px 4px 3px #666;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.blue.menuHref {
+    color:  #007d9a;
+}
+.grey.menuHref {
+    color: #666;
+    font-weight:  normal;
+}
+.greyA {
+    font-family: serif;
+    font-size: 16px;
+    color: #666;
+}
+
+#menuText:hover {
+    background-color: #2daebf;
+    transform: scale(1.2);
+    
+}
+
+.container {
+    width: 100%; 
+    height: 100%; 
+    overflow-y: scroll; 
+    background-color: paleturquoise;
+}
+
+.column {
+    min-height: 400px;
+    min-width: 100px;
+    width: 20%;
+    height: 100%;
+    border:2px solid #ccc; 
+}
+.inner.column, .inner {
+    padding: 1.2%;
+}
+.top.inner {
+    padding-top: 0.6%
+}
+.left.inner.column {
+    float: left;
+}
+.rigth.inner.column {
+    float: right;
+}
+.center.inner.column {
+    min-width: 200px;
+    width: 52%;
+    float: left; 
+    border: none;
+}
+.full.center.inner.column {
+    width: 74%;
+}
+.input.inner, .input {
+    float: left;
+    width: 66%;
+}
+.large.input.inner {
+    width: 78%;
+}
+
+.mid.input {
+    width: 30%;
+}
+.small.input {
+    width: 20%;
+}
+.padinput {
+    float: left;
+    padding: 0px 15px 15px 15px;
+    width: 35%;    
+}
+.small.padinput{
+    width: 30%;
+}
+.mid.padinput {
+    width: 45%;
+}
+.large.padinput {
+    width: 58%;
+}
+.padB {
+    padding: 15px 15px 0px 15px;
+}
+
+
+.currimg {
+    width: 500px;
+    height: auto;
+    float: left;
+    margin: 20px;
+}
+
+.banner {
+    text-align: center; 
+}
+
+.gifBanner {
+    width: auto;
+    height: auto;
+    margin: 1%;
+}
+
+.cueetext {
+    text-align:justify;
+    
+}
+
+.parameterRow {
+    width: 98%;
+    min-height: 45px;
+    height: auto;
+    float: left;
+}
+
+.parameterRowB {
+    border: 2px outset navy;
+    border-radius: .5em;
+    width: 99.7%;
+    min-height: 60px;
+    height: auto;
+    float: left;
+}
+
+
+
+
+
+.labelH {
+    font-family: 'League Gotic', Arial, sans-serif;
+    text-shadow: 2px 2px 1px #ccc;
+    font-weight: bold;
+    font-size: 17px;
+    color: darkmagenta;
+    padding: 8px 10px 8px 15px;
+    text-align:right;
+}
+.grey.labelH {
+    color: #666;
+}
+.padL.labelH {
+    padding: 10px;
+    float: right;
+}
+.padR.labelH {
+    padding: 10px;
+}
+.lft.labelH {
+    text-shadow:none;
+    padding: 0;
+    text-align: left;
+}
+.cntr.labelH {
+    padding: 0;
+    text-align: center;
+}
+.nodec.cntr.labelH {
+    text-decoration: none;
+}
+.small.padL.labelH, .small.padR.labelH, .small.lft.labelH, .small.cntr.labelH {
+    font-size: 14px;
+}
+.grnt.small.lft.labelH {
+    color: #749a02;
+}
+.blu.small.lft.labelH, .blu.small.cntr.labelH {
+    color: #007d9a;
+}
+.grey.small.lft.labelH {
+    color: #666
+}
+
+
+.inputLineContainer {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+    text-align:left;
+    width: 250px;
+}
+.large.inputLineContainer {
+    width: 100%;
+}
+
+
+.inputMultilineineContainer {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+    text-align:justify;
+    width: 97%;
+    height: auto;
+    min-height: 250px;
+}
+.small.inputMultilineineContainer {
+    min-height: 100px;
+}
+.large.inputMultilineineContainer {
+    min-height: 400px;
+    width: 120%;
+}
+
+
+.selectContainer {
+    font-size: 17px;
+    width: 250px; 
+    height: 100%; 
+    overflow-y: scroll; 
+    background-color: paleturquoise;
+}
+
+.selectItem {
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+    text-align:left;
+    text-decoration: none;
+}
+
+.centrale {
+    position: relative;
+    left: 45%;
+    top: 10px;
+}
+
+.centraleContainer {
+    position: relative;
+    width: 75%;
+    left: 25%;
+}
+.lftS.centraleContainer {
+    left: 10%;
+}
+.lftL.centraleContainer {
+    left: 30%;
+}
+
+.checkBoxGroup {
+    width: 70%;
+    height: 100px;
+    float: left;
+    overflow-y: scroll; 
+    border: 2px outset navy;
+    border-radius: .5em;
+    margin: 0px 30px 0px 80px;
+    padding-left: 10px;
+}
+.bger.checkBoxGroup{
+    width: 75%;
+    height: 150px;  
+    margin-left: 15%;
+    float: inside;
+}
+
+.boxMar{
+    margin: 15px 15px 15px 25px;
+}
+
+.checkBoxGr {
+    width: 250px;
+    height: 150px;
+    float: left;
+    overflow-y: scroll; 
+    border: 2px outset navy;
+    border-radius: .5em;
+    margin: 0px 30px 0px 10px;
+    padding-left: 10px;
+}
+
+#prompt-form {
+  display: inline-block;
+  padding: 5px 5px 5px 70px;
+  width: 200px;
+  border: 1px solid black;
+  background: white url(prompt.png) no-repeat left 5px;
+  vertical-align: middle;
+}
+
+#prompt-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#prompt-form-container:before {
+  display: inline-block;
+  height: 100%;
+  content: '';
+  vertical-align: middle;
+}
+
+#cover-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9000;
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+}
+
+#prompt-form input[name="text"] {
+  display: block;
+  margin: 5px;
+  width: 180px;
+}
+
+.smallimg {
+    width: 150px;
+    height: auto;
+    float: left;
+    margin: 20px;
+}
+
+.containerLabel {
+    position: relative;
+    left: 15px;
+    width: 20%;
+    height: auto;
+    float: left;
+}
+
+.auto.containerLabel {
+    width: auto;
+}
+
+.containerLabelR {
+    position: relative;
+    left: 15px;
+    width: 28%;
+    height: auto;
+    float: left;
+}
+
+.lblH {
+    left: 16px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+.parameterRowD {
+    border: 2px outset navy;
+    border-radius: .5em;
+    width: 70%;
+    min-height: 60px;
+    height: auto;
+    float: left;
+    
+}
+.parameterRowDR {
+    padding-left: 15px;
+    width: 27%;
+    min-height: 60px;
+    height: auto;
+    float: left;
+}
+
+.textRow {
+    padding: 15px;
+    width: 96%;
+    height: auto;
+    float: left;
+    text-align:justify;
+
+}
+
+.awesome,.awesome:visited {
+    background:#222 url(alert-overlay.png) repeat-x;
+    display:inline-block;
+    padding:5px 10px 6px;
+    color:#fff;
+    text-decoration:none;
+    border-radius:5px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.5);
+    text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+    border: 2px outset navy;
+    border-bottom-color: navy;
+    position:relative;
+    cursor:pointer;
+    font-family: 'League Gotic', Arial, sans-serif;
+    margin: 15px;
+    max-width: 80%;
+}
+.awesome:hover{
+    background-color:#111;
+    color:#fff;
+}
+.awesome:active{
+    top:1px;
+}
+.small.awesome,.small.awesome:visited{
+    font-size:11px;
+    padding:8px 14px 9px;
+    width: 100px;
+    margin: 0px;
+}
+.awesome,.awesome:visited,.medium.awesome,.medium.awesome:visited{
+    font-size:13px;
+    font-weight:bold;
+    line-height:1;
+    text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+    width: 200px;
+}
+.large.awesome,.large.awesome:visited{
+    font-size:16px;
+    padding:8px 14px 9px;
+    width: 250px;
+    
+}
+.green.awesome,.green.awesome:visited{
+    background-color:rgba(149, 192, 20, 0.8);
+}
+.green.awesome:hover{
+    background-color:#749a02;
+}
+.blue.awesome,.blue.awesome:visited{
+    background-color: rgba(45, 165, 191, 1);
+}
+.blue.awesome:hover{
+    background-color:#007d9a;
+}
+.red.awesome,.red.awesome:visited{
+    background-color:#e33100;
+}
+.red.awesome:hover{
+    background-color:#872300;
+}
+.magenta.awesome,.magenta.awesome:visited{
+    background-color:#a9014b;
+}
+.magenta.awesome:hover{
+    background-color:#630030;
+}
+.orange.awesome,.orange.awesome:visited{
+    background-color:rgba(255, 118, 2, 0.77);
+}
+.orange.awesome:hover{
+    background-color:#d45500;
+}
+.yellow.awesome,.yellow.awesome:visited{
+    background-color:#ffb515;
+}
+.yellow.awesome:hover{
+    background-color:#fc9200;
+}
+.whiteblue.awesome,.whiteblue.awesome:visited{
+    background-color: #EDF8F7;
+    color:#111
+}
+.whiteblue.awesome:hover{
+    background-color: #ccffff;
+    color:#111
+}
+
+.firstName {
+    width: 250px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+
+.middleName {
+    width: 250px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+.lastName {
+    width: 250px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+}
+.passport {
+    width: 150px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    text-align: center;
+}
+
+.red.firstName, .red.middleName, .red.lastName, .red.passport {
+    background-color:  lightpink;
+}
+
+.ordertable {
+    margin: 15px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid darkmagenta;
+    border-radius: 5px;
+}
+
+.fio {
+    width: 750px;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    text-align: center;
+}
+.border.fio, .border.passport {
+    border: 1px solid darkblue;
+}
+
+.border.padB {
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    border-collapse: collapse;
+}
+
+.login {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.email {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.phone {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.discount {
+    min-width: 100px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.balance {
+    min-width: 150px;
+    width: auto ;
+    font-family: 'League Gotic', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.greyBG {
+    background-color:  #ccc;
+}

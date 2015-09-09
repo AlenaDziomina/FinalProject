@@ -1,0 +1,8 @@
+<%-- any content can be specified here e.g.: --%>
+
+
+            <div id="footer">
+                <p id="footerText">Final Project by Grouk</p>
+            </div>
+    </body>
+</html>
